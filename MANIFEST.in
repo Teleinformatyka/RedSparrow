@@ -1,0 +1,4 @@
+include requirements.txt
+include tests/__init__.py
+include README.rst
+
