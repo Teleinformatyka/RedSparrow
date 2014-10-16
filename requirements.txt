@@ -1,0 +1,5 @@
+tornado==4.0.2
+pdfminer.six
+six
+Tornado-JSON
+
