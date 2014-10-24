@@ -1,5 +1,6 @@
 tornado==4.0.2
 pdfminer.six
 six
-Tornado-JSON
-
+Tornado-JSON=0.41
+python-Levenshtein==0.11.2
+python-docs==0.7.4
