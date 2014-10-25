@@ -15,7 +15,7 @@ with open(os.path.join(os.path.dirname(__file__), 'requirements.txt')) as f:
 setup(
     name='RedSparrow',
     version=version,
-    packages=['RedSparrow'],
+    packages=['redsparrow'],
     description='',
     author='',
     maintainer='',
