@@ -3,8 +3,11 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 from pdfminer.converter import  TextConverter
 from pdfminer.layout import LAParams
+import pdfminer
 import logging
 from io import BytesIO
+
+
 
 def pdf_to_text(path):
     password = ''

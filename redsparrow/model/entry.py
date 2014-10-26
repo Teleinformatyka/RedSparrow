@@ -4,6 +4,7 @@ import copy
 
 class Document(object):
     table_name = 'document'
+    max_id = 0
 
     def __init__(self, id=0, text='', file_path=''):
         self.id = id
@@ -19,11 +20,11 @@ class Document(object):
         colums = values = ''
         data = copy.deepcopy(self.__dict__)
         del data['id']
-        print(list(data.keys()))
         keys ="`" +  "`,`".join(list(data.keys())) + "`"
-        values ="`" +  "`,`".join(list(data.values())) + "`"
+        char = ['%s'] * len(data.values())
+        values =",".join(char)
         query +=  '(%s)  VALUES (%s)' % (keys, values)
-        return query
+        return (query, tuple(data.values()))
 
 
 

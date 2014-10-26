@@ -3,7 +3,7 @@ import Levenshtein
 
 def levenshtein_distance(string1, string2):
     """
-    Function returns lavenshtein distance
+    Function returns levenshtein distance
     :param string1 first string2
     :param string2 second string
     """

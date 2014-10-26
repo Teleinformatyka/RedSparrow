@@ -15,6 +15,6 @@ class DocumentTest(unittest.TestCase):
     def test_insert_method(self):
         doc = Document(11, "test", "dobre.pdf")
         result = doc.insert()
-
-        self.assertTrue("dobre.pdf" in result)
+        self.assertTrue("INSERT" in result[0])
+        self.assertTrue( result[1][0] in ("test","dobre.pdf"))
 

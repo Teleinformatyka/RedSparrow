@@ -95,7 +95,7 @@ class CallbackDispatcher(object):
     def __init__(self, generator):
         self.g = generator
         try:
-            self.call(self.g.next())
+            self.call(next(self.g))
         except StopIteration:
             pass
 
@@ -116,7 +116,8 @@ class CallbackDispatcher(object):
             self._send_result(results, single)
         else:
             for count, caller in enumerate(callers):
-                caller(callback=partial(self.callback, results, count, single))
+                if caller:
+                    caller(callback=partial(self.callback, results, count, single))
 
     def callback(self, results, index, single, arg):
         self.call_count -= 1

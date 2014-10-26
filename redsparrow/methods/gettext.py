@@ -1,4 +1,5 @@
 import os
+import tornado
 
 from redsparrow.extractor import pdf_to_text, docx_to_text
 from redsparrow.model import Document
@@ -12,24 +13,25 @@ class GetText(BaseMethod):
         super().__init__('gettext')
 
     def __call__(self, message):
-        file_path = message.params.file_path
+        file_path = message.params['file_path']
         _, ext = os.path.splitext(file_path)
         text = ''
-        if ext == 'pdf':
+        if ext == '.pdf':
             text = pdf_to_text(file_path)
-        elif ext == 'docx':
+        elif ext == '.docx':
             text = docx_to_text(file_path)
         else:
-            self.logger.error('Unknow ext')
+            self.logger.error('Unknow ext {}'.format(ext))
             return
 
-
         def callback(rows):
-            response = QueueMessage(message.id, message.method, rows.id)
-            self.__application.pub.send_string(response)
+            self.logger.info("iCallback  {}".format(rows))
+            response = QueueMessage(message.id, message.method, document.id)
+            self.application.pub.send_string(str(response))
 
-
+        text = text.decode("UTF-8")
         document = Document(text=text, file_path=file_path)
-        result = self.__application.enitity.save(document, callback)
+        result = self.application.enitity.save(document, callback)
+        self.logger.info('Inserted {} row'.format(result))
 
 

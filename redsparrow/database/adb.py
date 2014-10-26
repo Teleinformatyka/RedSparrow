@@ -25,7 +25,7 @@ class Database:
                  database=None, user=None, password=None,
                  host='localhost',
                  ioloop=tornado.ioloop.IOLoop.instance(),
-                 num_threads=10,
+                 num_threads=4,
                  tx_connection_pool_size=5,
                  queue_timeout=1):
         if not(driver):
@@ -70,6 +70,7 @@ class Database:
                                    user=self._user,
                                    passwd=self._password,
                                    host=self._host,
+                                   charset='utf8',
                                    port=3306)
         else:
             raise ValueError("Unknown driver %s" % self._driver)
