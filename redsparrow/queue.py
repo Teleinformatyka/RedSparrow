@@ -1,3 +1,5 @@
+import json
+
 import zmq
 from zmq.eventloop.zmqstream import ZMQStream
 
@@ -38,5 +40,20 @@ class SubQueue(BaseQueue):
         self.stream.flush()
 
 
+class QueueMessage(object):
 
+    def __init__(self, id=None, method=None,  params=None):
+        self.id = id
+        self.method = method
+        self.params = params
+
+    def from_json(self, json_data):
+        data = json.loads(json_data)
+        self.params = data['params']
+        self.id = data['id']
+        self.method = data['method']
+        return self
+
+    def __str__(self):
+        return json.dumps(self.__dict__)
 

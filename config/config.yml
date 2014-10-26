@@ -1,0 +1,9 @@
+
+database:
+    host: localhost
+    database: redsparrow
+    user: root
+    password: root
+
+pubqueue: 'tcp://127.0.0.1:5600'
+subqueue: 'tcp://127.0.0.1:4600'

@@ -17,11 +17,18 @@ from tornado.ioloop import IOLoop
 from tornado_json.routes import get_routes
 from tornado_json.application import Application
 
+
+from redsparrow.config import Config
 import redsparrow.api as RedSparrowApi
-from redsparrow.queue import PubQueue, SubQueue
+from redsparrow.queue import PubQueue, SubQueue, QueueMessage
+from redsparrow.database.adb import Database
+from redsparrow.model import Manager
+
+from redsparrow.methods import Router, GetText
 
 
-
+config = Config()
+config.load('./config/config.yml')
 
 
 class RedSparrow(tornado.web.Application):
@@ -35,8 +42,11 @@ class RedSparrow(tornado.web.Application):
             settings["gzip"] = True
 
         self.db_conn = db_conn
-        self.sub = SubQueue('tcp://127.0.0.1:5600', self.on_data)
-        self.pub = PubQueue('tcp://127.0.0.1:4600')
+        self.sub = SubQueue(config['subqueue'], self.on_data)
+        self.pub = PubQueue(config['pubqueue'])
+        self.enitity = Manager(self.db_conn)
+        self.router = Router(self)
+        self.router.add_method(GetText)
         tornado.web.Application.__init__(
             self,
             routes,
@@ -45,7 +55,9 @@ class RedSparrow(tornado.web.Application):
 
 
     def on_data(self, data):
-        logging.info('Data {}'.format(data))
+        req = QueueMessage().from_json(data[0].decode("UTF-8"))
+        self.router.find_method(req)
+
 
 
 
@@ -64,6 +76,7 @@ if __name__ == '__main__':
         [(url, repr(rh)) for url, rh in routes],
         indent=2)
     )
+    db_conn = Database(driver="pymysql", database=config['database']['database'], user=config['database']['user'], password=config['database']['password'])
     application = RedSparrow(routes=routes, settings={})
     application.listen(args.port)
 

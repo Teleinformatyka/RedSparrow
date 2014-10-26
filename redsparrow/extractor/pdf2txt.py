@@ -1,11 +1,8 @@
 from pdfminer.pdfdocument import PDFDocument
-from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.pdfdevice import PDFDevice, TagExtractor
 from pdfminer.pdfpage import PDFPage
-from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
+from pdfminer.converter import  TextConverter
 from pdfminer.layout import LAParams
-from pdfminer.image import ImageWriter
 import logging
 from io import BytesIO
 
@@ -16,7 +13,6 @@ def pdf_to_text(path):
     # output option
     outfile = None
     outtype = None
-    imagewriter = None
     rotation = 0
     stripcontrol = False
     layoutmode = 'normal'
@@ -30,8 +26,7 @@ def pdf_to_text(path):
     rsrcmgr = PDFResourceManager(caching=caching)
     outtype = 'text'
     retstr = BytesIO()
-    device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams,
-                               imagewriter=imagewriter)
+    device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
     fp = open(path, 'rb')
     interpreter = PDFPageInterpreter(rsrcmgr, device)
     for page in PDFPage.get_pages(fp, pagenos,
