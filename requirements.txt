@@ -4,3 +4,4 @@ six
 Tornado-JSON==0.41
 python-Levenshtein==0.11.2
 python-docx==0.7.4
+pyzmq==14.4.0

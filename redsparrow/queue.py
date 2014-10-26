@@ -12,6 +12,7 @@ class PubQueue(BaseQueue):
 
     def __init__(self, bind, ioloop=None):
         super().__init__(zmq.PUSH)
+        print(ZMQStream)
         self.socket.bind(bind)
         self.stream = ZMQStream(self.socket, ioloop)
         self.stream.on_send(self.__on_send)
