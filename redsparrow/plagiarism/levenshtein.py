@@ -1,7 +1,7 @@
 """ Module for calculate lavenshtein_distance"""
 import Levenshtein
 
-def levenshtein_distance(string1, string2):
+def distance(string1, string2):
     """
     Function returns levenshtein distance
     :param string1 first string2

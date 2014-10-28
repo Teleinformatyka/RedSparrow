@@ -1,12 +1,12 @@
 import unittest
 
 
-from redsparrow.plagiarism.levenshtein import levenshtein_distance
+import redsparrow.plagiarism.levenshtein as Levenshtein
 
 class TestClass(unittest.TestCase):
 
     def test_zero_distance(self):
-        self.assertEquals(levenshtein_distance('test', 'test'), 0)
+        self.assertEquals(Levenshtein.distance('test', 'test'), 0)
 
     def test_not_zero_distance(self):
-        self.assertEquals(levenshtein_distance('test11', 'test'), 2)
+        self.assertEquals(Levenshtein.distance('test11', 'test'), 2)
