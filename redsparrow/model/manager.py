@@ -9,7 +9,7 @@ class Manager:
         self.dbconn = dbconn
 
     def find(self, *args, **kwargs):
-        passed
+        pass
 
     @process
     def save(self, model, callback):
