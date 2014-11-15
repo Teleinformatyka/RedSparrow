@@ -1,6 +1,7 @@
 import json
 import re
 from io import StringIO
+import os
 
 import zmq
 from zmq.eventloop.zmqstream import ZMQStream
@@ -82,17 +83,22 @@ class QueueMessage(object):
         self.buf.write(msg)
 
     def get_header(self):
-        # wrong message
-        if len(self.buf) < QueueMessage.HEADER_PID_SIZE + QueueMessage.HEADER_LEN_SIZE:
+        # wrong msg.get_message
+        self.buf.seek(0, os.SEEK_END)
+        if self.buf.tell() < QueueMessage.HEADER_PID_SIZE + QueueMessage.HEADER_LEN_SIZE:
             return False
         header = {}
-        regexp = re.search(r'([1-9][0-9]{1})', self.buf)
-        header['type' ] = regexp.gruop(0)
-        header['length'] = regexp.gruop(1)
+        self.buf.seek(0)
+        header_str = self.buf.read(QueueMessage.HEADER_PID_SIZE + QueueMessage.HEADER_LEN_SIZE)
+        regexp = re.compile(r'([1-9][0-9]{1})').findall(header_str)
+        header['type' ] = int(regexp[0])
+        header['length'] = int(regexp[1])
         return header
 
     def get_message(self):
-        return str(self.buf)[QueueMessage.HEADER_PID_SIZE + QueueMessage.HEADER_LEN_SIZE:]
+        header = self.get_header()
+        self.buf.seek(QueueMessage.HEADER_PID_SIZE + QueueMessage.HEADER_LEN_SIZE, os.SEEK_SET)
+        return self.buf.read(header['length'])
 
     def attach(self, msg_type, msg=None):
         if msg_type < QueueMessage.PID_FIRST or msg_type > QueueMessage.PID_LAST:
@@ -106,7 +112,6 @@ class QueueMessage(object):
 
     def encapsulate(self, obj):
         return self.attach(QueueMessage.PID_ENCAP, str(obj))
-
 
 
 
