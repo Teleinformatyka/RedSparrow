@@ -1,4 +1,6 @@
 strictness: veryhigh
+autodetect: yes
+doc-warnings: yes
 max-line-length: 120
 ignore-paths:
     - docs
@@ -7,6 +9,8 @@ ignore-paths:
     - build
     - dist
     - tests/
+    - setup.py
+
 
 ignore-patterns:
     - .*\.doc
