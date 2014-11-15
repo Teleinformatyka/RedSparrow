@@ -1,0 +1,14 @@
+wrnings: yes
+test-warnings: no
+strictness: veryhigh
+max-line-length: 120
+autodetect: yes
+ignore-paths:
+    - docs
+    - tests
+    - tests_int
+    - lecturer_database
+    - config
+ignore-patterns:
+    - ^example/doc_.*\.py$
+    - (^|/)docs(/|$)
