@@ -4,10 +4,10 @@ doc-warnings: yes
 max-line-length: 120
 ignore-paths:
     - config
-    - lecturer_database/
-    - tests/
+    - lecturer_database
+    - tests
     - setup.py
-    - tests_init
+    - tests_int
     - sub_tester.py
     - pub_tester.py
 
