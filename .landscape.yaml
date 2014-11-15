@@ -11,11 +11,11 @@ ignore-paths:
     - sub_tester.py
     - pub_tester.py
 
-ignore-patterns:
-    - .*\.doc
-    - .*\.docx
-    - .*\.odt
-    - .*\.pdf
-    - .*README.*
-
+# ignore-patterns:
+#     - .*\.doc
+#     - .*\.docx
+#     - .*\.odt
+#     - .*\.pdf
+#     - .*README.*
+#
 
