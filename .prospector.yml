@@ -7,6 +7,9 @@ ignore:
     - ^docs/
     - ^tests
     - config
+    - lecturer_database
+    - build
+    - dist
 
 pyroma:
   run: true
