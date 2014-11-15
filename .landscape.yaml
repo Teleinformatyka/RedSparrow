@@ -3,17 +3,19 @@ autodetect: yes
 doc-warnings: yes
 max-line-length: 120
 ignore-paths:
-    - docs
     - config
-    - lecturer_database
-    - build
-    - dist
+    - lecturer_database/
     - tests/
     - setup.py
-
+    - tests_init
+    - sub_tester.py
+    - pub_tester.py
 
 ignore-patterns:
     - .*\.doc
     - .*\.docx
     - .*\.odt
     - .*\.pdf
+    - .*README.*
+
+
