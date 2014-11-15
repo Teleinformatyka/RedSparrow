@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch, Mock
 
-from redsparrow.queue import BaseQueue, PubQueue, SubQueue
+from redsparrow.queue import BaseQueue, PubQueue, SubQueue, QueueMessage
 
 
 class BaseQueueTest(unittest.TestCase):
@@ -85,3 +85,21 @@ class SubQueueTest(unittest.TestCase):
         self.mock_zmqstream.assert_called_with(self.mock_socket, None)
         self.mock_zmqstream.on_recv.assert_called_with(callback)
 
+
+class QueueMessageTest(unittest.TestCase):
+    def test_init(self):
+        msg = QueueMessage()
+        msg.attach(QueueMessage.PID_INFO, 'Przesylam kilka prac')
+        msg.attach(QueueMessage.PID_REPLY)
+
+        paper1 = QueueMessage()
+        paper1.attach(QueueMessage.PID_PUSER, 'Magik')
+        paper1.attach(QueueMessage.PID_PAUTHOR, 'Damianek')
+
+        paper2 = QueueMessage()
+        paper2.attach(QueueMessage.PID_PUSER, 'Czarodziej')
+        paper2.attach(QueueMessage.PID_PAUTHOR, 'Mariuszek')
+
+        msg.encapsulate(paper1)
+        msg.encapsulate(paper2)
+        self.assertEqual(str(msg), "1000000020Przesylam kilka prac990000000013000000334100000005Magik4200000008Damianek13000000394100000010Czarodziej4200000009Mariuszek")

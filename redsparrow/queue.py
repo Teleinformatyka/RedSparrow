@@ -1,4 +1,6 @@
 import json
+import re
+from io import StringIO
 
 import zmq
 from zmq.eventloop.zmqstream import ZMQStream
@@ -41,18 +43,71 @@ class SubQueue(BaseQueue):
 
 class QueueMessage(object):
 
-    def __init__(self, id=None, method=None,  params=None):
-        self.id = id
-        self.method = method
-        self.params = params
+    HEADER_PID_SIZE = 2  # 10-99
+    HEADER_LEN_SIZE = 8 # maximum 99999999 bytes = 95~ MB
+    #  Packet ID in header
+    PID_FIRST     = 10
+    PID_INFO      = 10
+    PID_PING      = 11
+    PID_PONG      = 12
+    PID_ENCAP     = 13 # Encapsulated packet *
 
-    def from_json(self, json_data):
-        data = json.loads(json_data)
-        self.params = data['params']
-        self.id = data['id']
-        self.method = data['method']
-        return self
+    #  Packets related to the paper itself *
+    PID_PFILE     = 40
+    PID_PUSER     = 41
+    PID_PAUTHOR   = 42
+    PID_PTIME     = 43
+    # Add new pids here */
+
+    PID_ERROR     = 97 #  Server response
+    PID_ALLOK     = 98 # Server response
+    PID_REPLY     = 99 # Request for a response which should be either PID_ERROR or PID_ALLOK
+    PID_LAST      = 99
+
+
+    def __init__(self, msg=None):
+        self.buf = StringIO()
+        if msg:
+            self.buf = msg
+
 
     def __str__(self):
-        return json.dumps(self.__dict__)
+        return self.buf.getvalue()
+
+    def __add_header(self, msg_type, length=0):
+        self.buf.write(str(msg_type).rjust(QueueMessage.HEADER_PID_SIZE, '0'))
+        self.buf.write(str(length).rjust(QueueMessage.HEADER_LEN_SIZE, '0'))
+
+    def __add_message(self, msg):
+        self.buf.write(msg)
+
+    def get_header(self):
+        # wrong message
+        if len(self.buf) < QueueMessage.HEADER_PID_SIZE + QueueMessage.HEADER_LEN_SIZE:
+            return False
+        header = {}
+        regexp = re.search(r'([1-9][0-9]{1})', self.buf)
+        header['type' ] = regexp.gruop(0)
+        header['length'] = regexp.gruop(1)
+        return header
+
+    def get_message(self):
+        return str(self.buf)[QueueMessage.HEADER_PID_SIZE + QueueMessage.HEADER_LEN_SIZE:]
+
+    def attach(self, msg_type, msg=None):
+        if msg_type < QueueMessage.PID_FIRST or msg_type > QueueMessage.PID_LAST:
+            return False
+        if msg:
+            self.__add_header(msg_type, len(msg))
+            self.__add_message(msg)
+        else:
+            self.__add_header(msg_type)
+        return True
+
+    def encapsulate(self, obj):
+        return self.attach(QueueMessage.PID_ENCAP, str(obj))
+
+
+
+
 
