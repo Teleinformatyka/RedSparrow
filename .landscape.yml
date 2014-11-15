@@ -6,4 +6,10 @@ ignore-paths:
     - lecturer_database
     - build
     - dist
-    - tests
+    - tests/
+
+ignore-patterns:
+    - .*\.doc
+    - .*\.docx
+    - .*\.odt
+    - .*\.pdf
