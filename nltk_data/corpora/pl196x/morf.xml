@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE teiFsd2 PUBLIC '-//TEI P4//DTD Auxiliary Document Type: Feature System Declaration//EN' "dtd/teifsd2.dtd" [
+   <!ENTITY % TEI.XML 'INCLUDE'>
+
+   <!NOTATION wsd PUBLIC '-//TEI P3-1994//NOTATION Writing System Declaration//EN'>
+   <!ENTITY wsd.polish SYSTEM "iso88592.wsd" NDATA wsd> ]>
+
+<teiFsd2>
+   <teiHeader type="corpus">
+      <fileDesc>
+         <titleStmt>
+            <title>Deklaracja struktur cech reprezentujących
+                   opisy morfologiczne dla form języka polskiego</title>
+         </titleStmt>
+
+         <publicationStmt>
+            <p>Część elektroniczna pracy magisterskiej Macieja Ogrodniczuka
+               "Wykorzystanie SGML i TEI do zapisu polskich danych
+               lingwistycznych" napisanej pod kierunkiem
+               dra hab. Janusza S. Bienia
+               jako wynik seminarium magisterskiego
+               "Narzędzia i metody przetwarzania tekstów"
+               prowadzonego przez Janusza S. Bienia i Krzysztofa Szafrana
+               na Wydziale Matematyki, Informatyki i Mechaniki
+               Uniwersytetu Warszawskiego. Warszawa, 2000.</p>
+         </publicationStmt>
+
+         <sourceDesc>
+            <p>Brak źródła, dokument powstały w wersji elektronicznej.</p>
+         </sourceDesc>
+      </fileDesc>
+
+      <profileDesc>
+         <langUsage>
+            <language id="pl" wsd="wsd.polish">Polish</language>
+         </langUsage>
+      </profileDesc>
+   </teiHeader>
+
+
+  <fsDecl type="polskie kategorie morfologiczne">
+    <fsDescr>Reprezentacja opisów morfologicznych dla języka polskiego</fsDescr>
+
+    <fDecl name="kategoria">
+       <fDescr>Typ jednostki zdania (część mowy)</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="czasownik"/>
+             <sym value="rzeczownik"/>
+             <sym value="przymiotnik"/>
+             <sym value="liczebnik"/>
+             <sym value="zaimek"/>
+             <sym value="przysłówek"/>
+             <sym value="przyimek"/>
+             <sym value="spójnik"/>
+             <sym value="wykrzyknik"/>
+             <sym value="partykuła"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="liczba">
+       <fDescr>Wartość liczby</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="pojedyncza"/>
+             <sym value="mnoga"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="przypadek">
+       <fDescr>Wartość przypadka gramatycznego</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="mianownik"/>
+             <sym value="dopełniacz"/>
+             <sym value="celownik"/>
+             <sym value="biernik"/>
+             <sym value="narzędnik"/>
+             <sym value="miejscownik"/>
+             <sym value="wołacz"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="rodzaj">
+       <fDescr>Wartość rodzaju</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="męski"/>
+             <sym value="męskoosobowyLPoj"/>
+             <sym value="męskozwierzęcy"/>
+             <sym value="męskorzeczowy"/>
+             <sym value="żeński"/>
+             <sym value="nijaki"/>
+             <sym value="męskoosobowyLMn"/>
+             <sym value="niemęskoosobowy"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="stopien">
+       <fDescr>Wartość stopnia</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="równy"/>
+             <sym value="wyższy"/>
+             <sym value="najwyższy"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="osoba">
+       <fDescr>Wartość osoby</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="pierwsza"/>
+             <sym value="druga"/>
+             <sym value="trzecia"/>
+             <sym value="bezokolicznik"/>
+             <sym value="bezosobowaNoTo"/>
+             <sym value="imPrzysłWspółcz"/>
+             <sym value="imPrzysłUprz"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="czas">
+       <fDescr>Wartość czasu</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="teraźniejszy"/>
+             <sym value="przeszły"/>
+             <sym value="przyszłyZłoż"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="tryb">
+       <fDescr>Wartość trybu</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="oznajmujący"/>
+             <sym value="przypuszczający"/>
+             <sym value="rozkazujący"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="aspekt">
+       <fDescr>Wartość aspektu</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="dokonany"/>
+             <sym value="niedokonany"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="strona">
+       <fDescr>Wartość strony</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="czynna"/>
+             <sym value="bierna"/>
+             <sym value="zwrotna"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="akcentowosc">
+       <fDescr>Wartość akcentowości</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="akcentowana"/>
+             <sym value="nieakcentowana"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="poprzyimkowosc">
+       <fDescr>Wartość poprzyimkowości</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="poprzyimkowa"/>
+             <sym value="niepoprzyimkowa"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="dodatkowa">
+       <fDescr>Dodatkowe oznaczenie dla czasowników złożonych</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="bezokolicznikCzPrzyszłego"/>
+             <sym value="formaŁCzPrzyszłego"/>
+             <sym value="formaŁCzPrzeszłego"/>
+             <sym value="ruchomyTrybPrzypuszcz"/>
+             <sym value="opisowytrybRozkaz"/>
+             <sym value="byćWCzasachZłoż"/>
+             <sym value="byćWStronieBiernej"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+
+    <fDecl name="nazwaWlasna">
+       <fDescr>Dodatkowe oznaczenie nazw własnych i skrótowców</fDescr>
+
+       <vRange>
+          <vAlt>
+             <sym value="nazwaPospolita"/>
+             <sym value="nazwaWłasna"/>
+             <sym value="skrótowiec"/>
+          </vAlt>
+       </vRange>
+
+       <vDefault>
+          <none/>
+       </vDefault>
+    </fDecl>
+
+  </fsDecl>
+
+</teiFsd2>

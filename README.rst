@@ -1,4 +1,4 @@
-RedSparrow [![Build Status](http://j.marcinkaciuba.pl/job/ReadSparrow_python/badge/icon)](http://j.marcinkaciuba.pl/job/RedSparrow-unit/)
+RedSparrow
 =========
 Plagiarism checker.
 

@@ -1,0 +1,21 @@
+POLISH LANGUAGE OF THE XX CENTURY SIXTIES
+
+A corpus of everyday Polish of the XX century sixties. 
+
+by I. Kurcz, A. Lewicki, J. Sambor, K. Szafran, J. Woronczak (published 1990)
+
+Converted to XML format by J.S. Bień and M. Woliński
+
+http://www.mimuw.edu.pl/polszczyzna/pl196x/index_en.htm
+
+Distributed with the permission of the copyright holder,
+redistribution permitted.
+
+CONTENTS:
+a-publi.xml - Scientific texts
+b-prasa.xml - News
+c-popul.xml - Essays
+d-proza.xml - Fiction
+e-dramat.xml - Plays
+
+Tagset description in file fslib.xml

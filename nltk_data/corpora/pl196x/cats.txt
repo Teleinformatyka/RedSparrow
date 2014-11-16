@@ -1,0 +1,5 @@
+a-publi.xml essays
+b-prasa.xml news
+c-popul.xml science
+d-proza.xml fiction
+e-dramat.xml plays

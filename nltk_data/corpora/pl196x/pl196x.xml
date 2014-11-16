@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE teiCorpus.2 PUBLIC "-//TEI P4//DTD Main Document Type//EN" "dtd/tei2.dtd" [
+
+   <!NOTATION wsd PUBLIC
+      '-//TEI P3-1994//NOTATION Writing System Declaration//EN'>
+   <!ENTITY wsd.polish SYSTEM "iso88592.wsd" NDATA wsd>
+
+   <!NOTATION fsd PUBLIC
+      '-//TEI//Feature System Declaration (1994)//EN'>
+   <!ENTITY fsd.morf SYSTEM "morf.fsd" NDATA fsd>
+
+   <!ENTITY % TEI.XML      'INCLUDE'>
+
+   <!ENTITY % TEI.corpus   'INCLUDE'>
+   <!ENTITY % TEI.mixed    'INCLUDE'>
+   <!ENTITY % TEI.analysis 'INCLUDE'>
+   <!ENTITY % TEI.fs       'INCLUDE'>
+
+   <!ENTITY fLib     SYSTEM "flib.xml">
+
+   <!ENTITY fsLib    SYSTEM "fslib.xml">
+
+   <!ENTITY a-publ   SYSTEM "a-publi.xml">
+   <!ENTITY b-prasa  SYSTEM "b-prasa.xml">
+   <!ENTITY c-popul  SYSTEM "c-popul.xml">
+   <!ENTITY d-proza  SYSTEM "d-proza.xml">
+   <!ENTITY e-dramat SYSTEM "e-dramat.xml"> ]>
+
+<teiCorpus.2>
+   <!-- Creator = header creator -->
+   <teiHeader type="corpus" status="update" creator="Maciej Ogrodniczuk" date.created="2000-09-20" date.updated="2004-06-16">
+      <fileDesc>
+         <titleStmt>
+            <title lang="pl">Polszczyzna lat sześćdziesiątych</title>
+            <title lang="en">Polish language of the 1960s</title>
+
+            <!-- Editors of the corpus -->
+            <editor>Janusz S. Bień</editor>
+            <editor>Maciej Ogrodniczuk</editor>
+            <editor>Marcin Woliński</editor>
+
+            <sponsor lang="pl">Obecna postać korpusu jest wynikiem współpracy wielu osób.
+              Niektóre z nich pracowały bez wynagrodzenia, inne były opłacane
+              z różnych grantów - szczegóły zawiera dokumentacja cytowana w deklaracji edytorskiej.</sponsor>
+
+            <sponsor lang="en">Present-day form of the corpus is the result
+              of collaborative effort of several persons, both volunteers
+              and supported financially by various grants.
+              Details are referenced in the editorial declaration.</sponsor>
+
+            <respStmt>
+               <resp lang="pl">Twórcy korpusu na potrzeby Słownika Frekwencyjnego Polszczyzny Współczesnej</resp>
+               <resp lang="en">Creators of the corpus for Frequency Dictionary of Contemporary Polish</resp>
+               <name>Ida Kurcz</name>
+               <name>Jadwiga Sambor</name>
+               <name>Andrzej Lewicki</name>
+               <name>Jerzy Woronczak</name>
+               <name>Krzysztof Szafran</name>
+            </respStmt>
+         </titleStmt>
+
+         <publicationStmt>
+            <distributor lang="pl">Katedra Lingwistyki Formalnej, Uniwersytet Warszawski</distributor>
+            <distributor lang="en">Chair of Formal Linguistics, Warsaw University</distributor>
+            <address>
+               <addrLine>ul. Browarna 8/10, 00-311 Warszawa</addrLine>
+            </address>
+            <availability lang="pl" status="free">
+              <p>Udostępnione na zasadach Ogólnej Licencji Publicznej GNU przez twórców korpusu.</p>
+            </availability>
+            <availability lang="en" status="free">
+              <p>Released on GNU General Public License by the corpus creators.</p>
+            </availability>
+            <date value="2004">2004</date>
+         </publicationStmt>
+
+         <sourceDesc lang="pl">
+            <p>Plik zawiera próbki zebrane z wielu źródeł;
+               każda z nich posiada swój własny opis źródła.</p>
+         </sourceDesc>
+
+         <sourceDesc lang="en">
+            <p>Text sampled from multiple sources. Each of 10000 samples
+               contains its own source description.</p>
+         </sourceDesc>
+      </fileDesc>
+
+      <encodingDesc>
+         <editorialDecl>
+            <p lang="pl">Proces tworzenia korpusu i jego niniejszej wersji
+                         dokumentują szczegółowo wymienione poniżej pozycje.</p>
+            <p lang="en">Creation of the corpus and its current version
+                         is documented in detail in below-mentioned sources.</p>
+            <p> [1] Bień, Janusz S.; Woliński, Marcin.
+                    Wzbogacony korpus Słownika frekwencyjnego polszczyzny współczesnej.
+                    [w:] Prace lingwistyczne dedykowane prof. Jadwidze Sambor.
+                    Jadwiga Linde-Usiekniewicz (red.), str. 6-10, Warszawa 2003,
+                    Wydział Polonistyki, Uniwersytet Warszawski.
+
+                [2] Kurcz, Ida; Lewicki, Andrzej; Sambor, Jadwiga; Woronczak, Jerzy.
+                    Słownictwo współczesnego języka polskiego. Listy frekwencyjne.
+                    Tom I. Teksty popularnonaukowe. Warszawa, 1974. Uniwersytet Warszawski.
+
+                [3] Kurcz, Ida; Lewicki, Andrzej; Sambor, Jadwiga; Woronczak, Jerzy.
+                    Słownictwo współczesnego języka polskiego. Listy frekwencyjne.
+                    Tom II. Drobne wiadomości prasowe. Warszawa, 1974. Uniwersytet Warszawski.
+
+                [4] Lewicki, Andrzej; Masłowski, Władysław; Sambor, Jadwiga; Woronczak, Jerzy.
+                    Słownictwo współczesnego języka polskiego. Listy frekwencyjne.
+                    Tom III. Publicystyka. Warszawa, 1975. Uniwersytet Warszawski.
+
+                [5] Kurcz, Ida; Lewicki, Andrzej; Sambor, Jadwiga; Woronczak, Jerzy.
+                    Słownictwo współczesnego języka polskiego. Listy frekwencyjne.
+                    Tom IV. Proza artystyczna. Warszawa, 1976. Uniwersytet Warszawski.
+
+                [6] Kurcz, Ida; Lewicki, Andrzej; Sambor, Jadwiga; Woronczak, Jerzy.
+                    Słownictwo współczesnego języka polskiego. Listy frekwencyjne.
+                    Tom V. Dramat artystyczny. Warszawa, 1977. Uniwersytet Warszawski.
+
+                [7] Kurcz, Ida; Lewicki, Andrzej; Sambor, Jadwiga; Szafran, Krzysztof; Woronczak, Jerzy.
+                    Słownik frekwencyjny polszczyzny współczesnej, Kraków, 1990. Instytut Języka Polskiego PAN.
+
+                [8] Ogrodniczuk, Maciej. Nowa edycja wzbogaconego korpusu słownika frekwencyjnego.
+                    [w:] Językoznawstwo w Polsce. Stan i perspektywy. Stanisław Gajda (red.),
+                    Polska Akademia Nauk -- Komitet Językoznawstwa, Uniwersytet Opolski --
+                    Instytut Filologii Polskiej. Opole 2003, s. 181-190. ISBN 83-86881-36-4.
+                    Tekst dostępny pod adresem \url{http://www.mimuw.edu.pl/~jsbien/MO/JwP03/MO-JwP03.pdf}.
+
+                [9] Ogrodniczuk, Maciej. Rozszerzenie opisów morfologicznych w tekstach korpusu
+                    słownika frekwencyjnego polszczyzny współczesnej.
+                    [w:] Prace lingwistyczne dedykowane prof. Jadwidze Sambor.
+                    Jadwiga Linde-Usiekniewicz (red.), str. 164-168, Warszawa 2003,
+                    Wydział Polonistyki, Uniwersytet Warszawski.
+
+               [10] Saloni, Zygmunt. Słownik frekwencyjny polszczyzny współczesnej. ComputerWorld
+                    4 listopada 1991, s. 16-17.
+            </p>
+         </editorialDecl>
+         <fsdDecl type="morphological encoding" fsd="fsd.morf"/>
+      </encodingDesc>
+
+      <profileDesc>
+         <langUsage>
+            <language id="pl" wsd="wsd.polish">Polish</language>
+            <language id="en">English</language>
+         </langUsage>
+      </profileDesc>
+   </teiHeader>
+
+   &a-publ;
+
+   &b-prasa;
+
+   &c-popul;
+
+   &d-proza;
+
+   &e-dramat;
+
+</teiCorpus.2>

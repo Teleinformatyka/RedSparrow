@@ -2,6 +2,9 @@ language: python
 python:
   - "3.4"
 install:
+  - sudo apt-get update
+  - sudo apt-get install  antiword odt2txt
+  - sudo cp -r nltk_data /usr/share/nltk_data
   - pip install tox
   - pip install python-coveralls
 script:

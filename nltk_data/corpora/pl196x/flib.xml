@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<fLib type="opisy kategorii morfologicznych">
+   <f id="rzeczownik"           name="kategoria"       fVal="kategoriaRzeczownik"/>
+   <f id="czasownik"            name="kategoria"       fVal="kategoriaCzasownik"/>
+   <f id="przymiotnik"          name="kategoria"       fVal="kategoriaPrzymiotnik"/>
+   <f id="liczebnik"            name="kategoria"       fVal="kategoriaLiczebnik"/>
+   <f id="zaimek"               name="kategoria"       fVal="kategoriaZaimek"/>
+   <f id="przyslowek"           name="kategoria"       fVal="kategoriaPrzyslowek"/>
+   <f id="przyimek"             name="kategoria"       fVal="kategoriaPrzyimek"/>
+   <f id="spojnik"              name="kategoria"       fVal="kategoriaSpojnik"/>
+   <f id="wykrzyknik"           name="kategoria"       fVal="kategoriaWykrzyknik"/>
+   <f id="partykula"            name="kategoria"       fVal="kategoriaPartykula"/>
+
+   <f id="mianownik"            name="przypadek"       fVal="przypadekMianownik"/>
+   <f id="dopelniacz"           name="przypadek"       fVal="przypadekDopelniacz"/>
+   <f id="celownik"             name="przypadek"       fVal="przypadekCelownik"/>
+   <f id="biernik"              name="przypadek"       fVal="przypadekBiernik"/>
+   <f id="narzednik"            name="przypadek"       fVal="przypadekNarzednik"/>
+   <f id="miejscownik"          name="przypadek"       fVal="przypadekMiejscownik"/>
+   <f id="wolacz"               name="przypadek"       fVal="przypadekWolacz"/>
+   <f id="przypadekNieznany"    name="przypadek"       fVal="przypadekNiezn"/>
+   <f id="przypadekNieDotyczy"  name="przypadek"       fVal="przypadekND"/>
+
+   <f id="rodzajMeski"          name="rodzaj"          fVal="meski"/>
+   <f id="rodzajMeskoosLP"      name="rodzaj"          fVal="meskoosobowylp"/>
+   <f id="rodzajMeskozw"        name="rodzaj"          fVal="meskozwierzecy"/>
+   <f id="rodzajMeskorzecz"     name="rodzaj"          fVal="meskorzeczowy"/>
+   <f id="rodzajZenski"         name="rodzaj"          fVal="zenski"/>
+   <f id="rodzajNijaki"         name="rodzaj"          fVal="nijaki"/>
+   <f id="rodzajMeskoosLMn"     name="rodzaj"          fVal="meskoosobowylmn"/>
+   <f id="rodzajNiemeskoos"     name="rodzaj"          fVal="niemeskoosobowy"/>
+   <f id="pluraleTantum"        name="rodzaj"          fVal="plTantum"/>
+   <f id="rodzajNieznany"       name="rodzaj"          fVal="rodzajNiezn"/>
+   <f id="rodzajNieDotyczy"     name="rodzaj"          fVal="rodzajND"/>
+
+   <f id="liczbaPojedyncza"     name="liczba"          fVal="pojedyncza"/>
+   <f id="liczbaMnoga"          name="liczba"          fVal="mnoga"/>
+   <f id="liczbaNieznana"       name="liczba"          fVal="liczbaNiezn"/>
+   <f id="liczbaNieDotyczy"     name="liczba"          fVal="liczbaND"/>
+
+   <f id="stopienRowny"         name="stopien"         fVal="rowny"/>
+   <f id="stopienWyzszy"        name="stopien"         fVal="wyzszy"/>
+   <f id="stopienNajw"          name="stopien"         fVal="najwyzszy"/>
+   <f id="stopienNieznany"      name="stopien"         fVal="stopienNiezn"/>
+   <f id="stopienNieDotyczy"    name="stopien"         fVal="stopienND"/>
+
+   <f id="osobaPierwsza"        name="osoba"           fVal="pierwsza"/>
+   <f id="osobaDruga"           name="osoba"           fVal="druga"/>
+   <f id="osobaTrzecia"         name="osoba"           fVal="trzecia"/>
+   <f id="bezokolicznik"        name="osoba"           fVal="formaBezokolicznika"/>
+   <f id="formaNoTo"            name="osoba"           fVal="formaBezosobowaNoTo"/>
+   <f id="imPrzyslWspolcz"      name="osoba"           fVal="formaImPrzyslWspolcz"/>
+   <f id="imPrzyslUprz"         name="osoba"           fVal="formaImPrzyslUprz"/>
+   <f id="osobaNieznana"        name="osoba"           fVal="osobaNiezn"/>
+   <f id="osobaNieDotyczy"      name="osoba"           fVal="osobaND"/>
+
+   <f id="czasTerazniejszy"     name="czas"            fVal="terazniejszy"/>
+   <f id="czasPrzeszly"         name="czas"            fVal="przeszly"/>
+   <f id="czasPrzyszlyZloz"     name="czas"            fVal="przyszlyZloz"/>
+   <f id="czasNieznany"         name="czas"            fVal="czasNiezn"/>
+   <f id="czasNieDotyczy"       name="czas"            fVal="czasND"/>
+
+   <f id="trybOznajmujacy"      name="tryb"            fVal="oznajmujacy"/>
+   <f id="trybPrzypuszczajacy"  name="tryb"            fVal="przypuszczajacy"/>
+   <f id="trybRozkazujacy"      name="tryb"            fVal="rozkazujacy"/>
+   <f id="trybNieznany"         name="tryb"            fVal="trybNiezn"/>
+   <f id="trybNieDotyczy"       name="tryb"            fVal="trybND"/>
+
+   <f id="aspektDokonany"       name="aspekt"          fVal="dokonany"/>
+   <f id="aspektNiedokonany"    name="aspekt"          fVal="niedokonany"/>
+   <f id="aspektNieznany"       name="aspekt"          fVal="aspektNiezn"/>
+   <f id="aspektNieDotyczy"     name="aspekt"          fVal="aspektND"/>
+
+   <f id="stronaCzynna"         name="strona"          fVal="czynna"/>
+   <f id="stronaBierna"         name="strona"          fVal="bierna"/>
+   <f id="stronaZwrotna"        name="strona"          fVal="zwrotna"/>
+   <f id="stronaNieznana"       name="strona"          fVal="stronaNiezn"/>
+   <f id="stronaNieDotyczy"     name="strona"          fVal="stronaND"/>
+
+   <f id="formaAkcentowana"     name="akcentowosc"     fVal="akcentowana"/>
+   <f id="formaNieakcentowana"  name="akcentowosc"     fVal="nieakcentowana"/>
+   <f id="akcentNieznana"       name="akcentowosc"     fVal="akcentowoscNiezn"/>
+   <f id="akcentNieDotyczy"     name="akcentowosc"     fVal="akcentowoscND"/>
+
+   <f id="formaPoprzyimkowa"    name="poprzyimkowosc"  fVal="poprzyimkowa"/>
+   <f id="formaNiepoprzyimkowa" name="poprzyimkowosc"  fVal="niepoprzyimkowa"/>
+   <f id="poprzyimkNieznana"    name="poprzyimkowosc"  fVal="poprzyimkowoscNiezn"/>
+   <f id="poprzyimkNieDotyczy"  name="poprzyimkowosc"  fVal="poprzyimkowoscND"/>
+
+   <f id="bezokolCzPrzyszl"     name="oznCzasownika"   fVal="bezokolicznikCzPrzyszlego"/>
+   <f id="formaLCzPrzyszl"      name="oznCzasownika"   fVal="formaLCzPrzyszlego"/>
+   <f id="formLCzPrzeszl"       name="oznCzasownika"   fVal="formaLCzPrzeszlego"/>
+   <f id="ruchomyTrybPrzyp"     name="oznCzasownika"   fVal="ruchomyTrybPrzypuszczajacy"/>
+   <f id="ruchomyTrybRozk"      name="oznCzasownika"   fVal="opisowyTrybRozkazujacy"/>
+   <f id="bycWCzasachZloz"      name="oznCzasownika"   fVal="bycWCzasachZlozonych"/>
+   <f id="bycWStrBiernej"       name="oznCzasownika"   fVal="bycWStronieBiernej"/>
+   <f id="oznCzasNieznane"      name="oznCzasownika"   fVal="oznCzasownikaNieznane"/>
+   <f id="oznCzasNieDotyczy"    name="oznCzasownika"   fVal="oznCzasownikaND"/>
+
+   <f id="nazwaPospolita"       name="oznNazwWlasnych" fVal="oznNazwyPospolitej"/>
+   <f id="nazwaWlasna"          name="oznNazwWlasnych" fVal="oznNazwyWlasnej"/>
+   <f id="skrotowiec"           name="oznNazwWlasnych" fVal="oznSkrotowca"/>
+</fLib>

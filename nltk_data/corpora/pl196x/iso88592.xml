@@ -1,0 +1,323 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE writingSystemDeclaration PUBLIC "-//TEI P2: 1993//NOTATION WSD for ISO 8859-2//EN" "dtd/teiwsd2.dtd" [
+
+  <!ENTITY % ISOlat2 PUBLIC
+    "ISO 8879-1986//ENTITIES Added Latin 2//EN" "dtd/isolat2.ent">
+   %ISOlat2;
+
+  <!ENTITY % TEI.XML      'INCLUDE'>
+]>
+
+<writingSystemDeclaration
+          id='ISO8859-2'
+          name='-//TEI P2: 1993//NOTATION WSD for ISO 8859-2//EN'
+          lang='EN'
+          date='1993-2-16'>
+
+<language iso639=''>Various.
+This WSD documents the characters of the ISO 8859-2 character set, not
+one specific language; it is intended to be referred to by other WSDs
+which use ISO 8859-2 as a base.  It should not be used for a value for
+the global 'lang' attribute. It is documented in ECMA 94. It is
+recommended by ISO for use with modern Albanian, Czech, English, German,
+Hungarian, Polish, Rumanian, Croatian, Slovak, and Slovene.</language>
+
+<script>Latin, with diacritics</script>
+<direction lines='TB' chars='LR'/>
+<characters>
+<codedCharSet name='ISO 8859-2:1987' authority='ISO'/>
+<baseWsd name='-//TEI P2: 1993//NOTATION WSD for ISO 646 IRV//EN'
+         authority='TEI'/>
+<exceptions>
+<character class="space">
+  <form string='&#160;' entityStd="nbsp"   ucs-4="00A0" afiicode="">
+    <desc>NO-BREAK SPACE</desc></form></character>
+<character class="lexical">
+  <form string='&#161;' entityStd="Aogon"  ucs-4="0104" afiicode="F129">
+    <desc>Latin capital letter A with ogonek</desc></form></character>
+<character class="dia">
+  <form string='&#162;' entityStd="breve"  ucs-4="" afiicode="">
+    <desc>breve</desc></form></character>
+<character class="lexical">
+  <form string='&#163;' entityStd="Lstrok" ucs-4="0141" afiicode="00E8">
+    <desc>Latin capital letter L with stroke</desc></form></character>
+<character class="other">
+  <form string='&#164;' entityStd="curren" ucs-4="00A4" afiicode="00A4">
+    <desc>CURRENCY SIGN</desc></form></character>
+<character class="lexical">
+  <form string='&#165;' entityStd="Lcaron" ucs-4="013D" afiicode="F171">
+    <desc>Latin capital letter L with caron</desc></form></character>
+<character class="lexical">
+  <form string='&#166;' entityStd="Sacute" ucs-4="015A" afiicode="F159">
+    <desc>Latin capital letter S with acute</desc></form></character>
+<character class="punc">
+  <form string='&#167;' entityStd="sect"   ucs-4="00A7" afiicode="00A7">
+    <desc>SECTION SIGN</desc></form></character>
+<character class="lexical">
+  <form string='&#168;' entityStd="die"    ucs-4="00A8" afiicode="">
+    <desc>DIAERESIS</desc></form></character>
+<character class="lexical">
+  <form string='&#169;' entityStd="Scaron" ucs-4="0160" afiicode="F15C">
+    <desc>Latin capital letter S with caron</desc></form></character>
+<character class="lexical">
+  <form string='&#170;' entityStd="Scedil" ucs-4="015E" afiicode="F15B">
+    <desc>Latin capital letter S with cedilla</desc></form></character>
+<character class="lexical">
+  <form string='&#171;' entityStd="Tcaron" ucs-4="0164" afiicode="F15E">
+    <desc>Latin capital letter T with caron</desc></form></character>
+<character class="lexical">
+  <form string='&#172;' entityStd="Zacute" ucs-4="0179" afiicode="F16E">
+    <desc>Latin capital letter Z with acute</desc></form></character>
+<character class="lexical">
+  <form string='&#173;' entityStd="shy"    ucs-4="00AD" afiicode="">
+    <desc>soft hyphen</desc></form></character>
+<character class="lexical">
+  <form string='&#174;' entityStd="Zcaron" ucs-4="017D" afiicode="F170">
+    <desc>Latin capital letter Z with caron</desc></form></character>
+<character class="lexical">
+  <form string='&#175;' entityStd="Zdot"   ucs-4="017B" afiicode="F16F">
+    <desc>Latin capital letter Z with dot above</desc></form></character>
+<character class="other">
+  <form string='&#176;' entityStd="deg"    ucs-4="00B0" afiicode="00B0">
+    <desc>degree sign</desc></form></character>
+<character class="lexical">
+  <form string='&#177;' entityStd="aogon"  ucs-4="0105" afiicode="F1A9">
+    <desc>Latin small letter a with ogonek</desc></form></character>
+<character class="lexical">
+  <form string='&#178;' entityStd="ogon"   ucs-4="" afiicode="">
+    <desc>ogonek accent</desc></form></character>
+<character class="lexical">
+  <form string='&#179;' entityStd="lstrok" ucs-4="0142" afiicode="00F8">
+    <desc>Latin small letter l with stroke</desc></form></character>
+<character class="lexical">
+  <form string='&#180;' entityStd="acute"  ucs-4="" afiicode="">
+    <desc>acute accent</desc></form></character>
+<character class="lexical">
+  <form string='&#181;' entityStd="lcaron" ucs-4="013E" afiicode="F1F1">
+    <desc>Latin small letter l with caron</desc></form></character>
+<character class="lexical">
+  <form string='&#182;' entityStd="sacute" ucs-4="015B" afiicode="F1D9">
+    <desc>Latin small letter s with acute</desc></form></character>
+<character class="lexical">
+  <form string='&#183;' entityStd="caron"  ucs-4="" afiicode="">
+    <desc>caron accent</desc></form></character>
+<character class="lexical">
+  <form string='&#184;' entityStd="cedil"  ucs-4="" afiicode="">
+    <desc>cedilla accent</desc></form></character>
+<character class="lexical">
+  <form string='&#185;' entityStd="scaron" ucs-4="0161" afiicode="F1DC">
+    <desc>Latin small letter s with caron</desc></form></character>
+<character class="lexical">
+  <form string='&#186;' entityStd="scedil" ucs-4="015F" afiicode="F1DB">
+    <desc>Latin small letter s with cedilla</desc></form></character>
+<character class="lexical">
+  <form string='&#187;' entityStd="tcaron" ucs-4="0165" afiicode="F1F2">
+    <desc>Latin small letter t with caron</desc></form></character>
+<character class="lexical">
+  <form string='&#188;' entityStd="zacute" ucs-4="017A" afiicode="F1EE">
+    <desc>Latin small letter z with acute</desc></form></character>
+<character class="lexical">
+  <form string='&#189;' entityStd="dblacc" ucs-4="????" afiicode="">
+    <desc>double acute accent</desc></form></character>
+<character class="lexical">
+  <form string='&#190;' entityStd="zcaron" ucs-4="017E" afiicode="F1F0">
+    <desc>Latin small letter z with caron</desc></form></character>
+<character class="lexical">
+  <form string='&#191;' entityStd="zdot"   ucs-4="017C" afiicode="F1EF">
+    <desc>Latin small letter z with dot above</desc></form></character>
+<character class="lexical">
+  <form string='&#192;' entityStd="Racute" ucs-4="0154" afiicode="F156">
+    <desc>LATIN CAPITAL LETTER R WITH acute</desc></form></character>
+<character class="lexical">
+  <form string='&#193;' entityStd="Aacute" ucs-4="00C1" afiicode="F122">
+    <desc>LATIN CAPITAL LETTER A WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#194;' entityStd="Acirc"  ucs-4="00C2" afiicode="F123">
+    <desc>LATIN CAPITAL LETTER A WITH CIRCUMFLEX</desc></form></character>
+<character class="lexical">
+  <form string='&#195;' entityStd="Abreve" ucs-4="0102" afiicode="F126">
+    <desc>LATIN CAPITAL LETTER A WITH breve</desc></form></character>
+<character class="lexical">
+  <form string='&#196;' entityStd="Auml"   ucs-4="00C4" afiicode="F127">
+    <desc>LATIN CAPITAL LETTER A WITH DIAERESIS</desc></form></character>
+<character class="lexical">
+  <form string='&#197;' entityStd="Lacute" ucs-4="0139" afiicode="F148">
+    <desc>LATIN CAPITAL LETTER L WITH acute</desc></form></character>
+<character class="lexical">
+  <form string='&#198;' entityStd="Cacute" ucs-4="0106" afiicode="f12A">
+    <desc>LATIN CAPITAL LETTER C with acute</desc></form></character>
+<character class="lexical">
+  <form string='&#199;' entityStd="Ccedil" ucs-4="010c" afiicode="F12e">
+    <desc>LATIN CAPITAL LETTER C WITH CEDILLA</desc></form></character>
+<character class="lexical">
+  <form string='&#200;' entityStd="Ccaron" ucs-4="010C" afiicode="F12e">
+    <desc>LATIN CAPITAL LETTER C WITH caron</desc></form></character>
+<character class="lexical">
+  <form string='&#201;' entityStd="Eacute" ucs-4="00C9" afiicode="F131">
+    <desc>LATIN CAPITAL LETTER E WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#202;' entityStd="Eogon"  ucs-4="0118" afiicode="F136">
+    <desc>LATIN CAPITAL LETTER E WITH ogonek</desc></form></character>
+<character class="lexical">
+  <form string='&#203;' entityStd="Euml"   ucs-4="00CB" afiicode="F135">
+    <desc>LATIN CAPITAL LETTER E WITH DIAERESIS</desc></form></character>
+<character class="lexical">
+  <form string='&#204;' entityStd="Ecaron" ucs-4="011a" afiicode="F137">
+    <desc>LATIN CAPITAL LETTER E WITH caron</desc></form></character>
+<character class="lexical">
+  <form string='&#205;' entityStd="Iacute" ucs-4="00CD" afiicode="F13F">
+    <desc>LATIN CAPITAL LETTER I WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#206;' entityStd="Icirc"  ucs-4="00CE" afiicode="F140">
+    <desc>LATIN CAPITAL LETTER I WITH CIRCUMFLEX</desc></form></character>
+<character class="lexical">
+  <form string='&#207;' entityStd="Dcaron" ucs-4="010e" afiicode="f12f">
+    <desc>LATIN CAPITAL LETTER D WITH caron</desc></form></character>
+<character class="lexical">
+  <form string='&#208;' entityStd="Dstrok" ucs-4="0110" afiicode="00e2">
+    <desc>LATIN CAPITAL LETTER D with stroke</desc></form></character>
+<character class="lexical">
+  <form string='&#209;' entityStd="Nacute" ucs-4="0143" afiicode="F14b">
+    <desc>LATIN CAPITAL LETTER N WITH acute</desc></form></character>
+<character class="lexical">
+  <form string='&#210;' entityStd="Ncaron" ucs-4="0147" afiicode="F14e">
+    <desc>LATIN CAPITAL LETTER N WITH caron</desc></form></character>
+<character class="lexical">
+  <form string='&#211;' entityStd="Oacute" ucs-4="00D3" afiicode="F150">
+    <desc>LATIN CAPITAL LETTER O WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#212;' entityStd="Ocirc"  ucs-4="00D4" afiicode="F151">
+    <desc>LATIN CAPITAL LETTER O WITH CIRCUMFLEX</desc></form></character>
+<character class="lexical">
+  <form string='&#213;' entityStd="Odblac" ucs-4="0150" afiicode="F155">
+    <desc>LATIN CAPITAL LETTER O WITH double acute</desc></form></character>
+<character class="lexical">
+  <form string='&#214;' entityStd="Ouml"   ucs-4="00D6" afiicode="F154">
+    <desc>LATIN CAPITAL LETTER O WITH DIAERESIS</desc></form></character>
+<character class="other">
+  <form string='&#215;' entityStd="times"  ucs-4="00D7" afiicode="00B4">
+    <desc>MULTIPLICATION SIGN</desc></form></character>
+<character class="lexical">
+  <form string='&#216;' entityStd="Rcaron" ucs-4="0158" afiicode="f158">
+    <desc>LATIN CAPITAL LETTER R WITH caron</desc></form></character>
+<character class="lexical">
+  <form string='&#217;' entityStd="Uring"  ucs-4="016e" afiicode="F166">
+    <desc>LATIN CAPITAL LETTER U WITH ring</desc></form></character>
+<character class="lexical">
+  <form string='&#218;' entityStd="Uacute" ucs-4="00DA" afiicode="F160">
+    <desc>LATIN CAPITAL LETTER U WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#219;' entityStd="Udblac" ucs-4="0170" afiicode="F167">
+    <desc>LATIN CAPITAL LETTER U WITH double acute</desc></form></character>
+<character class="lexical">
+  <form string='&#220;' entityStd="Uuml"   ucs-4="00DC" afiicode="F165">
+    <desc>LATIN CAPITAL LETTER U WITH DIAERESIS</desc></form></character>
+<character class="lexical">
+  <form string='&#221;' entityStd="Yacute" ucs-4="00DD" afiicode="F16B">
+    <desc>LATIN CAPITAL LETTER Y WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#222;' entityStd="Tcedil" ucs-4="0162" afiicode="f15d">
+    <desc>LATIN CAPITAL LETTER T with cedilla</desc></form></character>
+<character class="lexical">
+  <form string='&#223;' entityStd="szlig"  ucs-4="00DF" afiicode="00FB">
+    <desc>LATIN SMALL LETTER SHARP S (German)</desc></form></character>
+<character class="lexical">
+  <form string='&#224;' entityStd="racute" ucs-4="0155" afiicode="F1d6">
+    <desc>LATIN SMALL LETTER R WITH acute</desc></form></character>
+<character class="lexical">
+  <form string='&#225;' entityStd="aacute" ucs-4="00E1" afiicode="F1A2">
+    <desc>LATIN SMALL LETTER A WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#226;' entityStd="acirc"  ucs-4="00E2" afiicode="F1A3">
+    <desc>LATIN SMALL LETTER A WITH CIRCUMFLEX</desc></form></character>
+<character class="lexical">
+  <form string='&#227;' entityStd="abreve" ucs-4="0103" afiicode="F1a6">
+    <desc>LATIN SMALL LETTER A WITH breve</desc></form></character>
+<character class="lexical">
+  <form string='&#228;' entityStd="auml"   ucs-4="00E4" afiicode="F1A7">
+    <desc>LATIN SMALL LETTER L WITH DIAERESIS</desc></form></character>
+<character class="lexical">
+  <form string='&#229;' entityStd="lacute" ucs-4="013a" afiicode="F1c8">
+    <desc>LATIN SMALL LETTER C WITH acute</desc></form></character>
+<character class="lexical">
+  <form string='&#230;' entityStd="cacute" ucs-4="0107" afiicode="f1aa">
+    <desc>LATIN SMALL LETTER C with acute</desc></form></character>
+<character class="lexical">
+  <form string='&#231;' entityStd="ccedil" ucs-4="00E7" afiicode="F1AD">
+    <desc>LATIN SMALL LETTER C WITH CEDILLA</desc></form></character>
+<character class="lexical">
+  <form string='&#232;' entityStd="ccaron" ucs-4="010d" afiicode="F1ae">
+    <desc>LATIN SMALL LETTER C WITH caron</desc></form></character>
+<character class="lexical">
+  <form string='&#233;' entityStd="eacute" ucs-4="00E9" afiicode="F1B0">
+    <desc>LATIN SMALL LETTER E WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#234;' entityStd="eogon"  ucs-4="0119" afiicode="F166">
+    <desc>LATIN SMALL LETTER E WITH ogonek</desc></form></character>
+<character class="lexical">
+  <form string='&#235;' entityStd="euml"   ucs-4="00EB" afiicode="F1B5">
+    <desc>LATIN SMALL LETTER E WITH DIAERESIS</desc></form></character>
+<character class="lexical">
+  <form string='&#236;' entityStd="ecaron" ucs-4="011b" afiicode="F167">
+    <desc>LATIN SMALL LETTER E WITH caron</desc></form></character>
+<character class="lexical">
+  <form string='&#237;' entityStd="iacute" ucs-4="00ED" afiicode="F1BF">
+    <desc>LATIN SMALL LETTER I WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#238;' entityStd="icirc"  ucs-4="00EE" afiicode="F1C0">
+    <desc>LATIN SMALL LETTER I WITH CIRCUMFLEX</desc></form></character>
+<character class="lexical">
+  <form string='&#239;' entityStd="dcaron" ucs-4="010f" afiicode="F1f3">
+    <desc>LATIN SMALL LETTER D WITH caron</desc></form></character>
+<character class="lexical">
+  <form string='&#240;' entityStd="dstrok" ucs-4="0111" afiicode="00f2">
+    <desc>LATIN SMALL LETTER D with stroke</desc></form></character>
+<character class="lexical">
+  <form string='&#241;' entityStd="nacute" ucs-4="0144" afiicode="F1cb">
+    <desc>LATIN SMALL LETTER N WITH acute</desc></form></character>
+<character class="lexical">
+  <form string='&#242;' entityStd="ncaron" ucs-4="0148" afiicode="F1Ce">
+    <desc>LATIN SMALL LETTER N WITH caron</desc></form></character>
+<character class="lexical">
+  <form string='&#243;' entityStd="oacute" ucs-4="00F3" afiicode="F1D0">
+    <desc>LATIN SMALL LETTER O WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#244;' entityStd="ocirc"  ucs-4="00F4" afiicode="F1D1">
+    <desc>LATIN SMALL LETTER O WITH CIRCUMFLEX</desc></form></character>
+<character class="lexical">
+  <form string='&#245;' entityStd="odblac" ucs-4="0151" afiicode="F1d5">
+    <desc>LATIN SMALL LETTER O WITH double acute</desc></form></character>
+<character class="lexical">
+  <form string='&#246;' entityStd="ouml"   ucs-4="00F6" afiicode="F1D3">
+    <desc>LATIN SMALL LETTER O WITH DIAERESIS</desc></form></character>
+<character class="other">
+  <form string='&#247;' entityStd="divide" ucs-4="00F7" afiicode="00B8">
+    <desc>DIVISION SIGN</desc></form></character>
+<character class="lexical">
+  <form string='&#248;' entityStd="rcaron" ucs-4="0159" afiicode="f1d8">
+    <desc>LATIN SMALL LETTER R WITH caron</desc></form></character>
+<character class="lexical">
+  <form string='&#249;' entityStd="uring"  ucs-4="016f" afiicode="F1e6">
+    <desc>LATIN SMALL LETTER U WITH ring</desc></form></character>
+<character class="lexical">
+  <form string='&#250;' entityStd="uacute" ucs-4="00FA" afiicode="F1E0">
+    <desc>LATIN SMALL LETTER U WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#251;' entityStd="udblac" ucs-4="0171" afiicode="F1E7">
+    <desc>LATIN SMALL LETTER U WITH double acute</desc></form></character>
+<character class="lexical">
+  <form string='&#252;' entityStd="uuml"   ucs-4="00FC" afiicode="F1E5">
+    <desc>LATIN SMALL LETTER U WITH DIAERESIS</desc></form></character>
+<character class="lexical">
+  <form string='&#253;' entityStd="yacute" ucs-4="00FD" afiicode="F1EB">
+    <desc>LATIN SMALL LETTER Y WITH ACUTE</desc></form></character>
+<character class="lexical">
+  <form string='&#254;' entityStd="tcedil" ucs-4="0163" afiicode="f1dd">
+    <desc>LATIN SMALL LETTER T with cedilla</desc></form></character>
+<character class="dia">
+  <form string='&#255;' entityStd="dot"    ucs-4="02D9 0307" afiicode="">
+    <desc>dot above</desc></form></character>
+</exceptions>
+</characters>
+</writingSystemDeclaration>
