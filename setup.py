@@ -2,9 +2,13 @@
 
 import os
 try:
-    from setuptools import setup
+    from setuptools import setup, find_packages
+
 except ImportError:
-    from distutils.core import setup
+    from distutils.core import setup, find_packages
+
+
+_PACKAGES = find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"])
 
 version = '0.0.1'
 
@@ -15,7 +19,7 @@ with open(os.path.join(os.path.dirname(__file__), 'requirements.txt')) as f:
 setup(
     name='RedSparrow',
     version=version,
-    packages=['redsparrow'],
+    packages=_PACKAGES,
     description='',
     author='',
     maintainer='',
