@@ -1,3 +1,2 @@
-from .pdf2txt import pdf_to_text
-from .docx2txt import docx_to_text
+from .functions import pdf_to_text, doc_to_text, docx_to_text, odt_to_text
 from .sanitize import sanitizedString
