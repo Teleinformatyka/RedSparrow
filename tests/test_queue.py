@@ -87,32 +87,16 @@ class SubQueueTest(unittest.TestCase):
 
 
 class QueueMessageTest(unittest.TestCase):
-    def test_init(self):
+
+    def test_get_method(self):
+        msg = QueueMessage("""{"method": "test"}""")
+        self.assertEqual(msg.method, 'test')
+
+    def test_get_params(self):
+        msg = QueueMessage("""{"params": "test"}""")
+        self.assertEqual(msg.params, 'test')
+
+    def test_str(self):
         msg = QueueMessage()
-        msg.attach(QueueMessage.PID_INFO, 'Przesylam kilka prac')
-        msg.attach(QueueMessage.PID_REPLY)
-
-        paper1 = QueueMessage()
-        paper1.attach(QueueMessage.PID_PUSER, 'Magik')
-        paper1.attach(QueueMessage.PID_PAUTHOR, 'Damianek')
-
-        paper2 = QueueMessage()
-        paper2.attach(QueueMessage.PID_PUSER, 'Czarodziej')
-        paper2.attach(QueueMessage.PID_PAUTHOR, 'Mariuszek')
-
-        msg.encapsulate(paper1)
-        msg.encapsulate(paper2)
-        self.assertEqual(str(msg), "1000000020Przesylam kilka prac990000000013000000334100000005Magik4200000008Damianek13000000394100000010Czarodziej4200000009Mariuszek")
-
-    def test_get_header(self):
-        msg = QueueMessage()
-        msg.attach(QueueMessage.PID_INFO, 'Przesylam kilka prac')
-        res = msg.get_header()
-        self.assertEqual(res['type'], QueueMessage.PID_INFO)
-        self.assertEqual(res['length'], len('Przesylam kilka prac'))
-
-    def test_get_messager(self):
-        msg = QueueMessage()
-        msg.attach(QueueMessage.PID_INFO, 'Przesylam kilka prac')
-        res = msg.get_message()
-        self.assertEqual(res, 'Przesylam kilka prac')
+        msg.method = "str"
+        self.assertEqual(str(msg), """{"method": "str"}""")

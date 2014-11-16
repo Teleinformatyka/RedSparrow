@@ -7,3 +7,4 @@ database:
 
 pubqueue: 'tcp://127.0.0.1:5600'
 subqueue: 'tcp://127.0.0.1:4600'
+replyqueue: 'tcp://0.0.0.0:5555'

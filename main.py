@@ -21,7 +21,7 @@ from redsparrow.database.adisp import process, async
 
 from redsparrow.config import Config
 import redsparrow.api as RedSparrowApi
-from redsparrow.queue import PubQueue, SubQueue, QueueMessage
+from redsparrow.queue import  QueueMessage, ReplyQueue
 from redsparrow.database.adb import Database
 from redsparrow.model import Manager
 
@@ -44,9 +44,8 @@ class RedSparrow(tornado.web.Application):
 
         self.db_conn = db_conn
         self.logger = logging.getLogger('RedSparrow')
-        self.sub = SubQueue(config['subqueue'], self.on_data)
-        self.pub = PubQueue(config['pubqueue'])
         self.enitity = Manager(self.db_conn)
+        self.queue = ReplyQueue(config['replyqueue'], self.on_data)
         self.router = Router(self)
         self.router.add_method(GetText())
         tornado.web.Application.__init__(
@@ -56,8 +55,14 @@ class RedSparrow(tornado.web.Application):
         )
     @process
     def on_data(self, data):
-        req = QueueMessage().from_json(data[0].decode("UTF-8"))
-        yield self.router.find_method(req)
+        print(data)
+        req = QueueMessage(data[0].decode("UTF-8"))
+        method = self.router.find_method(req)
+        if method:
+            result = yield method(req.params)
+            self.queue.send_json(result)
+        else:
+            self.queue.send_json("""{"error": true}""")
 
 
 

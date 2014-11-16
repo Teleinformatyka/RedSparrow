@@ -2,10 +2,10 @@ strictness: veryhigh
 autodetect: yes
 doc-warnings: yes
 max-line-length: 120
-ignore-paths:
-    - config
-    - lecturer_database
-    - tests_int
+# ignore-paths:
+#     - config
+#     - lecturer_database
+#     - tests_int
 
 # ignore-patterns:
 #     - .*\.doc
