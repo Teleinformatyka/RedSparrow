@@ -2,7 +2,7 @@ import unittest
 
 from unittest.mock import MagicMock, patch, Mock
 from redsparrow.methods import GetText
-from redsparrow.queue import QueueMessage
+from redsparrow.queue import QueueReqMessage
 
 
 class GetTextTest(unittest.TestCase):
@@ -31,7 +31,7 @@ class GetTextTest(unittest.TestCase):
     def test_call_unknow_ext(self):
         """Test get text when no extension given"""
         method = GetText()
-        msg = QueueMessage()
+        msg = QueueReqMessage()
         msg.params = {}
         msg.params['file_path'] = '/tmp/test'
         method.application = self.mock_application
@@ -41,7 +41,7 @@ class GetTextTest(unittest.TestCase):
     def test_call_pdf(self):
         """Test get text when pdf given"""
         method = GetText()
-        msg = QueueMessage()
+        msg = QueueReqMessage()
         msg.params = {}
         msg.params['file_path'] = '/tmp/test.pdf'
         method.application = self.mock_application
@@ -53,7 +53,7 @@ class GetTextTest(unittest.TestCase):
     def test_call_docx(self):
         """Test get text when docx given"""
         method = GetText()
-        msg = QueueMessage()
+        msg = QueueReqMessage()
         msg.params = {}
         msg.params['file_path'] = '/tmp/test.docx'
         method.application = self.mock_application

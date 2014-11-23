@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch, Mock
 
-from redsparrow.queue import BaseQueue, PubQueue, SubQueue, QueueMessage
+from redsparrow.queue import BaseQueue, PubQueue, SubQueue, QueueReqMessage
 
 
 class BaseQueueTest(unittest.TestCase):
@@ -86,17 +86,25 @@ class SubQueueTest(unittest.TestCase):
         self.mock_zmqstream.on_recv.assert_called_with(callback)
 
 
-class QueueMessageTest(unittest.TestCase):
+class QueueReqMessageTest(unittest.TestCase):
 
     def test_get_method(self):
-        msg = QueueMessage("""{"method": "test"}""")
+        msg = QueueReqMessage(json_data="""{"method": "test"}""")
         self.assertEqual(msg.method, 'test')
 
     def test_get_params(self):
-        msg = QueueMessage("""{"params": "test"}""")
+        msg = QueueReqMessage(json_data="""{"params": "test"}""")
         self.assertEqual(msg.params, 'test')
 
-    def test_str(self):
-        msg = QueueMessage()
-        msg.method = "str"
-        self.assertEqual(str(msg), """{"method": "str"}""")
+    def test_unique_Id(self):
+        msg1 =  QueueReqMessage()
+        msg2 = QueueReqMessage()
+        self.assertTrue(msg1.id != msg2.id)
+
+    def test_unique_data3(self):
+        msg1 =  QueueReqMessage()
+        msg2 = QueueReqMessage()
+        msg1.params["ala"] = True
+        msg2.params['ala'] = False
+        self.assertEqual(False,  msg2.params['ala'])
+        self.assertEqual(True,  msg1.params['ala'])

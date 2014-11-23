@@ -13,10 +13,14 @@ class Router(object):
         logging.info('Adding {}'.format(method.name))
         self.__methods[method.name] = method
 
-    @process
+    # @process
     def find_method(self, message):
         try:
-            yield self.__methods[message.method](message)
+            method = self.__methods[message.method]
+            method.request = message
+            method.process(**message.params)
         except KeyError as err:
-            logging.error("Method {} not found! {}".format(message.method, err))
+            logging.error("Method {} not found!".format(message.method))
+            message.error = "Method not found"
+            self.__application.send_response(message)
 

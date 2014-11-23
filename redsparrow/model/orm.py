@@ -4,8 +4,6 @@ from datetime import date
 from redsparrow.config import Config
 
 db = Database()
-db.bind('mysql', user=Config['database']['user'], passwd=Config['database']['password'],
-        host=Config['database']['host'], db=Config['database']['database'])
 
 
 class Thesis(db.Entity):
@@ -48,9 +46,9 @@ class FieldOfStudy(db.Entity):
 class User(db.Entity):
     _table_ = "User"
     id = PrimaryKey(int, size=16, auto=True, column="ID")
-    login = Required(str, 30, column="Login")
-    password = Required(str, 56, column="Password")
-    email = Required(str, 120, column="E_mail")
+    login = Required(str, 30, column="Login", unique=True)
+    password = Required(str, 256, column="Password")
+    email = Required(str, 120, column="E_mail", unique=True)
     name = Required(str, 30, column="Name")
     surname = Required(str, 60, column="Surname")
     theses = Set(Thesis, column="Thesis_ID")
@@ -64,4 +62,3 @@ class Level(db.Entity):
     users = Set(User, column="User_ID")
 
 
-db.generate_mapping(check_tables=True, create_tables=True)

@@ -21,11 +21,13 @@ from redsparrow.database.adisp import process, async
 
 from redsparrow.config import Config
 import redsparrow.api as RedSparrowApi
-from redsparrow.queue import  QueueMessage, ReplyQueue
-from redsparrow.database.adb import Database
-from redsparrow.model import Manager
+from redsparrow.queue import  QueueReqMessage, ReplyQueue
 
-from redsparrow.methods import Router, GetText
+from redsparrow.model.orm import db
+
+
+
+from redsparrow.methods import Router, GetText, Register, Login
 
 
 config = Config()
@@ -44,27 +46,30 @@ class RedSparrow(tornado.web.Application):
 
         self.db_conn = db_conn
         self.logger = logging.getLogger('RedSparrow')
-        self.enitity = Manager(self.db_conn)
         self.queue = ReplyQueue(config['replyqueue'], self.on_data)
+
         self.router = Router(self)
         self.router.add_method(GetText())
+        self.router.add_method(Register())
+        self.router.add_method(Login())
         tornado.web.Application.__init__(
             self,
             routes,
             **settings
         )
-    @process
+    # @process
     def on_data(self, data):
-        print(data)
-        req = QueueMessage(data[0].decode("UTF-8"))
-        method = self.router.find_method(req)
-        if method:
-            result = yield method(req.params)
-            self.queue.send_json(result)
-        else:
-            self.queue.send_json("""{"error": true}""")
+        req = QueueReqMessage(json_data=data[0].decode("UTF-8"))
+        # try:
+        self.router.find_method(req)
+        # except Exception as err:
+        #     self.logger.error('Internal error {}'.format(err))
+        #     req.error = "Internal error"
+        #     self.response(req)
 
-
+    def send_response(self, data):
+        print(str(data))
+        self.queue.send_json(str(data))
 
 
 
@@ -82,8 +87,12 @@ if __name__ == '__main__':
         [(url, repr(rh)) for url, rh in routes],
         indent=2)
     )
-    db_conn = Database(driver="pymysql", database=config['database']['database'], user=config['database']['user'], password=config['database']['password'])
-    application = RedSparrow(routes=routes, settings={}, db_conn=db_conn)
+
+    db.bind('mysql', user=config['database']['user'], passwd=config['database']['password'],
+        host=config['database']['host'], db=config['database']['database'])
+
+    db.generate_mapping(check_tables=True, create_tables=True)
+    application = RedSparrow(routes=routes, settings={}, db_conn=db)
     application.listen(args.port)
 
     IOLoop.instance().start()

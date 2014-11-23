@@ -4,8 +4,8 @@ import tornado
 from redsparrow.extractor import pdf_to_text, docx_to_text
 from redsparrow.model import Document
 
+
 from .base import BaseMethod
-from redsparrow.queue import QueueMessage
 
 class GetText(BaseMethod):
 
@@ -26,8 +26,7 @@ class GetText(BaseMethod):
 
         def callback(rows):
             self.logger.info("iCallback  {}".format(rows))
-            response = QueueMessage(message.id, message.method, document.id)
-            self.application.pub.send_string(str(response))
+            self.success()
 
         text = text.decode("UTF-8")
         document = Document(text=text, file_path=file_path)
