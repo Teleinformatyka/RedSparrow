@@ -15,7 +15,7 @@ def calculate(text, pattern):
                 match = 0                       # mis-match
         if (match == 1):
             result = result + [i]
-	    i = i+len(pattern)            
+            i = i+len(pattern)
 
     return result
 
