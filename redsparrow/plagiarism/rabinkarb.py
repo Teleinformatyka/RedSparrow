@@ -1,5 +1,7 @@
+import time
 def calculate(text, pattern, d=253, q=13):
     """Rabin Karp implementation"""
+    start = time.time()
     if text == None or pattern == None:
         return -1
     if text == "" or pattern == "":
@@ -28,4 +30,5 @@ def calculate(text, pattern, d=253, q=13):
             t = (t-h*ord(text[s]))%q
             t = (t*d+ord(text[s+m]))%q
             t = (t+q)%q
+    print('RabbinKarb.calculate took %.2f' % (time.time() - start))
     return result
