@@ -14,6 +14,8 @@ class Register(BaseMethod):
 
     @db_session
     def _process(self, *args, **params):
+        if User.exists(email=params['email']):
+            return self.error('User with email %s already exists' % params['email'])
         user =  User(login=params['login'], password=hashlib.sha224(params['password'].encode('utf-8')).hexdigest(), email=params['email'], name=params['name'], surname=params['surname'])
         self._response.success = "User %s added to DB" % params['login']
         self.success()
