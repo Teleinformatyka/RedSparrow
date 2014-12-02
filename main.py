@@ -25,10 +25,11 @@ from redsparrow.queue import  QueueReqMessage, ReplyQueue
 
 from redsparrow.model.orm import db
 
-
+import redsparrow.methods as FrontZMQ
 
 from redsparrow.methods import Router, GetText, Register, Login
 
+from redsparrow.methods.router import get_routes as get_routes_zmq
 
 config = Config()
 config.load('./config/config.yml')
@@ -83,10 +84,12 @@ if __name__ == '__main__':
     logging.info('RedSparrow listen on %s' % args.port)
 
     routes = get_routes(RedSparrowApi)
-    logging.info("Routes\n======\n\n" + json.dumps(
-        [(url, repr(rh)) for url, rh in routes],
-        indent=2)
-    )
+    routes_zmq = get_routes_zmq(FrontZMQ)
+    print(routes)
+    # logging.info("Routes\n======\n\n" + json.dumps(
+    #     [(url, repr(rh)) for url, rh in routes],
+    #     indent=2)
+    # )
 
     db.bind('mysql', user=config['database']['user'], passwd=config['database']['password'],
         host=config['database']['host'], db=config['database']['database'])
