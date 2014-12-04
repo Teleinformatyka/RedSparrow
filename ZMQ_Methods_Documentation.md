@@ -120,7 +120,9 @@ Test doc
 
 **Notes**
 
-Register method
+Register methods
+
+params - dict
 
 :param login: user Login
 

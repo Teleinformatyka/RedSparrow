@@ -16,6 +16,8 @@ class Register(BaseMethod):
         """
             Register method
 
+            params - dict
+
             :param login: user Login
 
             :param email: user email
