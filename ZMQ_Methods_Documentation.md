@@ -28,11 +28,17 @@
 **Notes**
 
 Register method
+
 :param login: user Login
+
 :param email: user email
+
 :param password: hash of user password
+
 :param surname: user surname
-:prama name: user name
+
+:param name: user name
+
 :returns: If success returns all user data else return JSON-RPC error object
 
 
