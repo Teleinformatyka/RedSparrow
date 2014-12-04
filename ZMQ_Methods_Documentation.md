@@ -27,19 +27,7 @@
 
 **Notes**
 
-Register method
-
-:param login: user Login
-
-:param email: user email
-
-:param password: hash of user password
-
-:param surname: user surname
-
-:param name: user name
-
-:returns: If success returns all user data else return JSON-RPC error object
+None
 
 
 

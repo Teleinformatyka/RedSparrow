@@ -42,15 +42,11 @@ class BaseMethod(object):
         if message:
             self._response.error = message
         self.application.send_response(self._response)
-        self._response = None
+        # self._response = None
 
     def __call__(self, *args, **kwargs):
-        self._process(*args, **kwargs)
+        self.process(*args, **kwargs)
 
     def process(self, *args, **kwargs):
         self._response = QueueRepMessage(id=self._request.id)
-        self._process(*args, **kwargs)
-
-    def _process(self, *args, **kwargs):
-        raise NotImplementedError()
 

@@ -35,15 +35,17 @@ class Router(object):
     def find_method(self, message):
         try:
             class_obj, original_name = self.__methods_class[message.method]
+            class_obj.request = message
+
         except KeyError as err:
             logging.error("Method {} not found!".format(message.method))
-            message.error = "Method not found"
+            message.error = { 'code': -32601, 'message': "Method not found"}
             self.__application.send_response(message)
             return
+
         try:
             getattr(class_obj, original_name)(**message.params)
         except TypeError:
-            print('------------------------ %s' % getattr(class_obj, original_name))
             getattr(class_obj, original_name)(message.params)
 
 
@@ -111,9 +113,9 @@ def get_module_routes(module_name, custom_routes=None, exclusions=None):
             methods_keys =  class_pycblr.methods.keys()
 
             # auto_routes[class_name.lower()] = [ {class_name.lower(): yield_args(module, class_name, '_process')}]
-            auto_routes.append({'name': class_name.lower(), 'class': class_obj, 'args': yield_args(module, class_name, '_process'), 'original_name': '_process'})
+            auto_routes.append({'name': class_name.lower(), 'class': class_obj, 'args': yield_args(module, class_name, 'process'), 'original_name': 'process'})
             for method_name in methods_keys:
-                if not method_name.startswith('_'):
+                if not method_name.startswith('_') and method_name not in ['process']:
                     # auto_routes[class_name.lower()].append( { method.lower(): yield_args(module, class_name, method)})
                     auto_routes.append({ 'name': '-'.join((class_name.lower(), method_name)), 'class': class_obj, 'args': yield_args(module, class_name, method_name), 'original_name': method_name})
 

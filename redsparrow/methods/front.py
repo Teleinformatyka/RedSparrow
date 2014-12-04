@@ -12,7 +12,8 @@ class Register(BaseMethod):
         super(Register, self).__init__('register')
 
     @db_session
-    def _process(self, *args, **params):
+    def process(self, *args, **params):
+        super(Register, self).process()
         """
             Register method
 
@@ -30,10 +31,9 @@ class Register(BaseMethod):
         """
         user =  User.select(lambda u: u.login == params['login'] and u.email == params['email'])[:]
         if len(user) > 0:
-            return self.error('User with email %s already exists' % params['email'])
+            return self.error({'code': 32602, 'message': 'User with email %s already exists' % params['email']})
         user =  User(login=params['login'], password=params['password'], email=params['email'], name=params['name'], surname=params['surname'])
-        self._response.success = "User %s added to DB" % params['login']
-        self.success()
+        self.success("User %s added to DB" % params['login'])
 
 
 
@@ -44,7 +44,8 @@ class Login(BaseMethod):
 
 
     @db_session
-    def _process(self, login, password):
+    def process(self, login, password):
+        super(Login, self).process()
         user =  User.select(lambda u: u.login == login and u.password == password)[:]
         if len(user) > 0:
             self._response.result = user[0].to_dict(with_collections=True, related_objects=True)
