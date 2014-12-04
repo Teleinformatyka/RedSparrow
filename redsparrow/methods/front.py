@@ -13,7 +13,6 @@ class Register(BaseMethod):
 
     @db_session
     def process(self, *args, **params):
-        super(Register, self).process()
         """
             Register method
 
@@ -29,6 +28,7 @@ class Register(BaseMethod):
 
             :returns: If success returns all user data else return JSON-RPC error object
         """
+        super(Register, self).process()
         user =  User.select(lambda u: u.login == params['login'] and u.email == params['email'])[:]
         if len(user) > 0:
             return self.error({'code': 32602, 'message': 'User with email %s already exists' % params['email']})
@@ -54,5 +54,6 @@ class Login(BaseMethod):
         self.error('User not found')
 
     def test_method(self):
+        """ Test doc"""
 
         pass

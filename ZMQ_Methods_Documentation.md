@@ -1,7 +1,7 @@
 **This documentation is automatically generated.**
 
 
-# register
+# gettext
     JSON-RPC
 
 **Args**
@@ -10,7 +10,7 @@
 
  * args
 
- * params
+ * kwargs
             
 
 
@@ -87,14 +87,14 @@ None
 
 **Notes**
 
-None
+Test doc
 
 
 
 <br>
 <br>
 
-# gettext
+# register
     JSON-RPC
 
 **Args**
@@ -103,7 +103,7 @@ None
 
  * args
 
- * kwargs
+ * params
             
 
 
@@ -120,6 +120,18 @@ None
 
 **Notes**
 
-None
+Register method
+
+:param login: user Login
+
+:param email: user email
+
+:param password: hash of user password
+
+:param surname: user surname
+
+:param name: user name
+
+:returns: If success returns all user data else return JSON-RPC error object
 
 

@@ -58,7 +58,7 @@ def methods_doc_gen(methods):
     """
     documentation = []
     # Iterate over routes sorted by url
-    for method_dict in methods:
+    for method_dict in sorted(methods, key=lambda a: a['name']):
         method = getattr(method_dict['class'], method_dict['original_name'])
         route_doc = """
 # {0}
