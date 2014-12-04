@@ -17,34 +17,36 @@ class Router(object):
 
     def __init__(self, application):
         self.__application = application
-        self.__methods = {}
+        self.__methods_class = {}
 
     def add_method(self, method):
         self.__add_method(method.name, method)
 
-    def __add_method(self, name, method):
+    def __add_method(self, name, method, original_name='process'):
         method.application = self.__application
         logging.info('Adding {}'.format(name))
-        self.__methods[name] = method
+        self.__methods_class[name] = (method, original_name)
 
     def add_methods(self, methods):
         for method in methods:
-            self.__add_method(method['name'], method['class']())
+            self.__add_method(method['name'], method['class'](), method['original_name'])
 
     # @process
     def find_method(self, message):
-        method_name = message.method
         try:
-            method = self.__methods[message.method]
-            if '-' in message.method:
-                method_name = message.method.split('-')[1]
-                getattr(method, method_name)(**message.params)
-            else:
-                method.process(**message.params)
+            class_obj, original_name = self.__methods_class[message.method]
         except KeyError as err:
             logging.error("Method {} not found!".format(message.method))
             message.error = "Method not found"
             self.__application.send_response(message)
+            return
+        try:
+            getattr(class_obj, original_name)(**message.params)
+        except TypeError:
+            print('------------------------ %s' % getattr(class_obj, original_name))
+            getattr(class_obj, original_name)(message.params)
+
+
 
 
 
