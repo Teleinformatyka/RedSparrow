@@ -14,6 +14,15 @@ class Register(BaseMethod):
 
     @db_session
     def _process(self, *args, **params):
+        """
+            Register method
+            :param login: user Login
+            :param email: user email
+            :param password: hash of user password
+            :param surname: user surname
+            :prama name: user name
+            :returns: If success returns all user data else return JSON-RPC error object
+        """
         user =  User.select(lambda u: u.login == params['login'] and u.email == params['email'])[:]
         if len(user) > 0:
             return self.error('User with email %s already exists' % params['email'])

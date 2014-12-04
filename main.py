@@ -26,6 +26,7 @@ from redsparrow.queue import  QueueReqMessage, ReplyQueue
 from redsparrow.model.orm import db
 
 import redsparrow.methods as ZMQMethods
+from redsparrow.methods.methods_doc_gen import methods_doc_gen
 
 from redsparrow.methods import Router, GetText, Register, Login
 
@@ -83,11 +84,15 @@ if __name__ == '__main__':
 
     routes = get_routes(RedSparrowApi)
     zmq_methods = get_methods_zmq(ZMQMethods)
-    print(zmq_methods)
-    # logging.info("Routes\n======\n\n" + json.dumps(
-    #     [(url, repr(rh)) for url, rh in routes],
-    #     indent=2)
-    # )
+    methods_doc_gen(zmq_methods)
+    logging.info("ZMQ Methods\n======\n\n" + json.dumps(
+        [(zmq_m['name'], repr(zmq_m['class'])) for zmq_m in zmq_methods],
+        indent=2)
+    )
+    logging.info("Routes\n======\n\n" + json.dumps(
+        [(url, repr(rh)) for url, rh in routes],
+        indent=2)
+    )
 
     db.bind('mysql', user=config['database']['user'], passwd=config['database']['password'],
         host=config['database']['host'], db=config['database']['database'])

@@ -29,7 +29,7 @@ class Router(object):
 
     def add_methods(self, methods):
         for method in methods:
-            self.__add_method(method[0], method[1]())
+            self.__add_method(method['name'], method['class']())
 
     # @process
     def find_method(self, message):
@@ -93,9 +93,7 @@ def get_module_routes(module_name, custom_routes=None, exclusions=None):
         """
         wrapped_method = reduce(getattr, [module, cls_name, method_name])
         method = extract_method(wrapped_method)
-        return [a for a in inspect.getargspec(method).args if a not in ["self"]]
-
-        exclusions = []
+        return [a for a in inspect.signature(method).parameters if a not in ["self"]]
 
     # Import module so we can get its request handlers
     module = importlib.import_module(module_name)
@@ -111,10 +109,10 @@ def get_module_routes(module_name, custom_routes=None, exclusions=None):
             methods_keys =  class_pycblr.methods.keys()
 
             # auto_routes[class_name.lower()] = [ {class_name.lower(): yield_args(module, class_name, '_process')}]
-            auto_routes.append((class_name.lower(), class_obj))
-            for method in methods_keys:
-                if not method.startswith('_'):
+            auto_routes.append({'name': class_name.lower(), 'class': class_obj, 'args': yield_args(module, class_name, '_process'), 'original_name': '_process'})
+            for method_name in methods_keys:
+                if not method_name.startswith('_'):
                     # auto_routes[class_name.lower()].append( { method.lower(): yield_args(module, class_name, method)})
-                    auto_routes.append(('-'.join((class_name.lower(), method)), class_obj))
+                    auto_routes.append({ 'name': '-'.join((class_name.lower(), method_name)), 'class': class_obj, 'args': yield_args(module, class_name, method_name), 'original_name': method_name})
 
     return auto_routes
