@@ -38,4 +38,6 @@ class Login(BaseMethod):
             return
         self.error('User not found')
 
+    def test_method(self):
 
+        pass

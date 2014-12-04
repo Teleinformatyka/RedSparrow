@@ -25,11 +25,11 @@ from redsparrow.queue import  QueueReqMessage, ReplyQueue
 
 from redsparrow.model.orm import db
 
-import redsparrow.methods as FrontZMQ
+import redsparrow.methods as ZMQMethods
 
 from redsparrow.methods import Router, GetText, Register, Login
 
-from redsparrow.methods.router import get_routes as get_routes_zmq
+from redsparrow.methods.router import get_methods as get_methods_zmq
 
 config = Config()
 config.load('./config/config.yml')
@@ -38,7 +38,7 @@ config.load('./config/config.yml')
 class RedSparrow(tornado.web.Application):
 
 
-    def __init__(self, routes, settings, db_conn=None):
+    def __init__(self, routes, zmq_methods, settings, db_conn=None):
         # Generate API Documentation
 
         # Unless gzip was specifically set to False in settings, enable it
@@ -50,9 +50,7 @@ class RedSparrow(tornado.web.Application):
         self.queue = ReplyQueue(config['replyqueue'], self.on_data)
 
         self.router = Router(self)
-        self.router.add_method(GetText())
-        self.router.add_method(Register())
-        self.router.add_method(Login())
+        self.router.add_methods(zmq_methods)
         tornado.web.Application.__init__(
             self,
             routes,
@@ -84,8 +82,8 @@ if __name__ == '__main__':
     logging.info('RedSparrow listen on %s' % args.port)
 
     routes = get_routes(RedSparrowApi)
-    routes_zmq = get_routes_zmq(FrontZMQ)
-    print(routes)
+    zmq_methods = get_methods_zmq(ZMQMethods)
+    print(zmq_methods)
     # logging.info("Routes\n======\n\n" + json.dumps(
     #     [(url, repr(rh)) for url, rh in routes],
     #     indent=2)
@@ -95,7 +93,7 @@ if __name__ == '__main__':
         host=config['database']['host'], db=config['database']['database'])
 
     db.generate_mapping(check_tables=True, create_tables=True)
-    application = RedSparrow(routes=routes, settings={}, db_conn=db)
+    application = RedSparrow(routes=routes, zmq_methods=zmq_methods, settings={}, db_conn=db)
     application.listen(args.port)
 
     IOLoop.instance().start()
