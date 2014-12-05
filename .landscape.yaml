@@ -1,2 +1,8 @@
 strictness: veryhigh
 max-line-length: 120
+ignore-paths:
+    - lecture_databases
+    - nltk_data
+    - test_int
+    - config
+
