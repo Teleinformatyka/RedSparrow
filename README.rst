@@ -5,9 +5,7 @@
 RedSparrow
 ==========
 
-| |Gitter|
-| |Build Status| |Coverage Status|
-| |Code Health|
+| |Gitter| |Build Status| |Coverage Status|  |Code Health|
 
 Plagiarism checker.
 
