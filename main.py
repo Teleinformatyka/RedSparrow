@@ -11,6 +11,8 @@ import argparse
 import logging
 import os
 import json
+import sys, traceback
+
 
 import tornado.web
 from tornado.ioloop import IOLoop
@@ -19,7 +21,7 @@ from tornado_json.routes import get_routes
 
 from redsparrow.config import Config
 import redsparrow.api as RedSparrowApi
-from redsparrow.queue import  QueueReqMessage, ReplyQueue
+from redsparrow.queue import  QueueReqMessage, ReplyQueue, QueueRepMessage
 from redsparrow.orm import db
 import redsparrow.methods as ZMQMethods
 from redsparrow.methods.methods_doc_gen import methods_doc_gen
@@ -53,12 +55,16 @@ class RedSparrow(tornado.web.Application):
     # @process
     def on_data(self, data):
         req = QueueReqMessage(json_data=data[0].decode("UTF-8"))
-        # try:
-        self.router.find_method(req)
-        # except Exception as err:
-        #     self.logger.error('Internal error {}'.format(err))
-        #     req.error = "Internal error"
-        #     self.response(req)
+        try:
+            self.router.find_method(req)
+        except Exception as err:
+            self.logger.error('Internal error {}, request {}'.format(err, req))
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            traceback.print_exception(exc_type, exc_value, exc_traceback,
+                                                  limit=2, file=sys.stderr)
+            response = QueueRepMessage(id=req.id)
+            response.error = {"code": -32603, "message": "Internal error %s" % err}
+            self.send_response(response)
 
     def send_response(self, data):
         self.queue.send_json(str(data))
