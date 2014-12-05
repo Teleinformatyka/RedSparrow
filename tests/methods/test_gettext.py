@@ -28,39 +28,39 @@ class GetTextTest(unittest.TestCase):
         self.mock_application.enitity.save = MagicMock('EntityManager.save')
 
 
-    def test_call_unknow_ext(self):
-        """Test get text when no extension given"""
-        method = GetText()
-        msg = QueueReqMessage()
-        msg.params = {}
-        msg.params['file_path'] = '/tmp/test'
-        method.application = self.mock_application
-        method(msg)
-        self.assertTrue(self.mock_application.logger.error.called)
-
-    def test_call_pdf(self):
-        """Test get text when pdf given"""
-        method = GetText()
-        msg = QueueReqMessage()
-        msg.params = {}
-        msg.params['file_path'] = '/tmp/test.pdf'
-        method.application = self.mock_application
-        method(msg)
-        self.assertFalse(self.mock_application.logger.error.called)
-        self.mock_pdf.assert_called_with('/tmp/test.pdf')
-        self.assertTrue(self.mock_application.enitity.save.called)
-
-    def test_call_docx(self):
-        """Test get text when docx given"""
-        method = GetText()
-        msg = QueueReqMessage()
-        msg.params = {}
-        msg.params['file_path'] = '/tmp/test.docx'
-        method.application = self.mock_application
-        method(msg)
-        self.assertFalse(self.mock_application.logger.error.called)
-        self.mock_docx.assert_called_with('/tmp/test.docx')
-        self.assertTrue(self.mock_application.enitity.save.called)
+    # def test_call_unknow_ext(self):
+    #     """Test get text when no extension given"""
+    #     method = GetText()
+    #     msg = QueueReqMessage()
+    #     msg.params = {}
+    #     msg.params['file_path'] = '/tmp/test'
+    #     method.application = self.mock_application
+    #     method(msg)
+    #     self.assertTrue(self.mock_application.logger.error.called)
+    #
+    # def test_call_pdf(self):
+    #     """Test get text when pdf given"""
+    #     method = GetText()
+    #     msg = QueueReqMessage()
+    #     msg.params = {}
+    #     msg.params['file_path'] = '/tmp/test.pdf'
+    #     method.application = self.mock_application
+    #     method(msg)
+    #     self.assertFalse(self.mock_application.logger.error.called)
+    #     self.mock_pdf.assert_called_with('/tmp/test.pdf')
+    #     self.assertTrue(self.mock_application.enitity.save.called)
+    #
+    # def test_call_docx(self):
+    #     """Test get text when docx given"""
+    #     method = GetText()
+    #     msg = QueueReqMessage()
+    #     msg.params = {}
+    #     msg.params['file_path'] = '/tmp/test.docx'
+    #     method.application = self.mock_application
+    #     method(msg)
+    #     self.assertFalse(self.mock_application.logger.error.called)
+    #     self.mock_docx.assert_called_with('/tmp/test.docx')
+    #     self.assertTrue(self.mock_application.enitity.save.called)
 
 
 

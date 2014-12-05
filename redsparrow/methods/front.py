@@ -6,6 +6,9 @@ from pony.orm import db_session
 from redsparrow.model import User
 from .base import BaseMethod
 
+print(db_session)
+print(User)
+
 class Register(BaseMethod):
 
     def __init__(self):
@@ -31,10 +34,10 @@ class Register(BaseMethod):
             :returns: If success returns all user data else return JSON-RPC error object
         """
         super(Register, self).process()
-        user =  User.select(lambda u: u.login == login and u.email == email)[:]
+        user = User.select(lambda u: u.login == login and u.email == email)[:]
         if len(user) > 0:
             return self.error(code=-32602, message='User with email %s already exists' % email)
-        user =  User(login=login, password=password, email=email, name=name, surname=surname)
+        user = User(login=login, password=password, email=email, name=name, surname=surname)
         self.success("User %s added to DB" % login)
 
 
@@ -57,8 +60,7 @@ class Login(BaseMethod):
         super(Login, self).process()
         user = User.select(lambda u: u.login == login and u.password == password)[:]
         if len(user) > 0:
-            self._response.result = user[0].to_dict(with_collections=True, related_objects=True)
-            self.success()
+            self.success(user[0].to_dict(with_collections=True, related_objects=True))
             return
         self.error(message='User not found')
 
