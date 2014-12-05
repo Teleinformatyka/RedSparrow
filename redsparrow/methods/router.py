@@ -33,6 +33,9 @@ class Router(object):
 
     # @process
     def find_method(self, message):
+        """
+        Find and run method by message.name
+        """
         try:
             class_obj, original_name = self.__methods_class[message.method]
             class_obj.request = message
@@ -44,6 +47,7 @@ class Router(object):
             return
 
         try:
+            logging.info('Calling {}'.format(message.method))
             getattr(class_obj, original_name)(**message.params)
         except TypeError:
             getattr(class_obj, original_name)(message.params)

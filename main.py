@@ -68,7 +68,6 @@ class RedSparrow(tornado.web.Application):
         #     self.response(req)
 
     def send_response(self, data):
-        print(str(data))
         self.queue.send_json(str(data))
 
 
@@ -77,7 +76,7 @@ class RedSparrow(tornado.web.Application):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="RedSparrow  - Command Line Interface")
-    parser.add_argument("--port", action="store", help="listen port ", default=8000)
+    parser.add_argument("--port", action="store", help="listen port", default=8000)
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO)
     logging.info('RedSparrow listen on %s' % args.port)

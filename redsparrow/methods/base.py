@@ -1,7 +1,10 @@
 from redsparrow.queue import QueueRepMessage
 
 class BaseMethod(object):
-    application = None
+    """
+        Base method class
+        it helps to make rpc interface
+    """
     def __init__(self, name):
         self._name = name
         self.__application = None
@@ -38,9 +41,9 @@ class BaseMethod(object):
         self.application.send_response(self._response)
         self._response = None
 
-    def error(self, message=None):
+    def error(self, code=-32602, message=None):
         if message:
-            self._response.error = message
+            self._response.error = { 'code': code, 'message': message}
         self.application.send_response(self._response)
         # self._response = None
 
@@ -48,5 +51,6 @@ class BaseMethod(object):
         self.process(*args, **kwargs)
 
     def process(self, *args, **kwargs):
+        """ Method called when JSON-RPC for __name"""
         self._response = QueueRepMessage(id=self._request.id)
 

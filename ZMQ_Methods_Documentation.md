@@ -27,7 +27,7 @@
 
 **Notes**
 
-None
+Method called when JSON-RPC for __name
 
 
 
@@ -60,7 +60,11 @@ None
 
 **Notes**
 
-None
+Login method
+
+:param login: user Login
+
+:param password: hash of password
 
 
 
@@ -101,9 +105,15 @@ Test doc
 
 *
 
- * args
+ * login
 
- * params
+ * password
+
+ * email
+
+ * name
+
+ * surname
             
 
 
@@ -120,7 +130,7 @@ Test doc
 
 **Notes**
 
-Register methods
+Register method
 
 params - dict
 
