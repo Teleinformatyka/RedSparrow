@@ -3,11 +3,9 @@ import tornado
 
 from pony.orm import db_session
 
-from redsparrow.model import User
+from redsparrow.orm import User
 from .base import BaseMethod
 
-print(db_session)
-print(User)
 
 class Register(BaseMethod):
 

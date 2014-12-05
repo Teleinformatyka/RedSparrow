@@ -15,22 +15,15 @@ import json
 import tornado.web
 from tornado.ioloop import IOLoop
 from tornado_json.routes import get_routes
-from tornado_json.application import Application
 
-from redsparrow.database.adisp import process, async
 
 from redsparrow.config import Config
 import redsparrow.api as RedSparrowApi
 from redsparrow.queue import  QueueReqMessage, ReplyQueue
-
-from redsparrow.model.orm import db
-
+from redsparrow.orm import db
 import redsparrow.methods as ZMQMethods
 from redsparrow.methods.methods_doc_gen import methods_doc_gen
-
-from redsparrow.methods import Router, GetText, Register, Login
-
-from redsparrow.methods.router import get_methods as get_methods_zmq
+from redsparrow.methods.router import get_methods as get_methods_zmq, Router
 
 config = Config()
 config.load('./config/config.yml')

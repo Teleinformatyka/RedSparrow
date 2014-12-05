@@ -8,7 +8,6 @@ import inspect
 from itertools import chain
 from functools import reduce
 
-from redsparrow.database.adisp import process, async
 
 from tornado_json.utils import extract_method
 
