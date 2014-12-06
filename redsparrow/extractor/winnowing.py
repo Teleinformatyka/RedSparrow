@@ -103,62 +103,16 @@ def winnow(text, k=5):
 
     hashes = [winnowing_hash(x) for x in kgrams(text, k)]
     windows = list(kgrams(hashes, 4))
-    return set(map(select_min, windows))
 
-def hash_text(text, k=5):
-    n = len(text)
-
-    text = zip(range(n), text)
-    text = sanitize(text)
-
-    hashes = [winnowing_hash(x) for x in kgrams(text, k=5)]
-    
-    return list(hashes)
-
-# Specified a hash function. You may override this.
-
-# class DefaultTestCase(unittest.TestCase):
-#     def test_fingerprinting(self):
-#         actual = winnow('A do run run run, a do run run')
-#         expected = set([(5, 23942), (14, 2887), (2, 1966), (9, 23942), (20, 1966)])
-#         self.assertEqual(actual, expected)
-
-#     def test_custom_hash(self):
-#         def hash_md5(text):
-#             import hashlib
-
-#             hs = hashlib.md5(text.encode('utf-8'))
-#             hs = hs.hexdigest()
-#             hs = int(hs, 16)
-
-#             return hs
-
-#         import winnowing
-
-#         # Override the hash function
-#         winnowing.hash_function = hash_md5
-
-#         actual = winnowing.winnow('The cake was a lie')
-#         expected = set([(9, 65919358278261454015134408903900174701),  (6, 10871086811686999948319704115083909333),   (5, 89272493548844644660374857453353035753),    (2, 119020521100057720362335995528842780418)])
-
-#         self.assertEqual(actual, expected)
-
-#         # Restore the hash function
-#         winnowing.hash_function = winnowing.default_hash
-
-# if __name__ == "__main__":
-#     unittest.main()
+    return (hashes, set(map(select_min, windows)))
+    #return set(map(select_min, windows))
 
 # przykladowy = "intuition behind choosing the minimum hash is"
 
-# przykladowy_winnow = przykladowy
-# win = winnow(przykladowy_winnow)
+# hashes, win = winnow(przykladowy)
 
 # print("\nWYNIK WINNOWINGU: \n")
 # print(list(win))
 
-# lista_text = hash_text(przykladowy)
-# print("\nHashe tekstu: \n")
-# print(lista_text)
-
-
+# print("\nWYNIK HASH: \n")
+# print(hashes)
