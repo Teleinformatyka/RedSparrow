@@ -2,6 +2,9 @@
 
 |Throughput Graph|
 
+|Logo|
+
+
 RedSparrow
 ==========
 
@@ -23,3 +26,5 @@ Project implemented by students of Cracow University of Technology.
    :target: https://coveralls.io/r/Teleinformatyka/RedSparrow
 .. |Code Health| image:: https://landscape.io/github/Teleinformatyka/RedSparrow/master/landscape.svg
    :target: https://landscape.io/github/Teleinformatyka/RedSparrow/master
+.. |Logo| image:: https://raw.githubusercontent.com/Teleinformatyka/RedSparrowFront/master/ui/images/logo.png
+
