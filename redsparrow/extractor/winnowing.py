@@ -1,15 +1,16 @@
 import string
+import hashlib
 # sanitize
 
-sanitizedChars = "\n\r\t\ \f!()-[]{};:'\"\,<>./?@#$%^&*_~"
+# sanitizedChars = "\n\r\t\ \f!()-[]{};:'\"\,<>./?@#$%^&*_~"
 
-def sanitize(removedChars):
+# def sanitize(removedChars):
 
-    def remove(s):
-        return ''.join(ch.lower() for ch in s if not ch in removedChars)
-    return remove
+#     def remove(s):
+#         return ''.join(ch.lower() for ch in s if not ch in removedChars)
+#     return remove
 
-sanitizedString = sanitize(sanitizedChars)
+# sanitizedString = sanitize(sanitizedChars)
 
 #-> usage
 # test = "read this asdasdas,.,as;short text somethingr                 ead\"\"\"\::thisas\n././././,..,.,.'';';';';';'.,.,.,;l;';'1!!dasdasasshorttext'"
@@ -19,6 +20,7 @@ sanitizedString = sanitize(sanitizedChars)
 
 # downcasing
 
+# Winnowing by suminb => https://github.com/suminb/winnowing
 import unittest
 
 def sanitize(text):
@@ -50,7 +52,7 @@ def kgrams(text, k=5):
             yield list(text)[i:i+k]
 
 def default_hash(text):
-    import hashlib
+ 
     hs = hashlib.sha1(text.encode('utf-8'))
     hs = hs.hexdigest()[-4:]
     hs = int(hs, 16)
@@ -58,7 +60,6 @@ def default_hash(text):
     return hs
 
 hash_function = default_hash
-
 
 def winnowing_hash(kgram):
     """
@@ -73,7 +74,13 @@ def winnowing_hash(kgram):
     # FIXME: What should we do when kgram is shorter than k?
     return (kgram[0][0] if len_kgram > 1 else -1, hs)
 
+# def hash_text(kgram):
+# 	kgram = list(zip(*kgram))
+# 	len_kgram = len(kgram[1])
+# 	text = ''.join(kgram[1]) if len_kgram > 1 else ''
+# 	hs = hash_function(text)
 
+# 	return hs
 
 def select_min(window):
     """In each window select the minimum hash value. If there is more than one
@@ -98,37 +105,60 @@ def winnow(text, k=5):
     windows = list(kgrams(hashes, 4))
     return set(map(select_min, windows))
 
+def hash_text(text, k=5):
+    n = len(text)
+
+    text = zip(range(n), text)
+    text = sanitize(text)
+
+    hashes = [winnowing_hash(x) for x in kgrams(text, k=5)]
+    
+    return list(hashes)
 
 # Specified a hash function. You may override this.
 
-class DefaultTestCase(unittest.TestCase):
-    def test_fingerprinting(self):
-        actual = winnow('A do run run run, a do run run')
-        expected = set([(5, 23942), (14, 2887), (2, 1966), (9, 23942), (20, 1966)])
-        self.assertEqual(actual, expected)
+# class DefaultTestCase(unittest.TestCase):
+#     def test_fingerprinting(self):
+#         actual = winnow('A do run run run, a do run run')
+#         expected = set([(5, 23942), (14, 2887), (2, 1966), (9, 23942), (20, 1966)])
+#         self.assertEqual(actual, expected)
 
-    def test_custom_hash(self):
-        def hash_md5(text):
-            import hashlib
+#     def test_custom_hash(self):
+#         def hash_md5(text):
+#             import hashlib
 
-            hs = hashlib.md5(text.encode('utf-8'))
-            hs = hs.hexdigest()
-            hs = int(hs, 16)
+#             hs = hashlib.md5(text.encode('utf-8'))
+#             hs = hs.hexdigest()
+#             hs = int(hs, 16)
 
-            return hs
+#             return hs
 
-        import winnowing
+#         import winnowing
 
-        # Override the hash function
-        winnowing.hash_function = hash_md5
+#         # Override the hash function
+#         winnowing.hash_function = hash_md5
 
-        actual = winnowing.winnow('The cake was a lie')
-        expected = set([(9, 65919358278261454015134408903900174701),  (6, 10871086811686999948319704115083909333),   (5, 89272493548844644660374857453353035753),    (2, 119020521100057720362335995528842780418)])
+#         actual = winnowing.winnow('The cake was a lie')
+#         expected = set([(9, 65919358278261454015134408903900174701),  (6, 10871086811686999948319704115083909333),   (5, 89272493548844644660374857453353035753),    (2, 119020521100057720362335995528842780418)])
 
-        self.assertEqual(actual, expected)
+#         self.assertEqual(actual, expected)
 
-        # Restore the hash function
-        winnowing.hash_function = winnowing.default_hash
+#         # Restore the hash function
+#         winnowing.hash_function = winnowing.default_hash
 
-if __name__ == "__main__":
-    unittest.main()
+# if __name__ == "__main__":
+#     unittest.main()
+
+# przykladowy = "intuition behind choosing the minimum hash is"
+
+# przykladowy_winnow = przykladowy
+# win = winnow(przykladowy_winnow)
+
+# print("\nWYNIK WINNOWINGU: \n")
+# print(list(win))
+
+# lista_text = hash_text(przykladowy)
+# print("\nHashe tekstu: \n")
+# print(lista_text)
+
+
