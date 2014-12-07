@@ -52,7 +52,7 @@ def kgrams(text, k=5):
             yield list(text)[i:i+k]
 
 def default_hash(text):
- 
+
     hs = hashlib.sha1(text.encode('utf-8'))
     hs = hs.hexdigest()[-4:]
     hs = int(hs, 16)
@@ -74,14 +74,6 @@ def winnowing_hash(kgram):
     # FIXME: What should we do when kgram is shorter than k?
     return (kgram[0][0] if len_kgram > 1 else -1, hs)
 
-# def hash_text(kgram):
-# 	kgram = list(zip(*kgram))
-# 	len_kgram = len(kgram[1])
-# 	text = ''.join(kgram[1]) if len_kgram > 1 else ''
-# 	hs = hash_function(text)
-
-# 	return hs
-
 def select_min(window):
     """In each window select the minimum hash value. If there is more than one
     hash with the minimum value, select the rightmost occurrence. Now save all
@@ -89,10 +81,21 @@ def select_min(window):
     :param window: A list of (index, hash) tuples.
     """
 
-    #print window, min(window, key=lambda x: x[1])
 
     return min(window, key=lambda x: x[1])
 
+
+def winnow_all(text, k=5):
+    n = len(text)
+
+    text = zip(range(n), text)
+    text = sanitize(text)
+
+
+    hashes = [winnowing_hash(x) for x in kgrams(text, k)]
+    windows = list(kgrams(hashes, 4))
+
+    return hashes, set(map(select_min, windows))
 
 def winnow(text, k=5):
     n = len(text)
@@ -104,15 +107,6 @@ def winnow(text, k=5):
     hashes = [winnowing_hash(x) for x in kgrams(text, k)]
     windows = list(kgrams(hashes, 4))
 
-    return (hashes, set(map(select_min, windows)))
-    #return set(map(select_min, windows))
+    return set(map(select_min, windows))
 
-# przykladowy = "intuition behind choosing the minimum hash is"
 
-# hashes, win = winnow(przykladowy)
-
-# print("\nWYNIK WINNOWINGU: \n")
-# print(list(win))
-
-# print("\nWYNIK HASH: \n")
-# print(hashes)
