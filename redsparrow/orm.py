@@ -56,7 +56,7 @@ class User(db.Entity):
     _table_ = "User"
     id = PrimaryKey(int, size=16, auto=True)
     login = Required(str, 30, unique=True)
-    password = Required(str, 56)
+    password = Required(str, 32)
     email = Required(str, 120, unique=True)
     name = Required(str, 30)
     surname = Required(str, 60)
