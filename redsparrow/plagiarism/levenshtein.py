@@ -1,5 +1,7 @@
 """ Module for calculate lavenshtein_distance"""
 import Levenshtein
+import time
+
 
 def distance(string1, string2):
     """
@@ -7,4 +9,7 @@ def distance(string1, string2):
     :param string1 first string2
     :param string2 second string
     """
-    return Levenshtein.distance(string1, string2)
+    start = time.time()
+    ret =  Levenshtein.distance(string1, string2)
+    print('Levenshtein.distance took %.2f' % (time.time() - start))
+    return ret

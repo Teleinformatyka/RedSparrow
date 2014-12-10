@@ -2,10 +2,9 @@ import os
 import tornado
 
 from redsparrow.extractor import pdf_to_text, docx_to_text
-from redsparrow.model import Document
+
 
 from .base import BaseMethod
-from redsparrow.queue import QueueMessage
 
 class GetText(BaseMethod):
 
@@ -24,14 +23,5 @@ class GetText(BaseMethod):
             self.logger.error('Unknow ext {}'.format(ext))
             return
 
-        def callback(rows):
-            self.logger.info("iCallback  {}".format(rows))
-            response = QueueMessage(message.id, message.method, document.id)
-            self.application.pub.send_string(str(response))
-
-        text = text.decode("UTF-8")
-        document = Document(text=text, file_path=file_path)
-        result = self.application.enitity.save(document, callback)
-        self.logger.info('Inserted {} row'.format(result))
 
 

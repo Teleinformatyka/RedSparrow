@@ -1,5 +1,4 @@
 import unittest
-import json
 
 from redsparrow.keywords import get_keywords, get_words
 

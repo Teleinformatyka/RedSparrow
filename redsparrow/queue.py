@@ -1,4 +1,6 @@
 import json
+import random
+import copy
 
 import zmq
 from zmq.eventloop.zmqstream import ZMQStream
@@ -53,44 +55,56 @@ class ReplyQueue(BaseQueue):
 
 
 
-class QueueMessage(object):
-    """JsonRPC like message"""
+class QueueReqMessage(object):
+    """JsonRPC like reqeust message"""
 
-    def __init__(self, json_data=None):
-        self.__data = {}
+    def __init__(self,id=None, params=None, method=None, json_data=None):
+        if id is None:
+            id = random.randint(1, 20000)
+        self.id = id
+        self.method = method
+        if params is None:
+            params = {}
+        self.params = params
         if json_data:
             self.from_json(json_data)
 
     def from_json(self, json_data):
-        self.__data = json.loads(json_data)
+        data = json.loads(json_data)
+        for name, value in data.items():
+            self.__dict__[name] = value
+
         return self
 
     def __str__(self):
-        return json.dumps(self.__data)
+        return json.dumps(self.__dict__)
 
-    def __getattr__(self, name):
-        try:
-            return self.__data[name]
-        except KeyError:
-            return None
+
+
+class QueueRepMessage(object):
+
+    def __init__(self,id=None, error=None, result=None, json_data=None):
+        if id is None:
+            id = random.randint(1, 20000)
+        self.id = id
+        self.error = error
+        self.result = result
+
+    def from_json(self, json_data):
+        data = json.loads(json_data)
+        for name, value in data.items():
+            self[name] = value
+        return self
+
+    def __str__(self):
+        return json.dumps(self.__dict__)
 
     @property
-    def method(self):
-        try:
-            return self.__data['method']
-        except KeyError:
-            return None
-    @method.setter
-    def method(self, value):
-        self.__data['method'] = value
+    def success(self):
+        return self.result
 
-    @property
-    def params(self):
-        try:
-            return self.__data['params']
-        except KeyError:
-            return None
+    @success.setter
+    def success(self, message):
+        self.error = None
+        self.result = message
 
-    @params.setter
-    def params(self, value):
-        self.__data['params'] = value

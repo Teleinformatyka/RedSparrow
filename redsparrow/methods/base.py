@@ -1,16 +1,22 @@
+from redsparrow.queue import QueueRepMessage
 
 class BaseMethod(object):
-
+    """
+        Base method class
+        it helps to make rpc interface
+    """
     def __init__(self, name):
-        self.__name = name
+        self._name = name
         self.__application = None
+        self._response = None
+        self._request = None
     @property
     def name(self):
-        return self.__name
+        return self._name
 
     @name.setter
     def name(self, val):
-        self.__name = val
+        self._name = val
 
     @property
     def application(self):
@@ -21,6 +27,30 @@ class BaseMethod(object):
         self.__application = app
         self.logger = app.logger
 
+    @property
+    def request(self):
+        return self._request
 
-    def __call__(self, params):
-        raise NotImplementedError("Not implemented")
+    @request.setter
+    def request(self, request):
+        self._request = request
+
+    def success(self, message=None):
+        if message:
+            self._response.success = message
+        self.application.send_response(self._response)
+        self._response = None
+
+    def error(self, code=-32602, message=None):
+        if message:
+            self._response.error = { 'code': code, 'message': message}
+        self.application.send_response(self._response)
+        # self._response = None
+
+    def __call__(self, *args, **kwargs):
+        self.process(*args, **kwargs)
+
+    def process(self, *args, **kwargs):
+        """ Method called when JSON-RPC for __name"""
+        self._response = QueueRepMessage(id=self._request.id)
+

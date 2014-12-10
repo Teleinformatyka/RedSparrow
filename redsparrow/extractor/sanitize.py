@@ -9,12 +9,11 @@ def sanitize(removedChars):
         return ''.join(ch.lower() for ch in s if not ch in removedChars)
     return remove
 
+#returning string
 sanitizedString = sanitize(sanitizedChars)
 
 #-> usage
 # test = "read this asdasdas,.,as;short text somethingr                 ead\"\"\"\::thisas\n././././,..,.,.'';';';';';'.,.,.,;l;';'1!!dasdasasshorttext'"
 # print(sanitizedString(test))
 
-#winnowing
 
-# downcasing
