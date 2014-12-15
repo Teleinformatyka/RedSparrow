@@ -3,7 +3,7 @@ import tornado
 
 from pony.orm import db_session
 
-from redsparrow.orm import User
+from redsparrow.orm import User, Thesis
 from .base import BaseMethod
 
 
@@ -65,4 +65,27 @@ class Login(BaseMethod):
     def test_method(self):
         """ Ping method. It tests if server is up."""
         self.success(message='OK')
+
+class Thesis(BaseMethod):
+
+    def __init__(self):
+        super(Login, self).__init__('thesis')
+
+    @db_session
+    def run_analysis(self, thesis_id):
+        """
+            run_analysis method get Thesis by thesis_id and process on it PlagiarismDetector
+
+            :param thesis_id: id of thesis to analysis
+
+        """
+        thesis = Thesis.select(lambda t: t.id == thesis_id)[:]
+        if len(thesis) == 0:
+            return self.error(message="Thesis not found")
+        detector = PlagiarismDetector()
+        result = detector.process(thesis[0].to_dict(with_collections=True, relate_object=True))
+        self.success(result)
+
+
+
 

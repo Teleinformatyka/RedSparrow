@@ -1,4 +1,13 @@
 
+from pony.orm import db_session
+
+from redsparrow.orm import Thesis
+from redsparrow.plagiarism.levenshtein import  Levenshtein
+from redsparrow.plagiarism.rabinkarb import  RabinKarb
+
+
+
+
 class PlagiarismDetector(object):
 
     def preprocess(self, thesis_id):
@@ -6,13 +15,21 @@ class PlagiarismDetector(object):
         # get data from db
         # get keyword
         # start processing in by neares keyword
+    @db_session
+    def process(self, toCheck):
+        thesis = Thesis.select()[:]
+        result = {'thesis_id': toCheck['id']}
+        thesisToAnalyze = []
+        for thesi in thesis:
+            thesi = thesi.to_dict(with_collections=True, related_objects=True)
+            if Levenshtein.distance(thesi['keywords'], toCheck['keywords']):
+                thesisToAnalyze.append(thesis)
 
-    def process(self):
-        pass
-        # rabing karp, lavensthein
-        # top 10 winnowing 2
-        # check for fraud
-        # store result in db send to php
+        result['Levenshtein'] = {}
+        for thesi in thesisToAnalyze:
+            result['Levenshtein'][thesi['id']] = Levenshtein.distance(toCheck['text'],  thesi['text'])
+
+        return result
 
 
 

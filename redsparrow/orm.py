@@ -15,10 +15,10 @@ class Thesis(db.Entity):
     filename = Required(str, 40)
     filenameHash = Required(str, 40, column="filename_hash")
     dateOfAlligance = Required(date, column="date_of_alligance")
-    text = Required(LongUnicode)
     thesisDetails = Optional("ThesisDetails")
     users = Set("User", table="User_Thesis", column="user_id")
     keywords = Set("Keyword", table="Keyword_Thesis", column="keyword_id")
+    text = Required(LongUnicode)
 
 
 class ThesisDetails(db.Entity):
@@ -69,5 +69,12 @@ class Level(db.Entity):
     id = PrimaryKey(int, size=8, auto=True)
     level = Required(str, 9)
     users = Set(User, column="user_id")
+
+class AnalysisResult(db.Entity):
+    """Result of the analysis"""
+    id = PrimaryKey(int, size=8, auto=True)
+    json = Required(LongUnicode)
+
+
 
 
