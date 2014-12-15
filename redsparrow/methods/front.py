@@ -63,6 +63,6 @@ class Login(BaseMethod):
         self.error(message='User not found')
 
     def test_method(self):
-        """ Test doc"""
+        """ Ping method. It tests if server is up."""
+        self.success(message='OK')
 
-        pass
