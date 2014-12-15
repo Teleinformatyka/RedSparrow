@@ -91,7 +91,7 @@ None
 
 **Notes**
 
-Test doc
+Ping method. It tests if server is up.
 
 
 
