@@ -1,5 +1,8 @@
+import time
+
 def calculate(text, pattern):
     """Naive algorythm implementation"""
+    start = time.time()
     if text == None or pattern == None:
         return -1
     if text == "" or pattern == "":
@@ -17,5 +20,6 @@ def calculate(text, pattern):
             result = result + [i]
             i = i+len(pattern)
 
+    print('Naive.calculate took %.2f' % (time.time() - start))
     return result
 

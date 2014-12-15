@@ -1,0 +1,4593 @@
+1
+
+             POLITECHNIKA KRAKOWSKA
+
+              IM. TADEUSZA KOCIUSZKI
+
+       WYDZIAL FIZYKI MATEMATYKI I INFORMATYKI
+
+               KIERUNEK INFORMATYKA
+
+
+
+
+                  DAWID DBROWSKI
+
+
+
+
+ INTERNETOWA OBSLUGA ON-LINE RESTAURACJI,
+
+   ORAZ APLIKACJA DLA SYSTEMU ANDROID DO
+
+    SKLADANIA ZAMÓWIE ORAZ REZERWACJI
+
+
+        INTERNET SERVICE FOR THE ON-LINE
+
+    RESTAURANTS, AND THE APPLICATION FOR
+
+  ANDROID TO PLACE ORDERS AND RESERVATION
+
+
+
+
+           PRACA DYPLOMOWA MAGISTERSKA
+
+                 STUDIA STACJONARNE
+
+
+
+
+                                   Promotor: dr Agnieszka Krok
+
+
+
+
+                      Kraków 2014
+
+
+Zawarto
+
+                          2
+
+Zawarto.....................................................................................................................................2
+
+Wstp...........................................................................................................................................4
+
+1.Trendy w budowaniu nowoczesnych aplikacji internetowych....................................................6
+
+  1.1 WWW.................................................................................................................................6
+
+  1.2 W3C....................................................................................................................................7
+
+  1.3 WEB 2.0..............................................................................................................................8
+
+  1.4 Biznes w Internecie.............................................................................................................9
+
+  1.5 Technologie mobilne.........................................................................................................11
+
+  1.6 Podsumowanie - motywacja.............................................................................................12
+
+2.Przegld uytych technologii i narzdzi...................................................................................14
+
+  2.1 HTML/XHTML...................................................................................................................14
+
+  2.2 CSS....................................................................................................................................16
+
+  2.3 JavaScript..........................................................................................................................17
+
+  2.4 jQuery, jQuery UI, Bootstrap.............................................................................................19
+
+  2.5 Java, Java EE, Enterprise JavaBeans..................................................................................20
+
+  2.6 Spring Framework, Spring MVC........................................................................................23
+
+  2.7 JSP, JSTL.............................................................................................................................25
+
+  2.8 MySQL..............................................................................................................................26
+
+  2.9 Hibernate..........................................................................................................................27
+
+  2.10 Android...........................................................................................................................28
+
+  2.11 JUnit, Roboelectric..........................................................................................................29
+
+  2.12 GreenDAO.......................................................................................................................30
+
+3.Aplikacja..................................................................................................................................31
+
+  3.1 Podobne rozwizania........................................................................................................31
+
+  3.2 Opis wymaga..................................................................................................................32
+
+  3.3 Wymagania funkcjonalne.................................................................................................33
+
+  3.4 Architektura aplikacji........................................................................................................35
+
+  3.5 Wymagania funkcjonalne dla aplikacji mobilnej...............................................................37
+
+  3.6 Architektura aplikacji ­ Android........................................................................................38
+
+  3.7 Komunikacja pomidzy klientem mobilnym a serwerem..................................................39
+
+4.Opis aplikacji webowej............................................................................................................41
+
+  4.1 Wygld interfejsu..............................................................................................................41
+
+  4.2 Rejestracja, logowanie, odzyskiwanie hasel......................................................................42
+
+  4.3 Menu potraw....................................................................................................................48
+
+  4.4 Baza stolików....................................................................................................................51
+
+  4.5 Zamawianie potraw..........................................................................................................52
+                                                                     3
+
+  4.6 Rezerwacja miejsc.............................................................................................................57
+
+  4.7 Powiadomienia E-mail......................................................................................................59
+
+  4.8 Baza danych......................................................................................................................60
+
+  4.9 Fasada...............................................................................................................................62
+
+5.Opis aplikacji mobilnej.............................................................................................................64
+
+  5.1 Wygld interfejsu..............................................................................................................64
+
+  5.2 Rejestracja, logowanie......................................................................................................64
+
+  5.3 Menu potraw....................................................................................................................66
+
+  5.4 Skladanie zamówienia......................................................................................................67
+
+  5.5 Rezerwacja miejsc.............................................................................................................69
+
+  5.6 Architektura bazy danych.................................................................................................69
+
+6.Strategia testowania................................................................................................................72
+
+  6.1 Testy jednostkowe............................................................................................................72
+
+  6.2 Testy funkcjonalne............................................................................................................73
+
+  6.3 Testy akceptacyjne............................................................................................................74
+
+  6.4 Podsumowanie.................................................................................................................74
+
+Zakoczenie................................................................................................................................75
+
+Bibliografa..................................................................................................................................77
+
+Netografia...................................................................................................................................77
+
+Spis rysunków.............................................................................................................................78
+
+Owiadczenie..............................................................................................................................79
+
+
+
+
+                                                                     4
+
+Wstp
+
+       W     ostatnich   dekadach     najszybszy    rozwój   technologiczny  moemy
+
+zaobserwowa w wiecie elektroniki. Tak zwany bum technologiczny sprawia, e
+
+niemal kadego dnia jestemy zasypywani coraz to nowszymi technologicznymi
+
+cudami. Komputery nie tylko staly si powszechne w naszych domach i zachwycaj nas
+
+swoimi moliwociami. Komputery s z nami caly czas. W naszych torbach nosimy
+
+szybkie, lekkie i wydajne komputery w najróniejszych formach, a w naszych
+
+kieszeniach w postaci         smartphone-ów znajdujemy komputery o wikszych
+
+moliwociach ni te które stosunkowo niedawno zajmowaly sporych rozmiarów
+
+pokoje. Spotykamy je na kadym kroku w punktach informacji, automatach biletowych
+
+i wielu innych sytuacjach w których moemy sobie nawet nie zdawa sprawy, e tak
+
+naprawd mamy do czynienia z systemem wbudowanym.
+
+       Wspólczesne spoleczestwo staje si coraz bardziej zalene od nowoczesnych
+
+technologii. Ciko zliczy czynnoci, które zaczynaj si od poszukiwania informacji
+
+w Internecie. Ciko si temu dziwi. Internet dostarcza nam informacji z minimalnym
+
+opónieniem i bardzo czsto s to informacje bardziej aktualne ni w innych ródlach.
+
+Dobrodziejstwem, które niesie Internet, o jakim warto wspomnie i które najbardziej
+
+podoba si najwikszej rzeszy uytkowników to komunikacja. Obecnie latwiej zlapa
+
+kogo "w Internecie" ni spotka na ywo. Wiele aspektów ycia towarzyskiego
+
+przenosi si do Internetu. Ludzie uwielbiaj dzieli si w Internecie tym co sami
+
+osignli, zrobili, co bd robi, z kim si przyjani, wrzucaj mnóstwo zdj i lubi
+
+oglda, a wrcz podglda ycie swoich znajomych.
+
+       Internet dziki swojej dostpnoci i ogromnych, wci rozwijajcych si
+
+moliwociach, jest idealnym miejscem do zarabiania pienidzy. Dotarcie do klientów
+
+jest ekstremalnie tanie, a atrakcyjny graficzny przekaz niebywale skuteczny. Twórcy
+
+Internetu nigdy nie chcieli aby ich dziecko stalo si ogromnym midzynarodowym
+
+centrum handlowym, jednak jest ju za póno, co wicej ludziom si to podoba. W
+
+Internecie kupujemy doslownie wszystko, od olówka za 20 groszy, przez zakup biletów
+
+lotniczych, po nieruchomoci, a take inne duo bardziej egzotyczne i wyszukane
+
+przedmioty z dowolnie wybranego zaktka wiata. Std Internet stal si miejscem
+
+rozwoju niezliczonych pomyslów na zarabianie pienidzy.
+
+       Celem niniejszej pracy bylo stworzenie aplikacji internetowej, pozwalajcej na
+
+konwersacj na linii klient ­ restauracja, poprzez Internet. Aplikacja pozwala na
+
+tworzenie zamówie, które mialyby by realizowane z dowozem do wybranego
+
+
+                                            5
+
+miejsca, lub spoyte przy zarezerwowanym stoliku. Moliwa jest take komunikacja
+
+midzy klientami przy uyciu systemu komentarzy i oceniania pozycji w menu.
+
+Aplikacja ma take umoliwi pracownikom restauracji na rozsylanie informacji o
+
+promocjach poczt elektroniczn, oraz dodawanie informacji bezporednio na stron.
+
+W ramach     pracy   magisterskiej ponisza  praca,   bdca    rozwiniciem    pracy
+
+inynierskiej, zostala rozbudowana o aplikacj mobiln dedykowan dla systemu
+
+Android, aplikacja webowa zostala wzbogacona o warstw serwisów umoliwiajc
+
+integracje z systemem Android, a take dowolnym innym systemem pozwalajcym na
+
+komunikacj poprzez protokól HTTP.      Do aplikacji mobilnej przeniesione zostaly
+
+funkcjonalnoci pozwalajce na wykonanie czynnoci dostpnych dla klientów w wersji
+
+dla przegldarek www. Zmienione zostaly elementy graficzne interfejsu na bardziej
+
+odpowiadajce wspólczesnym trendom, oraz przeredagowana zostala tre niniejszego
+
+dokumentu, a w szczególnoci doloone zostaly rozdzialy traktujce o wersji mobilnej.
+
+
+
+
+                                         6
+
+1.Trendy w budowaniu nowoczesnych aplikacji internetowych
+
+1.1WWW
+
+        Z punktu widzenia tej pracy w calej historii Internetu jej najistotniejszym
+
+punktem bylo stworzenie sieci WWW (World Wide Web), która jest sieci dokumentów
+
+hipertekstowych. Hipertekst jest sposobem organizacji danych w postaci niezalenych
+
+leksji (najmniejszych fragmentów hipertekstu) polczonych hiperlczami. Hiperlczem
+
+nazywamy zamieszczone w dokumencie elektronicznym odwolanie do innego
+
+dokumentu. Z powodu najwikszej popularnoci wród moliwoci jakie niesie Internet,
+
+usluga WWW przez wiele osób jest bldnie utosamiana z calym Internetem.
+
+        WWW narodzila si z pracy obecnego dyrektora World Wide Web Consortium
+
+W3C Tima Bernersa-Lee, który w 1989 zaprezentowal projekt oparty na swoim
+
+wczeniejszym     pomyle   ENRIQUE       (równie   zwizanym    z   dokumentami
+
+hipertekstowymi). Przedstawil rozbudowany system zarzdzania informacjami, który
+
+stal si zalkiem obecnej WWW. W orodku CERN przy wspólpracy z Robertem
+
+Cailliau prowadzil dalsze prace, aby 12 listopada 1990 opublikowa oficjalny projekt
+
+budowy systemu hipertekstowego zwanego "World Wide Web", WWW, lub jeszcze
+
+krócej W3, który mial by obslugiwany przez przegldark internetow. Projekt byl
+
+realizowany w architekturze klient-serwer.
+
+        Jako pierwszego serwera WWW uyto komputer NeXT, dla którego
+
+przygotowana zostala przegldarka WorldWideWeb, której nazw zmieniono póniej na
+
+duo bardziej znajom Nexus. 6 sierpnia 1991 po tym jak Berners zbudowal wszystkie
+
+elementy potrzebne do korzystania z WWW, umiecil on na grupie dyskusyjnej
+
+alt.hypertext podsumowanie swojego projektu. Data ta jest równie uznawana za
+
+pierwszy dzie publicznie dostpnych uslug w Internecie.
+
+        Przelom w projekcie nastpil po polczeniu funkcjonalnoci hipertekstu
+
+z moliwociami jakie niósl ze sob Internet. Berners sugerowal takie polczenia
+
+wielokrotnie, jednak z powodu braku zainteresowania innych osób dla rozwoju tej
+
+technologii postanowil sam zaj projektem. Dla jego potrzeb stworzyl identyfikatory
+
+URL (Uniform Resource Locator) i URI (Uniform Resource Identifier), dzi potocznie
+
+nazywane adresami www, a take jzyk HTML oraz protokól HTTP slucy do
+
+przesylu dokumentów hipertekstowych.
+
+        Istotnym momentem w rozwoju WWW, a moe najistotniejszym bylo powstanie
+
+przegldarki Mosaic, która dzialala w trybie graficznym. To dziki interfejsowi
+
+graficznemu WWW stalo si najpopularniejsz uslug internetow.
+
+                                          7
+
+        Tim Barners po opuszczeniu CERN-u w 1994 w laboratorium Informatyki MIT
+
+zaloyl konsorcjum W3C, w czym pomogla Agencja Zaawansowanych Obronnych
+
+Projektów Badawczych DARPA, która byla pionierem rozwoju Internetu. Po polczeniu
+
+z Internetem nastpila eksplozja trwajca nieprzerwanie do dzi. Z kadym momentem
+
+powstaje coraz wicej stron, a tworzy si coraz latwiej[N1].
+
+        Warto jeszcze wspomnie o znaczeniu tak popularnego w adresach
+
+internetowych prefixu www. Rozpoczynanie si adresów od trzech literek w jest
+
+podyktowane dlugoletni praktyk nazywania serwerów internetowych zgodnie z
+
+uslugami jakie oferowaly, np. serwery ftp prefix ftp, serwery dns - dns itd. Takie nazwy
+
+ukazuj si w systemie DNS jako subdomeny i ich stosowanie nie jest wymagane.
+
+Najczciej konfiguracja serwera pozwala nam na wpisanie adresu z prefixem lub bez
+
+niego, a skutek takiego polecenia bdzie taki sam.
+
+
+1.2W3C
+
+        Mówic o Internecie, aplikacjach internetowych oraz usludze WWW, warto
+
+nadmieni kilka slów o World Wide Web Consortium, wspomnianym ju w historii
+
+WWW. W3C jest organizacj zajmujc si ustanawianiem standardów pisania i
+
+przesylania stron WWW. Stworzona przez twórc WWW Tima Bernersa 1 padziernika
+
+1994 obecnie zrzesza ponad 400 organizacji, firm, agencji, rzdowych i uczelni z calego
+
+wiata. Standardy tworzone i publikowane przez W3C nie maj mocy prawnej i ich
+
+uywanie nie jest nakazane.
+
+        W sklad W3C wchodz grupy dyskusyjne zajmujce si konkretnymi zadaniami.
+
+W takich grupach moemy spotka ekspertów z firm oraz organizacji bdcych
+
+czlonkami W3C, które jednoczenie s zainteresowane wprowadzeniem nowego
+
+standardu. Kada organizacja lub firma chcc dolczy do W3C zobowizana jest do
+
+wsparcia finansowego konsorcjum, co wie si z roczn oplat w wysokoci 10 000 do
+
+50 000 USD w zalenoci od rodzaju organizacji.
+
+        Komitet Doradczy w sklad którego wchodz przedstawiciele kadej organizacji
+
+jest najwaniejsz czci struktury W3C. Poprzez glosowanie Komitet Doradczy moe
+
+zdecydowa czy przyj czy odrzuci standard proponowany przez zespoly tematyczne.
+
+Nad dyskusjami zespolów tematycznych i obradami Komitetu Doradczego czuwa
+
+Zaloga W3C (W3C Team), która teoretycznie powinna zapewnia jedynie obslug
+
+techniczn dyskusji. W rzeczywistoci jednak Team W3C ma istotny wplyw na przebieg
+
+dyskusji[N2].
+
+
+
+
+                                           8
+
+1.3WEB 2.0
+
+        Web 2.0 nie jest terminem okrelajcym now World Wide Web, ani tym
+
+bardziej nie jest nowym technologicznym rozwizaniem dla sieci Internet. Web 2.0 to
+
+potoczna nazwa okrelajca to co dzieje si z serwisami internetowymi po 2001 roku.
+
+Jest cile zwizana z Timem O'Reilly z powodu jego konferencji, która obyla si w
+
+2004 roku pod tytulem Media Web 2.0. Termin ten odnosi si do skumulowanych zmian
+
+w sposobie tworzenia aplikacji i korzystania z nich przez uytkowników. Od tego
+
+momentu historii Internetu podstawow rol w tworzeniu treci przejmuj uytkownicy
+
+danego serwisu. Web 2.0 w przeciwiestwie do statycznych dokumentów, gdzie
+
+uytkownicy mog jedynie przeglda tre, umoliwia im interakcj oraz wspólprac
+
+ze sob w ramach mediów spolecznociowych, sprawiajc e staj si niejako twórcami
+
+serwisów. Przykladami Web 2.0 w których wyranie wida udzial uytkowników s
+
+m.in. portale spolecznociowe, blogi, strony hostujce filmy wideo nadsylane przez
+
+uytkwników, serwisy typu Wiki - tutaj najbardziej znana Wikipedia, która jest na
+
+bieco tworzona przez uytkowników.
+
+        Podstawow cech technologiczn Web 2.0 jest Ajax. Ajax pozwala tworzy
+
+strony tak, aby moliwa byla zmiana wywietlanej treci bez przeladowania calej
+
+strony. Do tego celu uywa jzyka JavaScript oraz framework1-ów stworzonych dla
+
+tego jzyka. Takie podejcie pozwala uytkownikom na szybsze i wygodniejsze
+
+korzystanie z Internetu, którzy zamiast czeka na przeladowanie strony po wykonaniu
+
+jakiej akcji mog od razu kontynuowa jej przegldanie. Cho nie jest to regula dane
+
+pobierane przez Ajax s zazwyczaj w formacie XML lub JSON (JavaScript Object
+
+Notation). Kady z tych formatów jest natywnie wspierany przez JavaScript, mona
+
+latwo przetwarza otrzymane dane i wypelni nimi stron, ponadto taki format pozwala
+
+przesla dane dalej. Dziki takiemu podejciu twórcy aplikacji Internetowych, mog
+
+sprawi, e ich produkty dzialaj jak aplikacje desktopowe, tutaj przykladem jest
+
+Google Docs, który w przegldarce internetowej oferuje nam funkcjonalnoci edytora
+
+tekstu.    Technologi,      która     jest    bardzo      rozpowszechniona         przy    budowaniu
+
+nowoczesnych aplikacji jest Flash, glównie uywany do odtwarzania filmów i muzyki,
+
+ale take bardzo czsto do tworzenia gier uruchamianych w przegldarkach, które
+
+ciesz si bardzo du popularnoci[N3].
+
+
+
+1Framework - w programowaniu nazywany take platform programistyczn, to szkielet ulatwiajcy
+
+proces tworzenia aplikacji, definiujcy struktur aplikacji, a take mechanizmy jej dzialania. Framework
+
+zazwyczaj dostarcza zestaw komponentów i bibliotek wspomagajcych wykonywanie okrelonych zada.
+
+Bldne jest utosamianie framework-ów z bibliotekami.
+                                                    9
+
+        W budowie interfejsów aplikacji internetowych równie korzystamy dzisiaj z
+
+framework-ów opartych o Ajax i JavaScript. Dziki temu moemy latwo umieci na
+
+stronie edytor tekstu o bardzo zaawansowanych funkcjach, wstawi gotowe elementy
+
+interfejsu uytkownika, jak przyciski, suwaki, pola tekstowe, specjalne widety do
+
+wyboru daty i wiele innych.
+
+        Po stronie serwera spotykamy wiele konkurujcych technologii takich jak PHP,
+
+Ruby, Perl, Python, oraz bardziej zaawansowanych technologicznie graczy jak Java, czy
+
+ASP.NET z C#. Wyej wymienione umoliwiaj nam korzystanie z danych zapisanych
+
+w plikach i bazie danych. Jednym z celów tworzenia aplikacji Web 2.0 jest
+
+udostpnianie treci innym serwisom, m.in. takim jak czytniki Atom, RSS itp. Takie
+
+podejcie do projektowania aplikacji sprawia, e latwiej wyszukiwa dane, s lepiej
+
+skategoryzowane, a lepszy dostp do danych poniekd filozofi stojc za tworzeniem
+
+Web 2.0.
+
+
+
+1.4Biznes w Internecie
+
+        Tworzenie nowoczesnych aplikacji jest nastawione na odbiorców i jak ju
+
+wczeniej wspomnialem sama tre czsto jest tworzona przez uytkowników. Twórcy
+
+aplikacji dbaj aby atrakcyjny interfejs przycigal internautów, a funkcjonalno
+
+zatrzymywala przy konkretnej aplikacji, gdy konkurencja jest ogromna. O ile
+
+oczywicie zdarza si, e twórcy s pasjonatami i tworz aplikacje hobbystycznie dla
+
+wlasnej satysfakcji to jednak znaczna wikszo duych projektów jest komercyjna
+
+i nastawiona na zarabianie pienidzy. Model biznesu elektronicznego, tzw. e-biznesu,
+
+zostal wprowadzony w 1995 roku przez firm IBM i opiera si na szeroko pojtych
+
+rozwizaniach teleinformatycznych, a w szczególnoci aplikacjach internetowych. Pod
+
+pojcie e-biznesu kryje si m.in. wymiana informacji producentami, dystrybutorami
+
+i odbiorcami, przesylanie dokumentów, telekonferencje, pozyskiwanie kontaktów,
+
+zarzdzanie klientami, etc.
+
+        W zakres pojcia elektronicznego biznesu wchodzi bardzo wiele galzi, a cigle
+
+zmiany i rodzce si z kadym dniem jeszcze bardziej rozszerzaj jego zakres.
+
+Najszersza pojciowo definicja e-biznesu, mówi, e obejmuje on wszystkie procesy
+
+biznesowe, które przeprowadzane s drog elektroniczn. W zakresie            biznesu
+
+elektronicznego moemy spotka si z podzialem na kategorie takie jak: elektroniczne
+
+przedsibiorstwo (e-enterprise), elektroniczna gospodarka (e-economy), elektroniczny
+
+handel (e-commerce) w którego to galzi znajduje si przedmiot niniejszej pracy.
+
+
+                                          10
+
+Moemy take si spotka z takimi pojciami jak elektroniczne spoleczestwo (e-
+
+society) czy elektroniczny rzd (e-government).
+
+       Handel elektroniczny nie odnosi si jedynie do aplikacji internetowych
+
+i wykorzystania Internetu do sprzeday uslug i produktów. Handlem elektronicznym
+
+nazywamy rozmaite procedury, które wykorzystuj urzdzenia elektroniczne, takie jak
+
+telefony, faks, telewizj i Internet w celu zawarcia transakcji handlowej. Pomimo e
+
+handel elektroniczny korzysta z rónych rodków innych od Internetu, w dzisiejszych
+
+czasach to Internet stanowi najwiksz cz tej dziedziny elektronicznego biznesu.
+
+Dzieje si tak z wielu powodów. Przede wszystkim dlatego, e zakupy (i wszystkie inne
+
+czynnoci handlowe) dokonywane przez Internet s bardzo wygodne. Nie ruszajc si
+
+z domu moemy porówna wszystkie oferty, dokladnie przeczyta opis produktu, a
+
+ponadto, co czasem bardzo istotne, moemy zapozna si z opiniami innych
+
+uytkowników co sdz o danym produkcie, lub czy dany uslugodawca jest warty
+
+polecenia i czy bezpieczne jest robienie z nim interesów. Internet dociera do ogromnej
+
+rzeszy uytkowników w naszym kraju i w chwili obecnej nie staje si coraz bardziej
+
+popularny, staje si atrybutem naszego ycia bez którego nie moemy si obej.
+
+Korzyci plynce z handlu elektronicznego s bardzo due. Przede wszystkim
+
+prowadzenie handlu przez Internet oszczdza kosztów: funkcjonowania biur, oplacania
+
+pracowników. Handel w sieci skraca kanaly dystrybucji towarów, a take upraszcza
+
+obieg dokumentacji, pozwala zwikszy wykorzystanie przestrzeni, zmniejszajc
+
+przestrze fizycznych sklepów i przeznaczajc je na przestrze magazynow,
+
+umoliwia lepszy kontakt z klientem w modelu jeden do jeden - zwiksza
+
+indywidualizacje kontaktu, jak i samej oferty, poprzez interaktywno zapewnia lepsze
+
+zapamitanie prezentowanych produktów, elastyczno[N3].
+
+       Naprzeciw wszystkich korzyci plyncych z e-handlu staje brak moliwoci
+
+osobistego ogldnicia i przetestowania produktu, czas i koszt dostarczenia czasu, co
+
+czasem bywa uciliwe dla klientów, jak i samych sprzedajcych. Na przeszkodzie staje
+
+te poniekd brak uregulowa prawnych, jak i moliwo kradziey lub zbierania
+
+i sprzeday danych. Mówic o danych nie chodzi tylko o nasze dane osobowe, chodzi
+
+o to co ogldamy, co kupujemy, skd przychodzimy, gdy anonimowo w Internecie
+
+jest bardzo zludna. Duo do mylenia mog nam da reklamy Google-a, które, mimo
+
+czasem zaliczanych wpadek, bardzo dobrze wpasowuj si w gusta uytkownika
+
+przegldarki. adna z tych cech nie odstrasza jednak ani jednej, ani drugiej strony,
+
+a patrzc na wskaniki mona zaobserwowa staly wzrost udzialu handlu Internetowego
+
+w globalnym rynku[N4].
+
+                                           11
+
+1.5Technologiemobilne
+
+       Prawdziwy     rozkwit  przechodzi   obecnie      rynek  urzdze     mobilnych,
+
+w szczególnoci    nieustannie   wzrasta  sprzeda      smartphone-ów     i    tabletów,
+
+a zdecydowana wikszo tych urzdze goci na pokladzie system Android. To co
+
+napdza machin sprzeday urzdze mobilnych to aplikacje, które nabywa si w
+
+specjalnym miejsc, zwanym potocznie marketem, który jest preinstalowany w kadym
+
+urzdzeniu. Umoliwia to programistom niezwykle latwy dostp do odbiorców, gdy od
+
+razu w momencie publikacji swojego dziela w markecie, staje si ono dostpne dla
+
+wszystkich posiadaczy urzdze. To czy aplikacja stanie si popularna czy nie, zaley
+
+od bardzo wielu czynników i nie sposób to przewidzie. Wiadomo jednak, e kluczowe
+
+elementy, które przycigaj uytkowników to intuicyjno obslugi polczona
+
+z dopracowan szat graficzn. Szeroko zastosowania aplikacji mobilnych jest
+
+niewyobraalna.
+
+       Moc obliczeniowa wspólczesnych telefonów pozwala na wiele wicej ni
+
+jeszcze kilkanacie lat wczeniej pozwalaly komputery personalne. Wród wszelkich
+
+rodzajów aplikacji jakie mona spotka w marketach, swoje miejsce znajduj równie
+
+aplikacje zakupowe. W Polsce rynek ten jeszcze nie jest nasycony i brak jest produktów,
+
+które podbijaly by nasz rynek. Poniszy wykres prezentuje, e mimo tendencji
+
+spadkowej, ponad polowa uytkowników dokonala zakupu zakupu przy uyciu
+
+aplikacji mobilnych.
+
+       Biorc pod uwag powysze okolicznoci, budowanie relacji z klientami
+
+poprzez dedykowane aplikacje, szczególnie te posiadajce atrakcyjn form, moe by
+
+bardzo dobrym pomyslem. Warto zwróci uwag, e komputery osobiste staj si coraz
+
+mniej popularne, bo coraz rzadziej ich potrzebujemy. Sprawdzenie poczty, pogody,
+
+przeczytanie aktualnoci, czy komunikacja ze znajomymi odbywa si z dowolnego
+
+miejsca, bez potrzeby dotykania komputera.
+
+
+
+
+                                         12
+
+                                                                           Rysunek
+
+
+
+
+1: Wykorzystanie smartphone-ów w celach zakupowych
+
+ródlo : http://antyweb.pl/rynek-mobilny-w-polsce-raport-generation-mobile-2013/
+
+
+
+
+                                         13
+
+1.6Podsumowanie - motywacja
+
+        Zbierajc razem wszystkie fakty przedstawione w niniejszym rozdziale latwo
+
+wysnu wniosek, e istnieje realne zapotrzebowanie na aplikacje internetowe, jak
+
+równie ich mobilne odpowiedniki. Szczególnie poszukiwane s rozwizania, które
+
+pozwalaj si komunikowa uytkownikom i tworz dynamiczne treci, które zmieniaj
+
+si i wchodz w interakcj z uytkownikiem. Przegldajc oferty pracy, take widoczne
+
+jest zapotrzebowanie na specjalistów, którzy posiadaj umiejtno pracy z
+
+najnowszymi Web framework-ami i technologiami mobilnymi. Obserwujc rodzce si
+
+w Polsce projekty, mona zauway, e nasz rynek jest jeszcze stosunkowo mlody
+
+i daje moliwoci rozwijania wlasnych pomyslów aplikacji, które mog ju istnie za
+
+granic, jednak poza wiadomoci polskich internautów. Take w tworzeniu rodowisk
+
+wspomagajcych programowanie wida duy uklon w stron aplikacji Internetowych.
+
+Istniejce ju framework-i s stale rozwijane i ulepszane. Co jaki czas pojawiaj si
+
+równie nowe rozwizania i pomysly. Tworzenie aplikacji staje si coraz szybsze,
+
+wspomagaj     nas   zarówno    zintegrowane     rodowiska   programistyczne,  które
+
+automatycznie generuj powtarzajce si elementy kodu, a same framework-i wymagaj
+
+coraz mniejszej iloci konfiguracji i pisania nudnego kodu zapewniajcego podstawowe
+
+operacje wykonujc za nas wikszo pracy w tym temacie. W detale techniczne
+
+w zakresie uytych technologii wprowadzi nas kolejny rozdzial, w którym przedstawi
+
+zastosowane    przeze   mnie   technologie     wraz  z  ich  opisem,  charakterystyk
+
+i uzasadnieniem konkretnych wyborów.
+
+
+
+
+                                            14
+
+2.Przegld uytych technologii i narzdzi
+
+2.1HTML/XHTML
+
+        Aplikacja, której budowa jest celem niniejszej pracy, jest tworzona do dzialania
+
+w sieci WWW. Mimo, e aplikacja do dzialania wymaga serwera aplikacji, który jest
+
+w stanie uruchomi kod w jzyku Java, to wynikow treci jak wysyla do
+
+przegldarki jest dokument HTML. W poprzednim rozdziale zostalo powiedziane, e
+
+sie WWW jest sieci dokumentów hipertekstowych, jzyk HTML pozwala tworzy
+
+takie dokumenty. HTML (ang. HypeText Markup Language)               jest hipertekstowym
+
+jzykiem znaczników powszechnie uywanym do tworzenia stron internetowych.
+
+        HTML pozwala nada informacjom zawartym w dokumencie odpowiedni
+
+struktur i okreli jego wygld w przegldarce internetowej. Pozwala na tworzenie
+
+najistotniejszych z punktu widzenia sieci WWW hiperlcz, które pozwalaj latwo
+
+przemieszcza si w gszczu olbrzymiej sieci jak dzisiaj jest Internet. HTML nie jest
+
+uznawany jako jzyk programowania, brak w nim operacji arytmetycznych, wyrae
+
+warunkowych czy moliwoci tworzenia ptli. Cech, która w duej mierze wplywa na
+
+popularno tego jzyka, jest niezaleno od platformy systemowej, czy sprztu
+
+komputerowego. Mona zauway mniejsze lub wiksze rónice w wygldzie danej
+
+strony na rónych przegldarkach, które w róny sposób mog interpretowa pewne
+
+znaczniki lub style, dlatego w procesie tworzenia, warto jest sprawdza czy docelowe
+
+przegldarki radz sobie z naszym kodem tak jakbymy tego chcieli.
+
+        Pierwsza specyfikacja HTML stworzona przez Tima Bernersa, twórc WWW,
+
+posiadala 22 znaczniki i opierala si na SGML-u (ang. Standard Generalized Markup
+
+Language) nie posiadajc w nim pocztkowo swojej definicji, sytuacja zmienila si w
+
+1993, kiedy propozycja HTML, zawierajca opis gramatyki w postaci SGML, zostala
+
+opublikowana przez IETF (ang. Internet Engineering Task Force)[N5].
+
+        Wygld dokumentu HTML cechuj znaczniki otwierajcy i zamykajcy dany
+
+element, które ujte s w nawiasach ostrych. Zapis <p> Akapit </p> prezentuje jeden
+
+akapit. Dokumenty HTML, aby odpowiadaly przyjtemu standardowi, powinien
+
+zawiera pewne elementy. Pierwszym elementem jest deklaracja typu dokumentu,
+
+wstawiana przed wszystkimi innymi elementami strony, informuje przegldark jakie
+
+reguly byly stosowane przy budowie dokumentu. Rekomendowane typy dokumentów
+
+moemy znale na stronie organizacji W3C.
+
+
+
+
+                                          15
+
+Przykladowa deklaracja ma posta:
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+Calo dokumentu nastpujca po deklaracji typu znajduje si w znacznikach
+
+<html></html>, w których obrbie wyróniamy naglówek <head> oraz tre sam
+
+w sobie objt znacznikami <body>. Wewntrz naglówka znajduj sie meta dane, tzw.
+
+dane o danych, definiujce sposób kodowania, opis zawartoci strony, pozwalaj
+
+okreli kto jest autorem danej strony lub zamieci inne dodatkowe informacji. W
+
+czci naglówkowej moemy take znale tytul danej strony, który wywietla si na
+
+pasku przegldarki, lub na karcie. W tej sekcji zazwyczaj znajduj si równie cieki
+
+lokalizujce pliki zawierajce definicje stylów, oraz zewntrze pliki z skryptami w
+
+jzyku JavaScript[4].
+
+        W ramach ciala dokumentu <body> umieszcza si cal tre, która ma zosta
+
+pokazana. Najnowsza wersja HTML czyli HTML 5 posiada spory zasób znaczników,
+
+pozwalajcy nadawa stronom, atrakcyjny wygld jednoczenie przyspieszajc prac
+
+programisty. Oprócz przedstawiania treci w postaci tekstów i zalczania obrazków,
+
+HTML 5 pozwala na rysowanie dwuwymiarowych obrazów, uycie metody przecignij
+
+i upu, wplywa na dzialanie przycisku wstecz przegldarki, przechowywanie danych
+
+pomidzy przeladowaniami strony, a take posiada natywne wsparcie dla odtwarzania
+
+audio i wideo.
+
+        Jzyk XHTML stanowi polczenie jzyka HTML z zasadami jzyka XML,
+
+podczas gdy baz dla HTML jest SGML. Podstawowymi zasadami tworzenia
+
+dokumentów XHTML s:
+
+·znaczniki pisane malymi literami,
+
+·kady znacznik musi mie odpowiadajcy znacznik kocowy
+
+·dopuszczalne jest stosowanie znaczników samozamykajcych w postaci <br />
+
+·strona musi zawiera deklaracj typu <!DOCTYPE>
+
+·wymagana jest warto dla kadego atrybutu
+
+        Do tworzenia dokumentów HTML/XHTML mona posluy si dowolnym
+
+edytorem tekstu, nawet najprostszy Notatnik z zasobu systemu Windows wystarczy do
+
+stworzenia dowolnie skomplikowanej strony, jednak stosowanie edytorów specjalnie
+
+stworzonych do tego typu dokumentów, znacznie ulatwia prace i redukuje ryzyko
+
+popelnienia bldu, poprzez kolorowanie skladni i automatyczne wylapywanie
+
+bldów[N6].
+
+
+                                          16
+
+1.1CSS
+
+       Aby dokument HTML przestal by standardowym, malo ciekawym, a w wielu
+
+przypadkach nieczytelnym tekstem, mona zdefiniowa styl kadego elementu poprzez
+
+przypisanie odpowiednich wartoci to atrybutu style. Jeeli do wykonania mamy jedn
+
+stron taki zapis moe wystarczy, podobnie podczas tworzenia wiadomoci e-mail
+
+z uyciem jzyka HTML wskazana jest definicja styli inline czyli w atrybutach.
+
+W przypadku gdy budujemy stron skladajc si z wielu podstron, a elementy kolejne
+
+elementy si powtarzaj do akcji wkracza CSS. CSS (ang. Cascading Style Sheets)
+
+kaskadowe arkusze stylów, to jzyk pozwalajcy, przy pomocy odpowiedniej skladni,
+
+opisa wygld i sposób prezentacji elementów na stronie WWW. Pierwsze wydanie
+
+CSS zostalo opracowane przez W3C w 1996 r. bdc potomkiem DSSSL-a (Document
+
+Style Semantics and Specification Language), który byl przeznaczony do uytkowania
+
+z SGML-em.
+
+       Definicje stylów CSS, mona umieci bezporednio w dokumencie, któremu
+
+chcemy nada podany wygld, zazwyczaj w jego czci naglówkowej. Aby jednak
+
+w pelni wykorzysta zalety plynce z uycia CSS, wszystkie definicje umieszczamy
+
+w oddzielnym pliku, do którego odnonik umieszczamy na kadej podstronie naszej
+
+witryny. W ten sposób CSS realizuje glówne zaloenie przyjte podczas jego tworzenia
+
+czyli separacj struktury dokumentu od formy jego prezentacji. Taka budowa pozwala
+
+na bardzo szybkie wprowadzanie zmian w dokumencie, np. jeeli zechcemy, eby tlo
+
+strony, które do tej pory bylo biale, stalo si szare, wystarczy, e zmienimy
+
+odpowiednio warto wlaciwoci w naszym pliku CSS, a efekt bdzie widoczny na
+
+kadej stronie. CSS ulatwia take dostosowanie wygldu strony do rónych urzdze,
+
+które mog otwiera strony WWW, takie jak palmtopy, smartphone-y, a take pozwala
+
+dostosowa dokument do wydruku[N7].
+
+       Sama nazwa nie jest przypadkowa i jest zwizana z sposobem w jaki reguly s
+
+wprowadzane w ycie. Reguly CSS wykluczaj si wzajemnie niezalenie od poloenia
+
+(zewntrzny plik, wewntrzna sekcja style w dokumencie, czy te style inline),
+
+natomiast priorytet ich stosowania jest ustalany hierarchicznie. Definicje z pliku
+
+zewntrznego mog by modyfikowane przez te zapisane w czci naglówkowej, te
+
+natomiast moemy nadpisa definicjami inline. Kolejno z jak przegldarka
+
+interpretuje reguly formatujce dokument jest nastpujca:
+
+·domylny arkusz przegldarki (autor strony nie ma wplywu)
+
+·arkusz zdefiniowany uytkownika przegldarki (równie niemodyfikowalny przez
+
+autora strony)
+
+                                          17
+
+·arkusze stylów z pliku zewntrznego i definicje z sekcji naglówkowej
+
+·definicje znajdujce si w atrybutach danego elementu - inline.
+
+        Kady      arkusz    stylów     jest   pisany   wedlug     schematu,    który  pozwala
+
+przegldarkom na zastosowanie okrelonych wlaciwoci. Kada regula sklada si z
+
+dwóch elementów: selektora oraz deklaracji. Selektor okrela element, bd grup
+
+elementów, których dotyczy ma dana regula. Selektor pozwala na dostp do
+
+elementów strony na kilka sposobów. Podstawowym sposobem jest nazwa elementu,
+
+przy uyciu jako selektora nazwy elementu, zdefiniowane wlaciwoci bd
+
+zastosowane do wszystkich elementów na stronie, chyba, e zostan nadpisane przez
+
+inne reguly. Takie nadpisanie jest moliwe, gdy jako selektora uyjemy klasy elementu,
+
+lub id elementu. T sam klas na stronie moe posiada wiele elementów i wszystkie
+
+z nich bd wygldaly tak, jak zostanie to zdefiniowane w arkuszu stylów, natomiast
+
+elementy o nadanym id powinny by unikalne w obrbie jednej strony.
+
+        CSS doczekal si ju czwartej wersji, która nie istnieje jako jedna specyfikacja.
+
+Od wersji trzeciej CSS jest podzielony na moduly, a kady jest rozwijany niezalenie.
+
+Wikszo z modulów jest na poziomie CSS 3, a tylko kilka z nich osignlo poziom 4.
+
+CSS 3, który jest obecnie najpowszechniej uywany, jest zupelnie kompatybilny wstecz,
+
+wic nie trzeba nic zmienia w poprzednich arkuszach, poza tym co chcemy oczywicie
+
+zmieni, lub doda nowe efekty z CSS3. CSS3 wprowadza mnóstwo nowych efektów,
+
+takich jak, przezroczysto, cienie, przejcia 2D i 3D, animacje, a take moduly
+
+odpowiedzialne za interfejs uytkownika. Uycie CSS jest koniecznoci, nie ze
+
+wzgldu na wymogi technologiczne, ale ze wzgldu na wymogi dzisiejszego
+
+uytkownika Internetu, który oczekuje treci pokazanych w atrakcyjny sposób[N8].
+
+
+1.1JavaScript
+
+        JavaScript jest malym, lekkim zorientowanym obiektowo, skryptowym
+
+jzykiem programowania. Sam w sobie nie jest uytecznym jzykiem, natomiast
+
+funkcjonalno uzyskuje poprzez moliwo zagniedania w innych produktach i
+
+aplikacjach. Dziki moliwoci powizania JavaScript z wewntrzn struktur
+
+rodowiska, pozwala on programicie uzyska kontrol nad jego elementami. JavaScript
+
+zostal stworzony przez firm Netscape2, natomiast prace nad specyfikacj JavaScript
+
+rozpoczla organizacja ECMA (ang. European Computer Manufacturers Association) w
+
+
+2Netscape - firma zaloona w 1994 przez Marca Andreessena i Jamesa H. Clarka, w celu wydania
+
+przegldarki internetowej, jej najpopularniejszego produktu o nazwie Netscape Navigator. Poza
+
+JavaScript-em i przegldark, najpopularniejszymi produktami firmy byly serwer WWW, serwer LDAP,
+
+oraz wlasny system zarzdzania certyfikatmi.
+                                                 18
+
+1996 r. Jzyk, który opisywal standard ECMA-262 zostal nazwany ECMAScript i od
+
+tego momentu JavaScript oznacza jedynie nadzbiór jzyka ECMAScript. Z biegiem
+
+czasu powstawaly róne odmiany interpretowane przez osobne silniki, a jedn z
+
+bardziej znanych implementacji, poza przegldarkow, jest ActionScript, uywany w
+
+aplikacji Adobe Flash. Czlon Java w nazwie, zastpil poprzedni nazw LiveScript,
+
+jako konsekwencja biznesowych porozumie pomidzy Netscape i Sun Microsystems,
+
+która jest wspólwlacicielem znaku handlowego JavaScript. Takie nazewnictwo jest
+
+ródlem nieporozumie wród pocztkujcych programistów i osób luno zwizanych
+
+z tematem, którzy myl jzyk z Jav. Skrypty JavaScript mog si komunikowa
+
+z apletami Javy, dziki technologii LiveConnect, dostpnej w przegldarkach Netscape,
+
+Mozilla i Opera[N9].
+
+       JavaScript jest najczciej wykorzystywany w tworzeniu stron WWW, w tym
+
+celu zostal on take uyty w tej pracy. Skrypty slu zazwyczaj do zapewnienia
+
+interaktywnoci. Najczstsz metod realizacji jest reagowanie konkretnych funkcji na
+
+zdarzenia w obrbie dokumentu. Po wylczeniu JavaScript, niektóre funkcje strony
+
+mog sta si niedostpne, jednak chcc stworzy dynamicznie ladowan aplikacje przy
+
+uyciu technologii AJAX, trudno si obej bez JavaScript-u. Skrypty napisane
+
+w jzyku JavaScript maj ograniczony dostp do komputera uytkownika (co zmienia
+
+si w wypadku skryptów podpisanych cyfrowo). Jest moliwe napisanie strony WWW,
+
+która wykonuje skrypty po stronie serwera, jednak do takich celów uywa si
+
+zazwyczaj innych jzyków. JavaScript umoliwia równie pisanie pelnoprawnych
+
+aplikacji. rodowisko, które mona wykorzysta do tego celu jest udostpnione przez
+
+Fundacj Mozilla.
+
+       JavaScript w implementacjach dostpnych w wszystkich przegldarkach
+
+dostarcza obiektów reprezentujcych drzewo dokumentu, umoliwia tworzenie
+
+ciasteczek, manipulowanie oknami przegldarek, pozwala na wywietlanie prostych
+
+okien dialogowych, umoliwia pobranie informacji o przegldarce, a take zarzdzanie
+
+jej wtyczkami. JavaScript moe te wywiera wplyw na arkusze stylów, oraz reagowa
+
+na zdarzenia w interfejsie[N10].
+
+       Skrypty jzyka JavaScript mona umieszcza bezporednio na stronie pomidzy
+
+znacznikami <script>, które powinny zawiera atrybut type z wartoci
+
+text/javascript, oraz language o wartoci javascript. W przypadku
+
+umieszczania skryptu w dokumencie stworzonym w jzyku XHTML, trzeba zadba aby
+
+operatory jzyka nie zostaly wzite za elementy skladni, w tym celu skrypt otacza si
+
+
+
+                                          19
+
+sekcj CDATA lub zapisuje w postaci encji, ponadto nie mona uy atrybutu language
+
+w znaczeniu okrelenia wersji jzyka JavaScript.       [6].
+
+
+1.2jQuery, jQuery UI, Bootstrap
+
+         jQuery jest bibliotek programistyczn dla wczeniej opisanego jzyka
+
+JavaScript, znacznie ulatwiajc pisanie skryptów JavaScript, a w szczególnoci
+
+manipulacj drzewem DOM3. Uycie jQuery charakteryzuje si nieznaczcym
+
+spadkiem wydajnoci w stosunku do profesjonalnie napisanego wlasnego kodu bez
+
+uycia bibliotek. Sam rozmiar biblioteki, te jest bardzo maly - wersja produkcyjna
+
+zajmuje okolo 30 kB, przy czym moliwe jest skorzystanie z mniejszych wersji tzw.
+
+min. jQuery pozwala na uzyskanie efektownych animacji, obsluy dynamiczne zmiany
+
+strony. Zdecydowanie upraszcza wykonanie zapyta AJAX i obslug odpowiedzi.
+
+Olbrzymi zalet jQuery, jest moliwo wprowadzenia kodu w ycie bez zmian w
+
+dokumencie HTML. Kady efekt jaki mona uzyska korzystajc z jQuery, mona
+
+uzyska korzystajc tylko z jzyka JavaScript, jednak napisanie takiego kodu zajmie
+
+duo wicej czasu. Ponadto, dlaczego wywaa otwarte drzwi?
+
+         jQuery upraszcza wykonanie pewnych czynnoci i sprawia, e dzialanie
+
+pewnych funkcji staje si bardziej zrozumiale, przykladami takich operacji s:
+
+·uycie selektorów dla uzyskania dostpu do dowolnego podzbioru elementów DOM,
+
+ponadto realizowana jest obsluga selektorów zgodna z CSS3
+
+·przetwarzanie atrybutów wzlów dokumentu,
+
+·manipulacja modelem DOM,
+
+·moliwo zmiany, przypisania lub usunicia stylu do danego elementu,
+
+·efekty graficzne - animacje,
+
+·asynchroniczne zapytania AJAX, przy uyciu prostej funkcji.
+
+         Zalet korzystania z jQuery, jest niezaleno od uywanej przegldarki,
+
+ uywajc jQuery mamy gwarancje, e kod bdzie si zachowywal w ten sam sposób
+
+ u kadego uytkownika. S dwa sposoby aby skorzysta z funkcji z biblioteki jQuery,
+
+ uycie funkcji $() lub jQuery(), które zwracaj obiekt jQuery, przy uyciu którego
+
+ latwo stworzy lacuch wywola. Drugim sposobem jest uycie prefiksów $. i jQuery.
+
+ Ta metoda nie operuje na obiekcie typu jQuery, a jedynie wykorzystuje metody
+
+ biblioteki[N11].
+
+3 DOM - ang. Document Object Model, czyli obiektowy model dokumentu, pozwala na reprezentacj
+
+zloonych dokumentów XML i HTML, przy uyciu modelu obiektowego, niezalenego od platformy czy
+
+jzyka. Standard DOM wprowadzony przez W3C definiuje klasy i interfejsy, pozwalajce uzyska dostp
+
+do struktury dokumentów oraz jej modyfikacj poprzez tworzenie, usuwanie i modyfikacj wzlów.
+                                                20
+
+        jQuery UI jest zestawem elementów interfejsu uytkownika, posiadajcym
+
+wbudowane efekty, widety oraz motywy graficzne, zbudowanym w oparciu
+
+o bibliotek jQuery. Interakcje wchodzce w sklad jQuery UI pozwalaj sprawi, e
+
+elementy HTML, bd moliwe do przecignicia z jednego miejsca ekranu na drugie,
+
+mona bdzie dynamicznie zmienia ich rozmiar, zaznacza jako wybór, czy te
+
+sortowa elementy listy. Widety wchodzce w sklad jQuery UI to graficzne elementy
+
+interfejsu uytkownika, które moemy doda do swojej strony. W ich sklad wchodz
+
+takie elementy jak, kalendarz do wybierania daty, zestaw przycisków, okna dialogowe,
+
+paski przesuwne, dynamicznie wywietlane wskazówki. Elementy, mona ze sob
+
+miesza i nadawa im wygld wedlug wlasnego upodobania, lub pozostawi w
+
+standardowej formie. Olbrzymi zalet obydwu produktów jQuery, jest olbrzymie
+
+wsparcie w Internecie, zarówno ze strony twórców jak i uytkowników[N12].
+
+        Bootsrap jest otwartym darmowym frameworkiem, stworzonym przez Twitter,
+
+zawierajcym zestaw gotowych komponentów do budowania stron internetowych.
+
+Swoje dzialanie opiera o wymienione wczeniej jQuery i arkusze stylów CSS.
+
+Elementy tego frameworku pomagaj w tworzeniu spójnego interfejsu graficznego
+
+przy minimalnym nakladzie kodu.
+
+
+1.1Java, Java EE, Enterprise JavaBeans
+
+       Poprzednie rozdzialy przedstawialy technologie, które odpowiedzialne s za
+
+wywietlanie danych po stronie klienta. Dane, które otrzymuje klient s do niego
+
+wyslane przez serwer. W najprostszym przypadku, dane na serwerze znajduj si w
+
+postaci dokumentów HTML, a ich tre jest statyczna, takie rozwizanie, przechodzi
+
+powoli do lamusa. Aby dane mogly si dynamicznie zmienia i by przetwarzane,
+
+konieczne jest wykorzystanie jzyka programowania, który bdzie wykonywany po
+
+stronie serwera i bdzie posiadal dostp do bazy danych. Do wyboru mamy wiele
+
+narzdzi, konkurujcych ze sob pod wzgldem trudnoci implementacji, wydajnoci,
+
+a take wymaga w stosunku do serwera, gdzie w gr wchodz równie koszty
+
+utrzymania[2].
+
+       Jednym z jzyków, dla którego istniej serwery aplikacyjne, pozwalajce
+
+tworzy aplikacje internetowe jest Java, naleca obecnie do Oracle Corporation. Java
+
+jest obiektowym jzykiem programowania. Kod napisany w jzyku Java jest
+
+kompilowany do kodu bajtowego wykonywanego przez wirtualn maszyn Javy. Jzyk
+
+ten kladzie duy nacisk na typowanie, co znaczy, e kade wyraenie danego typu, nie
+
+moe by uywane w kontekcie przeznaczonym dla innych typów. Podstawowe
+
+koncepcje, takie jak wirtualna maszyna, czy sposób zarzdzania pamici, Java
+                                          21
+
+przejmuje z jzyka Smalltalk, natomiast skladnia i slowa kluczowe s w sporej czci
+
+przejte z C++. Jzyk Java cechuj kluczowe koncepcje, takie jak obiektowo
+
+i dziedziczenie. Java jest niezalena od architektury komputera na którym jest
+
+uruchamiana. Napisany przez programist kod, jest kompilowany do kodu poredniego,
+
+a ten jest uruchamiany przez wirtualn maszyn, która zajmuje si tlumaczeniem kodu
+
+uniwersalnego na kod odpowiedni do architektury danego systemu. Takie uruchamianie
+
+programów, sprawia, e s one wolniejsze ni te kompilowane bezporednio do kodu
+
+maszynowego. Aby zniwelowa t wad, czsto korzysta si z kompilatorów JIT - just
+
+in time, które kompiluj do kodu maszynowego, tylko t cz kodu, która jest
+
+wykonywana w danym momencie. Java wykorzystujc reguly obiektowoci zaciera
+
+rónice midzy danymi, które s pobierane z rónych ródel, std nie widzi rónicy
+
+midzy tymi pochodzcymi z pliku, a otrzymanymi z uyciem protokolu HTTP, czy
+
+FTP. Projektanci jzyka Java rozpoczli prac od rozpoznania przyczyn, które
+
+powodowaly najwiksz ilo bldów podczas tworzenia programów w C++, tak aby
+
+stworzy jzyk prosty w uyciu, a jednoczenie bezpieczny i niezawodny. Glówn
+
+cech pozwalajc na osignicie powyszego celu jest mechanizm wyjtków, który
+
+pozwala na wykrycie nieprzewidzianych sytuacji w dzialaniu programu i odpowiednie
+
+ich raportowanie, które ulatwia usunicie bldu. W praktyce czasem okazuje si to
+
+trudne, gdy jeden wyjtek zagnieda drugi i trzeba dobrze przeledzi ich stos, aby
+
+wykry przyczyn bldu.
+
+        Sama Java jednak nie wystarcza do tworzenia aplikacji internetowych. Do tego
+
+celu naley uy Javy EE (Enterprise Edition), potocznie nazywanej korporacyjn.
+
+Java EE jest serwerow platform programistyczn korzystajc z jzyka Java.
+
+Platforma      ta   dostarcza     API4     i   rodowisko        uruchomieniowe      do    tworzenia
+
+oprogramowania klasy korporacyjnej, wlczajc systemy rozproszone, serwisy WWW
+
+i inne due, skalowalne, wielowtkowe stabilne i bezpieczne aplikacje sieciowe.
+
+Java EE rozszerza funkcjonalnoci standardowej Javy o API sluce do mapowania
+
+relacyjno-obiektowego, które odwzorowuje klasy Javy na wpisy znajdujce si w bazie
+
+danych, obslug rozproszonych i wielopoziomowych aplikacji, oraz tworzenia aplikacji
+
+internetowych w postaci serwisów WWW. Platforma wspomaga programowanie zgodne
+
+z paradygmatem Convention over Configuration, który ma pozwala na tworzenie
+
+skomplikowanych rozwiza programistycznych z uyciem jak najmniejszej iloci
+
+4 API - Application Programming Interface - interfejs programowani aplikacji, zestaw okrelonych regul
+
+i opisów standaryzujcy sposób w jaki komunikuj si ze sob programy. W obiektowych jzykach
+
+programowania API zawiera zazwyczaj opis definicji klas wraz z zestawem zachowa polczonych
+
+z dan klas. Zazwyczaj jest to opis metod jakie dostarcza interfejs danej klasy.
+                                                   22
+
+kodu, w praktyce polega to na deniu do redukcji konfiguracji i kodowania do
+
+niezbdnego minimum. Java EE do konfiguracji uywa adnotacji, które pozwalaj
+
+zmniejszy ilo skomplikowanych plików konfiguracyjnych w postaci XML, na
+
+których stworzenie potrzeba powici mnóstwo czasu, a wylapywanie bldów jest
+
+trudne i monotonne.
+
+       Jednym z elementów API Javy EE, uywanym podczas tworzenia aplikacji
+
+internetowych, s EJB (Enterprise JavaBeans), tzw. ziarna Javy. EJB pozwalaj przy
+
+minimalnym nakladzie pracy programisty, uczyni zwykl klas Javy - POJO (Plain Old
+
+Java Object), ziarnem EJB, które udostpnia takie uslugi jak transakcyjno, trwalo,
+
+rozproszenie, bezpieczestwo, wielodostp itp. Utworzone ziarna -komponenty, osadza
+
+si na serwerze aplikacji, który stanowi kontener EJB, gdzie kade z nich udostpnia
+
+swój interfejs lokalnie, lub zdalnie z uyciem protokolu RMI. Ziarna EJB dzieli si na
+
+trzy glówne rodzaje :
+
+·sesyjne ziarna EJB (session EJB) w tym stanowe (które przez caly czas ycia
+
+pamitaj swój stan, który zmienia si w cigu wykonywanych zada) i bezstanowe
+
+(które przy kadym wywolaniu, posiadaj ten sam stan, odpowiadaj za logik
+
+aplikacji, kod w nich umieszczony przetwarza dane,
+
+·ziarna EJB sterowane komunikatami (message-driven EJB) pozwalajce na zdalne
+
+wykonywanie procedur,
+
+·encyjne ziarna EJB (entity EJB) zastpione przez specyfikacj Java Persistance API
+
+odpowiedzialn za utrwalanie danych w bazie danych.
+
+       Aby moliwe bylo uruchomienie aplikacji stworzonej w Javie EE, potrzebny jest
+
+serwer aplikacji, który uruchomi nasz kod i bdzie kontenerem EJB. Java EE jest
+
+darmowa dla kadego kto chce z niej korzysta, podobnie serwery aplikacji dla tej
+
+platformy. Co prawda istniej platne wersje, jednak najbardziej popularne takie jak
+
+Apache Tomcat, GlassFish czy JBoss Application Server, s zupelnie darmowe[N13].
+
+       Java EE sama w sobie, jest duo bardziej skomplikowana, ni miala by
+
+w zamierzeniu, jednak na rynku znajduj sie framework-i, takie jak Spring, czy Seam,
+
+które pozwalaj maksymalnie przyspieszy proces rozwoju oprogramowania i skupi
+
+si programicie na logice, a nie zawilociach kodu. W przypadku mojej pracy
+
+skorzystalem z framework-u Spring, a jego krótki opis przedstawiam poniej.
+
+
+1.1Spring Framework, Spring MVC
+
+       Spring framework jest szkieletem dla aplikacji pisanych w jzyku Java
+
+z uyciem platformy Java EE, lub w zalenoci od wersji dla rodowiska .NET. Uycie
+
+
+                                           23
+
+Springa, stanowi alternatyw dla programowania z uyciem EJB, których uycie
+
+wizalo si z duym nakladem programowania, co bylo nieoplacalne w przypadku
+
+malych i rednich aplikacji. Spring nie wymusza specjalnego modelu programowania,
+
+a jego koncepcja kieruje si w stron lekkiego szablonu. Zalet przy tworzeniu aplikacji
+
+z uyciem Springa jest swoboda w tworzeniu wlasnych rozwiza, a take bardzo dobra
+
+dokumentacja i wsparcie ze strony uytkowników z calego wiata. Spring stanowi
+
+rozwizanie dla tworzenia aplikacji klasy korporacyjnej, w tym systemów
+
+rozproszonych, a take udostpnia model do tworzenia aplikacji internetowych.
+
+        Spring posiada bardzo wiele modulów, które wspomagaj implementacje na
+
+kadym poziomie tworzenia aplikacji. Jednak glówn cech tego framework-u jest
+
+odwrócenie kontroli (z ang. IoC - Inversion of Control). Ide tej koncepcji jest
+
+przekazanie kontroli nad komponentami i ich funkcjami, poza same komponenty.
+
+Spring jest czasem bldnie utosamiany z odwróceniem kontroli, jednak jest on tylko
+
+jedn z implementacji tego konceptu. Dzialanie IoC w Springu przekazuje poza
+
+komponent, tworzenie komponentów i zalenoci midzy nimi. Tzn. jeli klasa
+
+A potrzebuje do dzialania uslug klasy B, to dziki IoC, nie wymaga uycia
+
+konstruktora, ani klasy fabrykujcej do stworzenia instancji klasy B. Instancja klasy
+
+B zostaje dostarczona przez zewntrzny proces, który korzysta z deklaracji zalenoci
+
+dostarczonych przez programist. Deklaracje komponentów i zalenoci midzy nimi
+
+pierwotnie byly umieszczane w pliku XML, natomiast z rozwojem kolejnych wersji,
+
+znaczn cz konfiguracji XML, zostala przejta przez adnotacje.
+
+        Spring dostarcza take modul pozwalajcy na uycie AOP (ang. Aspect Oriented
+
+Programming). Programowanie zorientowane obiektowo pozwala na implementacje
+
+powtarzajcej si logiki jeden raz, a nastpnie automatyczne uruchamianie w zadanych
+
+momentach. Spring, AOP uywa midzy innymi do zapewnienia transakcyjnoci.
+
+        Spring w celu tworzenia aplikacji dla sieci WWW, oferuje modul MVC - Model
+
+View Controller. Model Widok Kontroler, jest wzorcem dla tworzenia aplikacji, które
+
+wyposaone s w graficzny interfejs. Przy uyciu tego modelu programowania
+
+przyjmuje si podzial na trzy glówne czci. Model - stanowi cz aplikacji, która
+
+odpowiada za logik. Zawiera w sobie definicje obiektów, przedstawiajcych fizycznie
+
+istniejce obiekty. Widok - pliki stanowice t cz modelu, odpowiadaj za
+
+prezentacje danych uytkownikowi, opisuj jak wyglda interfejs. Uycie tego modelu,
+
+pozwala na tworzenie podwidoków, które si powtarzaj i mog by wielokrotnie
+
+wykorzystywane. Kontroler - ta cz modelu zajmuje si odbieraniem danych od
+
+uytkownika i tworzeniem odpowiedzi, aktualizuje model i zarzdza widokami, które s
+
+                                           24
+
+prezentowane uytkownikowi. W praktyce funkcje wykonywane przez kontroler, s
+
+dostarczone przez osobno zaimplementowane serwisy, w celu luniejszego powizania
+
+ze sob komponentów[5].
+
+        Szkielet aplikacji Web wchodzcy w sklad Springa, a bazujcy na modelu MVC,
+
+pomaga budowa aplikacje internetowe, które s elastyczne i luno powizane, zgodnie
+
+z ogóln ide Springa. Spring MVC bazuje na modelu danie-odpowied i definiuje
+
+strategiczne interfejsy spelniajce wszystkie wymagania z jakimi spotykaj si
+
+nowoczesne szkielety aplikacji oparte na modelu zapyta. Za punkt docelowy twórcy
+
+postawili sobie, aby kady interfejs byl prosty i czytelny, a take aby w latwy sposób
+
+umoliwi uytkownikom implementacje wlasnych rozwiza. Glównym elementem
+
+Spring Web MVC jest DispatcherServlet. Serwlet jest klas Javy dzialajc po stronie
+
+serwera, która dziala w modelu danie-odpowied. Serwlety isteniej jako cz
+
+platformy Java EE i mog korzysta z calego API Javy. Dispatcher stanowi pierwszy
+
+kontroler z jakim spotyka si danie nadeslane do serwera, nastpnie decyduje, który
+
+z interfejsów powinien obsluy konkretne danie. Najwaniejsze interfejsy dostpne
+
+w ramach Spring MVC :
+
+·HandlerMapping - wybiera obiekt, który powinien obsluy konkretne danie,
+
+·HandlerAdapter - wykonuje metody obiektów, które obsluguj danie,
+
+·Controller - spelnia funkcje kontrolera w modelu MVC, decyduje czy nadchodzce
+
+dane maj trafi do modelu czy widoku,
+
+·View - odpowiedzialny za wyslanie odpowiedzi do klienta, niektóre dania mog
+
+trafi bezporednio do widoku, bez wysylania do modelu,
+
+·ViewResolver - pozwala zwraca konkretne widoki na podstawie nazwy,
+
+·HandlerInterceptor - moe przechwytywa nadchodzce dania, w sposób podobny
+
+jak serwlety, jest uywany opcjonalnie poza kontrol Dispatcher-a
+
+·LocaleResolver - obsluga danych lokalnych uytkownika , ich pozyskiwanie
+
+i zapisywanie,
+
+·MultipartResolver - ulatwia obslug przesylania plików[N14].
+
+
+1.1JSP, JSTL
+
+        JSP - Java Server Pages jest technologi wspomagajc twórców aplikacji
+
+w tworzeniu dynamicznie generowanych stron WWW, opierajcych si glównie na
+
+formatach HTML i XML, nie wykluczajc innych typów dokumentów. JSP zostalo
+
+wydane w 1999r. przez Sun Microsystems i jest podobne do PHP, ale uywa jzyka
+
+programowania Java. Aby korzysta z JSP potrzebny jest serwer posiadajcy kontener
+
+                                          25
+
+serwletów, taki jak Apache Tomcat. Strona JSP jest zamieniana na serwlet, który jest
+
+wykonywany podczas wykonania zapytania przez przegldark. W uyciu z Spring Web
+
+MVC, JSP pozwalaj na dostp do zmiennych przekazanych przez model do widoku,
+
+jako atrybuty. JSP umoliwia wykonanie funkcji na obiektach bezporednio w widoku.
+
+Jest to bardzo potne narzdzie, pozwalajce np. przekaza do widoku list w postaci
+
+jednego obiektu i w dokumencie JSP zamieci ptle zapewniajc dostp do
+
+wszystkich elementów listy. Aby moliwe bylo wykonanie takich czynnoci JSP uywa
+
+jzyka wyrae - expression language. EL - Expression Language, jest jzykiem
+
+skryptowym pozwalajcym na uzyskanie dostpu do komponentów Javy (JavaBeans),
+
+jak równie ziaren Spring, w stronach JSP. EL pozwala wywolywa metody obiektów,
+
+porównywa je ze sob i przeprowadza operacje, zarówno matematyczne, jak logiczne.
+
+Strony JSP przeplataj tre statyczn, która jest bezporednio przepisywana do
+
+dokumentu wynikowego , dyrektywy JSP, które kontroluj proces generowania
+
+dokumentu, a take wyej wspomniane elementy skryptowe w jzyku wyrae, które
+
+generuj tre. Ostatnim elementem s tagi XML, wywolujce okrelone metody
+
+serwerowe.
+
+        JSTL - JavaServer Pages Standard Tag Library, czyli standardowa biblioteka
+
+znaczników dla technologii JSP, jest komponentem Javy EE. JSTL rozszerza
+
+specyfikacje JSP dodajc znaczniki, które obsluguj powtarzajce si czsto czynnoci,
+
+takie jak przetwarzanie danych XML, instrukcje warunkowe, ptle, czy obslug wielu
+
+jzyków. JSTL pozwalaj na zamieszczanie logiki w dokumentach JSP, bez uywania
+
+bezporednio kodu Java. Biblioteki znaczników pozwalaj na wiele wicej. Korzystajc
+
+z nich mona formatowa w odpowiedni sposób lacuchy tekstu lub wywietli dat
+
+w danym formacie. Okazuj si take niezastpione przy tworzeniu formularzy
+
+w Spring MVC, które wspomagaj walidacj przez wywietlanie bldów wylapanych
+
+przez walidator.  Znaczniki s take wykorzystywane przez modul bezpieczestwa
+
+Spring - Spring Security, umoliwiajc pokazywanie danej treci uytkownikowi
+
+z odpowiednim stopniem uprawnie.[N15].
+
+
+1.2MySQL
+
+        Jak ju nadmienilem wczeniej, nowoczesne strony sieci WWW, wymagaj
+
+moliwoci dynamicznej zmiany treci. Aby spelni to wymaganie, uywa si baz
+
+danych. Aplikacja bez bazy danych nie bylaby w stanie zapamita zmian
+
+wprowadzanych przez uytkowników, stalaby si statyczn stron. Dziki bazie danych
+
+tre jest dynamicznie dodawana i kadorazowo wczytywana z bazy danych.
+
+Najczciej uywanym systemem zarzdzania relacyjn baz danych jest MySQL
+                                          26
+
+nalecy do firmy Oracle. Od 2008 spelniajcy funkcj serwera pozwalajcego na
+
+dostp do wielu baz danych, wielu uytkownikom. MySQL jest popularnym wyborem
+
+przy tworzeniu aplikacji internetowych, szczególnie w stosie projektowym LAMP,
+
+opierajcym sie na Linuxie, serwerze Apache, oraz jzykach takich jak PHP, czy
+
+Python. Do celów komercyjnych istnieje kilka platnych wersji, które oferuj
+
+rozbudowane funkcjonalnoci. MySQL jest uywany w duych projektach sieci WWW,
+
+takich jak Wikipedia, Google, Facebook, Twitter, Flickr czy YouTube.
+
+        MySQL dziala na wielu platformach systemowych, takich jak Linux, Windows,
+
+Mac OS X, czy chociaby Symbian. MySQL jest napisany w jzykach C/C++,
+
+natomiast wiele jzyków programowania udostpnia biblioteki udostpniajce
+
+polczenie z baz danych MySQL. Najpopularniejszym sterownikiem zapewniajcym
+
+dostp do bazy danych dla Javy jest JDBC (Java Database Connectivity). MySQL 5.5
+
+jest oferowany w wersji open source Community Server oraz w wersji komercyjnej
+
+Enterprise Server. Obie wersje pozwalaj na korzystanie z duej iloci wbudowanych
+
+funkcji. Z punktu widzenia tworzenia aplikacji internetowej, najistotniejszymi
+
+funkcjami udostpnianymi przez MySQL jest moliwo tworzenia podzapyta,
+
+moliwo uywania metod porównywania znaków takich jak uniocde czy utf8, dziki
+
+czemu aplikacja moe wywietla dowolne znaki, jak np. polskie znaki diakrytyczne.
+
+Przydatn opcj jest równie tworzenie backupów, co w razie awarii bazy danych, lub
+
+uszkodzenia danych pozwala przywróci aplikacje do dzialania w krótkim czasie. Nie
+
+mniej istotne jest wsparcie dla protokolu bezpiecznego przyslania danych SSL. MySQL
+
+zawiera tryb cisly, który nie pozwala na zapisywanie danych niezgodnych z
+
+zdeklarowanym typem, eliminujc przez to bldy obcicia[N16].
+
+        Przy projektowaniu bazy danych posluylem si programem MySQL
+
+Workbench, równie nalecym do firmy Oracle. Narzdzie to jest graficznym
+
+narzdziem projektowania bazy danych, które w jednym rodowisku integruje
+
+tworzenie kodu SQL, administracj, jak równie projekt bazy danych.
+
+
+1.3Hibernate
+
+        W aplikacji internetowej, podobnie jak w kadej aplikacji napisanej w jzyku
+
+Java, fizyczne obiekty, które chcemy odzwierciedli istniej w postaci klas. Opisana
+
+w wczeniejszym rozdziale baza danych, sluy do utrwalania stworzonych instancji
+
+klas, jednak nie jest tego w stanie zrobi bezporednio. Kada klasa sklada si z pól
+
+rónych typów i dopiero typy podstawowe mog by zapisywane w bazie danych. Aby
+
+nie trzeba bylo wyciga danych z bazy za pomoc zapyta SQL i w mozolny sposób
+
+przypisywa wartoci kolejnych rekordów do pól konkretnej klasy powstaly systemy
+                                           27
+
+ORM. ORM - Object-Relational Mapping - odwzorowuje obiektow architektur
+
+systemu informatycznego na relacyjn baz danych. Hibernate jest przykladem
+
+frameworku realizujcego dostp do danych. Jego podstawow cech jest spelnienie roli
+
+systemu ORM. Podczas korzystania z Hibernate definiujemy sposób w jaki klasy
+
+odwzorowane s w bazie danych za pomoc plików XML lub adnotacji. Dodatkow
+
+zalet korzystania z Hibernate jest zwikszenie wydajnoci podczas pobierania
+
+rekordów z bazy danych dziki buforowaniu i minimalizacji przesylanych zapyta.
+
+Budowa zapyta podczas korzystania z Hibernate opiera si na jzyku HQL lub
+
+specjalnych obiektach Criteria, które pozwalaj budowa zloone zapytania,
+
+projekcje i praktycznie wyeliminowa uycie SQL. Jzyk HQL, jest jzykiem zapyta
+
+stworzonym specjalnie dla potrzeb Hibernate. Uycie klas Criteria pozwala budowa
+
+zapytania, które z poziomu DAO5 jednej klasy pobieraj dane o innej klasie - Detached
+
+Criteria, co nie jest moliwe z uyciem HQL. HQL w budowie zapyta wyglda bardzo
+
+podobnie SQL, natomiast zamiast nazw tabel i kolumn, uywa si nazw klas i ich pól[1].
+
+         Hibernate posiada take modul odpowiedzialny za walidacje, który równie
+
+wykorzystalem. Rozszerza on zestaw adnotacji, które ograniczaj wartoci pól
+
+podlegajcych mapowaniu. Ograniczenia te definiuje si na poziomie obiektów, które s
+
+zapisywane do bazy danych i s podobne do ogranicze pól w bazie danych. Mona
+
+take budowa ograniczenia oparte na wyraeniach regularnych, które porównuj
+
+wpisane do formularza dane z wyraeniem i na podstawie tego porównania zapisuje
+
+dane do bazy danych lub zwraca komunikat o bldzie[N17].
+
+
+1.4Android
+
+         System Android jest w chwili obecnej dojrzalym systemem operacyjnym,
+
+pozwalajcym na peln kontrolne elementów wchodzcych w sklad urzdze
+
+mobilnych, zarówno tych kluczowych jak pami i procesor, jak i dodatkowych,
+
+którymi s aparaty, moduly GPS i wiele innych. Obecnym wlacicielem systemy
+
+Android jest firma Google, która przejla w roku 2005 rozpoczynajc swoje dzialanie
+
+firm Android Inc. System jest udostpniany za darmo na licencji Apache License 2.06,
+
+
+
+5DAO - Data Access Object - jednolity interfejs dostpu aplikacji do bazy danych, lub danych z plików.
+
+W przypadku czstego podejcia jakim jest budowa osobnego DAO, dla kadej klasy, konieczne jest
+
+uycie klas Criteria do wykonania pewnych zapyta, np. zawierajcych podzapytania, pobierajce wyniki
+
+z klas, do których dostp zapewnia inny obiekt DAO.
+
+6
+Apache License ­ jest licencj wolnego oprogramowania, która dopuszcza uycie kodu ródlowego
+
+zarówno na potrzeby wolnego oprogramowania jak i projektów komercyjnych bez publicznego dostpu
+
+do ródel.[N19]
+                                                 28
+
+natomiast do wykorzystania jdra systemu stosowana jest licencja GPL7 . Kluczowym
+
+elementem dla powstawania aplikacji dla platformy Android jest SDK8, udostpniane
+
+przez firm Google. Pierwsze publikacja SDK w formie ,,wczesnego wydania" zostalo
+
+udostpnione w roku 2007, natomiast pierwszy komercyjny telefon dostepny w sieci T-
+
+Mobile ukazal si w roku 2008. Jednym z kluczowych elementów w architekturze
+
+systemu Android jest moliwo interakcji midzy aplikacjami. Aplikacje budowane s
+
+z komponentów, które mog by wykorzystywane w wielu aplikacjach na róne
+
+sposoby. Ponowne wykorzystanie odnosi si zarówno do warstwy serwisów jakie
+
+udostpnia system, jak równie do komponentów graficznych z których budowany jest
+
+interfejs uytkownika.
+
+         SDK systemu android, jak i aplikacje powstaj w jzyku Java. Programy
+
+napisane w jzyku Java wymagaj wirtualnej maszyny przygotowanej dla platformy na
+
+której chcemy je uruchamia. Dla systemu Android takim narzdziem jest wirtualna
+
+maszyna o nazwie Dalvik, która jest wbudowana w system. W przyszloci moliwe jest
+
+wprowadzenie innych, jeszcze lepiej zoptymalizowanych rodowisk uruchamiania
+
+aplikacji Java dla Androida, jednak do tej pory wszystkie wersje systemu jakie si
+
+ukazaly korzystaj z Dalvik-a. Sam Dalvik jest specjalnie przygotowan wirtualn
+
+maszyn do zastosowa w urzdzeniach o mniejszych moliwociach obliczeniowych
+
+ni komputery osobiste. Optymalizacja polega glównie na rozbijaniu skompilowanych
+
+klas Javy w postaci plików .class na pliki wykonywalne Dalvik o rozszerzeniu .dex.
+
+Takie rozbicie pozwala na dodatkow optymalizacje i szybsze uruchamianie
+
+fragmentów kodu. Dalvik stosuje równie inne mechanizmy, które pozwalaj
+
+oszczdza baterie i miejsce w pamici przy jednoczesnym zachowaniu szybkoci
+
+dzialania. Telefony, jak i tablety przeszly spore zmiany od pojawienia si pierwszego
+
+telefonu z systemem Android i sprzt montowany w nich dzisiaj pozwala na tworzenie
+
+bardzo zaawansowanych obliczeniowo aplikacji, jak edytory grafiki, które potrafi
+
+naklada filtry na fotografie bezporednio na urzdzeniu.        [3]
+
+
+
+
+7
+GPL ­ General Public License ­ jest licencj wolnego i otwartego oprogramowania. Z zaloenia ma
+
+zapewnia wolno uruchamiania w dowolnym celu, analizowania i dostosowywania do wlasnych celów,
+
+rozpowszechniania w niezmienionej formie, wprowadzania ulepsze i ich publikacji.[N20]
+
+
+8
+SDK ­ Software Development Kit - jest zestawem narzdzi udostpnianym przez producenta, systemu,
+
+sprztu lub oprogramowania dla programistów, które s niezbdne do tworzenia oprogramowania na dan
+
+platform.[N18]
+
+                                                29
+
+1.5JUnit, Roboelectric
+
+       Junit jest narzdziem przeznaczonym do tworzenia testów jednostkowych
+
+w jzyku Java. Ide Junit jest tworzenie malych, latwo powtarzalnych testów opartych o
+
+Asercje. Asercja jest form zapisu warunku logicznego, który w danym miejscu ma
+
+zachodzi. W ten sposób moemy sprawdzi czy wynik dzialania jakie funkcji jest
+
+zgodny z naszymi oczekiwaniami, jeli nie jest otrzymamy o tym stosowny komunikat.
+
+Framework Spring posiada specjalne klasy do uruchamiania testów Junit. Interfejsy
+
+dostarczone przez adnotacje sprawiaj, e latwo moemy stworzy kontekst dla jakiego
+
+maj zosta uruchomione testy. Roboeletric jest swego rodzaju dodatkiem dla Junit,
+
+który pozwala na testowanie kodu tworzonego dla systemu Android. Tutaj równie
+
+kluczowym narzdziem s adnotacje, które pozwalaj na szybkie przygotowanie
+
+odpowiedniego testu.
+
+
+1.6GreenDAO
+
+       System Android udostpnia baz danych SQL Lite. Jest to baza danych, która
+
+nie wymaga instalowania jej na dedykowanym serwerze. Domylnie wchodzi ona w
+
+sklad systemu i moe by wykorzystywana przez dowoln ilo aplikacji. Tworzenie
+
+tabel oraz zapyta odbywa si przez specjalne Api wchodzce w sklad systemu
+
+Android. Funkcje odpowiadajce za tworzenie, usuwanie i edycj tabel trzeba napisa
+
+samemu i generuj one spor ilo powtarzajcego si kodu. Sposobem na ominicie
+
+tego problemu jest skorzystanie z projektu GreenDAO Jest to ORM, specjalnie
+
+stworzony dla systemu Android, rozpowszechniany jako wolne oprogramowanie.
+
+       GreenDAO pozwala na opisanie schematu bazy danych przy pomocy obiektów
+
+jzyka Java, nastpnie na podstawie tego opisu generuje wszystkie potrzebne elementy.
+
+Otrzymuje obiekty DaoMaster i DaoSession, które odpowiadaj za stworzenie i
+
+aktualizacje schematu bazy danych, oraz udostpniaj elementy obiekty dao, dla
+
+wszystkich obiektów modelu.
+
+       GreenDao charakteryzuje :
+
+·optymalizacja pod ktem wydajnoci dla systemu Android
+
+·latwo uycia
+
+·zmniejszenie uycia pamici
+
+·maly rozmiar biblioteki.[20]
+
+
+
+
+                                          30
+
+1.Aplikacja
+
+1.1Podobne rozwizania9
+
+         W Internecie moemy znale bardzo niewiele rozwiza tego typu. Istniejce
+
+najczciej s platformami dla wielu restauratorów i nie pozwalaj na modyfikacje,
+
+zgodne z wymaganiami konkretnego lokalu, ale kady prezentuje si w ten sam sposób.
+
+Rozwizania dedykowane te s jeszcze nieliczne, a sposób zamawiania potraw przez
+
+Internet nie jest jeszcze bardzo rozreklamowany. Czstym problemem istniejcych
+
+rozwiza jest brak czytelnoci, dua liczba okienek, dodatkowych wyborów w których
+
+uytkownik moe si zgubi i które zniechcaj do zloenia zamówienia przez Internet.
+
+Jedynym oczywistym powtarzajcym si elementem jest menu potraw, które rzadko
+
+bywa czytelne. Sklad potrawy czsto jest polczony z jej nazw w jednej linijce.
+
+Elementem, który pojawia si na stronach oferujcych uslugi wielu restauratorów, jest
+
+system ocen.
+
+         Podstawow wad systemów, które uwzgldniaj udzial wielu restauracji, jest,
+
+e szansa powrotu do konkretnej restauracji przez klienta jest znikoma, gdy z duym
+
+prawdopodobiestwem podczas powrotu na dan stron klient wybierze co innego.
+
+Gdy klient wraca do strony, która jest dedykowana konkretnej restauracji, wiadome jest,
+
+e swoje zamówienie zrobi tutaj.
+
+         Natomiast systemy dedykowane, s duo rzadziej odwiedzane ni due
+
+rozreklamowane platformy, które daj due moliwoci wyboru. Bardzo istotne podczas
+
+wprowadzania takiego systemu, byloby przeprowadzenie skutecznej kampanii
+
+reklamowej, najlepiej z duym uwzgldnieniem sieci spolecznociowych.
+
+         Systemy dedykowane oferuj te rezerwacje stolików, jednak rozwizania, które
+
+spotkalem nie umoliwiaj wyboru konkretnego stolika. Taka opcja pozwala na
+
+dobranie stolika do konkretnej okazji.
+
+         To czego nie oferuj najpopularniejsze rozwizania, to system komentarzy. Dla
+
+internautów czsto najwiksze znaczenie, przy wyborze produktu, ma opinia innych
+
+osób, które ju go przetestowaly. Im wicej pozytywnych opinii tym wiksza szansa, e
+
+nasz zakup nie okae si klap i pienidzmi wyrzuconymi w bloto, mówic
+
+kolokwialnie.
+
+
+
+
+9https://pizzaportal.pl/ http://www.halong.com.pl/ http://www.netkelner.pl/
+
+http://www.pastaibasta.pl/jedzenie
+
+
+                                                   31
+
+1.2Opis wymaga
+
+       Projektujc jakkolwiek aplikacje, naley rozpocz prac od analizy i opisu
+
+wymaga. Nie da si stworzy systemu, bez pojcia co ma robi i jak ma to robi. Nie
+
+da si oczywicie przewidzie wszystkiego z góry, duo rzeczy w trakcie pracy zostaje
+
+zmienionych, pojawiaj si te nowe pomysly. Analizujc podobne rozwizania
+
+nasuwaj si wnioski, odnonie tego co powinno si znale w aplikacji, czego brakuje
+
+w innych rozwizaniach, oraz co najbardziej zniechca uytkowników i powinno zosta
+
+pominite. Podczas pracy nad aplikacj zrodzily si nastpujce wymagania.
+
+       Podstawowym zaloeniem jest czytelno i intuicyjno aplikacji. Latwo
+
+korzystania z serwisu nie zniechca na samym pocztku, a wymaganie od uytkownika
+
+racjonalnej iloci danych i zapamitanie jego preferencji (takich jak adres, czy
+
+moliwo wykorzystania wczeniej stworzonego zamówienia), sprawia, e z kadymi
+
+odwiedzinami serwisu uytkownik moe coraz szybciej, zloy swoje zamówienie.
+
+       Istotnym elementem aplikacji jest przedstawienie odpowiednio duej iloci
+
+informacji o produktach w sposób, który nie przytlacza i nie zniechca.
+
+       Równie elementy aplikacji przeznaczone dla pracowników potencjalnego
+
+lokalu wykorzystujcego serwis, s stworzone tak, aby byly jak najbardziej czytelne
+
+i przedstawialy dokladnie tak ilo informacji jaka jest wymagana. Trzeba oczywicie
+
+wzi pod uwag wymagania ewentualnego klienta, dla którego mona dowolnie
+
+przeprojektowa zestaw i sposób wywietlanych danych.
+
+       Architektura bazy danych serwisu, umoliwia przechowywanie danych
+
+o nastpujcych elementach:
+
+·kontach uytkowników
+
+·danych klientów
+
+·zamówieniach
+
+·rezerwacjach
+
+·menu potraw
+
+·komentarzach do potraw
+
+·informacjach o stolikach
+
+·informacjach na stronie.
+
+       Aplikacja udostpnia funkcje takie jak dodawanie, usuwanie i modyfikacja
+
+danych, stronicowanie dlugich list, a take wyszukiwanie i sortowanie listy klientów.
+
+W serwisie uwzgldniony jest podzial na trzy role : administrator, uytkownik, klient.
+
+       Stworzenie aplikacji, spelniajcej wymagania klienta, wymaga ciglego
+
+kontaktu i dostosowywania do precyzowanych na bieco wymaga. Poniewa
+                                          32
+
+aplikacja bdca obiektem tej pracy, jest teoretyczna i przy jej budowie nie bral udzialu,
+
+aden realny klient, wymagania zostaly postawione w oparciu o zdrowy rozsdek
+
+i zapoznanie si z dzialaniem podobnych projektów. Stworzony interfejs graficzny jest
+
+nie nachalny i prosty. Natomiast wszystkie funkcjonalnoci serwisu s stworzone, tak
+
+aby mona je latwo edytowa lub rozbudowa. Istotnym elementem kadej aplikacji
+
+przechowujcej dane jest bezpieczestwo, aplikacja posiada odpowiednie mechanizmy
+
+zabezpieczajce i moliwo dzialania przy uyciu protokolu SSL.
+
+
+1.1Wymagania funkcjonalne
+
+       Aplikacja sluca do obslugi restauracji on-line to narzdzie, które swoim
+
+dzialaniem, ma za zadanie spelni wiele wymaga. Najbardziej podstawow funkcj
+
+tego serwisu jest istnienie jako strona informacyjna lokalu. Pozwalajca sprawdzi
+
+gdzie znajduje si lokal, jak dojecha, w jakich godzinach funkcjonuje i jak
+
+skontaktowa si z obslug. Kady odwiedzajcy ma te moliwo zapoznania si
+
+z menu, komentarzami do kolejnych pozycji w menu i ich ocen, a take z opisem
+
+stolików moliwych do rezerwacji.
+
+       Aby uzyska dostp do pozostalych opcji systemu naley posiada konto w
+
+systemie. Kade konto moe posiada jedn z trzech ról, jakie istniej w ramach
+
+systemu. Pierwszym typem konta jest administrator. Jest rodzaj konta, którego
+
+uprawnienia posiada tylko jeden uytkownik. Konto reprezentuje, osob pokroju,
+
+wlaciciela lokalu, który tworzy konta uytkowników i nimi zarzdza. Konto to nie ma
+
+innych uprawnie, do wykonywania wszystkich pozostalych czynnoci uywane s
+
+konta uytkowników.
+
+       Konto typu uytkownik, reprezentuje pracownika restauracji. To konto zapewnia
+
+najwiksz    funkcjonalno.   Uytkownik      moe     przeszukiwa    list  klientów,
+
+weryfikowa ich dane lub blokowa konto. Ma dostp do listy rezerwacji i zamówie,
+
+oraz   moliwo     oznaczania  potwierdzenia     odebrania     zamówienia.   Zadaniem
+
+uytkownika jest równie dodawanie, modyfikowanie i usuwanie pozycji z menu,
+
+informacji o stolikach, a take informacji o wydarzeniach w lokalu, promocjach itp.
+
+Uytkownik ma take moliwo wyslania maila, automatycznie do wszystkich
+
+uytkowników, z informacjami o promocjach, oraz usuwa komentarze klientów,
+
+których tre jest niestosowna.
+
+       Osoba korzystajca z konta typu klient, ma dostp do tych samych elementów
+
+aplikacji co go, czyli moliwo przegldania wszelkich udostpnionych informacji.
+
+Dodatkowym rozszerzeniem jest moliwo edytowania swojego konta w zakresie
+
+danych osobowych i adresowych, co sluy skladaniu zamówie on-line. Klient widzi
+                                            33
+
+status swoich zamówie, moe tworzy nowe zamówienia, przeglda archiwalne,
+
+a take budowa nowe na ich podstawie. Klient, moe take stworzy rezerwacj dla
+
+danego stolika, na wybran dat i dolczy do niej aktywne w danym momencie
+
+zamówienie.
+
+       Dokladny opis funkcji i ich realizacji zostanie zamieszczony w kolejnym
+
+rozdziale.
+
+
+
+
+                       Rysunek 2 Diagram przypadków uycia
+
+                            ródlo: opracowanie wlasne
+
+
+1.2Architektura aplikacji
+
+       System obslugi restauracji on-line zostal wykonany przy uyciu kilku
+
+technologii zwizanych z tworzeniem aplikacji w jzyku Java i wykorzystaniem
+
+platformy Java EE. Spoiwem wszystkich technologii jest framework Spring. Za
+
+polczenie z baz danych odpowiedzialny jest framework Hibernate, natomiast za
+                                        34
+
+prezentacj danych i interfejs odpowiadaj dokumenty napisane przy uyciu jzyka JSP.
+
+Aplikacja zbudowana na bazie powyszych technologii, sklada si z tzw. komponentów,
+
+w tym wypadku ziarnach Spring (Spring Beans), które s alternatywn implementacj
+
+dla opisanych w drugim rozdziale Enterprise JavaBeans, pochodzcych z platformy
+
+Java EE. Za obslug zdarze na stronie, takich jak kliknicia czy dynamicznie
+
+wczytywanie i odwieanie treci odpowiadaj skrypty JavaScript, umieszczone w
+
+plikach JSP i wykorzystujce bibliotek jQuery. Do edycji sposobu wywietlania
+
+elementów na stronie posluyly arkusze stylów CSS, a elementy graficzne s efektem
+
+pracy w programie Adobe Photoshop. Wykorzystanie wzorca projektowego model
+
+widok kontroler, pozwala oddzieli warstw logiki aplikacji od prezentacji, natomiast
+
+modul Spring Security, pomaga utrzyma wysoki poziom bezpieczestwa.
+
+        Warstwa prezentacji wykorzystuje technologie JSP, JavaScript, CSS, a take
+
+HTML. Kady widok jaki wywietla si uytkownikowi jest budowany w oparciu
+
+o staly wzór, który sklada si z kolejnych elementów, które s ze sob lczone:
+
+·szkielet - definiuje miejsca, w które maj zosta wczytane pozostale elementy strony,
+
+·naglówek, zawiera deklaracje przestrzeni nazw dla znaczników JSTL
+
+·menu górne scalone z menu glównym - zawierajce przyciski zaloguj, wyloguj,
+
+zarejestruj , oraz pozostale elementy nawigacji
+
+·tre strony
+
+·stopka
+
+        Kolejne elementy s prezentowane przez oddzielne pliki, realizacja taka pomaga
+
+na latwiejsze i szybsze wprowadzanie zmian, gdy pliki JSP/HTML mog rozrasta si
+
+do bardzo wielu linijek. Dziki wykorzystaniu JSP i JSTL, elementy menu i treci, s
+
+generowane dynamicznie, i w zalenoci od typu konta, wywietlaj odpowiedni ilo
+
+danych. Ten sam plik moe prezentowa gociowi komentarze, a klientowi dodatkowe
+
+okienko, które pozwoli doda komentarz, lub przycisk usu przy jego komentarzach.
+
+Pozwala to znacznie ograniczy ilo plików odpowiedzialnych za wywietlanie
+
+podobnej treci, a rónicych si tylko drobnymi szczególami.
+
+        Wykorzystanie rozwijanego ju od 2003 r. Springa, pozwolilo stworzy szybk
+
+i stabiln aplikacj opart na modelu MVC. Spring dostarcza bardzo wielu modulów
+
+pozwalajcych na stworzenie aplikacji internetowej z uyciem kontrolerów, która
+
+pozwala przechowywa sesje uytkownika, dba o jego bezpieczestwo i zapewnia
+
+bardzo du elastyczno na kadym etapie tworzenia. Spring bardzo dobrze integruje
+
+si z technologi Hibernate, odpowiadajc za warstw utrwalania danych. Na kadym
+
+
+
+                                            35
+
+etapie Spring umoliwia tworzenie wlasnych komponentów, które mog by uyte w
+
+dowolnym celu i zastpi standardowe rozwizania.
+
+       Aplikacja jest oparta o wzorzec SOA (Service-Oriented Architecture) -
+
+architektur opart na serwisach. Podejcie takie polega na definiowaniu uslug, które
+
+maj   spelnia     wymagania        uytkownika. Uslug   okrela si  te   elementy
+
+oprogramowania, które mog dziala niezalenie oraz posiadaj zdefiniowany interfejs.
+
+Definiowanie interfejsów, jest take korzystne, kiedy chcemy zmieni implementacj
+
+konkretnej uslugi. Wystarczy zmieni klas definiujc dan uslug, natomiast dla
+
+pozostalych elementów aplikacji zmiana pozostanie niezauwaona.
+
+       Kolejnym wzorcem projektowym wykorzystanym w tej pracy jest fasada.
+
+Programowanie z uyciem fasady opiera si o stworzenie klasy, która posiada referencje
+
+do czsto wykonywanych funkcji realizowanych przez konkretne serwisy. Taka
+
+architektura   znacznie      ulatwia    tworzenie kontrolerów, które  nie  potrzebuj
+
+rozbudowanych konstruktorów z wieloma serwisami, a jedynie referencje do fasady.
+
+       Aplikacja zostala stworzona w zintegrowanym rodowisku programistycznym
+
+(IDE) NetBeans w wersji 7.2, natomiast do jej uruchomienia konieczny jest kontener
+
+aplikacji Apache Tomcat 7.0 i serwer relacyjnej bazy danych MySQL 5.5.24. Netbeans
+
+wspiera programowanie z uyciem framework-u Spring poprzez uzupelnianie skladni
+
+jzyka Java i rozpoznawanie ziaren Springa. Wspiera równie integracj z baz danych
+
+i udostpnia konsole w której mona wykonywa zapytania na bazie danych. Moliwa
+
+jest równie deklaracja docelowych przegldarek na jakie budujemy aplikacj, a
+
+Netbeans sprawdzi, czy stworzony dokument jest w pelni obslugiwany przez wybrane
+
+przegldarki.   Równie        podczas   tworzenia plików   CSS   IDE   wspiera   nas
+
+podpowiadaniem skladni i wykrywaniem bldów i wkradajcych si literówek. Do
+
+stworzenia projektu bazy danych wykorzystany zostal program MySQL Workbench.
+
+       Wszystkie uyte technologie s darmowe do uytku zarówno domowego jak i
+
+komercyjnego. Jedynie program Photoshop zostal uyty w trzydziestodniowej wersji
+
+próbnej. Oczywicie nie trzeba posiada wlasnego serwera, aby uruchomi aplikacj,
+
+w sieci znajduje si wiele korzystnych ofert wynajmu przestrzeni na serwerach
+
+aplikacji.
+
+       Aplikacja zostala wzbogacona o warstw tzw. web-api stworzonego w przy
+
+uyciu wzorca architektonicznego jakim jest REST10. Wzorzec opiera si na
+
+komunikacji z serwerem poprzez dania, które wysylane s przy pomocy protokolu
+
+HTTP. Najczciej stosowanymi metodami s GET i POST, sluce odpowiednio do
+
+pobierania i wysylania danych z serwera. Do przesylania danych do i z serwera
+10REST ­ Representational State Transfer
+                                             36
+
+zastosowano format JSON11, ze wzgldu na szybsze parsowanie ni w przypadku xml,
+
+jak równie mniejszy rozmiar.
+
+
+1.1Wymagania funkcjonalne dla aplikacji mobilnej
+
+        Uytkownik aby korzysta z aplikacji mobilnej musi posiada konto typu klient
+
+w aplikacji internetowej. Jeeli nie posiada takiego konta moe zaloy je przy uyciu
+
+aplikacji mobilnej zaraz po zainstalowaniu.
+
+
+
+
+                  Rysunek 3: Diagram przypadków uycia dla aplikacji mobilnej
+ródlo: opracowanie wlasne
+
+
+        Klient korzystajcy z wersji aplikacji dla systemu Android ma dostp do
+
+wikszoci funkcji jakie oferuje wersja webowa. Funkcjonalnoci przedstawione s na
+
+powyszym diagramie przypadków uycia. Klient moe dokona logowania
+
+i rejestracji, a take przeglda i edytowa swoje dane. Ma dostp do aktualnego menu
+
+wraz z komentarzami i ocenami uytkowników, oraz moliwoci dodania wlasnego
+
+komentarza i oceny. Przede wszystkim klient przy uyciu menu, moe tworzy
+
+i edytowa zamówienie, które nastpnie wysyla do restauracji. Po wyslaniu zamówienia
+
+moe by ono ledzone na licie zamówie. Stan zamówienia jest synchronizowany z
+
+jego realnym stanem przez sie internet. Przeniesiona zostala równie funkcja
+
+rezerwacji stolika w restauracji. Nadchodzce rezerwacje moemy ledzi na licie
+
+rezerwacji,     a   telefon    poinformuje  nas    dzie    wczeniej      powiadomieniem
+
+o nadchodzcym terminie rezerwacji. Przy uyciu funkcji wylogowania, z telefonu
+
+
+11JSON ­ JavaScript Object Notation
+                                            37
+
+usuwane s bezpowrotnie wszystkie dane zwizane z zamówieniami i rezerwacjami.
+
+Wszystkie dokonywane przez telefon czynnoci odzwierciedlane i zapisywane s na
+
+serwerze, wic uytkownik moe przeglda usunite z aplikacji mobilnej dane przez
+
+internet.
+
+
+1.2Architektura aplikacji ­ Android
+
+       Do napisania aplikacji mobilnej posluylo glównie SDK dostarczone przez
+
+firm Google, które dostarcza bardzo bogaty zestaw narzdzi. Aplikacje dla systemu
+
+Android tworzone s z wielu komponentów. Komponentami s aktywnoci (ang.
+
+Activity), które stanowi poniekd szkielet aplikacji i agreguj w sobie wiele innych
+
+komponentów. Aktywno generuje widok, który w danej chwili widzi uytkownik.
+
+Jedna aktywno moe generowa wiele widoków i zmienia si pod wplywem
+
+interakcji z uytkownikiem.      W pojedynczej aktywnoci moemy korzysta z
+
+fragmentów. Fragment moe stanowi widok listy, obrazka, zestawu przycisków lub
+
+dowolny inny podzbiór komponentów. Fragmenty mog by wspóldzielone pomidzy
+
+wieloma aktywnociami. Prezentowana w tej pracy aplikacja posiada zestaw kilku
+
+aktywnoci, które wprowadzaj logiczny podzial do tego co jest prezentowane
+
+uytkownikowi. Przykladowo widok wszystkich kategorii menu potraw stanowi jedn
+
+aktywno, która przedstawia róne treci w zalenoci od wybranej kategorii.
+
+Szczególowy widok pojedynczej potrawy jest ju osobn aktywnoci. Osobne
+
+aktywnoci odpowiadaj równie za logowanie i rejestracj, widok pojedynczego
+
+zamówienia, widok listy zamówie, widok rezerwacji i widok listy rezerwacji.
+
+Glównym konceptem wykorzystywanym w systemie Android jest mechanizm intencji
+
+(ang. Intent). Intencje pozwalaj na uruchamianie zada, aktywnoci i programów.
+
+Z wykorzystaniem intencji moliwe jest uruchomienie aktywnoci z zupelnie innej
+
+aplikacji. Idealnym przykladem zastosowania tej funkcjonalnoci jest prezentacja
+
+numeru telefonu, który po klikniciu uruchamia aplikacj do wykonywania rozmów
+
+telefonicznych, a podobnych zastosowa mona znale duo wicej. W opisywanej
+
+aplikacji, wywolywane s jedynie aktywnoci wewntrz aplikacji. Sposobem
+
+wykorzystania intencji poza aplikacj mogloby by otwarcie aplikacji do platnoci
+
+przez internet po sfinalizowaniu zamówienia.[3] Poza standardowym SDK, uyty zostal
+
+framework spring dla Androida, który ulatwia komunikacj z wspomnianym wczeniej
+
+web-api aplikacji internetowej. Jego zastosowanie pozwolilo na uproszczenie zamiany
+
+obiektów na notacj JSON przesylan przez internet i odwrotnie. Wykorzystany zostal
+
+równie opisany wczeniej framework GreenDao, który ulatwil prac z baz SQL Lite.
+
+
+                                          38
+
+1.3Komunikacja pomidzy klientem mobilnym a serwerem
+
+        Dua waga zostala przywizana do kwestii bezpieczestwa w komunikacji
+
+midzy aplikacj dla systemy Android, a serwerem aplikacji internetowej.
+
+W rodowisku produkcyjnym wymagane byloby przesylanie wielu wraliwych danych.
+
+Oprócz danych osobowych przesylane s równie dane zwizane z oplaceniem
+
+transakcji, które mog zawiera numery kart kredytowych, numery kont i inne
+
+potencjalnie wraliwe informacje. Aby zachowa wysok szybko dzialania, cz
+
+danych jest wysylana poprzez zwykly protokól HTTP, s to midzy innymi pozycje
+
+menu oraz inne komunikaty nie zawierajce wraliwych danych. Pozostala cz
+
+komunikacji odbywa si przez bezpieczny protokól HTTPS. Wykorzystany serwer
+
+Apache Tomcat w wersji 7, korzystajcy z Javy w wersji 1.7 do szyfrowania
+
+wykorzystuje    protokól   TLS    w   wersji  1.2.  Ponadto    zostalo wykorzystane
+
+uwierzytelnianie   obustronne    przy   wykorzystaniu  dedykowanych     certyfikatów.
+
+Implikuje to fakt, e adna aplikacja nie posiadajca odpowiedniego certyfikatu nie
+
+bdzie w stanie komunikowa si z API. W celu zabezpieczenia przed przechwyceniem
+
+sesji, kada istotna operacja jest poprzedzana uwierzytelnieniem konkretnego klienta.
+
+Dopiero pomylna weryfikacja pozwala na wykonanie zapytania do serwera. Do
+
+autoryzacji uytkowników zostal wykorzystany autorski algorytm, który wykorzystuje
+
+specjalnie spreparowane naglówki zapytania HTTP, które s odczytywane przez serwer
+
+i przetwarzane w celu potwierdzenia tosamoci.
+
+
+
+
+                                          39
+
+2.Opis aplikacji webowej
+
+2.1Wygld interfejsu
+
+        Interfejs graficzny strony dzieli si na trzy czci. Zaczynajc od góry, pierwsza
+
+jest cz naglówkowa, która sklada si z dynamicznie tworzonego menu. Menu górne,
+
+sluy do logowania si i rejestracji, natomiast po zalogowaniu wywietla przycisk
+
+umoliwiajcy wylogowanie. Po lewej stronie menu znajduj si linki umoliwiajce
+
+nawigacj po aplikacji. Tre tego menu zaley od typu konta jakie posiada zalogowany
+
+uytkownik.
+
+        Uycie stron JSP i Spring MVC opiera dzialanie dynamicznie generowanej
+
+treci o tzw. model. Obiekt typu Model jest wykorzystywany do przekazywania
+
+obiektów do dokumentów JSP, które odpowiadaj za ich wywietlanie. Druga cz
+
+strony odpowiada za wywietlanie tych danych, czyli tzw. atrybutów.
+
+
+
+
+                            Rysunek 4 Strona wzorcowa aplikacji
+
+                                 ródlo: opracowanie wlasne
+
+        Na dole strony znajduje si statyczna stopka, w której miejsce znalazly takie
+
+elementy, jak podstawowe informacje kontaktowe, LikeBox portalu Facebook, poprzez
+
+
+                                             40
+
+który moemy trafi na stron lokalu w portalu Facebook, polubi j, a take zobaczy
+
+innych uytkowników, którzy lubi nasz stron.
+
+
+2.2Rejestracja, logowanie, odzyskiwanie hasel
+
+       Dzialanie aplikacji opiera si na trzech zdefiniowanych w systemie rolach, oraz
+
+niedefiniowanej roli gocia. Aby moliwe bylo zabezpieczenie konkretnych czci
+
+aplikacji przed niepowolanym dostpem wykorzystany zostal modul framework-u
+
+Spring - Spring Security. Spring Security umoliwia uwierzytelnianie uytkowników
+
+przy uyciu rónych technologii, takich jak pobieranie danych o uytkownikach z pliku,
+
+uycie serwerów LDAP, uycie certyfikatów, CAPTCHA i wiele innych. Podczas
+
+zabezpieczania aplikacji modul bezpieczestwa zostal zbudowany na podstawie pliku
+
+XML okrelajcego dostp poszczególnych uytkowników do elementów systemu.
+
+Uytkownik uwierzytelniany jest na podstawie danych znajdujcych si w bazie danych
+
+z uyciem nazwy uytkownika i hasla. W bazie danych przechowywane s jedynie
+
+hashe hasel w formie skrótu wykonanego funkcj sha-256, bdc skladow
+
+standardowej biblioteki Javy MessageDigest. W bazie danych przechowywana jest
+
+równie rola uytkownika.
+
+<security:intercept-url pattern="/favicon.ico" access="permitAll" />
+<security:intercept-url pattern="/redirect.jsp" access="permitAll"/>
+<security:intercept-url pattern="/welcome.htm*" access="permitAll"/>
+<security:intercept-url pattern="/info.htm*" access="permitAll" />
+<security:intercept-url pattern="/register.htm*" access="permitAll"/>
+<security:intercept-url pattern="/activate.htm*" access="permitAll"/>
+<security:intercept-url pattern="/login.htm*" access="permitAll"/>
+<security:intercept-url pattern="/menu.htm" access="permitAll"/>
+<security:intercept-url pattern="/menuItem.htm*" access="permitAll"/>
+<security:intercept-url pattern="/check_username.htm*" access="permitAll"/>
+<security:intercept-url pattern="/js/**" access="permitAll"/>
+<security:intercept-url pattern="/images/**" access="permitAll"/>
+<security:intercept-url pattern="/css/**" access="permitAll"/>
+<security:intercept-url pattern="/sendReset.htm**" access="permitAll" />
+<security:intercept-url pattern="/resetPassword.htm**" access="permitAll" />
+<security:intercept-url pattern="/test.htm*" access="isAuthenticated()"/>
+<security:intercept-url pattern="/logoutSuccess.htm*" access="permitAll"/>
+<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+<security:intercept-url pattern="/client/**" access="hasRole('ROLE_CLIENT')"/>
+<security:intercept-url pattern="/user/**" access="hasRole('ROLE_USER')"/>
+<security:intercept-url pattern="/**" access="isAuthenticated()"/>
+
+       Powyszy kod odpowiada za interpretacj adresów i kontrol dostpu do nich,
+
+strony z parametrem access równym permitAll s widoczne dla wszystkich, parametr
+
+isAuthenticated() wskazuje na strony dostpne dla zalogowanych uytkowników,
+
+natomiast parametr hasRole() pozwala na dostp uytkownikom, których konta
+
+posiadaj rol wymienion w nawiasach.
+
+       Konto z uprawnieniami administratora jest tworzone podczas instalacji systemu,
+
+z poziomu tego konta moemy utworzy i modyfikowa konta uytkowników, którzy
+
+obsluguj aplikacj jako pracownicy restauracji, ponadto konto posiada funkcje
+                                           41
+
+zarzdzania uytkownikami, pozostale funkcje systemu, obslugiwane s przez
+
+wlacicieli kont typu uytkownik.
+
+
+
+
+                        Rysunek 5 Formularz dodania uytkownika
+
+                                 ródlo: opracowanie wlasne
+
+
+       Klient restauracji, chcc korzysta z moliwoci skladania zamówie
+
+i rezerwacji stolików on-line, musi posiada konto w systemie. Proces stworzenia konta
+
+jest dwuetapowy. Pierwszym etapem jest wypelnienie formularza rejestracyjnego.
+
+
+
+
+      Rysunek 6 Formularz rejestracji uytkownika, wypelniony niepoprawnie i poprawnie
+
+                                 ródlo: opracowanie wlasne
+
+       Formularz rejestracyjny jest tak stworzony, aby w czasie rzeczywistym
+
+sprawdza czy login wybrany przez klienta nie jest zajty. Po poprawnym wypelnieniu
+
+formularza konto nie jest jeszcze aktywne i nie jest moliwe zalogowanie si do
+
+                                             42
+
+systemu. Na adres e-mail podany w formularzu zostaje wyslana wiadomo z linkiem
+
+slucym do rejestracji konta. Po wejciu na stron na któr odsyla nas hiperlcze,
+
+konto staje si aktywne, a klient moe korzysta z systemu. Po tej operacji klient, musi
+
+uzupelni jeszcze swoje podstawowe dane. W sklad danych wchodzi imi, nazwisko,
+
+adres i numery kontaktowe. Te dane konieczne s do skladania zamówie. Dane takie
+
+po wprowadzeniu maj status: niezweryfikowane. Take gdy klient zmieni swoje dane,
+
+otrzymaj one status niezweryfikowanych.
+
+
+
+
+                         Rysunek 7 Email z linkiem aktywujcym
+
+                                ródlo: opracowanie wlasne
+
+
+
+       Niezweryfikowane dane pojawiaj si na licie w panelu uytkownika, który
+
+weryfikuje je telefonicznie, uywajc numeru podanego przez klienta. Klient
+
+posiadajcy zweryfikowane konto, moe mialo sklada zamówienia.
+
+
+
+
+                       Rysunek 8 Lista klientów niezweryfikowanych
+
+                                ródlo: opracowanie wlasne
+
+       Uytkownik aplikacji moe take przeszukiwa list klientów, co zostalo
+
+zrealizowane przy pomocy technologii AJAX i wyniki zostaj automatycznie ladowane
+
+podczas wpisywania wyszukiwanej frazy. Wyniki ograniczane s do 20 najlepiej
+
+pasujcych wpisów. Szukana fraza jest porównywana zarówno z imieniem i nazwiskiem
+
+jak równie ulic. Dane pobierane s przy uyciu funkcji biblioteki jQuery, a nastpnie
+
+zostaj umieszczone w kontenerze div.
+
+                                            43
+
+$("#search").keyup(searchClient);
+
+function searchClient(){
+
+     var searchPhrase = $("#search").val();
+
+     if(searchPhrase == ""){
+
+              $("#results").html("");
+
+     }
+
+     else{
+
+           $.post("/user/searchClient.htm", {criteria: searchPhrase},
+
+              function(response){
+
+                   $("#results").html(response);
+
+              });
+
+          }
+
+
+}
+
+
+
+
+                       Rysunek 9 Przeszukiwanie listy klientów - AJAX
+                               ródlo: opracowanie wlasne
+
+       Wszystkie formularze, obslugiwane s za pomoc mechanizmu Spring, który
+
+pozwala na uycie metod GET i POST. Metoda GET wysyla formularz do widoku,
+
+natomiast funkcja uywajca metody POST pobiera dane z formularza i sprawdza po
+
+stronie serwera czy s one poprawne. Formularze zdefiniowane s jako zwykle obiekty
+
+Javy, a walidacja pól odbywa si za pomoc regul tworzonych przez adnotacje. Jeeli
+
+dane pobrane przez funkcj POST nie s poprawne, funkcja zwraca osobie
+
+wypelniajcej formularz widok, wraz z opisem bldów, które zwrócil walidator.
+
+Przykladowy kod formularza ma ponisz form :
+
+public class ClientForm {
+
+
+    @NotEmpty(message="Pole nie moe by puste")
+
+    private String name;
+
+    @NotEmpty(message="Pole nie moe by puste")
+
+    private String surname;
+
+
+    @NotEmpty(message="Pole nie moe by puste")
+
+    private String street;
+
+
+    @NotEmpty(message="Pole nie moe by puste")
+                                           44
+
+    private String city;
+
+
+    @NotEmpty
+
+    @Length(max=6)
+
+    @Pattern(regexp="^[0-9]{2}-[0-9]{3}", message="Niepoprawny kod")
+
+    private String code;
+
+
+    @NotEmpty
+
+    private String phone;
+
+    private String phone2;
+
+
+    //gettery i settery
+
+}
+
+
+
+       Wywietlenie pól formularza i przeslanie podanych wartoci do aplikacji
+
+umoliwia technologia JSP, ze wsparciem znaczników JSTL z przestrzeni nazw: form.
+
+W poniszym przykladnie atrybutem modelu jest obiekt o nazwie clientForm, który
+
+najpierw przekazywany jest do widoku, a póniej przechwytywany przez kontroler.
+
+
+<form:form method="post" modelAttribute="clientForm" id="addClient">
+
+          <label for="name">Imi:</label>
+
+          <form:input path="name"/>
+
+          <form:errors path="name" cssClass="errors">
+
+              <div class="errors">
+
+              <c:forEach items="${messages}" var="msg">
+
+                      <div class="error">
+
+                      <spring:message code="${msg}" text="${msg}"/></div>
+
+              </c:forEach>
+
+              </div>
+
+          </form:errors>
+
+</form:form>
+
+
+
+       Logowanie do systemu odbywa si w standardowy sposób poprzez podanie
+
+nazwy uytkownika/klienta i hasla. System umoliwia zapamitanie logujcego si, tak
+
+aby nie musial si logowa przy kadych odwiedzinach strony. Podczas logowania
+
+sprawdzana jest poprawno nazwy uytkownika/klienta i jego hasla. Podane przy
+
+logowaniu haslo jest zamieniane funkcj skrótu na hash i porównywane z wpisem w
+
+bazie danych. System sprawdza take czy dane konto jest aktywne, jeli konto nie jest
+
+aktywne logowanie nie powiedzie si. Wylogowanie z systemu nastpuje poprzez
+
+nacinicie przycisku wyloguj. Jeeli pozostaniemy zbyt dlugo nieaktywni w systemie,
+
+nasza sesja wyganie i wymagane bdzie ponowne zalogowanie si.
+
+                                         45
+
+        Klient moe zmienia swoje haslo dowoln ilo razy. Aby to zrobi musi
+
+zalogowa si do systemu, wybra opcj zmie haslo, poda swoje dotychczasowe
+
+haslo, nowe haslo oraz potwierdzi haslo. W wypadku zapomnienia hasla, naley poda
+
+adres e-mail z uyciem którego zostalo zaloone konto. Jeeli konto faktycznie istnieje,
+
+na podany adres zostanie wyslany link, który pozwoli ustali nowe haslo. W sklad tego
+
+linku wchodzi unikalny identyfikator uytkownika, który nie pojawia si nigdzie do
+
+odczytu podczas dzialania aplikacji, oraz hash jego starego hasla. Podczas zmiany hasla,
+
+obydwa parametry musz si zgadza.
+
+        Pozostale typy kont, take mog zmienia swoje hasla po zalogowaniu,
+
+natomiast haslo zapomniane przez uytkownika, mona odzyska poprzez konto
+
+administratora. Jeeli administrator zapomni swojego hasla jedyn moliwoci zmiany
+
+hasla, jest stworzenie skrótu sha-256 i dodanie go do bazy danych poza aplikacj.
+
+
+2.3     Menu potraw
+
+        adna restauracja nie moe istnie bez menu potraw. W aplikacji
+
+przechowywane potrawy dziel si na 5 kategorii: przystawki, zupy, dania glówne,
+
+desery i napoje. O kadej pozycji w menu aplikacja przechowuje takie informacje jak
+
+jej nazwa, opis, masa i cena. Moliwe jest take zdeklarowanie ceny promocyjnej.
+
+Kada dodana potrawa jest widoczna w menu dla klienta. Jeeli pracownik chce usun
+
+jak potraw z menu wystarczy, e zaznaczy w swoim spisie potraw, e jest
+
+niewidoczna. Takie podejcie pozwala tworzy potrawy sezonowe, lub dostpne
+
+w danym okresie. W kadym momencie potraw mona edytowa. Zmieniajc dowolny
+
+parametr, np. wylczajc promocj. Do tworzenia opisu potrawy, zostal uyty edytor
+
+TinyMCE. Zastosowanie tego edytora pozwala pracownikom na wizualn               edycj
+
+sposobu wywietlania tekstu opisujcego dan potraw. Uycie tego edytora pozwala
+
+take na zamieszczanie w tekcie zdj, znajdujcych si na tym samym lub dowolnym
+
+innym serwerze. Poszczególne pozycje z menu, nie s nigdy usuwane z bazy danych,
+
+gdy ich nazwy i opisy s dolczane do zamówie.
+
+        W glównym widoku menu widoczne s informacje o danej pozycji z
+
+wylczeniem opisu. Go, moe jedynie przeglda menu, wraz z podstronami
+
+dotyczcymi konkretnej pozycji. Uytkownik aplikacji, widzi równie opcje sluce do
+
+edycji danej potrawy i zmiany jej widocznoci w menu. Dla klienta zalogowanego do
+
+systemu, menu sluy do tworzenia zamówienia. Przy kadej potrawie znajduj si
+
+przyciski obslugujce wybór iloci sztuk danej potrawy, oraz przycisk dodajcy j do
+
+zamówienia.
+
+
+                                           46
+
+                           Rysunek 10 Widok menu dla klienta
+
+                              ródlo: opracowanie wlasne
+
+        Kada potrawa w menu posiada wlasn podstron, na której mona zobaczy
+
+opis potrawy. Ponadto aplikacja dysponuje system ocen i komentarzy. Kady klient,
+
+moe skomentowa dan pozycje i da jej ocen od 1 do 5. Ze wszystkich ocen liczona
+
+jest rednia arytmetyczna. W komentarzu wywietlana jest nazwa uytkownika, który
+
+komentarz dodal, ocena jak mu wystawil, data dodania oraz tre komentarza. Jeeli
+
+zalogowany klient jest autorem danego komentarza, udostpniona jest mu take opcja
+
+usunicia go. Osoba zalogowana z uprawnieniami uytkownika, moe usun kady
+
+komentarz. Dla kadego typu uytkownika tylko jeden dokument JSP odpowiada za
+
+wywietlanie, rónych wersji tego samego dokumentu. Moliwe jest to dziki uyciu
+
+znaczników JSTL z przestrzeni nazw sec, bdcych elementem Spring Security.
+
+
+<sec:authorize access="isAuthenticated() and hasRole('ROLE_USER')">
+
+    <div class ="deleteComment floatRight"></div>
+
+    <!-- wywietlenie przycisu umoliwiajcego usunicie komentarza -->
+
+</sec:authorize>
+
+<sec:authorize access="isAuthenticated() and hasRole('ROLE_CLIENT')">
+
+    <!-- formularz dodania komentarza -->
+
+       <div><textarea class="content" rows="4" cols="50"></textarea>
+
+       <div id="addComment"></div></div>
+
+</sec:authorize>
+
+
+
+
+                                          47
+
+                           Rysunek 11 Podstrona pozycji menu
+
+                               ródlo: opracowanie wlasne
+
+
+
+       Podobnie jak w przypadku zarzdzania uytkownikami, formularze w obrbie
+
+dodawania i edycji potraw w menu s obiektami Javy obslugiwanymi przez specjalne
+
+kontrolery. Osobny kontroler sluy do dodania potrawy do menu, natomiast inny do jej
+
+edycji. Rónica pomidzy nimi wystpuje w zakresie formularza przekazywanego do
+
+widoku, a take funkcji wykorzystywanej do utrwalania danych. Formularz
+
+przekazywany podczas edycji potrawy, jest wczeniej wypelniony danymi, które ju
+
+znajduj si w bazie danych, co wymaga wczytania wczeniej odpowiedniej pozycji z
+
+bazy danych. Obiekt reprezentujcy formularz edycji potrawy, przechowuje równie
+
+w swoim obrbie jej id. Id potrawy, która ma zosta edytowana jest przekazywana jako
+
+parametr linku, którym dysponuje uytkownik aplikacji do funkcji GET. Kod
+
+pobierajcy odpowiedni wpis z bazy danych i tworzcy formularz jest przedstawiony
+
+poniej:
+
+
+
+                                           48
+
+@RequestMapping(method = RequestMethod.GET)
+
+public String addMenuItem(@RequestParam(value="id")String id,
+
+                                  Model model) {
+
+     Identifier<MenuItem> menuItemIdentifier =
+
+                              Identifier.create(MenuItem.class, id);
+
+     MenuItem menuItem = appFacade.getMenuItem(menuItemIdentifier);
+
+     EditMenuItemForm menuItemForm = new EditMenuItemForm(menuItemIdentifier);
+
+     menuItemForm.setName(menuItem.getName());
+
+     menuItemForm.setPrice(Double.toString(menuItem.getPrice()));
+
+     menuItemForm.setPromoPrice(Double.toString(menuItem.getPromoPrice()));
+
+     menuItemForm.setMenuItemType(menuItem.getMenuItemType());
+
+     menuItemForm.setVolume(menuItem.getVolume());
+
+     menuItemForm.setPromotion(menuItem.isPromotion());
+
+     menuItemForm.setDescription(menuItem.getDescription());
+
+     model.addAttribute("menuItemForm", menuItemForm);
+
+
+     return "editMenuItemView";
+
+}
+
+
+@RequestMapping(method = RequestMethod.POST)
+
+public String addMenuItem(@Valid @ModelAttribute("menuItemForm")
+
+                                    EditMenuItemForm menuItemForm,
+
+                                    BindingResult bindingResult,
+
+                                    SessionStatus status, Principal principal) {
+
+         if (bindingResult.hasErrors()) {
+
+               return "editMenuItemView";
+
+         } else {
+
+                this.appFacade.editMenuItem(menuItemForm);
+
+               return "redirect:/user/menu.htm";
+
+         }
+
+}
+
+
+
+       Jeeli podczas walidacji w formularzu nie znalazly si bldy, zostaje wywolana
+
+funkcja z fasady, która aktualizuje informacje o pozycji w bazie danych, a uytkownik
+
+zostaje odeslany do menu. Jeeli podczas walidacji wystpily bldy, zostanie zwrócony
+
+widok edycji.
+
+
+2.4Baza stolików
+
+Oprócz informacji o menu, jakie mona zasta w restauracji, aplikacja dysponuje
+
+opisem stolików, które znajduj si w restauracji. Opis ten zawiera numer stolika, który
+
+najwiksze znaczenie ma dla pracowników restauracji, ilo miejsc przy danym stoliku,
+
+na jakiej sali si znajduje, oraz opis slowny cech stolika. Formularze dodawania i edycji
+
+stolików, korzystaj z tego samego edytora TinyMCE do wprowadzania opisów, co
+
+formularze potraw dodawanych do menu.
+                                            49
+
+                 Rysunek 12 Formularz dodawania opisu stolika (TinyMCE)
+
+                                ródlo: opracowanie wlasne
+
+
+
+        Ponadto obiekty reprezentujce stoliki posiadaj pola, które pozwalaj
+
+zdefiniowa czy dany stolik jest widoczny dla klientów i moliwy do rezerwacji, czy te
+
+nie. Istnieje równie moliwo zaznaczenia czy stolik jest przeznaczony dla osób
+
+palcych. Do opisu stolika mona dolczy zdjcie, przekazujc jako parametr jego
+
+adres na dowolnym serwerze. Przechowywanie opisów stolików pelni, funkcje
+
+informacyjn, a take jest uywane do tworzenia rezerwacji.
+
+
+2.5Zamawianie potraw
+
+        Istot tworzenia calego systemu bylo umoliwienie zamawiania potraw przez
+
+Internet w sposób latwy i szybki. Po przejciu do zakladki zamów, widzimy nasze
+
+aktywne zamówienie. Nowo utworzone zamówienie jest puste i odsyla nas do menu
+
+w celu dodania kolejnych pozycji do zamówienia. Widok menu dla klienta wida na
+
+wczeniej zalczonym rysunku. Klient ilo sztuk danej pozycji moe wybra
+
+przyciskami plus i minus bd wpisa j do okienka. Po wciniciu zielonego przycisku
+
+plus, okno dialogowe wymaga potwierdzenia dodania potrawy do zamówienia.
+
+$(".addButton").click(function(){
+
+     var addButton = $(this);
+
+     var countValue = addButton.parent().find("input.count").val();
+
+     var itemId = addButton.parent().find("input.itemId").val();
+
+
+
+                                            50
+
+     if (confirm('Chcesz doda do zamówienia '+countValue+" sztuk?")) {
+
+
+     $.ajax({
+
+          type:'POST',
+
+          url:'/client/addToOrder.htm',
+
+          data:{itemId:itemId, itemCount:countValue},
+
+          cache:false,
+
+          timeout:240000
+
+     });
+
+         location.reload();
+
+     } else {
+
+            return;
+
+     }
+
+});
+
+
+       W zakladce zamów klient moe zobaczy szczególy swojego zamówienia.
+
+Znajduje si tam lista potraw, zawierajca cen, ilo i lczn kwot za dan pozycje.
+
+Podczas tworzenia zamówienia cena jest kopiowana z tabeli zawierajcej dane
+
+o produkcie, tak aby w razie zmiany ceny w historii zamówie widniala, taka cena jaka
+
+zostala zaplacona w danym momencie. Jeeli w chwili zamawiania obowizuje cena
+
+promocyjna, do szczególów zamówienia trafi ta wlanie cena.
+
+       Jako adres na który powinno zosta zrealizowane zamówienie, domylnie
+
+ustalany jest adres podany przez klienta w jego szczególach konta. Adres ten moe
+
+zosta zmieniony. Po zaznaczeniu flagi, wybierz inny adres, rozwija si formularz
+
+pozwalajcy na wpisanie nowego adresu.
+
+       Zamówienie moe zosta take wybrane do realizacji w póniejszym terminie,
+
+po zaznaczeniu flagi zamówienie planowane otwiera           si widet umoliwiajcy
+
+wybranie daty. Narzdzie wybierania daty pochodzi z biblioteki jQuery UI. W zakladce
+
+zamówienia znajduje si te lczna kwota zamówienia. Po wypelnieniu wszystkich
+
+interesujcych nas pól pozostaje tylko klikn przycisk wylij. W kadej chwili edycji
+
+zamówienia, a przed wciniciem przycisku wylij mona powróci do menu i dolczy
+
+dodatkowe pozycje.
+
+
+
+
+                                          51
+
+                           Rysunek 13 Panel aktywnego zamówienia
+                                 ródlo: opracowanie wlasne
+
+        Po wciniciu przycisku wylij nasze zamówienie znika z zakladki z aktywnym
+
+zamówieniem i trafia do listy naszych zamówie. Na licie zamówie, moemy
+
+zobaczy takie informacje, jak dat zamówienia, zamówione pozycje i status
+
+zamówienia. Zamówienie moe znajdowa si w trzech stanach. Pierwszy to
+
+oczekiwanie na potwierdzenie, drugi oznacza, e nasze zamówienie zostalo przyjte do
+
+realizacji. Ostatni stan oznacza, e nasze zamówienie opucilo kuchnie i jest w drodze
+
+do nas.
+
+        Kade raz stworzone i wyslane zamówienie moe zosta uyte ponownie.
+
+Wystarczy w licie zamówie skorzysta z opcji uyj zamówienia. Zostanie utworzone
+
+nowe zamówienie na podstawie poprzedniego. Nie oznacza to, e musi ono by
+
+dokladnie takie samo, moemy usun z niego usun pozycje, jak równie doda.
+
+Jeeli jakie pozycja ju jest w naszym zamówieniu i ponownie wybierzemy j z menu,
+
+zostanie zwikszona ilo sztuk, pozycja nie zostanie zastpiona.
+
+        Uytkownik aplikacji, bdcy pracownikiem restauracji, powinien mie w
+
+godzinach dzialania restauracji otwart zakladk Zamówienia. Skrypt JavaScript
+
+                                             52
+
+odwiea automatycznie stron co wybrany okres czasu, w celu wywietlenia
+
+nadchodzcych zamówie. Pracownik widzi, czy dany uytkownik jest zweryfikowany,
+
+jeeli klient jest zweryfikowany, a adres zamówienia jest taki sam jak klienta,
+
+zamówienie zostaje potwierdzone. Jeeli pracownik, ma wtpliwoci co do danych
+
+zamawiajcego, lub kwoty zamówienia, moe dodatkowo zadzwoni w celu
+
+potwierdzenia zamówienia. Zamówienie, które jest potwierdzone zostaje oznaczone
+
+zarówno u klienta, jak i na panelu pracownika restauracji. Po klikniciu przycisku
+
+gotowe, zamówienie znika z panelu uytkownika, a klient na swoim panelu widzi, e
+
+jego zamówienie opucilo ju kuchni.
+
+       Równolegle do nadchodzcych zamówie uytkownik moe, przy uyciu
+
+widetu do wybierania danych, sprawdzi zamówienia w nadchodzcych dniach.
+
+       Techniczna realizacja tego rozwizania polega, na manipulowaniu tym samym
+
+obiektem i zapisywaniu jego stanu do bazy danych przy kadej zmianie. Dziki temu
+
+uytkownik zawsze zastanie zamówienie w takim stanie jak je pozostawil, jeli przerwal
+
+jego edycje i wylogowal si z systemu.
+
+       Podobnie zrealizowane jest monitorowanie stanu zamówie. Pola logiczne
+
+wchodzce w sklad instancji klasy zamówienia, s zmieniane w trakcie dzialania
+
+systemu. Dziki temu system wywietla odpowiednie zamówienia w odpowiednich
+
+panelach.
+
+
+
+
+              Rysunek 14 Nachodzce i biece zamówienia w panelu uytkownika
+
+                               ródlo: opracowanie wlasne
+
+
+
+                                            53
+
+       Interfejs dostpu do obiektów klasy Zamówienie, zawiera nastpujce funkcje,
+
+wspomagajce realizacj, wczeniej wymienionych funkcji :
+
+public interface IOrderDao {
+
+     Order addOrder(Order order);
+
+     // dodawanie nowego zamówienia
+
+     void deleteOrder(Order order);
+
+     // usuwanie zamówienia
+
+     void updateOrder(Order order);
+
+     // aktualizacja zamówienia
+
+     List<Order> findClientOrders(Identifier<Client> clientIdentifier);
+
+     // lista zamówie klienta
+
+     Order getClientActiveOrder(Identifier<Client> clientIdentifier);
+
+     // pobranie aktywnego zamówienia klienta
+
+     boolean doesClientHaveActiveOrder(Identifier<Client> clientIdentifier);
+
+     // sprawdzenie czy klient posiada aktywne zamówienie
+
+     Order getOrder(Identifier<Order> orderIdentifier);
+
+     // pobranie zamówienia o zadanym id
+
+     List<Order> findOrders(boolean sent, boolean confirmed, boolean ready,
+
+Date date);
+
+     // lista zamówie wg. podanych kryteriów
+
+     List<Order> findClientNotActiveOrders(int page, int pageSize,
+
+Identifier<Client> clientIdentifier);
+
+     // lista nieaktywnych zamówie klienta
+
+     long countClientNotActiveOrders( Identifier<Client> clientIdentifier);
+
+     //liczba nieaktywnych zamówie klienta
+
+}
+
+
+2.6Rezerwacja miejsc
+
+       Oprócz skladania zamówie przez Internet system dostarcza równie moliwo
+
+rezerwacji stolików. System rezerwacji, jest tak skonstruowany, aby sluyl zarówno
+
+klientom zarejestrowanym na stronie, jak i tym, którzy chc zloy rezerwacj
+
+telefoniczn. W obydwu przypadkach pierwsz czynnoci jest wybór daty i godziny
+
+rezerwacji. Po wybraniu daty system sprawdza, które z dostpnych stolików s jeszcze
+
+niezarezerwowane w danym terminie. Aby uzyska takie dane z bazy danych
+
+wykorzystany zostal specjalny mechanizm framework-u Hibernate, pozwalajcy na
+
+tworzenie zapyta odnoszcych si do kilku klas. Mechanizm zwany Criteria, tworzy
+
+obiekty klasy Criteria, które uywaj kolejnych obiektów i funkcji, reprezentujcych
+
+róne formy zapyta. Obiekt DetachedCriteria pozwala na stworzenie podzapytania na
+
+dowolnej klasie modelu, która zostala zmapowana. Kod pobierajcy informacje
+
+o wolnych stolikach zamieszczony jest poniej:
+
+
+private Criteria findTableCriteria(Date testDate){
+
+                                         54
+
+     Date plusDay = TimeTools.addDays(testDate, 1);
+
+
+     Criteria criteria = getSession().createCriteria(Table.class, "t");
+
+     //stworzenie obiektu Criteria dla klasy Table
+
+     DetachedCriteria subCriteria =
+
+       DetachedCriteria.forClass(Reservation.class, "r");
+
+     subCriteria.setProjection(Projections.property("r.table.id"));
+
+     //stworzenie obiektu DetachedCriteria dla klasy Reservation
+
+     Conjunction dateConjunction = Restrictions.conjunction();
+
+     dateConjunction.add(Restrictions.gt("r.reservationDate",testDate));
+
+     dateConjunction.add(Restrictions.lt("r.reservationDate",plusDay));
+
+     subCriteria.add(dateConjunction);
+
+     subCriteria.add(Property.forName("t.id").eqProperty("r.table.id"));
+
+     //warunki podzapytania dla klasy Reservation
+
+     criteria.add(Subqueries.notExists(subCriteria));
+
+
+     criteria.add(Restrictions.eq("t.visible", true));
+
+     criteria.setResultTransformer( Criteria.DISTINCT_ROOT_ENTITY );
+
+     return criteria;
+
+     //zwrócenie obiektu criteria
+
+}
+
+       Po wybraniu daty wywietlona zostaje lista wolnych stolików, bd informacja
+
+o braku wolnych miejsc. Klient do swojej rezerwacji, moe doloy zamówienie.
+
+Oznacza to, e restauracja bdzie przygotowana do zaserwowania wybranych potraw,
+
+eliminuje to ryzyko braku którego z da. Do zamówienia mona dolczy dodatkow
+
+notatk. Moliwo zloenia rezerwacji poprzez stron maj moliwo jedynie
+
+zweryfikowani    klienci. Rezerwacje    musz   by   skladane   z   jednodniowym
+
+wyprzedzeniem.
+
+       Uytkownik restauracji podczas skladania zamówienia, po wybraniu daty
+
+i jednego z dostpnych w podanym terminie stolików, ma moliwo wybrania klienta,
+
+sporód zarejestrowanych klientów. Wyszukiwanie klientów dziala dokladnie tak jak we
+
+wczeniej opisanym przypadku, czyli po wpisaniu frazy zostaje wywietlonych 20
+
+najlepiej pasujcych wyników. Jeeli osoba rezerwujca nie posiada swojego konta,
+
+uytkownik musi poda w opisie, dane osoby na któr skladana jest rezerwacja.
+
+Podczas skladania rezerwacji przez pracownika restauracji, nie ma moliwoci
+
+dolczenia zamówienia. Uytkownik przeglda list rezerwacji wybierajc interesujc
+
+go dat.
+
+
+
+
+                                         55
+
+                     Rysunek 15 Panel skladania rezerwacji przez klienta
+                               ródlo: opracowanie wlasne
+
+
+
+
+2.7Powiadomienia E-mail
+
+       System wysyla do klientów wiadomoci poczt elektroniczn podczas rejestracji
+
+i jako potwierdzenie zamówienia. Ponadto uytkownicy mog wysyla masowe
+
+wiadomoci do wszystkich klientów. Mechanizmów koniecznych do wysylania poczty
+
+elektronicznej dostarcza klasa z standardowego pakiety Javy - JavaMail. Klasa ta jest
+
+zdeklarowana w kontekcie aplikacji jako ziarno Spring - Spring Bean. Do
+
+wykorzystania klasy zostal utworzony specjalny serwis - CommunicationService, który
+
+korzysta z ziarna JavaMail, do tworzenia i wysylania wiadomoci. Do konstruktora
+
+serwisu komunikacyjnego jest take przekazywany obiekt VelocityEngine. Jest to silnik
+
+tworzenia szablony, uyty do stworzenia glównego szablony wiadomoci email.
+
+
+<bean id="mailSender"
+
+class="org.springframework.mail.javamail.JavaMailSenderImpl">
+
+     <property name="host" value="smtp.is.net.pl"/>
+
+     <property name="port" value="25"/>
+
+                                           56
+
+     <property name="username" value="username"/>
+
+     <property name="password" value="password"/>
+
+     <property name="defaultEncoding" value="UTF-8"/>
+
+     <property name="javaMailProperties">
+
+          <props>
+
+               <prop key="mail.smtp.auth">true</prop>
+
+          </props>
+
+     </property>
+
+</bean>
+
+<bean id="communicationService"
+
+class="pl.service.CommunicationService">
+
+          <constructor-arg ref="mailSender"/>
+
+          <constructor-arg ref="velocityEngine"/>
+
+</bean>
+
+
+
+       Szablon utworzony przez VelocityEngine, ma posta pliku HTML, do którego
+
+przekazywane s obiekty podobnie jak do plików JSP. W wypadku aplikacji
+
+przekazywany jest obiekt typu String zawierajcy tre wiadomoci email, sporzdzony
+
+w jzyku HTML.
+
+       Podczas sporzdzania wiadomoci masowej, uytkownik równie korzysta z
+
+edytora TinyMCE. Zalet takiego rozwizania jest posta tekstu wynikowego tego
+
+edytora, który jest zwyklym tekstem HTML, dziki temu odbiorca wiadomoci, ma
+
+przed sob taki sam obraz, jak osoba wysylajca wiadomo.
+
+
+2.8Baza danych
+
+       Istotnym elementem, wspólnym dla kadej aplikacji z dynamicznie ladowan
+
+treci jest baza danych. Baza danych stworzona na potrzeby tej pracy, jest wersj
+
+maksymalnie prost przechowujc minimum informacji potrzebnych do zarzdzania
+
+zamówieniami i rezerwacj stolików przez Internet.
+
+
+
+
+                                         57
+
+                        Rysunek 16 Schemat bazy danych
+
+                           ródlo: opracowanie wlasne
+
+      Przede wszystkim w bazie danych przechowywane s informacje o kontach
+
+uytkowników potrzebne do zalogowania, oraz dane o uprawnieniach danego konta.
+
+                                      58
+
+Wszystkie wpisy do bazy danych posiadaj swój identyfikator, dat utworzenia oraz
+
+wersj.  Identyfikatory,    s  kluczem    glównym   kadej    tabeli. Do   tworzenia
+
+identyfikatorów, zostala uyta klasa UUID Javy. Identyfikatory tworzone przez t klas
+
+s praktycznie niepowtarzalne w skali globalnej.
+
+       Baza danych posiada równie, klucze obce, które lcz tabele przechowujce
+
+powizane dane. W poredni sposób, kada tabela lczy si z tabel przechowujc
+
+dane o uytkownikach.
+
+       Tworzenie bazy danych przebiegalo poniekd na bieco, do szkieletu
+
+powstalego na pocztku zostawaly dolczane pola i tabele, które okazaly si niezbdne
+
+w procesie tworzenia. Baza danych zostala utrzymana w jak najprostszej postaci, aby
+
+utrzyma prostot i przejrzysto. Zapewnia to szybkie wczytywanie z niej danych. Nic
+
+natomiast nie stoi na przeszkodzie, aby do bazy danych zostaly dodane kolejne kolumny
+
+czy tabele, rozszerzajce ilo przechowywanych informacji.
+
+       Na rysunku pola z pustymi rombami mog mie warto NULL, natomiast pola
+
+z wypelnionymi rombami musz posiada warto. Klucze glówne tabeli oznaczone s
+
+óltym kluczykiem. Pola oznaczone czerwonymi rombami to klucze obce,
+
+
+2.9Fasada
+
+       Do budowy aplikacji wykorzystany zostal model projektowy, jakim jest fasada.
+
+Fasada stanowi wygodne polczenie z technologi inwersji kontroli, jak daje kontener
+
+Springa. Polczenie z baz danych realizowane jest przez specjalne klasy DAO - data
+
+access object, które wykorzystuj
+
+       Zapisane informacje s pobierane z bazy danych przez Hibernate i nastpnie
+
+przekladane na obiekty Java zgodnie z zdefiniowanym mapowaniem. Klasy DAO s
+
+wykorzystywane przez serwisy, natomiast funkcje jakie udostpniane s przez serwisy,
+
+udostpnia interfejs Fasady. Na fasadzie zastosowane s take adnotacje odpowiadajce
+
+za transakcje. Oznacza to, e operacje wykonane w obrbie danej funkcji wywolanej na
+
+fasadzie, zostaj wykonane wszystkie, lub adna. Jeeli, która z operacji si nie
+
+powiedzie, wszystkie wykonane wczeniej s odwracane.
+
+
+
+
+                                           59
+
+                           Rysunek 17 Strutkura apliakcji - fasada
+
+                                 ródlo: opracowanie wlasne
+
+
+
+       Wszystkie serwisy, klasy DAO, a take fasada stanowi ziarna Spring
+
+zdeklarowane w pliku tworzcym kontekst aplikacji. Tworz one komponenty. Fasada
+
+jako taki komponent poprzez specjalne adnotacje jest wstrzykiwana do kontrolerów
+
+podczas tworzenia ich instancji. Dziki temu w dowolnym kontrolerze mamy dostp do
+
+wszystkich potrzebnych funkcji, przy uyciu tylko jednego interfejsu.
+
+       Ziarna tworzce wyej wymienione komponenty s singletonami, tzn. wystpuj
+
+w postaci jednego niepowtarzalnego obiektu w ramach calej aplikacji i udostpniaj
+
+swoje interfejsy innym obiektom. Ponadto w aplikacji wykorzystane zostaly ziarna
+
+sesyjne. Ziarno, takie tworzone jest osobno dla kadego uytkownika, który rozpocznie
+
+prac z aplikacj. W wypadku tej pracy, przechowuje ono identyfikator uytkownika,
+
+identyfikator i klienta oraz aktywne zamówienie jeli takowe istnieje.
+
+       Wszystkimi ziarnami zarzdza kontener Spring, który dziala w ramach
+
+kontenera aplikacji na serwerze Tomcat. Spring zarzdza, kiedy tworzone s obiekty,
+
+kiedy wstrzykiwane s do innych obiektów, dbajc take o niezawodno
+
+i bezpieczestwo.
+
+
+
+
+                                             60
+
+3.Opis aplikacji mobilnej
+
+3.1Wygld interfejsu
+
+              Interfejs uytkownika bazuje na komponentach wchodzcych w sklad
+
+dostarczonego SDK. Glównym celem przy tworzeniu interfejsu bylo zachowanie
+
+                                     Rysunek 18: Wysuwane menu boczneprostoty         i
+
+                                                                     czytelnoci.
+
+                                                                     Komponenty       i
+
+                                                                     konwencje, które
+
+                                                                     zostaly
+
+                                                                     wykorzystane,
+
+                                                                     stanowi szkielet
+
+                                                                     bardzo      wielu
+
+                                                                     istniejcych
+
+                                                                     aplikacji,  dziki
+
+                                                                     czemu       kady
+
+                                                                     uytkownik
+
+                                                                     powinien szybko
+
+                                                                     odnale
+
+                                                                     podane funkcje.
+                      ródlo : opracowanie wlasne                    Ekranem
+
+pocztkowy,   który    zostaje    zaprezentowany    uytkownikowi     po    poprawnym
+
+zalogowaniu, jest widok menu potraw. Widok ten stanowi punkt wyjcia dla wszelkich
+
+akcji jakie chcemy wykona wewntrz aplikacji. Z tego widoku klient poprzez
+
+przesunicie palcem od lewej krawdzi ekranu, lub przez nacinicie ikony aplikacji na
+
+górnym pasku(1) otwiera menu boczne(2). Menu boczne zawiera dostp do wszystkich
+
+istotnych funkcji. Funkcje pomocnicze, lub rzadziej uywane mona znale w menu
+
+rozwijanym za pomoc przycisku w prawym górnym rogu ekranu(3).
+
+
+
+3.2Rejestracja, logowanie
+
+        Podstawow czynnoci kadego nowego uytkownika jest logowanie lub
+
+rejestracja w przypadku braku konta w internetowej wersji aplikacji. Logowanie do
+
+systemu odbywa si jednorazowo po zainstalowaniu aplikacji. Aplikacja moe
+
+                                            61
+
+ponownie wymaga zalogowania jeli klient zmieni haslo przy uyciu aplikacji
+
+internetowej. Aby poprawnie zalogowa si do systemu naley poda login i haslo,
+
+które zostalo ustawione podczas korzystania z aplikacji internetowej. Jeeli uytkownik
+
+nie ma konta konieczna jest rejestracja w systemie. W tym celu naley pozostawi puste
+
+pola na login i haslo, nastpnie klikajc przycisk ,,Zaloguj lub zarejestruj". Nastpnie
+
+konieczne jest wypelnienie formularza z loginem, adresem e-mail, oraz haslem. Jeeli
+
+poprawnie wypelnimy formularz, a konto z podanym adresem i loginem jeszcze nie
+
+istnieje, aplikacja wywietli formularz z danymi do wypelnienia. Po wypelnieniu
+
+formularza ju bez koniecznoci logowania aplikacja przechodzi do menu potraw.
+
+Konto utworzone za pomoc aplikacji mobilnej jest automatycznie kontem w aplikacji
+
+internetowej. Uytkownik dostaje równie wiadomo e-mail na podany adres
+
+z informacj o zaloeniu konta w serwisie. Takie rozwizanie pozwala uytkownikowi
+
+na dokladniejsze i wygodniejsze zapoznanie si ze szczególami na temat swoich
+
+zamówie i rezerwacji jeli zajdzie taka potrzeba.
+
+        Rysunek 19: Panele logowania, rejestracji i danych uytkownika
+
+                          ródlo: opracowanie wlasne
+
+
+
+
+Podczas logowania do aplikacji przesylanie danych odbywa si za pomoc
+
+bezpiecznego protokolu HTTPS, oraz autorskiego algorytmu uwierzytelniania zapyta.
+
+Poczwszy od momentu zalogowania, kade danie które zostaje wyslane z aplikacji
+
+do web-api jest uwierzytelnianie. W naglówku komunikatu HTTP w polu
+
+,,Authorization" umieszczana jest specjalna kombinacja danych:
+
+public static final String CREDS_SEPARATOR = "###";
+
+                                              62
+
+public static String prepareCreds(String username, String password) {
+
+    return prepareCredsWithHash(username, sha256(password));
+
+}
+
+public static String prepareCredsWithHash(String username, String hash) {
+
+     String ret = username + C.CREDS_SEPARATOR + hash;
+
+     return Base64.encodeToString(ret.getBytes(),0).replaceAll("\\n", "");
+
+}
+
+Dane do logowania przekazywane s w postaci polczenia loginu i funkcji skrótu
+
+sha256 hasla separatorem zdefiniowanym jako trzy znaki ,,#". Dodatkowo w celu
+
+uniknicia problemów z kodowaniem znaków, lub nieoczekiwanym zachowaniem
+
+aplikacji w przypadku znaków specjalnych w loginie, caly lacuch jest kodowany
+
+algorytmem Base6412. Przez sie nigdy nie jest przesylane haslo uytkownika                       w
+
+postaci zwyklego tekstu. Poniewa calo pakietu równie jest szyfrowana,
+
+prawdopodobiestwo utraty hasla jest bardzo male.
+
+
+3.3Menu potraw
+
+                           Rysunek 20: Widok trzech kategorii z menu
+
+                                   ródlo:opracowanie wlasne
+
+
+
+
+        Do prezentacji menu zostal wykorzystany tak zwany Pager, prezentujcy na
+
+kadej stronie jedn kategori z menu. Klient przemieszcza si midzy kategoriami
+
+przesuniciem palca w kierunku poziomym w odpowiedni stron. Menu odwieane
+
+jest na danie uytkownika. Jeeli klient zloy zamówienie z nieaktualnym menu
+
+zostanie ono odrzucone w restauracji. Jeeli na konkretn potraw w chwili pobierania
+
+menu istnieje cena promocyjna to taka cena zostanie wywietlona klientowi. API
+12Base64 ­ algorytm, który sluy do kodowania cigu bajtów, nie koniecznie tekstu, tak aby zostal on
+
+reprezentowany w postaci 64 stalych dla algorytmu znaków. Zapobiega utracie, lub zmianie danych
+
+podczas transportu przez sieci komputerowe, gdzie pakiety obslugiwane s przez róne systemy z
+
+rónymi rodzajami kodowania.
+                                               63
+
+umoliwiajce pobieranie informacji o potrawach z aplikacji jest bardzo uniwersalne i
+
+moe zosta wykorzystane równie w innych aplikacjach dowolnego typu.
+
+                                   Rysunek 21: Widok szczególowy pozycji z menu
+
+                                                                                    Po
+
+                                                                               dotkniciu
+
+                                                                               palcem
+
+                                                                               wybranej
+
+                                                                               pozycji   z
+
+                                                                               menu,
+
+                                                                               klientowi
+
+                                                                               pokazuje
+
+                                                                               si
+
+
+
+
+                          ródlo : opracowanie wlasne
+szczególowy widok pozycji. Widok ten przedstawia nastpujce elementy :
+
+·nazw potrawy,
+
+·aktualn cen,
+
+·opis potrawy,
+
+·ilo sztuk potrawy w aktywnym zamówieniu,
+
+·list komentarzy wraz z ocenami,
+
+·przyciski komentarza i dodania potrawy do zamówienia.
+
+W menu w prawym górnym rogu istnieje równie moliwo odwieenia danych o
+
+potrawie, a w szczególnoci listy komentarzy, gdy ta zmienia si najbardziej
+
+dynamicznie. Aplikacja umoliwia równie dodanie komentarza. W tym celu klient
+
+powinien dotkn przycisku skomentuj, a nastpnie wypelni formularz i zatwierdzi
+
+przyciskiem OK. Do menu glównego klient moe powróci klikajc na ikon aplikacji
+
+w lewym górnym rogu, lub uy przycisku wstecz urzdzenia.
+
+
+
+
+                                           64
+
+1.1Skladanie                                           Rysunek 22: Okno dialogowe dodawania komentarza
+
+zamówienia
+
+       Z       menu
+
+bocznego klient ma
+
+dostp do aktywnego
+
+zamówienia. Edycja
+
+aktywnego
+
+zamówienia odbywa
+
+si          poprzez
+
+przechodzenie     na
+
+kart   interesujcej
+
+potrawy i wybranie
+
+danej   iloci  w
+
+zamówieniu.     Jeli
+
+klient chce usun                              ródlo : opracowanie wlasne
+
+dan potraw z zamówienia, na jej karcie powinien ustawi ilo zero. Wybór iloci
+
+sztuk danej potrawy odbywa si przy pomocy wygodnego okna dialogowego, które
+
+pozwala na wybór w zakresie od zera do
+
+                           Rysunek 23: Dialog wyboru iloci sztuk potrawypidziesiciu.
+
+                                                                         W       widoku
+
+                                                                         aktywnego
+
+                                                                         zamówienia
+
+                                                                         moemy
+
+                                                                         zobaczy ilo
+
+                                                                         pozycji,  które
+
+                                                                         tworz
+
+                                                                         zamówienie
+                      ródlo : opracowanie wlasne
+                                                                         wraz z sumami
+
+czstkowymi za poszczególne pozycje oraz kwot calego zamówienia. Zamówienie
+
+skladane za porednictwem aplikacji mobilnej moe posiada jeden z czterech statusów
+
+(nie wyslane, oczekuje na potwierdzenie, potwierdzone, gotowe) tak samo jak
+
+zamówienie zloone przez stron internetow. ledzenie statusu moe odbywa si
+
+zarówno na licie zamówie, jak równie w szczególowym widoku zamówienia. Aby
+
+zaktualizowa status zamówienia klient moe uy opcji odwie z menu w prawym
+
+górnym rogu ekranu. Aktualny status zamówienia jest pobierany przez API i zawsze jest
+
+                                         65
+
+zgodny z statusem, który mona ledzi na stronie. Aplikacje stworzone przy pomocy
+
+aplikacji mobilnej maj swoje odzwierciedlenie w aplikacji internetowej, natomiast
+
+zamówienia utworzone w aplikacji internetowej nie s pobierane do aplikacji mobilnej.
+
+Zbyt dua ilo zamówie moglaby spowodowa zaciemnienie istotnych treci i
+
+spowolnienie dzialania aplikacji.
+
+
+
+                                                  Rysunek 25: ledzenie zamówienia jest równie moliwe
+                                                   Rysunek 24: Lista
+
+
+
+
+                                zamówie
+                                             w widoku szczególowym
+
+                                           ródlo : opracowanie wlasne
+
+
+
+
+                                        66
+
+1.2Rezerwacja miejsc
+
+
+
+             Rysunek 26: Okno dialogowe wyboru daty
+
+                   ródlo : opracowanie wlasne                  Zarezerwowanie
+
+                                                               stolika      wymaga
+
+                                                               stalego  dostpu   do
+
+                                                               internetu    podczas
+
+                                                               procesu, gdy dane o
+
+                                                               wolnych     stolikach
+
+                                                               ladowane    s     na
+
+                                                               bieco.         Aby
+
+zarezerwowa stolik w restauracji klient powinien zacz od wyboru interesujcej go
+
+daty przy uyciu okna dialogowego, które jest wywietlane po klikniciu na pole
+
+formularza w którym znajduje si data. Po wyborze interesujcej daty klientowi
+
+wywietlone zostaj dostpne w danym dniu stoliki. Naley nastpnie klikn na
+
+wybrany stolik i potwierdzi rezerwacj. List dokonanych rezerwacji moemy ledzi
+
+poprzez widok listy rezerwacji dostpny z wysuwanego menu bocznego. Po
+
+potwierdzeniu przez uytkownika chci rezerwacji do systemu wysylane jest zapytanie
+
+w celu zloenia rezerwacji w systemie. W tym momencie serwer w obrbie jednej
+
+blokujcej transakcji dokonuje sprawdzenia czy dalej dostpny jest stolik, jeli jest
+
+dokonuje rezerwacji, jeli kto zdyl wczeniej zarezerwowa stolik rzucany jest
+
+wyjtek. Klient w aplikacji mobilnej informowany jest stosownym komunikatem o
+
+powodzeniu rezerwacji.
+
+
+1.3Architektura bazy danych
+
+       Baza danych zaprojektowana na potrzeby aplikacji mobilnej jest uproszczonym
+
+modelem bazy danych z wersji webowej aplikacji. W aplikacji internetowej
+
+zastosowane zostaly generowane klucze w postaci lacucha znaków alfanumerycznych.
+
+Takie identyfikatory s unikalne w skali aplikacji oraz bardzo rzadko powtarzalne w
+
+skali globalnej. Dla zachowania spójnoci danych pomidzy aplikacj internetow
+
+i mobiln zastosowane zostaly globalne klucze dla kadej tabeli. Dla obiektów
+
+utworzonych na serwerze klucze kopiowane s podczas pobierania do aplikacji
+
+mobilnej i zapisywane w dodatkowym polu w bazie danych. Obiekty które tworzone s
+
+
+                                           67
+
+w aplikacji mobilnej, równie maj generowane globalne id z którym póniej
+
+zapisywane s na serwerze.
+
+
+
+
+                                    68
+
+                  Rysunek 27: Architektura bazy danych aplikacji mobilnej
+                               ródlo : opracowanie wlasne
+
+       Na powyszym diagramie relacyjnej bazy danych przedstawione zostaly tabele
+
+wykorzystane w aplikacji mobilnej. Tabela ,,Category" nie posiada globalnego klucza
+
+glównego gdy przechowuje tylko nazw kategorii, która nie jest przesylana do serwera
+
+przy skladaniu zamówienia. Podobnie tabela rezerwacji nie posiada globalnego ID,
+
+gdy zawarte w niej informacje slu tylko informacji uytkownika. Pominita w bazie
+
+danych zostala równie tabela z danymi klienta. Taka tabela zawieralaby tylko jeden
+
+wpis dotyczcy aktualnie zalogowanego uytkownika w zwizku z czym te dane zostaly
+
+zapisane w obiekcie zwanym SharedPreferences. Jest to specjalny mechanizm systemu
+
+Android, który pozwala na zapisywanie zmiennych podstawowego typu, takich jak
+
+lacuchy znaków czy liczby bez koniecznoci uywania bazy danych. Poniej
+
+prezentuje przyklad uycia takiego obiektu.
+
+shp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+shp.edit().putString(C.KEY_CLIENT_ID, jsonObject.getString("global_id"))
+
+               .putString(C.KEY_CLIENT_NAME, jsonObject.getString("name"))
+
+               .putString(C.KEY_CLIENT_SURNAME, jsonObject.getString("surname"))
+
+               .putString(C.KEY_CLIENT_PHONE, jsonObject.getString("phone"))
+
+               .putString(C.KEY_CLIENT_PHONE2, jsonObject.getString("phone2"))
+
+               .putString(C.KEY_CLIENT_CITY, jsonObject.getString("city"))
+
+               .putString(C.KEY_CLIENT_CODE, jsonObject.getString("code"))
+
+               .putString(C.KEY_CLIENT_STREET, jsonObject.getString("street"))
+
+               .putString(C.KEY_USER_ID, jsonObject.getString("userId"))
+
+               .putString(C.KEY_USER_EMAIL, jsonObject.getString("email")).commit();
+                                           69
+
+Przedstawiony fragment kodu prezentuje sposób zapisania w systemie Android danych
+
+otrzymanych w postaci JSON. Dane otrzymane od serwera s bezporednio zapisywane
+
+we wlaciwociach i dostpne w dowolnym miejscu aplikacji. Ta wlaciwo zostala te
+
+wykorzystana do przechowywania loginu i hasla. Haslo przechowywane jest w postaci
+
+jak zwraca funkcja skrótu sha256. Haslo w postaci czystego tekstu nie jest nigdzie
+
+wymagane. Równie identyfikator aktywnego zamówienia jest przechowywany w ten
+
+sam sposób. Dla ujednolicenia dostpu do bazy danych wykorzystana zostala specjalna
+
+klasa pomocnicza. Gromadzi ona wszystkie obiekty DAO i udostpnia odpowiednie
+
+metody przy wykorzystaniu metod bazowych DAO.
+
+private SQLiteDatabase db;
+
+private DaoMaster daoMaster;
+
+private DaoSession daoSession;
+
+private MenuItemDao menuItemDao;
+
+DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, C.DATABASE_NAME,
+
+null);
+
+db = helper.getWritableDatabase();
+
+daoMaster = new DaoMaster(db);
+
+daoSession = daoMaster.newSession();
+
+menuItemDao = daoSession.getMenuItemDao();
+
+return menuItemDao.queryBuilder().list();
+
+
+Powyszy fragment kodu prezentuje sposób uzyskania obiektu DAO dla tabeli
+
+zawierajcej pozycje z menu i pobranie z niej wszystkich rekordów. Poniewa
+
+stworzone w ten sposób obiekty mona uywa wielokrotnie sposób ten jest duo
+
+wygodniejszy, a przy okazji duo bardziej czytelny, ni korzystanie z nieopakowanego
+
+API jakie dostarcza SDK systemu Andoid dla bazy SQL Lite.
+
+
+
+
+                                          70
+
+2.Strategia testowania
+        Aby zapobiec nieprzewidzianym sytuacjom podczas dzialania aplikacji
+
+w rodowisku      produkcyjnym      niezbdne  jest  przeprowadzenie    testów   przed
+
+udostpnieniem aplikacji uytkownikom kocowym. Czasami bldów nie da si
+
+unikn lub ciko je przewidzie. Natomiast im wiksze pokrycie funkcjonalnoci
+
+testami tym mniejsze prawdopodobiestwo, e aplikacja zawiedzie w trakcie dzialania.
+
+Istotnym czynnikiem jest równie czas w jakim aplikacja przestaje zupelnie
+
+odpowiada. W przypadku gdy jest to serwis, który przynosi dochód poprzez
+
+bezporedni sprzeda produktów takie okresy mog przynosi olbrzymie straty i nie
+
+powinny wystpowa. Dostpno aplikacji dla uytkowników w duej mierze zaley
+
+od serwera na jakim aplikacja si znajduje. Dobrym rozwizaniem okazuje si
+
+korzystanie z specjalnych platform, które pozwalaj wynaj cz zasobów swojej
+
+struktury serwerowej. Takie rozwizanie pozwala na utrzymanie aplikacji w ciglym
+
+dzialaniu dziki zwielokrotnieniu zasobów i niezauwaalnemu przelczaniu midzy
+
+nimi w przypadki awarii.
+
+
+2.1Testy jednostkowe
+
+        Zarówno dla czci mobilnej aplikacji jak i internetowej zostaly napisane testy
+
+jednostkowe. Przy tworzeniu testów jednostkowych wykorzystany zostal framework
+
+Junit. Testy jednostkowe najlepiej sprawdzaj si podczas testowania logiki aplikacji
+
+oraz warstwy integracji, a w szczególnoci obiektów DAO. Poniej przedstawiony
+
+zostal przykladowy test, który pozwala sprawdzi czy lista pozycji zwracanych przez
+
+serwis nie jest wartoci typu null.
+
+@RunWith(SpringJUnit4ClassRunner.class)
+
+@ContextConfiguration(locations = { "/application-Context.xml" })
+
+public class RestaurantServiceTest {
+
+@Autowired
+
+private RestaurantService restaurantService;
+
+   @Test
+
+    public void testFindAllMenuItems() {
+
+     List<MenuItem> menuItems = restauService.findAllMenuItems();
+
+     assertNotNull(menuItems);
+
+   }
+
+}
+
+        Ciekawym elementem w powyszym fragmencie kody jest adnotacja
+
+@RunWith.       Pozwala    ona   na   uruchomienie   testu  przy  pomocy     specjalnie
+
+przygotowanych klas zwanych runnerami. Klasy te dostarczane s zazwyczaj z
+
+frameworkami, tak aby latwe bylo ich testowanie. W przypadku korzystania z
+
+frameworku Spring dziki wykorzystaniu takiej konstrukcji testu nie musimy
+                                            71
+
+przejmowa si tworzeniem i niszczeniem kontekstu. Kontekst opisany w pliku
+
+podanym w parametrze jest tworzony automatycznie, natomiast ziarna Spring (beans)
+
+moemy uzyska korzystajc z adnotacji @Autowired.
+
+        Dla testów aplikacji mobilnej równie zostala wykorzystana adnotacja
+
+@RunWith(RobolectricTestRunner.class), natomiast jako runner zostala wykorzystana
+
+klasa z pakietu Roboelectric, który zostal stworzony specjalnie do testów
+
+jednostkowych dla systemu android. Dziki temu moemy tworzy obiekty typu
+
+activity, które stanowi szkielet aplikacji dla systemy Android, bez potrzeby
+
+uruchamiania emulatora systemu. Podobnie jak w przypadku aplikacji internetowej
+
+testy jednostkowe zostaly wykorzystane do testowania logiki i elementów DAO.
+
+        Wykonywanie testów jednostkowych ma wiele zalet. Przede wszystkim daje
+
+programicie rodek do sprawdzenia czy napisana funkcja zwraca oczekiwane wyniki
+
+zaraz po jej napisaniu, ale take po dluszym czasie kiedy chce co zmieni w kodzie,
+
+lub wprowadzi optymalizacje. Dziki testom jednostkowym mona bez obaw dokona
+
+zmian i sprawdzi czy interesujca nas funkcja dziala poprawnie. Wane jest jednak aby
+
+testy pokrywaly moliwie jak najwiksz ilo danych wejciowych. Jeeli pominiemy
+
+pewne istotne przypadki to moliwe jest e test przejdzie le napisana, zawierajca
+
+bldy funkcja.
+
+        Podczas pisania testów jednostkowych konieczne jest czasem stworzenie
+
+obiektów zastpczych, które imituj obiekty, których stworzenie podczas pisania testów
+
+jest niemoliwe lub zale od zewntrznych zasobów, np. sieci internet. W takich
+
+przypadkach implementuje si interfejs danej klasy, tak aby wygldalo, e dane
+
+faktycznie pobierane s z internetu, gdy ich prawdziwym ródlem jest plik tekstowy, lub
+
+stale zapisane w programie.
+
+
+2.2Testy funkcjonalne
+
+        Testy funkcjonalne przeprowadza osoba, która nie jest zaznajomiona
+
+z wewntrzn budow systemu, dziki czemu jej zachowania podczas korzystania z
+
+aplikacji s nieprzewidywalne i przypominaj uycie w domylnym rodowisku
+
+produkcyjnym. W przypadku tej pracy o skorzystanie z aplikacji poproszona zostala
+
+jedna osoba postronna. Zostala ona zaznajomiona z moliwociami systemu
+
+i poproszona o swobodne korzystanie z systemu. Podczas testów wszystko przebieglo
+
+pomylnie. Aplikacja reagowala zgodnie z oczekiwaniami osoby, a odnalezienie
+
+podanych opcji nie bylo problematyczne.
+
+        Podobny proces przeprowadzony zostal z wykorzystaniem aplikacji mobilnej.
+
+W tym wypadku równie testy przebiegly bez problemów technicznych. Take
+                                           72
+
+ergonomia    interfejsu  nie   pozostawiala   adnych    wtpliwoci,  gdzie  szuka
+
+odpowiednich funkcji. System w obu przypadkach okazal si dziala szybko
+
+i bezawaryjnie.
+
+
+2.3Testy akceptacyjne
+
+       W    przypadku     projektów  komercyjnych,     jednym   z   rodzajów   testów
+
+przeprowadzonych na aplikacji s testy akceptacyjne. Celem testów akceptacyjnych nie
+
+jest wykrywanie bldów, a sprawdzenie zgodnoci oprogramowania z wymaganiami
+
+oraz potwierdzenie spelnienia zaloonych wymaga jakociowych. Testy akceptacyjne
+
+przeprowadzane s w dwóch etapach: alfa i beta. Testy alfa zazwyczaj wykonuje zespól,
+
+który odpowiada za stworzenie aplikacji, natomiast testy beta wykonuj osoby
+
+niezwizane z projektem.  [N23]W przypadku niniejszej pracy wykonane zostaly jedynie
+
+testy w fazie alfa. W trakcie tworzenia kolejnych funkcjonalnoci wielokrotnie
+
+przeprowadzane zostaly testy nowej funkcjonalnoci. Przeprowadzanie takich testów na
+
+rónych zestawach danych wejciowych i przy rozpatrzeniu rónych przypadków
+
+uycia   wraz    z   scenariuszami   alternatywnymi,    doprowadzilo  do   powstania
+
+oprogramowania, które dziala szybko i niezawodnie. Zostaly równie doloone
+
+wszelkie starania aby aplikacja spelniala wszystkie zaloenia przedstawione w opisie
+
+wymaga w rozdziale trzecim.
+
+
+2.4Podsumowanie
+
+       Istnieje jeszcze wiele innych rodzajów, które nie zostaly przeprowadzone, lub
+
+zostaly przeprowadzone nie wprost. Przykladem takich testów mog by testy interfejsu
+
+graficznego, które automatyzuje si z wykorzystaniem specjalnych narzdzi.
+
+W niniejszej pracy takie testy mialy miejsce podczas przeprowadzania testów kolejnych
+
+powstajcych funkcjonalnoci, co zawarlo si w testach akceptacyjnych. Wszystkie
+
+wykonane testy doprowadzily do otrzymania dzialajcego, gotowego produktu, który
+
+stopniowo ewoluowal podczas powstawania.
+
+
+
+
+Zakoczenie
+       Proces tworzenia aplikacji internetowej, jest zadaniem zloonym wymagajcym
+
+przemylenia i jasnego zdefiniowania wymaga. Im lepiej sprecyzowane i bardziej
+
+dokladne wymagania na pocztku tworzenia, tym szybciej postpuj prace, a w trakcie
+
+tworzenia pojawia si mniej niespodzianek. le okrelone wymagania na pocztku
+                                          73
+
+tworzenia, mog skutkowa koniecznoci duych i czasochlonnych zmian w
+
+przypadku wprowadzania wikszych zmian.
+
+       Aplikacja tworzona na potrzeby tej pracy nie jest projektem komercyjnym,
+
+wymagania zostaly okrelone na podstawie analizy podobnych rozwiza, oraz
+
+wlasnych pomyslów.
+
+       Glównymi celami przywiecajcymi podczas tworzenia, tej aplikacji, byla
+
+szybko, wygoda i bezpieczestwo. Interfejs zostal stworzony tak, aby byl przejrzysty,
+
+czytelny i latwo modyfikowalny. Wiele elementów posiada wlasne dodatkowe klasy
+
+CSS, które pozwol w przyszloci latwo zmieni ich wygld.
+
+       Za bezpieczestwo uytkowników odpowiada sprawdzony i skuteczny
+
+framework Spring Security, a take sama budowa poszczególnych elementów systemu,
+
+która pozwala tylko wlacicielowi konkretnych danych oglda je i modyfikowa.
+
+Aplikacja, nie pokazuje nigdzie adresów email, ani adnych danych osobowych innym
+
+uytkownikom. Jedyny element publiczny to nasz login, który pojawia si przy
+
+dodawanych komentarzach.
+
+       Praca "Internetowy system obslugi restauracji On-line", zostala zrealizowana w
+
+postaci niniejszego dokumentu, oraz aplikacji internetowej. Do stworzenia pracy zostalo
+
+wykorzystanych wiele najnowszych technologii w dziedzinie tworzenia aplikacji tego
+
+typu. Glówne elementy zostaly stworzone przy uyciu jzyka Java, platformy Java EE,
+
+oraz modulów framework-u Spring, a moliwo zapisywania stanów obiektów
+
+zapewnil framework Hibernate wspólpracujcy z baz danych MySQL. Za wizualny
+
+aspekt aplikacji, odpowiada jzyk HTML, kaskadowe arkusze stylów, natomiast
+
+dynamiki wszystkim elementom graficznym dodaj skrypty napisane w jzyku
+
+JavaScript.
+
+       Projekt bdcy tematem tej pracy, daje spore moliwoci rozwoju i dodawania
+
+nowych funkcjonalnoci. Ciekawymi kierunkami rozwoju dla tej aplikacji, byloby w
+
+pierwszej kolejnoci zintegrowanie jej z obslug platnoci przez Internet, kolejnym
+
+ciekawym pomyslem bylaby integracja z systemem Facebook, która zwikszylaby sil
+
+reklamy i promocj portalu, a take umoliwilaby eliminacj potrzeby zakladania konta
+
+w serwisie, poprzez logowanie specjalne API.
+
+       Projekt ten w ramach pracy inynierskiej skladal si z okolo 7 200 linii kody
+
+Javy, oraz okolo 6 000 linii kodu tworzcych widoki. W ramach rozwoju pracy o
+
+aplikacj mobiln ilo kodu po stronie serwera zwikszyla si do okolo 8500 linii
+
+kodu, natomiast sama aplikacja mobilna to prawie 8000 linii kodu Javy, plików XML
+
+oraz stalych tekstowych. Najwicej czasu zajlo stworzenie rdzenia aplikacji i
+
+                                         74
+
+polczenia wszystkich elementów w calo, sporo czasu zajlo take przemylenie
+
+dzialania kolejnych elementów systemu i wprowadzenie pomyslów w ycie. Duo
+
+pracy wymagala komunikacja pomidzy aplikacj mobiln          a internetow. Wygld
+
+aplikacji jest zazwyczaj, kwesti preferencji klienta. W ramach pracy magisterskiej
+
+wygld interfejsu uytkownika zostal odwieony. Nowa szata graficzna jest bardziej
+
+stonowana i przejrzysta, dziki czemu równie bardziej czytelna.
+
+
+
+
+                                         75
+
+Bibliografa
+
+1.Bauer Christian, King Gavin, Hibernate in Action, Manning 2012
+
+2.Eckel Bruce, Thinking in Java. Edycja polska. Wydanie IV, Helion 2006
+
+3.Satya Komatieni, Dave MacLean, Pro Android 4, Apress 2012
+
+4.Sokól Radoslaw, Kurs HTML i XHTML, Helion
+
+5.Walls Craig, Spring in Action, Manning 2012
+
+6.Wenz Christian, JavaScript. Rozmówki, Helion 200
+
+
+
+Netografia
+
+N1. http://pl.wikipedia.org/wiki/World_Wide_Web
+
+N2. http://www.w3.org/Consortium/facts
+
+N3. http://pl.wikipedia.org/wiki/E-biznes
+
+N4. http://www.ploug.org.pl/konf_00/pdf/galeski_foremski.pdf
+
+N5. http://pl.wikipedia.org/wiki/Html
+
+N6. http://www.w3.org/TR/1999/REC-html401-19991224/index/elements
+
+N7. http://pl.wikipedia.org/wiki/Kaskadowe_arkusze_styl%C3%B3w
+
+N8. http://www.w3.org/Style/CSS/specs
+
+N9. http://pl.wikipedia.org/wiki/JavaScript
+
+N10. https://developer.mozilla.org/en-US/docs/JavaScript
+
+N11. http://docs.jquery.com/How_jQuery_Works
+
+N12. http://jqueryui.com/
+
+N13. http://www.oracle.com/technetwork/java/javaee/overview/index.html
+
+N14. http://static.springsource.org/spring/docs/2.0.x/reference/mvc.html
+
+N15. http://static.springsource.org/spring/docs/3.0.0.M3/reference/html/ch17s02.html
+
+N16. http://pl.wikipedia.org/wiki/MySQL
+
+N17. http://www.hibernate.org/subprojects/validator.html
+
+N18. http://pl.wikipedia.org/wiki/Software_development_kit
+
+N19. http://pl.wikipedia.org/wiki/Apache_License
+
+N20. http://pl.wikipedia.org/wiki/GNU_General_Public_License
+
+N21. http://www.sqlite.org
+
+N22. http://greendao-orm.com
+
+N23. http://pl.wikipedia.org/wiki/Testy_akceptacyjne
+
+
+
+                                            76
+
+Spis rysunków
+
+Rysunek 1: Wykorzystanie smartphone-ów w celach zakupowych.............................................12
+
+Rysunek 2 Diagram przypadków uycia......................................................................................34
+
+Rysunek 3: Diagram przypadków uycia dla aplikacji mobilnej...................................................37
+
+Rysunek 4 Strona wzorcowa aplikacji.........................................................................................40
+
+Rysunek 5 Formularz dodania uytkownika................................................................................42
+
+Rysunek 6 Formularz rejestracji uytkownika, wypelniony niepoprawnie i poprawnie..............43
+
+Rysunek 7 Email z linkiem aktywujcym.....................................................................................44
+
+Rysunek 8 Lista klientów niezweryfikowanych...........................................................................44
+
+Rysunek 9 Przeszukiwanie listy klientów - AJAX..........................................................................45
+
+Rysunek 10 Widok menu dla klienta...........................................................................................47
+
+Rysunek 11 Podstrona pozycji menu..........................................................................................49
+
+Rysunek 12 Formularz dodawania opisu stolika (TinyMCE)........................................................51
+
+Rysunek 13 Panel aktywnego zamówienia.................................................................................53
+
+Rysunek 14 Nachodzce i biece zamówienia w panelu uytkownika......................................55
+
+Rysunek 15 Panel skladania rezerwacji przez klienta..................................................................58
+
+Rysunek 16 Schemat bazy danych..............................................................................................60
+
+Rysunek 17 Strutkura apliakcji - fasada......................................................................................62
+
+Rysunek 18: Wysuwane menu boczne........................................................................................63
+
+Rysunek 19: Panele logowania, rejestracji i danych uytkownika...............................................64
+
+Rysunek 20: Widok trzech kategorii z menu...............................................................................65
+
+Rysunek 21: Widok szczególowy pozycji z menu........................................................................66
+
+Rysunek 22: Okno dialogowe dodawania komentarza...............................................................66
+
+Rysunek 23: Dialog wyboru iloci sztuk potrawy........................................................................67
+
+Rysunek 25: ledzenie zamówienia jest równie moliwe w widoku szczególowym..................67
+
+Rysunek 24: Lista zamówie.......................................................................................................67
+
+Rysunek 26: Okno dialogowe wyboru daty.................................................................................68
+
+Rysunek 27: Architektura bazy danych aplikacji mobilnej...........................................................69
+
+
+
+
+                                                       77
+
+Owiadczenie
+
+        Ja, niej podpisany Dawid Dbrowski student Wydzialu Fizyki, Matematyki
+
+i Informatyki owiadczam, e przedkladan prac dyplomow inyniersk pt.:
+
+        Internetowa obsluga on-line restauracji, oraz aplikacja dla systemu
+
+Android do skladania zamówie oraz rezerwacji
+
+        wykonalem samodzielnie, tzn. nie zlecalem opracowania pracy dyplomowej, ani
+
+jej czci osobom trzecim, jak równie nie odpisywalem pracy dyplomowej, ani jej
+
+czci od innych osób.
+
+        Jednoczenie przyjmuj do wiadomoci, e w przypadku stwierdzenia
+
+popelnienia przeze mnie czynu polegajcego na przypisaniu sobie autorstwa istotnego
+
+fragmentu, lub innych elementów cudzej pracy lub ustalenia naukowego, wlaciwy
+
+organ stwierdzi niewano postpowania w sprawie nadania mi tytulu zawodowego
+
+(art. 193 ustawy z dnia 27 lipca 2005 r. Prawo o szkolnictwie wyszym, Dz. U. Nr 164
+
+poz. 1365 z póniejszymi zmianami).
+
+
+
+
+                                             ...................................................................
+
+                                                                  Data i podpis
+
+
+
+
+                                           78
+
