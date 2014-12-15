@@ -53,6 +53,16 @@ class ReplyQueue(BaseQueue):
     def __getattr__(self, name):
         return getattr(self.stream, name)
 
+class RequestQueue(BaseQueue):
+
+    def __init__(self, connect, ioloop=None):
+        super().__init__(zmq.REQ)
+        self.socket.connect(connect)
+        self.stream = ZMQStream(self.socket, ioloop)
+        self.stream.flush()
+
+    def __getattr__(self, name):
+        return getattr(self.stream, name)
 
 
 class QueueReqMessage(object):

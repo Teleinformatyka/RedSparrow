@@ -1,0 +1,490 @@
+     
+     POLITECHNIKA KRAKOWSKA 
+     IM. TADEUSZA KOSCIUSZKI
+     WYDZIAL FIZYKI MATEMATYKI I INFORMATYKI
+     KIERUNEK INFORMATYKA
+     
+     
+     
+     PAWEL OPIELA
+     
+     
+     
+    MOBILNY SYSTEM ZARZADZANIA MAGAZYNEM ELEKTRONIKA
+    MOBILE ELECTRONICS WAREHOUSE MANAGEMENT SYSTEM
+     
+     
+     PRACA MAGISTERSKA
+     STUDIA STACJONARNE
+     
+     
+     
+     
+     
+      Promotor:  Dr Agnieszka Krok
+      
+      
+      Kraków 2014
+
+  Spis tresci
+  1	Wstep	4
+1.1	Definicje	4
+1.2	Przeglad istniejacych rozwiazan	5
+1.3	Cel i zakres pracy	6
+  2	Projekt wstepny	8
+2.1	Ogólny opis funkcjonalnosci	8
+2.1.1	Aplikacja internetowa	8
+2.1.2	Aplikacja mobilna	9
+2.2	Wymagania funkcjonalne	9
+2.2.1	Aplikacji internetowej	10
+2.2.2	Aplikacja mobilna	13
+2.3	Wymagania niefunkcjonalne	14
+2.4	Wybór technologii	15
+2.5	Planowanie pracy	16
+2.6	Komunikacja aplikacji mobilnej z serwerem	17
+  3	Implementacja	20
+3.1	Aplikacja internetowa	20
+3.1.1	Konfiguracja srodowiska	20
+3.1.2	Polaczenie z baza danych	22
+3.1.3	Autentykacja	24
+3.1.4	Tworzenie ról i konta administratora	26
+3.1.5	Model bazy danych	28
+3.1.6	Glówny plik szablonu	29
+3.1.7	Sekcja administratora	30
+3.1.8	Sekcja uzytkownika	30
+3.2	Komunikacja	30
+3.3	Aplikacja mobilna	30
+3.3.1	Konfiguracja srodowiska	30
+  4	Testowanie	31
+  5	Wnioski	32
+  6	Bibliografia	33
+      
+ 
+
+1 Wstep
+      Powaznym problem wsród osób zajmujacych sie elektronika zarówno hobbystycznie, amatorsko jak i zawodowo jest brak nalezytej organizacji pracy poprzez uporzadkowanie  elementów elektronicznych. Przez co osoby te czesto same do konca nie wiedza jakie elementy elektroniczne nazywane równiez komponentami posiadaja w swoich zbiorach. 
+Co wiecej czesto zdarza sie sytuacja, iz odszukanie konkretnego komponentu sprawia duze problemy. Niejednokrotnie zdarza sie iz niezbedny jest tzw. "telefon do przyjaciela" w celu zapytania o poszukiwany element, co nie jest najbardziej efektywnym postepowaniem. Sprawa razaco komplikuje sie gdy róznych skladników jest bardzo duzo w malych ilosciach, wieksze ilosci zazwyczaj pakowane w specjalnych rolkach przez co ich organizacja nie sprawia tyle klopotów. W dalszej czesci zaprezentowany zostal projekt oraz proces implementacji systemu mobilnego sluzacego do zarzadzania zbiorami elementów elektronicznych, zrealizowany na potrzeby pracy magisterskiej na kierunku informatyka 
+na Politechnice Krakowskiej. 
+      
+1.1 Definicje
+Ponizej przedstawiane zostaly definicje slów kluczowych uzytych w projekcie:
+* Komponenty (elementy) - czesci elektroniczne, uklady scalone itp.
+* Magazyn - w rozumieniu projektu nalezy traktowac, jako kontener, grupa dla komponentów. Fizycznie rozumiec nalezy jako miejsce gdzie znajduja sie elementy przykladowo (Pudelko, Pólka)
+* Projekt jako czesc funkcjonalna aplikacji - oznacza urzadzenie elektroniczne 
+w którego sklad wchodza elementy elektroniczne lub komponenty. Przykladowym projektem moze byc (Zegar z modulem GPS) 
+
+
+1.2 Przeglad istniejacych rozwiazan 
+      Temat organizacji elementów elektronicznych nie jest czyms nowym, na rynku dostepne sa róznego rodzaju programy przeznaczone do tego celu. Ponizej zostana zaprezentowane konkurencyjne rozwiazania:
+      
+      Katalog elektronika http://katalogelektronika.pl/
+      
+       Rys 1.1
+Widok aplikacji katalog elektronika
+        
+      Katalog elektronika jest programem typowo desktopowy, posiada lokalna baze danych która mozna eksportowac oraz importowac z i do pliku. Posiada modul dodajacy elementy
+z plików produkcyjnych generowanych z programu Eagle (oprogramowanie do projektowania plytek drukowanych). Uzytkownik dodajac nowy element musi wypelnic formularz z duza iloscia pól. Mozliwe jest takze generowanie raportów ze stanami zerowymi lub minimalnymi. 
+
+
+      Magazynier elektronika http://www.magazynier.majsterkowicza.pl/
+      
+        Rys 1.2
+Widok strony projektu magazynier elektronika
+      
+      Magazynier elektronika jest rozwiazaniem internetowym katalogowania zasobów, posiada bardzo prosty interfejs oraz podstawowa funkcjonalnosc dodawania elementów 
+oraz ich przegladania.
+      
+1.3 Cel i zakres pracy
+      Celem pracy jest budowa systemu sluzacego do funkcjonalnego oraz prostego zarzadzania stanem magazynowym komponentów elektronicznych w postaci dwóch aplikacji internetowej oraz mobilnej. Analizujac rynek aplikacji pod katem podobnego istniejacego juz rozwiazania nalezy stwierdzic iz dostepne rozwiazania sa albo przesadnie rozbudowane
+i skomplikowane w uzyciu lub proste ale ciezkie w uzyciu ze wzgledu na malo przyjazny projekt interfejsu uzytkownika. 
+      W prezentowanej pracy glówny nacisk projektowy kierowany jest w strone zapewnienia jak najwiekszej prostoty z zachowaniem funkcjonalnosci i niezawodnosci. 
+
+Zakres pracy obejmuje:
+* Budowe aplikacji internetowej o podstawowej funkcjonalnosci:
+o Tworzeniem konta uzytkownika,
+o Zmiany hasla,
+o Tworzenia magazynu,
+o Dodawania czesci do magazynu na podstawie faktury (pdf) lub recznie,
+o Zarzadzaniem stanem magazynowym poprzez zwiekszanie lub zmniejszanie ilosci elementów,
+o Nadawanie prawa wgladu do magazynu innym zarejestrowanym uzytkownikom systemu.
+* Implementacje aplikacji mobilnej dla systemu Android za pomoca której mozna:
+o Zalogowac sie do bazy serwisu, 
+o Przegladac stany magazynowe,
+o Przegladac zdefiniowane projekty,
+o Zmniejszac lub zwiekszac liczbe poszczególnych elementów,
+o Synchronizowac stan magazynowy z aplikacja internetowa.
+o 
+
+2 Projekt wstepny
+      Rozdzial przedstawia opis systemu. Dokladnie sprecyzowana od ogólu do szczególu specyfikacje dzieki której przyblizona zostanie wizja projektu.
+2.1 Ogólny opis funkcjonalnosci
+      W podrozdzialach zawarty zostal opis funkcjonalnosci aplikacji wchodzacych w sklad projektu. Jest to wstep do zrozumienia koncepcji systemu oraz jego logiki.
+2.1.1 Aplikacja internetowa
+      Projektowany serwis internetowy dostarczac bedzie funkcjonalnosci wylacznie po udanym zalogowaniu uzytkownika do systemu. Dlatego tez nalezy zaimplementowac proces rejestracji, logowania oraz usuwania uzytkownika. W systemie wystepowac beda dwie grupy uzytkowników administrator oraz zwykly uzytkownik.
+       Rola administratora sprowadza sie do uzupelniania listy predefiniowanych komponentów elektronicznych wraz z tworzeniem i przypisywaniem do elementu predefiniowanej kategorii. Nalezy nadmienic iz w systemie wystepowac bedzie globalna lista elementów elektronicznych oraz kategorii czyli typu elementu np. stabilizator, wzmacniacz operacyjny. Kategorie beda reprezentowane jako struktura drzewiasta, kazdy element zdefiniowany w globalnej liscie musi byc przypisany do kategorii, jednakze kategoria nie musi zawierac zadnego elementu. Oprócz recznego dodawania elementów oraz kategorii administrator, bedzie mial wglad do listy elementów danego uzytkownika lub uzytkowników. Dzieki czemu w prosty sposób bedzie mógl zaimportowac elementy innego uzytkownika do globalnej listy elementów.  Import kategorii z repozytoriów uzytkowników bedzie wygladal w analogiczny sposób jak import elementów. 
+      Zwykly uzytkownik aplikacji posiada swoje konto utworzone podczas rejestracji, po zalogowaniu uzytkownik moze spersonalizowac swoje informacje takie jak haslo, imie nazwisko oraz wyswietlana nazwe. Podstawowa funkcjonalnoscia jest mozliwosc dodawania magazynów, które cechuja sie unikalna nazwa oraz dodatkowym opisem który jest opcjonalny. Kazdy uzytkownik posiada na stale zdefiniowany magazyn o nazwie "Globalny" - w którym znajduja sie elementy ze wszystkich magazynów danego uzytkownika, jest to jedyna róznica w porównaniu z pozostalymi. Dodawanie elementu do magazynu polega 
+na wprowadzeniu nazwy elementu, liczby sztuk oraz kategorii, przy czym kategoria jest opcjonalna.  Przy wprowadzaniu nazwy elementu serwis powinien przeszukac globalna liste elementów oraz zwrócic liste propozycji, kazda propozycja zawierac bedzie równiez kategorie elementu, dzieki czemu uzytkownik nie bedzie musial recznie wybierac kategorii. Domyslnie uzytkownik nie posiada kategorii kategorie sa sukcesywnie dodawane przez uzytkownika wraz z dodawaniem elementów lub beda mogly zostac zaimportowane 
+z globalnej listy kategorii. Kolejna funkcjonalnoscia bedzie mozliwosc definiowania projektów, do kazdego z nich bedzie mozliwosc przypisania odpowiedniej ilosc wybranych elementów. Oprócz recznego dodawania elementów bedzie mozliwosc automatycznego dodania elementów przykladowo z pliku faktury zapisanej w formacie PDF. Wybierajac projekt uzytkownik musi posiadac opcje odlicz elementy z bazy magazynów, dodatkowo powinna zostac zaprezentowana liczba sztuk jaka mozna wyprodukowac z biezacego stanu magazynowego.
+      
+2.1.2 Aplikacja mobilna
+      Funkcjonalnosc aplikacji mobilnej dla systemu Android, bedzie pozbawiona mozliwosci tworzenia  magazynów, dodawania elementów oraz definiowania projektów jak to mialo miejsce w aplikacji internetowej. Glównym cele istnienia aplikacji jest mozliwosc przegladania magazynów oraz zmiany liczebnosci elementów oraz prezentacji listy skladowej  projektów. Aplikacja mobilna po uruchomienie bedzie prosic o podanie adresu email
+oraz hasla uzywanego w serwisie internetowym. Poprawne wprowadzenie danych skutkowac bedzie pobraniem z serwisu bazy elementów. Zmiana liczebnosci elementów przez aplikacje zapisana zostaje lokalnie. W celu przeslania zmian do aplikacji internetowej uzytkownik bedzie musial wybrac opcje synchronizuj baze. 
+      
+2.2 Wymagania funkcjonalne	
+      Rozdzial przedstawia szczególowy podzial funkcjonalnosci, zawiera rozwiniete opisy relacji systemu z uzytkownikiem które nalezy uwzglednic w procesie implementacji rozwiazan.
+      Opisy poszczególnych funkcjonalnosci zawarte zostaly w postaci opisowych przypadków uzycia zawartych w tabelach ponizej, które zawieraja nazwe funkcjonalnosci, opis, definicje danych wejsciowych w tym takze ograniczen, zwracany oczekiwany rezultat, uwagi w tym zachowanie podczas nie powodzenia, oraz rola uzytkownika.
+2.2.1 Aplikacji internetowej
+NazwaUtworzenie konta administratoraOpisUtworzenie domyslnego konta administratoraWejscieEmail oraz haslo zapisane w pliku konfiguracyjnym systemuWyjscieUtworzone konto administratora podczas instalacji systemuUwagiPlik konfiguracyjny musi byc zabezpieczony przed dostepem zdalnymRolaAdministrator      
+NazwaDodanie elementu do globalnej listy elementówOpisDodanie elementu wraz z podana kategoria.
+Kategorie reprezentowane jako struktura hierarchiczna.WejscieNazwa elementu oraz kategoriaWyjscieDodany element do listy globalnej oraz utworzenie kategorii w globalnej liscie kategorii.UwagiRolaAdministrator      
+NazwaDodanie elementów do globalnej listy elementów z uzyciem pomocniczej listy komponentów  zdefiniowanych przez  uzytkownika lub uzytkowników.OpisSystem wyswietla liste elementów wybranych uzytkowników, elementu wybrane przez administratora dodawane sa  do listy globalnych elementów, wraz z elementami mozna zaakceptowac kategorie wybrana przez uzytkownika lub wybrac innaWejscieLista elementów wraz z kategoriamiWyjscieDodany elementów do bazy danychUwagiRolaAdministrator      
+NazwaRejestracja uzytkownikaOpisRejestracja nowego uzytkownika systemuWejscieAdres email który jednoznacznie identyfikuje uzytkownika, osobiste haslo nie krótsze niz 5 znaków,  opcjonalnie: imie i nazwiskoWyjscieUzytkownik zostaje dodany do bazy danych systemu po czym na podany adres email wysylany jest link aktywujacy konto.UwagiAdres email jest unikatowy i przypisany do uzytkownika, nie mozna zarejestrowac dwa razy tego samego adresu email.RolaUzytkownik      
+NazwaResetowanie hasla uzytkownikaOpisUzytkownik zapomnial haslaWejscieAdres emailWyjscieNa podany adres email wysylany zostaje link do strony z formularzem sluzacym do wprowadzenia nowego haslaUwagiRolaUzytkownik      
+NazwaTworzenie magazynuOpisUzytkownik tworzy nowy magazynWejscieNazwa magazynu oraz opcjonalny opisWyjscieDodany wpis w bazie danych UwagiNazwa magazynu musi byc unikatowaRolaUzytkownik      
+NazwaDodanie komponentu elektronicznego do magazynuOpisDodanie nowego elementu do magazynu.
+Jezeli nazwa elementu wystepuje juz  w bazie elementów uzytkownika, nalezy przypisac element  do wybranego magazynu wraz z podana liczba elementów.
+ W przypadku gdy element o podanej nazwie wystepuje juz w danym magazynie nalezy zaktualizowac liczbe elementów w magazynie sumujac ja z podana przez uzytkownika.WejscieIdentyfikator wybranego magazynu, nazwa komponentu, liczebnosc elementów, kategoria elementuWyjscieDodany wpis w bazie danych wybranego magazynu opisujacy element oraz jego liczebnosc i kategorie do której zostal przypisany.UwagiJezeli uzytkownik wprowadzil nazwe elementu wystepujaca juz w bazie danych uzytkownika, nie ma mozliwosci zmiany kategorii juz zdefiniowanego elementu w bazie danych. RolaUzytkownik      
+NazwaUsuwanie magazynuOpisUzytkownik moze usunac magazyn, w takim wypadku jezeli zawiera on elementy, nalezy wyswietlic komunikat z opcjami:
+* Usunac wszystkie elementy z magazynu,
+* Przenies do innego wskazanego magazynu,
+* Przenies do magazynu domyslnego (Globalny).WejscieIdentyfikator magazynu, typ akcji usuwania lub przenoszenia elementów do innego magazynu.WyjscieUsuniety magazyn z bazy danych, w zaleznosci od wybranego typu akcji przeniesienie lub usuniecie elementów magazynu.UwagiW przypadku gdy usuwany magazyn zawiera komponenty które zdefiniowane sa w projekcie lub sa zdefiniowane w innym magazynie opcja usun wszystkie usunie tylko liczebnosc elementów z usuwanego magazynu.RolaUzytkownik
+NazwaImport elementów z faktury PDFOpisUzytkownik wysyla do systemu plik z faktura PDF poprzez odpowiedni formularz wybiera odpowiedni typ pliku czyli rodzaj predefiniowanego sklepu lub hurtowni dla której system moze przetworzyc plik.WejsciePlik PDF, typ analizatoraWyjscieLista elementów zawartych w analizowanym plikuUwagiKazdy sklep, hurtowania definiuje fakture w odrebny sposób, dlatego tez dla kazdego przypadku nalezy zdefiniowac analizator.RolaUzytkownik      
+NazwaDefiniowanie projektuOpisUzytkownik dodaje projekt elektronicznyWejscieNazwa projektuWyjscieDodany wpis w bazieUwagiUnikatowa nazwa projektuRolaUzytkownik      
+NazwaDodawanie elementów do projektuOpisUzytkownik dodaje elementy do projektu, elementy musza byc zdefiniowane w bazie danych uzytkownika, WejscieNazwa elementu, liczebnosc elementu w projekcieWyjscieDodany wpis w bazie danych polaczony z projektemUwagiRolaUzytkownik      
+NazwaUsuwanie  projektuOpisUzytkownik usuwa projektWejscieIdentyfikator projektuWyjscieUsuniety wpis w bazie danychUwagiRolaUzytkownik      
+2.2.2 Aplikacja mobilna
+NazwaLogowanie do systemuOpisLogowanie uzytkownika z poziomu aplikacji mobilnej do aplikacji internetowejWejscieEmail oraz haslo WyjscieAutoryzacja uzytkownika w aplikacji mobilnej, pobranie z serwera stanu magazynowego oraz listy projektów i zapisuje w lokalnej bazie danychUwagiRolaUzytkownik      
+NazwaZmiana liczebnosci elementu w wybranym magazynieOpisUzytkownik zmienia liczebnosci elementu, zmiana odbywa sie lokalnieWejscieIdentyfikator elementu, ilosc elementuWyjscieLokalna zmiana liczebnosci elementu w bazie danychUwagiRolaUzytkownik      
+NazwaSynchronizacja bazy danychOpisJezeli uzytkownik jest autoryzowany moze dokonac synchronizacji bazy danych z serwerem, jezeli nie jest zalogowany musi wprowadzic swoje dane.WejsciePolecenie synchronizacji bazy danych WyjscieAplikacja wysyla do serwera liste elementów edytowanych, po czym pobiera liste zmian dokonanych w systemie.UwagiPodczas synchronizacji brane pod uwage sa tylko zmiany oznacza to iz dla kazdego elementu definiowana jest liczba dodatnia lub ujemna definiujaca zmiane od ostatniej synchronizacji, serwer akceptuje zmiany liczebnosci.RolaUzytkownik      
+2.3 Wymagania niefunkcjonalne
+      Ogólny interfejs uzytkownika systemu musi byc prosty, bez zbednych grafik jaskrawych kolorów utrzymany w lagodnym gradiencie barw. Komunikaty powinny byc krótkie i zrozumiale. Aplikacja internetowa powinna wspierac widok responsywny (dostosowywac sie do wymiarów okna przegladarki), byc zgodna ze standardem HTML 5.
+      Zarówno aplikacja internetowa oraz mobilna musza zapewniac bezpieczenstwo danych przechowywanych w bazie danych oraz ich poufnosc. 
+      Wzgledem aplikacji internetowej:
+* Aplikacja musi miec mozliwosc uruchomienia na dowolnym serwerze wyposazonym w wirtualna maszyne Javy,
+* Musi byc zapewniona mozliwosc przyszlego skalowania aplikacji na serwerze.
+      Wzgledem aplikacji mobilnej:
+* Minimalna wersja systemu Android na urzadzeniu mobilnym 4.0.
+ 
+        
+2.4 Wybór technologii
+      Znajac dokladnie wymagania stawiane projektowi w ponizszym rozdziale przedstawione zostaly aspekty wyboru technologii systemu. 
+      W przypadku aplikacji mobilnej najlepszym wyborem jest uzycie standardowego rozwiazania dedykowanego przez dostawce systemu, czyli uzycie jezyka Java z Android SDK. 
+       Wybór rozwiazania dla aplikacji internetowej nie jest tak prosty i oczywisty jak
+ w przypadku aplikacji mobilnej. Jesli chodzi o wybór jezyka programowania to musial byc on dokonany pomiedzy dwoma platformami: C# lub Java. W ostatecznosci wybór podyktowany zostal zachowaniem kompatybilnosci jezyka z aplikacja mobilna. Dla wybranego jezyka programowania dostepna jest duza liczba bibliotek wspomagajacych, które z powodzeniem mozna wykorzystac do realizacji projektu. Na podstawie syntezy wymagan funkcjonalnych i niefunkcjonalnych zostaly zdefiniowane kryteria, które determinowaly wybór technologii:
+* Male wymagania wzgledem zasobów maszyny na której uruchomiona jest aplikacja.
+* Szybkosc dzialania,
+* Skalowalnosc (nalezy brac pod uwage scenariusz w którym serwis musi obslugiwanych coraz to wieksza liczbe  uzytkowników w czasie),
+      
+Kierujac sie doborem technologii warto wykorzystac opinie uzytkowników. 
+W Internecie mozna znalezc duza liczbe dyskusji przedstawiajacych wady oraz zalety poszczególnych rozwiazan. Ponizej (Rys 2.1) przedstawiona zostala tabela przedstawiajaca oceny poszczególnych technologii pod katem róznych kategorii. Zestawienie zostalo przygotowane na podstawie przeprowadzonej sondy w grupie ponad 1800 deweloperów. Artykul  opisujacy porównanie zostal opublikowany przez Simon'a Maple [1].
+
+        Rys 2.1 
+Podsumowanie porównania framework'ów 
+zródlo : http://zeroturnaround.com/rebellabs/the-curious-coders-java-web-frameworks-comparison-spring-mvc-grails-vaadin-gwt-wicket-play-struts-and-jsf/10/
+      Przytoczony artykul prezentowal cale spektrum kategorii ocenionych w skali od 1 do 5. Dzieki przeprowadzonej analizie dla prezentowanej pracy wybrano Play Framework [2]. Slabe oceny w kategorii latwosc uzycia oraz stopien skomplikowania wynikaly glownie 
+z faktu, iz rozwiazanie uzywa jezyka Scala dla systemu szablonów. Dodatkowo  aplikacja nie musi byc pisana w jezyku Java, mozna zamiennie stosowac jezyk Scala, gdyz kompilowany jest on do postaci binarnej Javy. Uzycie Scali wcale nie dyskryminuje technologii, wrecz przeciwnie zacheca do poznania nowego jezyka. Dodatkowo wybrane rozwiazanie udostepnia gotowy serwer Play który automatycznie kompiluje wykryte zmiany w plikach zródlowych. W kategorii skalowalnosci wynik maksymalny 5 punktów zostal uzyskany dzieki implementacji Akka1 na której oparty system przetwarzania zapytan Play Framework'a. 
+      
+2.5 Planowanie pracy
+      Planowanie pracy oraz jego przebiegu mozna zdefiniowac poprzez okreslenie kamieni milowych projektu, dzieki którym praca nad realizowanym przedsiewzieciem zostaje uporzadkowana w logiczna calosc. Ponizsze kolejne etapy zostana szerzej opisane 
+w kolejnych rozdzialach.
+* Konfiguracja srodowiska oraz narzedzi developerskich,
+* Utworzenie i konfiguracja pustego projektu aplikacji internetowej z uzyciem Play Framework,
+* Polaczenie z serwerem bazy danych w tym projekcie MySQL,
+* Wybór modulu autoryzacji oraz autentykacji uzytkowników, adaptacja ról uzytkowników,
+* Implementacja modeli oraz logiki biznesowej,
+* Implementacja pozostalych funkcjonalnosci,
+* Utworzenie pustego projektu dla aplikacji mobilnej dla systemu Android
+*  Implementacja mechanizmu autoryzacji aplikacji mobilnej do serwisem internetowego
+*  Utworzenie lokalnej bazy danych, implementacja synchronizacji pomiedzy aplikacjami.
+          
+2.6 Komunikacja aplikacji mobilnej z serwerem
+      Do poprawnej i osiagalnej komunikacji aplikacji z serwerem zostanie zdefiniowana usluga realizujaca zadania zwiazane z synchronizacja danych wysylanych z aplikacji mobilnej komunikacja odbywac sie bedzie za pomoca obiektów zapisanych w formacie JSON. 
+      Proces autentykacji uzytkownika w aplikacji mobilnej odbywa sie poprzez wprowadzenie adresu email oraz hasla, które zostana wyslane metoda POST do serwera, serwer zwróci wynik w postaci tokenu czyli tymczasowego identyfikatora uzytkownika 
+w systemie oraz pole "name" skladajace sie z imienia i nazwiska lub puste jezeli nie wprowadzono informacji o uzytkowniku. 
+      Przyklad odpowiedzi:
+	[{"name":"Pawel Opiela","token":"ea8c6d148aa88acf87529fab535aa00c"}]
+
+      Jezeli wprowadzone dane beda niepoprawne wartosc pola token bedzie pusta :
+	[{"token":""}]
+
+      Proces pobierania danych z serwera odbywac bedzie sie automatycznie po udanym procesie logowania do systemu z jedynym wyjatkiem gdy zmiany nie zostaly zsynchronizowane lub sa aktualne. W przypadku gdy dane w bazie danych uzytkownika na serwerze ulegly zmianie w porównaniu z ostatnio pobrana baza danych do aplikacji mobilnej która dodatkowo zostala edytowana uzytkownik zostanie poinformowany o nieaktualnej bazie danych. 
+       Informacja na temat zmiany w bazie danych w aplikacji mobilnej zapisywana jest za pomoca funkcji skrótu MD5 generowanego przez serwer z przesylanej bazy danych, skrót zapisywany jest w aplikacji podczas udanego importu bazy z serwera. 
+      Aby nie pobierac niepotrzebnie bazy danych która jest aktualna, do serwera kierowane jest zadanie o przeslanie aktualnego skrótu bazy danych. Jezeli skróty bazy danych na serwerze i aplikacji sa rózne aplikacja wysyla zadanie o przeslanie bazy danych.
+      Przykladowa baza danych zapisana w formacie JSON:
+
+	[{
+ 	"components":[{"id": 5, "name": "Atmega 8"}],
+ 	"warehouses":[{"id": 2, "name": "Pólka A2"}],
+ 	"warehouse_component":[{"id":12, "warehouse_id":2,
+ 				     "component_id":5, "count":20}],
+ 	"projects":[{"id": 4, "name": "Dcf77"}],
+ 	"project_component":[{"id"34, "project_id":4, 
+                                     "component_id":5, "count":1}]
+	}]
+
+W sklad przykladowej bazy wchodzi:
+* komponent (components) o nazwie "Atmega 8" o identyfikatorze 5,
+* magazyn  (warehouses) "Pólka A2" o identyfikatorze 2,
+* powiazanie (warehouse_component) magazynu o identyfikatorze 2 i komponentu o identyfikatorze 5 w liczebnosci 20 sztuk,
+* projekt (projects) "Dcf77" o identyfikatorze 4,
+* powiazanie (project_component) projektu o identyfikatorze 4 i komponentu
+o identyfikatorze 5 w liczebnosci 1 sztuki.
+
+Po pomyslnym imporcie bazy danych mozna odlaczyc polaczenie internetowe, kazda zmiana wartosci zapisywana jest lokalnie w bazie danych przykladowo zwiekszajac liczbe elementu
+o 5 sztuk i wybierajac synchronizacje z serwerem do serwera zostanie wyslany JSON jak ponizej:
+	[{"token":"ea8c6d148aa88acf87529fab535aa00c", "changes":[{"id": 5,
+ 								     "change":4}]}]
+W przypadku zmiany liczebnosci komponentu o identyfikatorze 5 przykladowo odliczono
+z magazynu 3 sztuki JSON wysylany do serwera w polu change zawiera ujemna liczbe.
+ 	[{"token":"ea8c6d148aa88acf87529fab535aa00c", "changes":[{"id": 5,  
+ 									"change":-3}]}]
+Kazdorazowo wysylany jest takze token uwierzytelniajacy w przypadku gdy token wygasl lub jest niepoprawny serwer zwróci wynik:
+ 	[{"token":""}]
+      W przypadku powodzenia zostanie przeslana zaktualizowana baza danych która aplikacja zapisze w swojej lokalnej bazie, zapisze równiez skrót bazy danych. 
+
+
+
+3 Implementacja
+3.1 Aplikacja internetowa
+3.1.1 Konfiguracja srodowiska
+      Konfiguracja srodowiska dla Play Framework sprowadza sie do kliku kroków. Do tworzenie nowego projektu nowego projektu wykorzystywana jest platforma Typesafe2. Która zawiera zestaw predefiniowanych szablonów przykladowych aplikacji w róznych konfiguracja, przykladowo Play Framework skonfigurowany do pracy z baza danych MongoDB oraz wiele innych.
+      W celu utworzenia nowego projektu z uzyciem platformy Typesafe nalezy:
+* pobrac archiwum z programem typesafe activator w wersji mini dostepnej do pobrania na stronie http://www.typesafe.com, paczka po rozpakowaniu zawiera 3 pliki z czego 2 z nich sa skryptami uruchomieniowymi dla systemów Windows oraz Linux,
+      
+Rys 3.1
+Widok rozpakowanego archiwum typesafe-activator-1.2.10-minimal.zip
+* uruchomic konsole systemowa i wywolac skrypt activator.bat z parametrem new,
+      
+Rys 3.2
+Tworzenie nowego projektu
+* wybrac interesujacy szablon domyslnie widnieja 4 propozycje. Pelna liste szablonów mozna przegladnac po nacisnieciu przycisku tab, aktualnie na dzien 12.08.2014 lista zawiera 174 szablony. W przypadku projektu wybrano play-java, 
+* wprowadzic nazwe projektu umagazyn.
+      
+Rys 3.3
+Utworzony nowy projekt
+
+      Aplikacja activator utworzyla podstawowa strukture plików i folderów projektu. 
+W celu uruchomienia projektu w nowo utworzonym folderze umagazyn, nalezy uruchomic skrypt activator.bat z parametrem run. Rezultatem uruchomionego skryptu jest rozpoczecie pobierania róznych modulów dociagajacych zaleznosci ze zdalnych repozytoriów, cala operacja konczy sie komunikatem, iz serwer zostal uruchomiony.
+      
+Rys 3.4
+Pobieranie zakonczone, serwer uruchomiony
+Nowo utworzony projekt jest skonfigurowany i gotowy do uzycia, aby zobaczyc przykladowa domyslna strone nowego projektu w przegladarce internetowej nalezy wprowadzic adres http://127.0.0.1:9000/.  
+      
+Rys 3.5
+Domyslna strona nowo utworzonego projektu 
+      Activator posiada równiez swój wlasny edytor uruchamiany poleceniem activator ui. Projektanci nie zapomnieli równiez o mozliwosci uzywania innych srodowisk takich jak Eclipse lub IntelliJ. Utworzenie projektu dla  srodowiska Eclipse z projektu umagazyn sprowadza sie do uruchomienia polecenia activator eclipse.
+      
+3.1.2 Polaczenie z baza danych
+      Dostep do bazy danych zapewniony jest domyslnie po uruchomieniu aplikacji, dzieki bazie H2 dzialajacej w pamieci, jest to znakomite baza do róznego rodzaju testów. Jednakze jest to tyko baza tymczasowa zdefiniowana w pamieci operacyjnej na czas dzialania serwera Play.
+      W pracy wykorzystano baze MySQL która wczesniej zostala zainstalowana 
+w systemie. Dla projektu utworzona zostala baza o nazwie "umagazyn" z ustawionym kodowaniem znaków na utf-8.  Do polaczenia z baza MySQL z poziomu framewrok'a nalezalo utworzyc logiczna nazwe bazy w systemowej usludze ODBC, aby jednak móc dodac polaczenie do bazy MySQL pobrano i zainstalowano w systemie sterownik Connector/ODBC ze strony  http://dev.mysql.com/downloads/connector/odbc/.
+Kolejno dodano nowy wpis DSN (nazwa zródla danych) w usludze ODBC [3].
+
+      
+Rys 3.6
+Okno definiowania zródla danych
+      
+      Play Framework posiada wbudowane interaktywne narzedzie budujace (sbt - http://www.scala-sbt.org/) oparte na jezyku scala. Dzieki temu rozwiazaniu aby dodac modul do projektu wystarczy edytowac plik konfiguracyjny build.sbt  i w sekcji libraryDependencies dopisac interesujacy modul. Aby odnalezc interesujacy modul mozna skorzystac ze strony Maven repository http://mvnrepository.com, która zawiera moduly dla Maven (automatyczne narzedzie budujace dla projektów Java) jednakze dostepne sa takze wpisy dla innych narzedzi budujacych w tym takze dla sbt.
+
+Rys 3.7
+Okno serwisu Maven repository
+http://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.32
+      
+W sekcji libraryDependencies dodano wpis:
+ 	"mysql" % "mysql-connector-java" % "5.1.32"
+      
+	name := """umagazyn"""
+	version := "1.0-SNAPSHOT"
+	lazy val root = (project in file(".")).enablePlugins(PlayJava)
+	scalaVersion := "2.11.1"
+	libraryDependencies ++= Seq(
+		"mysql" % "mysql-connector-java" % "5.1.32",
+		javaJdbc,
+		javaEbean,
+		cache,
+		javaWs
+	)
+      
+      Po uruchomieniu aplikacji activator ~run zostanie automatycznie pobrany modul mysql. Znak ~ uzyty przed parametrem run oznacza kompilacje plików zródlowych po wykryciu zmian w systemie plików projektu. Aby skonfigurowac dostep do bazy danych nalezy edytowac plik conf\application.conf w którym trzeba uzupelnic sekcje db.default.*  ponizszymi wartosciami:
+	db.default.driver=com.mysql.jdbc.Driver
+	db.default.url="jdbc:mysql://localhost/umagazyn?characterEncoding=UTF-8"
+	db.default.user=root	
+	db.default.password="xxxxx"
+      
+Oprócz ustawienia parametrów dostepu do bazy danych w tym samym pliku konfiguracyjnym odkomentowano ponizsza linie poprzez usuniecie znaku # z poczatku linii.
+ 	ebean.default="models.*"
+Jest to konfiguracja modulu Ebean [4] sluzacego do mapowania relacyjno obiektowego, jest to domyslne rozwiazanie stosowane w Play Framewrok jednakze nic nie stoi na przeszkodzie aby uzyc innych modulów przykladowo Hibernate. 
+3.1.3 Autentykacja
+      Dlaczego warto stosowac gotowe moduly autentykacji i nie implementowac wlasnego rozwiazania? Glówna zaleta stosowania istniejacych rozwiazan jest bezpieczenstwo, wiekszosc rozwiazan jest publikowana w formie Open Source, dzieki temu jezeli jakikolwiek uzytkownik znajdzie blad lub luke natychmiast zglosi blad lub/i zaproponuje rozwiazanie, zrobi poprawke. 
+      Przykladowymi plugin'ami sluzacymi do zarzadzania kontami uzytkowników w Play Framework sa: 
+* SecureSocial - http://securesocial.ws/
+* Play2-Auth - https://github.com/t2v/play2-auth
+* Play! Authenticate - http://joscha.github.io/play-authenticate/
+Najbardziej interesujacym ciekawym rozwiazaniem okazal sie Play! Authenticate,  poniewaz oprócz spelnionych wymagan znajdujacych sie w sekcji wymagan funkcjonalnych, rozwiazanie to zawiera mozliwosc logowania za pomoca portali spolecznosciowych 
+np. Facebook, Twitter. Dodatkowo zawiera wbudowany modul deadbolt [5] sluzacy do autoryzacji po stronie szablonu. Aby zabezpieczyc dowolna akcje po stronie kontrolera przed nie autoryzowanym dostepem wystarczy dodac prosta adnotacje przed akcja:
+ 	@Restrict(@Group("rola"))
+      Gdzie rola oznacza zdefiniowana systemie grupe uzytkowników. W przypadku szablonów widoku, aby zdefiniowac blok wyswietlany wylacznie dla autoryzowanych uzytkowników wystarczy dodac:
+	@subjectPresentOr() {
+		Uzytkownik zalogowany w systemie
+	}
+Aby uscislic autoryzacje do konkretnej roli uzytkownika mozna posluzyc sie blokiem:
+    @restrict( scala.collection.immutable.List( as( "xxx" ) ) ) {
+		Autoryzowany uzytkownik ze zdefiniowana rola xxx
+    }
+
+ Przykladowa aplikacja zawierajaca skonfigurowany plugin zostala pobrana i uruchomiona.  Nastepnie zostaly przeniesione pliki zródlowe z przykladowej aplikacji do czystego projektu umagazyn. W celu szczególowego zapoznania sie z architektura, kazdy plik zostal przeanalizowany pod wzgledem funkcjonalnosci oraz zastosowanych rozwiazan. 
+      Plik app\Global.java zawiera definicje klasy Global dziedziczacej po klasie GlobalSettings która zawiera globalne ustawienia takie jak zdarzenia startu, stopu, bledu (onStart, onStop, onError). Prezentowany plugin w zdarzeniu onStart zawiera definicje akcji wystepujacych podczas zdarzen zwiazanego z autentykacja uzytkownika, przykladowe akcje:
+* login - okno logowania, przykladowo uzytkownik nie jest zalogowany do systemu, wprowadza adres URL do zasobu który wymaga autoryzacji. W tym wypadku jezeli akcja byla zabezpieczona, przykladowo adnotacja @Restrict(@Group("rola")) plugin automatycznie przekieruje zadanie na strone logowania,
+* afterAuth - definicja pierwszej strony po udanym logowaniu,
+* afterLogout - definicja strony wyswietlonej po wylogowaniu uzytkownika,
+ 
+PlayAuthenticate.setResolver(new Resolver() {
+
+        @Override
+        public Call login() {
+            return routes.Application.login();
+        }
+
+        @Override
+        public Call afterAuth() {
+            return routes.Application.index();
+        }
+
+        @Override
+        public Call afterLogout() {
+            return routes.Application.index();
+        }
+
+	...
+
+    });
+      Odwzorowanie adresu URL na akcje konkretnego kontrolera zawarte jest w pliku conf\routes kolejne kolumny przedstawiaja typ zadania HTTP, adres URL oraz akcje kontrolera. Przykladowe mapowania dla adresu domyslnego, logowania oraz akcji z formularza logowania:
+	GET     /                           controllers.Application.index
+	GET     /login                      controllers.Application.login
+	POST    /login                      controllers.Application.doLogin
+         
+         
+      
+3.1.4 Tworzenie ról i konta administratora
+      Model bazy danych stworzony przez przykladowa aplikacje Play! Authenticate.
+      
+Rys 3.8
+Model bazy wygenerowany przez aplikacje play! authenticate
+      
+      Tabela uzytkownik (user) zawiera podstawowe informacje na temat konta uzytkownika: email, nazwe uzytkownika, imie, nazwisko, data ostatniego logowania, informacja czy konto jest aktywne, czy email zostal zweryfikowany, natomiast nie zawiera pola z haslem. Zadna tabela bedaca w relacji z tabela user nie zawiera pola haslo, zatem gdzie przechowywane jest haslo ? Poniewaz Play! Authenticate dostarcza mozliwosci polaczenia konta z portalami spolecznosciowymi, oprócz hasla mysi zostac zdefiniowany dostawca modelu autentykacji informacje na ten temat zawarte sa w tabeli linked_account. Przykladowo utworzone konto administratora (opis tworzenia konta administratora przedstawiony w dalszej czesci) zawiera wpis:
+      
+Rys 3.9
+Zawartosc tabeli linked_account
+Provider_user_id jest to pole zawierajace zaszyfrowane haslo oprócz hasla bardzo waznym wpisem jest provider_key który dostarcza informacje który modul autentykacji zostal uzyty przy generacji tokenu np. (password, facebook, google, itd).
+      Tabela token_action zawiera token który tworzony jest podczas rejestracji nowego uzytkownika i sluzy jako kod aktywacyjny który przesylany jest email'em. Sluzy takze do funkcjonalnosci zwiazanej z resetowaniem hasla. Tabela SecurityRole definiuje role uzytkowników w systemie.
+      W systemie wystepuja dwie role administrator (admin) i uzytkownik (user). Dodanie domyslnych ról oraz stworzenie konta administratora zostalo zaimplementowane w funkcji initialData która wolana  jest ze zdarzenia onStart w klasie Global. Jezeli baza danych nie zawiera dwóch ról uzytkownika zostana one dodane wraz z kontem administratora. Dane konta administratora zostaly dodane w pliku konfiguracyjnym comf\application.conf
+	# admin account
+	account.admin.email = "admin@umagazyn.pl"
+	account.admin.password = "admin" 
+
+Dzieki mapowaniu relacyjno obiektowemu zawartym w module Ebean, sprawdzenie ilosci wpisów w tabeli SecurityRole sprowadza sie wylacznie do wywolania polecenia:
+  	SecurityRole.find.findRowCount()
+Aby dodac wpis w tabeli SecurityRole wystarczy stworzyc nowy obiekt i wywolac polecenie save().
+	SecurityRole role = new SecurityRole();
+	role.roleName = "admin";
+	role.save();
+Pobranie adresu email oraz hasla zdefiniowanych w pliku konfiguracyjnym dla konta administratora wykonuje sie za pomoca polecen:
+	String email =
+		play.Play.application().configuration()
+			.getString("account.admin.email");
+	String password =  
+		play.Play.application().configuration()
+ 			.getString("account.admin.password");
+        
+      Tworzenie konta uzytkownika sprowadza sie do utworzenia obiektu user, ustawienia pola email, konta jako aktywne, adresu email jako zweryfikowany oraz przypisaniem roli administratora. 
+	User user = new User();			
+	user.setEmail(email);
+	user.setActive(true);
+	user.setEmailValidated(true);
+	user.setRoles(
+ 		Collections.singletonList(
+ 			SecurityRole.findByRoleName("admin")
+		));
+	user.save();
+	user.saveManyToManyAssociations("roles");
+        
+Kolejno zostalo utworzyc obiekt UmagazynUsernamePasswordAuthUser który jest dostawca hasla dla metody password (Rys 3.9) oraz obiekt LinkedAccount przechowujacy zahaszowane haslo. 		
+ 	UmagazynUsernamePasswordAuthUser authUser = 
+   		new UmagazynUsernamePasswordAuthUser (password);		LinkedAccount linkedAccount = new LinkedAccount();
+	linkedAccount.setUser(user);
+	linkedAccount.setProviderKey("password");
+	linkedAccount.setProviderUserId(authUser.getHashedPassword());
+			linkedAccount.save();
+      
+3.1.5 Model bazy danych 
+      Tworzenie struktury bazy danych z uzyciem Play Framework, sprowadza sie do utworzenia klas z uzyciem adnotacji zgodnych z JPA [6]. Uzywany modul Ebean automatycznie generuje kod SQL bazy danych, utworzy brakujace tabele lub zmieni ich struktury . Akcja aktualizacji bazy danych odbywa sie podczas ladowania dowolnej strony po wykryciu zmiany w klasie definiujacej model. Przykladowy komunikat aktualizacji bazy danych znajduje sie ponizej (Rys 3.10). Akceptacja zmian odbywa sie poprzez nacisniecie przycisku "Apply this scripts now!"
+
+Rys 3.10
+Okno aktualizacji struktury bazy danych
+      
+      W folderze app\model\ znajduja sie klasy definiujace strukture bazy danych. Kazda klasa reprezentujaca tabele w modelu relacyjnym dziedziczy po klasie Model. Zawiera ona podstawowe metody takie jak zapis, edycja, usuwanie itd. Przykladowa encja ponizej opisuje globalny element elektroniczny zawierajacy identyfikator, nazwe oraz referencje do globalnej kategorii. Dodatkowo zdefiniowana zostala statyczna metoda find która zwraca obiekt pomocniczy sluzacy do wyszukiwania danych w bazie, zawierajacy metody takie jak where, like, eq itp.  
+@Entity
+@Table(name = "global_components")
+public class GlobalComponent extends Model{
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	private Long id;
+
+	private String elementName;
+	
+	@ManyToOne
+	private GlobalCategory globalCategory;
+	
+	public static final Finder<Long, GlobalComponent> find = 
+			new Finder<Long, GlobalComponent>(
+						Long.class, GlobalComponent.class);
+}
+     
+
+
+      
+3.1.6 Glówny plik szablonu 
+      TODO
+      
+      /*
+      Bootstrap w najnowszej wersji v3.2.0.
+      */
+3.1.7 Sekcja administratora
+      Glówna funkcjonalnoscia administratora jest zarzadzanie slownikiem elementów oraz przypisywaniem kategorii do elementów. Poniewaz kategorie elementów zgodnie z zalozeniem nalezy sporzadzic w formie struktury drzewiastej oraz aby aplikacja nie wymagala przeladowania strony wykorzystano jsTree [7] jest to plugin jQuery, dzieki któremu mozna dynamicznie tworzyc strukture kategorii z uzyciem technologii Ajax.
+      TODO
+3.1.8 Sekcja uzytkownika
+3.2 Komunikacja
+      
+3.3 Aplikacja mobilna 
+3.3.1 Konfiguracja srodowiska
+
+
+
+4 Testowanie
+
+5 Wnioski
+
+
+6 Bibliografia
+
+[1] S. Maple, "Frameworks Comparison," 30 7 2013. [Online]. Available: http://zeroturnaround.com/rebellabs/the-curious-coders-java-web-frameworks-comparison-spring-mvc-grails-vaadin-gwt-wicket-play-struts-and-jsf/.[2] "Play 2.3.x documentation," [Online]. Available: https://www.playframework.com/documentation/2.3.x/Home.[3] "Tworzenie nazwy zródla danych w systemie," 10 08 2014. [Online]. Available: http://support.microsoft.com/kb/305599/pl.[4] "Ebean documentation," [Online]. Available: http://www.avaje.org/ebean/documentation.html.[5] "Deadbolt documentation," [Online]. Available: http://deadbolt.ws/#/java-docs.[6] "Introduction to the Java Persistence API," [Online]. Available: http://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html.[7] "jsTree documentation," [Online]. Available: http://www.jstree.com/docs/.      
+
+
+           1 Strona internetowa projektu Akka: http://akka.io/
+           2 https://typesafe.com/
+      ---------------
+      
+      ------------------------------------------------------------
+      
+      ---------------
+      
+      ------------------------------------------------------------
+      
+      
+      
+      
+      29
+      
+      

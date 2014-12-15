@@ -1,0 +1,164 @@
+Zmiany w pracy dyplomowej
+
+1. Zmiany w rozdzialach
+
+Zmiany tytulów rozdzialów:
+
+Uklad pracy ? Zakres pracy
+
+Uzytkowanie aplikacji ? Mechanizmy kryptograficzne (utworzone podrozdzialy: Algorytmy, Konfiguracja JVM, Generowanie certyfikatów, Generowanie list CRL).
+
+Java EE ? Aplikacja webowa - Java EE
+Hibernate ? Dostep do danych - Hibernate
+Spring ? Model MVC - Spring 
+PrimeFaces ? Rich Internet Application - PrimeFaces
+JSF ? Interfejs uzytkownika - JSF
+BouncyCastle ? Kryptografia - BouncyCastle
+
+Scrum ? Proces tworzenia - Scrum
+JRebel ? Implementacja w czasie rzeczywistym - JRebel
+JUnit ? Testy jednostkowe - Junit
+Maven ? Integralnosc - Maven
+
+2. Nowe tresci
+
+Rozdzial 3.1. Projekt i jego zastosowania
+Niezaleznie od sposobu wykorzystania aplikacji, udostepnia ona funkcjonalnosci, w zaleznosci od poziomu uprawnien uzytkownika. Przedstawiono je w postaci ponizszych diagramów przypadków uzycia. W celu zapewnienia wiekszej czytelnosci, modele przedstawiaja jedynie glówne funkcjonalnosci (np.: Rysunek 2 w przypadku "Moje certyfikaty" uwzglednia jedynie operacje generacji i zablokowania certyfikatu, nie opisujac mozliwosci filtrowania czy sortowania przedstawionej listy certyfikatów).
+
+
+      Rysunek 1: Diagram przypadków uzycia - Gosc.
+
+
+      Rysunek 2: Diagram przypadków uzycia - Uzytkownik
+
+      Rysunek 3: Diagram przypadków uzycia - administrator (tylko czesc administracyjna).
+
+Ze wzgledu na hierarchiczna budowe ról w aplikacji, administrator poza funkcjonalnosciami dostepnymi dla pozostalych poziomów uprawnien posiada równiez dostep do panelu administracyjnego, którego mozliwosci zostaly przedstawione na powyzszym diagramie.
+
+3.3. Mechanizmy kryptograficzne
+3.3.1. Algorytmy
+Centrum podpisu cyfrowego domyslnie wykorzystuje algorytmy kryptografii asymetrycznej - konkretnie algorytm RSA oraz funkcje skrótu SHA-2 (SHA-512).
+
+        Generowanie kluczy:
+* W sposób losowy wybierane sa dwie liczby prawdopodobnie pierwsze o zadanej dlugosci p i q ,
+* Obliczana jest wartosc  n = pq,
+* Obliczana jest wartosc funkcji Eulera dla n: ,
+* Losowana jest liczba e wzglednie pierwsza z , której wartosc miesci sie w przedziale (1, ),
+* Znajdowana jest liczba ,
+Klucz publiczny definiowany jest jako para liczb (n, e), natomiast klucz prywatny jako para liczb (n, d). 
+
+Szyfrowanie i deszyfrowanie:
+	Zaszyfrowanie wiadomosci z wykorzystaniem algorytmu RSA sprowadza sie do podzielenia wiadomosci na bloki mi, których wartosc liczbowa nie moze przekraczac n, a nastepnie zaszyfrowania wedlug ponizszego wzoru:
+
+Zaszyfrowana wiadomosc bedzie skladac sie z kolejnych bloków ci. Deszyfrowanie polega na odkodowaniu kolejnych bloków ci :
+
+
+        Funkcja skrótu:
+SHA-512 jest wariantem funkcji skrótu SHA-256 operujaca na osmiu 
+64-bitowych slowach. Utworzenie skrótu wiadomosci wiaze sie z:
+* Dopelnieniem jej dlugosci w taki sposób, aby wynik byl wielokrotnoscia 1024 bitów,
+* Podzieleniem na 1024-bitowe bloki M(1), M(2), ..., M(N)
+Tak przygotowane bloki sa przetwarzane pojedynczo, poczawszy od ustalonej wartosci poczatkowej skrótu H(0), wedlug nastepujacego wzoru:
+
+Gdzie C jest funkcja kompresji SHA-512, natomiast "+" jest dodaniem modulo 264. Skrótem wiadomosci M jest wynik H(N).1 
+
+RSA w kontekscie podpisu cyfrowego:
+W przypadku CA algorytm RSA jest wykorzystywany do operacji przeprowadzenia podpisu. Szyfrowany jest skrót oryginalnej wiadomosci za pomoca klucza prywatnego, a tak otrzymany szyfrogram dolaczany jest do oryginalnej wiadomosci. Odbiorca otrzymujacy klucz publiczny moze odszyfrowac wartosc funkcji skrótu i porównac ja z wyliczona wartoscia tej funkcji z otrzymanej wiadomosci. W przypadku zgodnosci obydwu wartosci przyjmuje sie, ze wiadomosc zostala poprawnie podpisana (lub inaczej, ze podpisana wiadomosc nie zostala zmieniona). 
+
+3.3.2. Konfiguracja JVM
+Standardowa implementacja JVM (ang. Java Virtual Machine) nie pozwala na stosowanie funkcji zabezpieczen, których dlugosc przekracza standardowe wartosci. Aby przystosowac srodowisko dla potrzeb CA nalezy wykonac nastepujace czynnosci:
+* zarejestrowac sterownik recznie (zarówno w JDK jak i JRE) poprzez edycje pliku java.security ($JAVA_HOME/lib/security), np. dodajac linie:
+
+          security.provider.11=org.bouncycastle.jce.provider.BouncyCastleProvider
+
+Uwaga - dodawany sterownik nie moze zostac umieszczony jako pierwszy na liscie.
+* podmienic standardowe biblioteki JCE w JVM na wersje "Java Cryptography Extension (JCE) Unlimited Strength" 2,
+* dodac biblioteki BoncyCastle (bcmail oraz bcprov) do zasobu JVM w $JAVA_HOME/lib/ext/.
+
+3.3.3. Generowanie certyfikatów
+Sposób generowania certyfikatów w aplikacji centrum podpisu cyfrowego przebiega wieloetapowo i zgodny jest z obecnie obowiazujacymi standardami3. Calosc procesu przedstawiona zostala ponizej:
+* Generowana jest para kluczy dla certyfikatu poczatkowego (domyslnie algorytmem RSA, dlugosc klucza - 2048 bitów),
+* Budowany jest certyfikat podstawowy (w wersji pierwszej) na bazie wygenerowanych kluczy, ustawiane sa dane centrum, nadawany jest numer seryjny o wartosci 1. (Ten i poprzedni punkt nie obowiazuje w przypadku otrzymania certyfikatu poczatkowego z Narodowego Centrum Certyfikacji),
+* Tworzona jest kolejna para kluczy wedlug zdefiniowanego algorytmu i zadanej dlugosci,
+* W oparciu o certyfikat podstawowy tworzony jest podpis przejsciowy (X.509v3), nadany zostaje numer seryjny o wartosci 2, dane z certyfikatu podstawowego przekazywane sa do podpisu przejsciowego. Ten podpis generowany jest zawsze w trakcie dzialania aplikacji - fizyczna kopia certyfikatu nie jest przechowywana przez aplikacje,
+* Generowana jest ostatnia para kluczy,
+* Na podstawie certyfikatu przejsciowego tworzony jest certyfikat koncowy (w wersji trzeciej). Generowany jest numer seryjny. Ustawiane sa dane uzytkownika koncowego oraz dane CA. Okreslane sa daty waznosci certyfikatu (domyslnie 1 rok),
+* Tworzony jest lancuch zaufania miedzy trzema powyzszymi certyfikatami,
+* Na podstawie lancucha podpisów oraz klucza prywatnego uzytkownika koncowego generowany jest plik PKCS#12 o nazwie zgodnej z numerem seryjnym podpisu. Ustawiane jest haslo klucza prywatnego oraz haslo glówne, nadawana jest nazwa certyfikatu,
+* Wygenerowany plik trafia do bezpiecznego zasobu CA, z którego moze pobrac go uzytkownik zamawiajacy podpis,
+* Odcisk certyfikatu trafia do bazy danych MyCA4.
+
+3.3.4. Generowanie list CRL
+Centrum podpisu cyfrowego tworzy listy uniewaznionych certyfikatów w wersji drugiej, zgodnie z obecnie obowiazujacymi standardami.5 Proces tworzenia listy CRL przypomina w pewnym stopniu procedure generowania podpisu cyfrowego. 
+* Generowana jest para kluczy dla certyfikatu podstawowego,
+* Tworzony jest certyfikat podstawowy (lub uzywany jest istniejacy w przypadku zastosowania komercyjnego),
+* Generowana jest para kluczy dla certyfikatu posredniego,
+* Na podstawie wygenerowanego klucza prywatnego oraz certyfikatu podstawowego budowany jest certyfikat posredni (w wersji trzeciej),
+* Nadawany jest numer seryjny listy CRL,
+* Ustawiane sa data utworzenia listy oraz data kolejnej aktualizacji,
+* Z bazy danych CA pobierana jest lista zablokowanych certyfikatów,
+* Na podstawie powyzszych danych generowana jest lista CRL (lista zablokowanych certyfikatów, numer seryjny, klucz prywatny, certyfikat posredni centrum).
+
+W celu zapewnienia automatycznych aktualizacji list CRL aplikacja MyCA wykorzystuje mechanizm Spring Scheduling Tasks.6 Pozwala on na cykliczne wywolywanie metod w czasie dzialania aplikacji (w tzw. tle), poprzez oznaczenie ich adnotacja @Scheduled oraz odpowiednia konfiguracje Spring. Zgodnie z polityka CA, lista zablokowanych certyfikatów jest aktualizowana raz na dobe (domyslnie o pólnocy). Utworzony plik dostepny jest do pobrania na stronie "Lista CRL" lub poprzez bezposredni link. Ponadto centrum podpisu cyfrowego udostepnia weryfikacje zablokowanych certyfikatów w czasie rzeczywistym, poprzez tabele "Lista zablokowanych certyfikatów" bez koniecznosci pobierania pliku *.crl.
+
+4. Charakterystyka uzycia zastosowanych technologii
+4.1. Budowa systemu
+4.1.1. Baza danych
+Relacyjna baza danych centrum podpisu cyfrowego oparta jest na pieciu glównych tabelach: uzytkowników, ról, wniosków, certyfikatów oraz liscie uniewaznionych certyfikatów (odpowiednio: USERS, ROLES, REQUESTS, CERTS oraz CRLS). Zwiazki miedzy tabelami ukazane sa na Rysunku 1. Do stworzenia bazy danych wykorzystano silnik H27. Na potrzeby niniejszej pracy magisterskiej dolaczona zostala ona w trybie wbudowanym. Czesc danych przechowywanych w tabelach zostala zaszyfrowana z przyczyn bezpieczenstwa (np. hasla uzytkowników). Za komunikacje z baza danych odpowiedzialny jest Framework Hibernate8, kontrolowany przez Spring9 oraz Spring-Security.
+   
+      Rysunek 4: Schemat budowy bazy danych w aplikacji.
+
+Na podstawie powyzszych tabel uzytkownikowi koncowemu wyswietlane sa posiadane przez niego certyfikaty oraz lista CRL (CA nie wykorzystuje do tego celu fizycznych danych utrzymywanych w chronionym zasobie, gdyz nie przechowuje ustanowionych przez uzytkownika hasel kluczy prywatnych).
+
+4.1.2. Rdzen aplikacji
+MyCACore jest modulem odpowiedzialnym za wykonywanie wszelkich operacji szyfrujacych zwiazanych z certyfikatami w standardzie X.509.  Z poziomu kodu rdzen tworza dwa pakiety: pl.myca.core oraz pl.myca.core.utils. Pierwszy z nich zawiera  glówne klasy funkcyjne aplikacji, drugi dostarcza stale, metody globalne oraz odpowiedzialny jest za odczytywanie plików konfiguracyjnych. Klasy zwiazane z generowaniem certyfikatów i list CRL oparte sa na wzorcu Singleton, natomiast klasa konfiguracyjna dodatkowo na wzorcu Dekorator. 
+        
+      Rysunek 5: Wykorzystanie wzorca Singleton na przykladzie klasy Core.
+
+        
+      Rysunek 6: Wzorzec Singleton oraz Dektorator wykorzystywany w klasie MyCAProperties.
+
+Modul moze byc dowolnie konfigurowany poprzez zewnetrzny plik konfiguracyjny umieszczony w strukturze katalogów centrum podpisu cyfrowego. Administrator systemu moze decydowac o nastepujacych parametrach aplikacji:
+* Danych centrum podpisu cyfrowego (CN, O, C, ST, L oraz OU),
+* algorytmie certyfikatu podstawowego CA (domyslnie RSA z funkcja skrótu SHA-512) ,
+* sterowniku dostarczajacym funkcje szyfrujace (domyslnie BC, z biblioteki BouncyCastle),
+* algorytmie certyfikatu przejsciowego CA (domyslnie jak w przypadku certyfikatu podstawowego),
+* sterowniku dostarczajacym funkcje szyfrujace (domyslnie równiez jak w przypadku certyfikatu podstawowego),
+* sposobie generowania kluczy (rodzaj algorytmu, sterownik, algorytm losujacy, sterownik algorytmu losujacego, dlugosc klucza, ilosc sprawdzen wygenerowanych liczb pseudolosowych),
+* sposobie generowania certyfikatu koncowego (rodzaj algorytmu, rodzaj sterownika, czas waznosci certyfikatu),
+* miejscu, gdzie przechowywane beda pliki certyfikatów.
+Powyzsza konfiguracja moze byc dowolnie zmieniana pod warunkiem zachowania pewnych norm. Po pierwsze wszystkie algorytmy sluzace do generowania certyfikatów musza pochodzic z tej samej rodziny (nie ma mozliwosci stworzenia lancucha podpisów, np.: RSA ? DSA ? RSA). Po drugie miejsce przechowywania plików podpisów musi byc zlokalizowane na tej samej maszynie, na której znajduje sie aplikacja (lub zmapowanym dysku sieciowym).
+Zaimplementowana funkcjonalnosc pozwala na generowanie certyfikatów, zestawów kluczy, list CRL oraz import danych do plików (*.p12 oraz *.crl).  Wygenerowane klucze prywatne, jak równiez cale pliki certyfikatów chronione sa haslem podanym przez uzytkownika. Haslo klucza oraz haslo glówne konkretnego certyfikatu sa zawsze jednakowe aby zapewnic kompatybilnosc z baza podpisów cyfrowych m.in. w srodowisku Windows. 
+Poza utworzeniem certyfikatu w standardzie PKCS#12, CA umieszcza w swojej bazie danych odcisk podpisu, na który skladaja sie:
+* numer seryjny certyfikatu,
+* podmiot certyfikatu,
+* data waznosci (poczatkowa),
+* data waznosci (koncowa),
+* klucz publiczny,
+* klucz prywatny,
+* status certyfikatu,
+* link z lokalizacja pliku zródlowego.
+Wiecej informacji na temat bazy danych centrum podpisu cyfrowego mozna znalezc w rozdziale 4.1.1. 
+Rozdzial 5.2 trudnosci
+Problem: Dostosowanie maszyny wirtualnej Javy do wymogów CA.
+Rozwiazanie: Sposób rozwiazania problemu opisano w rozdziale 3.3.2.
+
+
+
+         1 Dokladniejszy opis dzialania SHA-512 mozna odnalezc na stronie NIST(National Institute of Standards and Technology),  http://csrc.nist.gov/
+         2 http://www.oracle.com/
+         3 "RFC 5280: PKIX Certificate and CRL Profile". IETF, 2008.
+         4 Wiecej informacji na ten temat mozna znalezc w rozdziale 4.1.2
+         5 "RFC 5280: PKIX Certificate and CRL Profile". IETF, 2008.
+         6 http://spring.io/
+         7 http://www.h2database.com/
+         8 Wiecej informacji w sekcji 4.2.2
+         9 Wiecej informacji w sekcji 4.2.3
+---------------
+
+------------------------------------------------------------
+
+---------------
+
+------------------------------------------------------------
+

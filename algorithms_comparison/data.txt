@@ -1,0 +1,2839 @@
+          POLITECHNIKA KRAKOWSKA
+             IM. TADEUSZA KOCIUSZKI
+      WYDZIAL FIZYKI MATEMATYKI I INFORMATYKI
+
+
+           KIERUNEK INFORMATYKA
+
+
+
+
+              MARIUSZ STARZAK
+
+
+
+
+   APLIKACJA INTERNETOWA I SPOSOBY JEJ
+REPREZENTACJI NA URZDZENIACH MOBILNYCH
+
+
+THE WEB APPLICATION AND ITS REPRESENTATION
+            ON MOBILE DEVICES
+
+
+
+
+            PRACA MAGISTERSKA
+
+             STUDIA STACJONARNE
+
+
+
+
+                                                 PROMOTOR:
+                                          DR AGNIESZKA KROK
+
+
+
+
+                   KRAKÓW 2013
+
+Spis treci
+
+1. Wstp......................................................................................................................................................3
+
+2. Problematyka.........................................................................................................................................3
+
+   2.1 Opis problemu.................................................................................................................................3
+
+   2.2 Przykladowe rozwizania..............................................................................................................13
+
+3. Wymagania...........................................................................................................................................16
+
+4. Wykorzystane technologie...................................................................................................................19
+
+   4.1 Aplikacja internetowa....................................................................................................................19
+
+   4.2 Strona mobilna..............................................................................................................................24
+
+   4.3 Usluga internetowa........................................................................................................................25
+
+   4.4 Aplikacja natywna na platform Android......................................................................................25
+
+   4.5 Aplikacja hybrydowa na platform Android.................................................................................30
+
+   4.6 Uyte narzdzia.............................................................................................................................30
+
+5. Realizacja.............................................................................................................................................32
+
+   5.1 Aplikacja internetowa....................................................................................................................35
+
+   5.4 Strona mobilna..............................................................................................................................45
+
+   5.3 Usluga internetowa........................................................................................................................46
+
+   5.4 Aplikacja natywna na platform Android......................................................................................47
+
+   5.5 Aplikacja hybrydowa.....................................................................................................................51
+
+   5.6 Testowanie.....................................................................................................................................52
+
+6. Podsumowanie.....................................................................................................................................55
+
+7. Bibliografia..........................................................................................................................................57
+
+
+
+
+1. Wstp
+       Celem mojej pracy magisterskiej jest projekt i realizacja aplikacji internetowej oraz stworzenie i
+
+
+                                                                         - 2 -
+
+porównanie jej odpowiedników na platformy mobilne, ze szczególnym naciskiem na platform
+
+Android. Moliwymi sposobami przedstawienia aplikacji internetowej s: strona mobilna, aplikacja
+
+natywna oraz aplikacja hybrydowa. Kade z tych rozwiza ma swoje mocne i slabe strony. Lczno
+
+pomidzy baz danych aplikacji internetowej oraz aplikacjami mobilnymi bdzie zapewniona dziki
+
+usludze internetowej (ang. web service). Jako przyklad aplikacji internetowej zostanie stworzony
+
+system blogowy.
+
+       Temat ten jest intrygujcy ze wzgldu na fakt, i urzdzenia mobilne staly si powszechnym
+
+narzdziem, bez którego niektórzy ludzie nie wyobraaj sobie ycia. Platforma Android jest
+
+najpopularniejszym rozwizaniem na rynku mobilnym. Ponadto jest ona równie najbardzej
+
+przystpna, poniewa programowa na ni mona na kadym systemie operacyjnym. Nie jest
+
+konieczne posiadanie komputerów czy urzdze mobilnych z danego ,,ekosystemu". Dziki duej
+
+iloci deweloperów tworzcych aplikacji na Androida, znacznie ulatwia to zadanie, z racji tego, e w
+
+razie problemów przy implementacji jakiej funkcjonalnoci natrafimy na rozwizanie kogo, kto
+
+natknl si na podobne przeciwnoci wczeniej. Dodatkowo programowanie na system Android
+
+wymaga znajomoci jzyka JAVA, który jest mi najbliszy, z wszystkich dostpnych na pozostale
+
+platformy.
+
+       W kolejnych rozdzialach pracy szczególowo zaprezentuj etapy tworzenia aplikacji blogowej i
+
+jej odpowiedników na platformy mobilne.
+
+
+
+2. Problematyka
+
+2.1 Opis problemu
+
+       W cigu ostatnich kilku lat telefony komórkowe przeszly ogromn ewolucj. Ze zwyklego
+
+sprztu, slucego glównie do wykonywania polcze telefonicznych oraz wysylania wiadomoci
+
+tekstowych, staly si ,,kieszonkowymi" komputerami. Dzisiaj za ich pomoc moemy wykona
+
+praktycznie wszystkie czynnoci, na które kiedy wylczno mialy jedynie komputery. Od prostych
+
+zada, jak wysylanie e-maili, przegldanie stron internetowych czy ogldanie filmów w internecie, a
+
+po kompilowanie programów, a nawet wiadczenie uslug serwerowych. Jako umown dat pocztku
+
+smartfonów mona przyj pojawienie si pierwszego telefonu od Apple, iPhone'a, który zostal
+
+zaprezentowany 29 czerwca 2007 roku przez Steve'a Jobs'a [1]. To pierwsze urzdzenie, na którym
+
+
+                                                 - 3 -
+
+przegldanie internetu nie bylo udrk. Poza przeobraeniem telefonów w smartfony, powstala równie
+
+zupelnie nowa gal urzdze nazywanych tabletami. Oba te typy tworz rynek mobilny.
+
+       Wraz z pojawieniem si urzdze mobilnych powstal problem z uytkowaniem aplikacji
+
+internetowych, które nie byly przystosowane do niewielkich wymiarów. Nawet pomimo tego, e
+
+obecnie owe posiadaj niekiedy wiksz rozdzielczo ekranu, ni komputery. W zwizku z tym
+
+nalealo przystosowa te programy tak, by mona bylo z nich swobodnie korzysta na systemach
+
+mobilnych. Najlepszymi przykladami, które obrazuj t niedogodno s strony WWW. Warto
+
+wspomnie, e ruch w sieci generowany z urzdze mobilnych obecnie przewysza ten, który powstaje
+
+z komputerów. Trend ten jest napdzany przez powszechny i prawie nieograniczony dostp do
+
+internetu. Zjawisko to obrazuje poniszy wykres.
+
+
+
+
+Rys. 1: Ilo uytkowników internetu mobilnie vs desktopowo [2]
+
+
+
+       Niestety wikszo stron WWW nie jest przystosowana dla systemów mobilnych.
+
+Niejednokrotnie witryny s zbudowane przy uyciu cikich i przestarzalych technologii jak na
+
+przyklad Adobe Flash, który nie wszystkie urzdzenia s w stanie obsluy. Nawet nieco lejsze
+
+rozwizania, które na komputerach zachowuj si bardzo wydajnie, mog powodowa niedogodnoci
+
+na smartfonach czy tabletach. Przykladem mog by rozbudowane komponenty JavaScript'owe czy
+
+cale biblioteki, które powstaly w czasach, gdzie nikt nie przewidywal, e mog pojawi si urzdzenia
+
+o mniejszej mocy obliczeniowej. Ponadto klasyczne strony webowe nie s przystosowane do obslugi
+
+
+                                                 - 4 -
+
+sterowania za pomoc dotyku, a tym bardziej przy wykorzystaniu gestów, które znacznie poprawiaj
+
+szybko poruszania si po systemie. Warto równie wspomnie, e pierwsze urzdzenia dzialajce na
+
+systemach mobilnych (iOS, Android) w wikszoci posiadaly rozdzielczo nie wiksz, ni
+
+320x480px, co oznacza, e posiadaly one okolo 80% mniej powierzchni przeznaczonej na
+
+wywietlenie aplikacji, ni komputery [3].
+
+       Ze wzgldu na powysze problemy twórcy aplikacji internetowych powinni bra pod uwag
+
+uytkowników mobilnych. Jeli zbagatelizuj problem, mog narazi si na ich strat na rzecz
+
+konkurencji, która zadba o wlaciw prezentacj swoich produktów. Rynek mobilny cigle ronie i
+
+naturalnym dla uytkowników jest fakt poszukiwania rozwiza sprzyjajcych ich urzdzeniom, dziki
+
+czemu bd mogli szybciej dotrze do potrzebnych w danej chwili informacji czy prociej zalatwi
+
+niecierpice zwloki sprawy.
+
+       Do rozwizania problemu prezentacji aplikacji internetowej na urzdzeniach mobilnych mona
+
+podej na kilka sposobów. Wyrónia si trzy glówne metody: mobilna strona WWW, aplikacja
+
+natywna oraz aplikacja hybrydowa. Ponisza tabela przedstawia zalety i wady kadego z rozwiza:
+
+                                       szybko      dostp do                      szybko
+                multiplatformowo                               koszt produkcji
+                                       dzialania     urzdzenia                     publikacji
+
+    strona              tak            rednia         brak            niski         szybka
+   mobilna
+
+   aplikacja            nie            wysoka          pelny         wysoki          wolna
+   natywna
+
+   aplikacja            tak            wysoka         pelny            redni        rednia
+  hybrydowa
+
+Tab. 1: Porównanie dostpnych rozwiza
+
+
+       Najtaszym i najprostszym w implementacji rozwizaniem jest strona mobilna, poniewa moe
+
+ona bazowa na aplikacji pierwotnej, majc jedynie odmienny sposób prezentacji zawartoci. Istniej
+
+róne podejcia do jej stworzenia. Moemy podzieli je nastpujco wedlug metody przygotowania
+
+layoutu:
+
+    ·  plynny (ang. fluid),
+
+    ·  adaptatywny (ang. adaptive),
+
+    ·  responsywny (ang. responisve).
+
+       Pierwszy z nich jest najprostszy i nie wymaga rozleglej znajomoci kaskadowych arkuszy
+
+                                                - 5 -
+
+stylów CSS. Bazuje on na zaloeniu, e kady kontener na stronie wypelnia dostpn szeroko
+
+okrelon procentowo. Wraz ze skalowaniem ekranu z wikszego w mniejszy, kontenery równie
+
+ulegn zmniejszeniu, pozostajc na swoich pozycjach. Jednak problem pojawia si w momencie, gdy
+
+nie mona ju uzyska wicej dostpnej przestrzeni na ich zawarto. Wówczas zaczyna ona nachodzi
+
+na siebie, co jest efektem niepodanym. Ten typ ukladu strony jest najbardziej naturalnym. HTML,
+
+bez uytego CSS, bdzie zajmowal 100% dostpnego rozmiaru jej ciala [5]. Poniej zaprezentowanie
+
+zachowanie strony podczas zmiany szerokoci z wikszej na mniejsz. Jak wida, elementy na stronie
+
+pozostaj na swoich startowych pozycjach, a w pewnym momencie zaczyna brakowa miejsca na ich
+
+zawarto.
+
+
+
+
+Rys. 2: Layout plynny na urzdzeniu o duej
+rozdzielczoci                                         Rys. 3: Layout plynny na urzdzeniu o malej
+                                                       rozdzielczoci
+
+
+       Drugi rodzaj prezentacji strony przewiduje przygotowanie kilku rodzajów arkuszy CSS tak, by
+
+mona bylo pokry kilka najczciej wystpujcych rozdzielczoci urzdze. W momencie
+
+zaladowania strony s odczytane wymiary obiektu, w którym ma wczyta si strona, a nastpnie
+
+zostaje zaladowana odpowiednia wersja arkusza stylów. To rozwizanie ma jedn bardzo powan
+
+wad, nie jest zbyt przyszlociowe, poniewa nie mona przewidzie jakie rozdzielczoci urzdze
+
+bd za kilka lat. Wie si to z nieustannym rozbudowywaniem dostpnych arkuszy, by w miar
+
+moliwoci pokry wszystkie dostpne wymiary. Przyklad poniej prezentuje zachowanie si strony w
+
+momencie skalowania. Warto zwróci uwag na fakt, e na mniejszej rozdzielczoci niektóre kontenery
+
+pojawiaj si na dole strony, a nie s na sil trzymany by zachowa uklad z szerszej rozdzielczoci.
+
+
+
+                                                   - 6 -
+
+Rys. 4: Layout adaptywny na urzdzeniu o duej     Rys. 5: Layout adaptywny na urzdzeniu o malej
+rozdzielczoci                                     rozdzielczoci
+
+
+        Trzeci typ budowy strony internetowej, responsywny (ang. responsive), wywodzi si z rodzajów
+
+plynnego (ang. fluid) oraz zawiera cechy adaptywnego (ang. adaptive). W tym wypadku calo jest
+
+kontrolowana przez jeden arkusz CSS, w którym zdefiniowane s odpowiednie reguly @media (ang.
+
+media queries). W tym wypadku strona podczas skalowania dopasowuje si do dostpnych wymiarów,
+
+jednak elementy nie s na sztywno wszyte w struktur. W momencie, gdy brakuje miejsca, kontener
+
+zostaje przemieszczony w zdefiniowane w stylach miejsce. Przy zastosowaniu tego typu rozwizania
+
+obowizkowym tagiem HTML, który naley umieci w sekcji <head> witryny, jest fragment: <meta
+
+name="viewport" content="width=device-width" />. Dziki niemu przegldarka dostaj informacj,
+
+e strona musi zosta dopasowana do rozmiarów urzdzenia, a nie jak w poprzednich dwóch typach do
+
+rozdzielczoci ekranu. Jest to konieczne ze wzgldu na to, e pomimo malych rozmiarów sprztów
+
+mobilnych mog one posiada bardzo due rozdzielczoci wywietlacza (na przyklad LG Nexus 5 ­
+
+4,95'', 1080x1920 px), przez co po zaladowaniu elementy strony bylyby bardzo male i zmuszaly
+
+uytkownika do powikszania ekranu. Niej prezentacja zachowania podczas wywietlania witryny na
+
+urzdzeniu o duych (po lewej) oraz malych wymiarach (po prawej).
+
+
+
+
+                                                 - 7 -
+
+Rys. 6: Layout responsywny na urzdzeniu o duej Rys. 7: Layout responsywny na urzdzeniu o
+rozdzielczoci                                      malej rozdzielczoci
+
+
+        Najistotniejsz cech tego strony mobilnej jest jej multiplatformowo. Jedyn rzecz, która jest
+
+wymagana do obslugi witryny jest przegldarka internetowa. Wikszo obecnych telefonów,
+
+smartfonów i tabletów jest w ni domylnie wyposaone. Nie trzeba si wobec tego martwi o
+
+kompatybilno, a niedowiadczony uytkownik systemu mobilnego nie bdzie zmuszony do
+
+poszukiwania odpowiedniej aplikacji. Ponadto tego typu stron WWW bdziemy w stanie otworzy
+
+nawet na starym telefonie wyposaonym jedynie w Jav ME. Bardzo du zalet strony mobilnej jest
+
+moliwo natychmiastowych aktualizacji. W tym przypadku nie ma koniecznoci przesylania aplikacji
+
+do miejsca jej dystrybucji, zwanego najczciej sklepem (na przyklad Google Play, Apple App Store).
+
+Gdy chcemy zmieni jaki element w strukturze strony, doda now funkcjonalno lub naprawi
+
+istniejce bldy, nie musimy czeka na akceptacj ze strony osoby odpowiedzialnej za publikacj
+
+naszej aplikacji w sklepie. Ponadto nowemu uytkownikowi latwiej jest trafi na nasz stron z
+
+wyszukiwarki internetowej, ni odnale j w centrum aplikacji mobilnych. Do czsto kategorie s
+
+zbyt ogólne i mog zawiera podobne aplikacje, co skutkuje odleglym miejscem w rezultatach
+
+wyszukiwania. Oczywicie w przypadku wyszukiwarki internetowej jestemy zmuszeni do podjcia
+
+rónych czynnoci optymalizacyjnych (ang. Search Engine Optimization), które pozytywnie wplyn na
+
+nasze miejsce w wynikach i witryna bdzie znajdowala si na wysoko. Wie si to jednak ze
+
+znajomoci tej dziedziny lub zatrudnieniem osoby, która moglaby tak rol sprawowa. Ponadto na
+
+korzy strony mobilnej przemawia równie moliwo latwego podpicia narzdzi do analizy ruchu,
+
+zachowania uytkowników czy te mechanizmów zbierajcych inne dane statystyczne. Rozwizania
+
+
+                                                 - 8 -
+
+natywne nie zawsze na to pozwalaj i w razie koniecznoci zbierania informacji bdziemy zmuszeni do
+
+implementacji wlasnych rozwiza, które to umoliwi. Glówn wad strony mobilnej jest prdko
+
+dzialania. Niestety w tym wypadku, oprócz braku optymalizacji aplikacji, na wydajno bardzo czsto
+
+wplywa polczenie z internetem. Gdy uytkownik telefonu znajduje si w miejscu o slabszym zasigu
+
+moe bardzo dlugo czeka na wczytanie si konkretnej podstrony. Oprócz samych danych,
+
+przegldarka musi odebra równie wszelkie dodatkowe komponenty jak na przyklad arkusze stylów
+
+CSS czy skrypty JavaScript oraz dolczone do nich biblioteki. Ponadto zawarto strony bardzo
+
+posiada grafik, co równie moe spowolni czas jej ladowania. Oprócz samej szybkoci dzialania
+
+dua ilo pobranych informacji moe narazi uytkownika na wiksze koszty, gdy ten korzysta z
+
+internetu mobilnego. Oczywicie mona podda caly kod witryny oraz wszelkich zewntrznych
+
+komponentów minimalizacji i odpowiedniej optymalizacji (na przyklad doczytywanie fragmentów
+
+strony przy uyciu technologii AJAX, zamiast pelnych przeladowa), jednak nie uda si uzyska tak
+
+dobrej plynnoci, jak w przypadku aplikacji natywnych. Warto równie wspomnie o podejciu
+
+,,mobile first" podczas tworzenia strony internetowej, poniewa obecnie coraz czciej projektujc
+
+stron internetow przystosowuje si j pod zarówno komputery, jak i urzdzenia mobilne. Koncepcja
+
+ta zostala opracowana przez Luke'a Wroblewskiego, który opisal j w ksice o tym samym tytule w
+
+roku 2011 [7]. Jej glównym zaloeniem jest rozpoczcie projektowania witryny od przystosowania jej
+
+do urzdze mobilnych, a nastpnie rozbudowywanie jej na pozostale maszyny. Ponadto autor
+
+sugeruje, eby w procesie twórczym skupi si na najistotniejszych funkcjach naszego produktu oraz
+
+treciach i ich skutecznym dostarczeniu uytkownikowi. Dziki temu mona czasem nawet strona
+
+mobilna moe by znacznie przystpniejsza, ni ta desktopowa. Podejcie to moe nawet przyspieszy
+
+finalizacj calego projektu, poniewa nie trzeba traci czasu na zbdne rozwaania na temat tego, co
+
+usun, co pomniejszy na wersji dla urzdze z duymi ekranami.
+
+       Drug moliwoci stworzenia mobilnej wersji aplikacji internetowej jest aplikacja natywna.
+
+Glówn cech przemawiajc za tym rozwizaniem jest pelna integracja z systemem operacyjnym, na
+
+który zostala ona stworzona. Dziki temu zyskujemy dostp do elementów interfejsu, które s obecne
+
+w danym OS. Moe to skutkowa, w zalenoci od ich wykorzystania, e program przez nas stworzony
+
+bdzie spójny z samym systemem, a uytkownikowi bdzie latwiej z niego korzysta, poniewa
+
+otrzyma znane mu elementy na przyklad nawigacyjne. Ponadto wygld aplikacji oraz sposób
+
+zachowania poszczególnych elementów bdzie zdefiniowany w jej obrbie. W zwizku z tym
+
+
+                                                 - 9 -
+
+zaoszczdzi to ilo przesylanych danych pomidzy serwerem a klientem. Obsluga aplikacji natywnej
+
+jest znacznie szybsza i plynniejsza, poniewa nie musi bazowa na specjalnych bibliotekach. Nie jest
+
+równie koniecznie kadorazowe odwieanie calego interfejsu, by zaladowa nowe informacje.
+
+Oprócz znacznie lepszej wydajnoci, pelna integracja z urzdzeniem pozwala równie na dostp do
+
+modulów, w które jest ono wyposaone. Pozwala to midzy innymi na obslugiwanie aparatu, dostp do
+
+lokalizacji (GPS) czy informacje o poloeniu przestrzennym telefonu (akcelerometr). Aplikacje
+
+mobilne s dystrybuowane przez specjalne centra zalene od platformy. Zamieszczenie w nich swojego
+
+produktu czasem wie si z dodatkowymi kosztami. W przypadku Google Play posiadanie konta
+
+deweloperskiego to jednorazowa oplata w wysokoci $ 25 [8]. Dla Apple App Store ceny zaczynaj si
+
+od $ 99 rocznie w przypadku konta indywidualnego, dla organizacji to koszt $ 299 rocznie. Jednak jest
+
+równie moliwo posiadania konta uniwersyteckiego, które jest bezplatne i sluy do nauki
+
+programowania na system iOS [9]. W przypadku ostatniego z najpopularniejszych systemów
+
+mobilnych, czyli Microsft Windows Phone, dostp do ich sklepu z aplikacjami (Windows Phone Store)
+
+wymaga zaloenia konta i uiszczenia jednorazowej oplaty w wysokoci $ 19 dla pojedynczego
+
+programisty lub $ 99 dla firmy[10]. Umieszczenie aplikacji w takim miejscu pozwala na dotarcie do
+
+wikszej liczby uytkowników, który mog si natkn na nasz aplikacj przypadkiem, przegldajc
+
+zawarto sklepu. Ponadto gdy nasz program zyskuje na popularnoci moe zosta promowany.
+
+Zyskujemy tym samym kolejne ródlo naplywu nowych osób, który korzystaj z naszego rozwizania.
+
+Jednake proces umieszczania moe potrwa ze wzgldu na konieczno weryfikacji poprawnoci i
+
+bezpieczestwa programu. Niestety w przypadku rozwizania natywnego pojawia si wada w postaci
+
+braku przenonoci aplikacji pomidzy rónymi platformami. Kady system mobilny wymaga innej
+
+technologii, a nawet narzdzi, w której moe zosta stworzony nasz program. Programujc na Android
+
+OS konieczna jest znajomo jzyka JAVA w polczeniu z jzykiem znaczników XML, w przypadku
+
+iOS bdzie to Objective C, a dla Windows Phone naley zna jzyk C# oraz API Microsoft Silverlight.
+
+Ponadto w przypadku technologii od Microsoftu i Apple wymagane jest posiadanie desktopowych
+
+wersji ich systemów, co wprowadza kolejne komplikacje oraz generuje koszty, gdy tworzymy
+
+programy                   na                ich                 platformy                  mobilne.
+
+       Ostatnim sposobem przedstawienia aplikacji internetowej na urzdzeniach mobilne jest
+
+aplikacja hybrydowa, czyli polczenie dwóch powyej przedstawionych rozwiza (mobilna strona
+
+oraz aplikacja natywna). Dziki temu relatywnie niskim kosztem mona uzyska program, który ma
+
+
+                                                - 10 -
+
+dostp do wszystkich natywnych komponentów. Ta realizacja opiera si o zbudowanie aplikacji
+
+webowej w oparciu o jzyk znaczników HTML 5 oraz CSS 3 i osadzenie go w natywnym kontenerze
+
+(na przyklad WebView w Androidzie). Co prawda dostp do modulów urzdzenia bdzie wolniejszy,
+
+ni w przypadku aplikacji dedykowanej, jednak nadal mona korzysta z GPS czy akcelerometru.
+
+Aplikacja hybrydowa, podobnie jak natywna, jest instalowana przez centrum dystrybucji. Warto
+
+równie wspomnie w tym wypadku o multiplatformowosi. Rozwizanie to jest calkowicie
+
+przenone, jednak nadal istnieje konieczno umieszczenia calej aplikacji webowej w odpowiednim
+
+kontenerze, który jest specyficzny dla kadej platformy. Istniej frameworki, z pomoc których
+
+moemy stworzy aplikacje hybrydowe na wikszo popularnych mobilnych systemów operacyjnych.
+
+Najpopularniejsz z nich jest Phone Gap (w oparciu o Apache Cordova). PhoneGap dostarcza API,
+
+dziki któremu mona dosta si do natywnych modulów. Sam aplikacj tworzy si przy uyciu
+
+HTML, CSS oraz JavaScriptu. Istniej dwa sposoby implementacji tego rozwizania:
+
+    ·  lokalna ­ wszystkie pliki z kodem HTML s przechowywane w obrbie aplikacji, w tym
+
+       rozwizaniu dane s dostarczone przez odpowiedni uslug internetow (API); przypomina ono
+
+       bardziej aplikacj natywn,
+
+    ·  serwerowa ­ wszystkie akcje i sposób prezentacji ich wyników s przechowywane po stronie
+
+       serwera, co bardziej przypomina stron mobiln, osadzon w WebView.
+
+       Reasumujc, wszystkie przedstawione rozwizania pozwalaj na eleganck prezentacj treci z
+
+naszej aplikacji internetowej na urzdzeniach mobilnych. Wybór wlaciwej zaley od rodków, jakimi
+
+dysponuje jej wlaciciel. Dodatkowo mona z powodzeniem zastosowa dwa z nich, co jeszcze
+
+bardziej podniesie jako naszych uslug z punktu widzenia biznesowego. Najtaszym z wyej
+
+wymienionych sposobów jest aplikacja hybrydowa. Ponadto mona j cile powiza ze stron
+
+mobiln, stosujc rozwizanie po stronie serwera. Taka implementacja jest równie pewnym
+
+zagroeniem dla niewiadomych rynku mobilnego klientów, poniewa pojcia aplikacji natywnej i
+
+aplikacji hybrydowej bardzo czsto s mylone i przez to nabywca moe zaplaci jak za pierwsz,
+
+otrzymujc drug.
+
+       Jednake glównym odbiorc aplikacji s uytkownicy, dlatego warto spojrze, które z
+
+rozwiza jest lepiej odbierane przez uytkowników i do jakich celów wol korzysta z przegldarki
+
+internetowej w swoim urzdzeniu, a w jakim wypadku szukaj programów natywnych. Poniszy
+
+wykres prezentuje podstawowe zadania, które mog spotka nas kadego dnia.
+
+
+                                               - 11 -
+
+    Rys. 8: Wykres preferencji uytkowników, co do uywanej metody dla okrelonych zada[11]
+
+
+Jak wida przegldarka mobilna znajduje swoje zastosowanie dla zada takich, jak zakupy,
+
+wyszukiwanie informacji czy rozrywka. S to dziedziny, w których jej wykorzystanie znacznie
+
+przewysza jej konkurenta. Wszystkie pozycje, w których dominuje strona mobilna zwizane s z
+
+szybkim znalezieniem informacji oraz platnociami. Aplikacje mobilne nie s jeszcze przystosowane
+
+do obslugi transakcji, które ze wzgldu na swój charakter musz by odpowiednio zabezpieczone.
+
+Wci brakuje solidnych rozwiza w obrbie tej kwestii. Ciko sobie równie wyobrazi sytuacj, w
+
+której potrzebujemy znale informacj o godzinach otwarcia restauracji lub potrzebujemy
+
+zarezerwowa bilet do kina. Jeli bymy chcieli skorzysta do tych zada z aplikacji mobilnych,
+
+bylibymy zobligowani do przebrnicia przez centrum dystrybucji danego systemu i odnalezienie
+
+aplikacji dla tych pojedynczych akcji. W zwizku z tym na kad tak sytuacj potrzebowalibymy
+
+specjalnie dedykowanego rozwizania. Ponadto znalezienie wlaciwej i spelniajcej nasze oczekiwania
+
+aplikacji mogloby pochlon wiele czasu. Dlatego te aplikacje mobilne znacznie czciej s uywane
+
+do dzielenia si informacjami (serwisy spolecznociowe), komunikacji czy zarzdzania zasobami. W
+
+tym wypadku duo prociej jest skorzysta z dedykowanego komunikatora, który dziala plynnie, ni
+
+korzysta z jego wersji w przegldarce.
+
+
+
+2.2 Przykladowe rozwizania
+
+       Przed rozpoczciem tworzenia wlasnych rozwiza warto przyjrze si rozwizaniom innych
+
+deweloperów. Bardzo dobrym przykladem jest znany portal spolecznociowy facebook. Posiada on
+
+
+                                                - 12 -
+
+zarówno stron mobiln jak i aplikacje natywne na wikszo znanych platform przenonych. Niestety
+
+ciko w wypadku tego portalu powiedzie o spójnoci, jeli chodzi o interfejs uytkownika, poniewa
+
+facebook do czsto wprowadza nowe udogodnienia na róne platformy. Jednak jeszcze nie tak dawno
+
+calo wygldala podobnie. Górna belka nawigacyjna zawierala trzy, charakterystyczne ikony, a reszta
+
+elementów na stronie ukladala si w zalenoci od dostpnego miejsca. Ponadto na wersji desktopowej,
+
+w menu górnym wystpowaly inne linki, a na wersjach mobilnych byly one umieszczone w
+
+wysuwajcym si z boku pasku nawigacji. Oprócz nich znajdowaly si tam równie elementy
+
+nawigacyjne, które na wersji komputerowej znajdowaly si po lewej stronie. Calo zostala
+
+przedstawiona na screenach poniej.
+
+
+
+
+               Rys. 9: Wygld portalu facebook w wersji komputerowej
+
+
+
+
+                                                - 13 -
+
+  Rys. 10: Wygld portalu facebook w wersji            Rys. 11: Wygld portalu facebook na
+  strony mobilnej                                      aplikacji natywnej
+
+
+       Obecnie aplikacje natywne maj odmienny wygld na rónych platformach, a take wygldaj
+
+zupelnie inaczej ni strona mobilna, która zostala niezmieniona. Moliwe, e brak odwieenia witryny
+
+zostal spowodowany przez fakt, i wikszo uytkowników urzdze przenonych korzysta z
+
+dedykowanych rozwiza. Dla porównania poniej zamieszczam wygld aplikacji na urzdzeniach
+
+wyposaonych w systemy Android oraz iOS. Rónice wynikaj glównie z przyzwyczaje
+
+uytkowników oraz przyzwole producentów danych OS'ów. Przykladowo dolne menu, które widnieje
+
+w na zrzucie ekranu z iPhone'a, jest niezgodne z wymaganiami twórców Androida co do projektowania
+
+aplikacji mobilnych [12], a menu na zrzucie z Androida pojawia si dopiero w momencie przesuwania
+
+ekranu w dól. Ponadto obie aplikacje mona obslugiwa za pomoc gestów. Na przyklad wykonanie
+
+przesunicia palcem z prawej strony ekranu w lew (ang. slide), spowoduje zaladowanie zakladki,
+
+która znajduje si po prawej stronie.
+
+
+
+
+                                                 - 14 -
+
+Rys. 12: Wygld portalu facebook w systemie         Rys. 13: Wygld portalu facebook w systemie
+Android[13]                                         iOS[14]
+
+
+       Innym przykladem, który obrazuje sposób przedstawienia aplikacji webowej, a w tym wypadku
+
+równie desktopowej, jest platforma Steam, która zajmuje si dystrybucj cyfrow gier. W tym
+
+wypadku moemy porówna stron mobiln oraz aplikacj hybrydow. Pierwsz rzecz, która bardzo
+
+rzuca si w oczy jest plynno dzialania, która pozostawia wiele do yczenia w przypadku programu na
+
+urzdzenie. Jeli chodzi o dokonywanie zakupów, to znacznie szybciej mona to zrealizowa z
+
+poziomu przegldarki. Wlaciwie kada akcja wykonywana w przegldarce jest odczuwalnie szybsza,
+
+chyba, e mielibymy do czynienia z wolnym internetem, wówczas rónica ta moglaby by
+
+niezauwaalna. Wplyw na to ma równie sposób przemieszczania si pomidzy poszczególnymi
+
+akcjami, poniewa w aplikacji zostaly uyte intencje (ang. intents), które powoduj wczytanie calego
+
+UI od nowa (wicej na ten temat w rozdziale dotyczcym wykorzystanych technologii w moim
+
+projekcie). Jednake strona mobilna jest ubosza w niektóre funkcje. Na przyklad nie dostarcza ona
+
+adnych rozwiza spolecznociowych, w które platforma jest wyposaona. Zrzuty ekranu poniej
+
+prezentuj oba przyklady. W przypadku prezentacji nie wida wikszych rónic. Jedynie w inny sposób
+
+
+                                                 - 15 -
+
+zostalo zrealizowane menu, które na stronie mobilnej zawiera mniej moliwoci. W przypadku
+
+aplikacji mobilnej menu zostalo zrealizowane zgodnie z trendem panujcym na malych urzdzeniach,
+
+czyli zostalo ukryte z lewej strony i wysuwa si w momencie kliknicia w przycisk z trzema paskami
+
+(gdyby to rozwizanie bylo natywne, istniala by równie moliwo wysunicia menu poprzez
+
+wykonanie gestu).
+
+
+
+
+Rys. 14: Wygld strony mobilnej aplikacji Steam    Rys. 15: Wygld aplikacji mobilnej Steam
+(Android)                                          (Android)
+
+
+
+3. Wymagania
+       Celem mojego projektu jest zaimplementowanie aplikacji internetowej oraz jej odpowiedników
+
+na urzdzenia mobilne, czyli strony mobilnej, aplikacji natywnej oraz aplikacji hybrydowej. Ponadto,
+
+ze wzgldu na potrzeb komunikacji z dedykowanymi rozwizaniami konieczne bdzie stworzenie
+
+uslugi internetowej (ang. web service), dostarczajcej dane z bazy danych. Ze wzgldu na dostpne
+
+narzdzia platform docelow bdzie system Android OS.
+
+       Jako przyklad aplikacji internetowej zostanie stworzony system blogowy. Podstawowym jego
+
+zadaniem bdzie dostarczenie uytkownikom wpisów, z których kady powinien posiada dat
+
+dodania, autora oraz tre. Uytkowników witryny mona podzieli nastpujco: administrator,
+
+uytkownik oraz go. W zwizku z tym koniecznym bdzie wprowadzenie odpowiedniej kontroli
+
+                                                - 16 -
+
+poziomu dostpu do kadej czci aplikacji w postaci listy kontroli dostpu (ang. Access Control List).
+
+        Kady odwiedzajcy portal dzialajcy na skrypcie bloga jest okrelony mianem gocia. Bdzie
+
+on posiadal dostp jedynie do listy wszystkich postów oraz widoku pojedynczego postu wraz z
+
+komentarzami, a take stron statycznych. Ponadto bdzie mial moliwo wypelnienia formularzy
+
+rejestracyjnego oraz logowania. Po udanej rejestracji i autoryzacji go zostaje uytkownikiem. Proces
+
+rejestracji powinien przebiega dwuetapowo. Po wprowadzeniu danych do formularza oraz poprawnej
+
+jego walidacji do uytkownika powinien zosta wyslany e-mail z linkiem aktywujcym konto. Ma to
+
+na celu zabezpieczenie przed ewentualnym zakladaniem kont na adres e-mail, którego nie posiadamy.
+
+Po klikniciu w link i pomylnej aktywacji powinien wywietla si stosowny komunikat, a
+
+uytkownik powinien móc si zalogowa. W porównaniu do gocia powinien móc dodawa
+
+komentarze. Najwyej w calej hierarchii stoi administrator. Poza akcjami wykonywanymi przez dwie
+
+porzednie grupy bdzie mial on równie dostp do panelu administracyjnego, który bdzie pozwalal na
+
+zarzdzanie poszczególnymi czciami strony. Nalee do nich bd posty, komentarze, uytkownicy,
+
+strony statyczne oraz widety. Kady z elementów powinien dostarcza podstawowe akcje do dodania
+
+nowego, edycji istniejcych oraz usuwania. Ponadto powinna zosta dostarczona moliwo
+
+zarzdzania statusem danego obiektu tak, by stworzenie nowego nie bylo jednoznaczne z jego
+
+publikacj. Jedynie w przypadku zarzdzania uytkownikami powinny by odmienne akcje, ni w
+
+przypadku pozostalych modulów. Administratorowi przysluguje wobec tego moliwo do usuwania
+
+uytkowników, banowania oraz nadawania im praw administratorskich.
+
+        Warstwa prezentacji systemu blogowego (aplikacja internetowa) powinna zosta zbudowana
+
+nastpujco:
+
+    ·   naglówek powinien sklada si menu górnego oraz logotypu,
+
+    ·   glówna cz strony powinna zawiera list postów, która powinna by paginowana po 5
+
+        postów na stron,
+
+    ·   po prawej stronie powinien znajdowa si basek boczny, w którym bd umieszczone widety,
+
+    ·   na dole powinna znajdowa si stopka wraz z podstawowymi informacjami o projekcie i
+
+        autorze.
+
+        Strona mobilna bdzie wykonana z uyciem layoutu responsywnego, tzn. bdzie si
+
+dopasowywa moliwie najlepiej do szerokoci ekranu urzdzenia. Ponadto wszystkie rozwizania
+
+mobilne bd przystosowane jedynie do czytania bloga, dlatego te wszelkie narzdzia administracyjne
+
+                                                - 17 -
+
+zostan w nich pominite. Wygld strony mobilnej powinien prezentowa si nastpujco:
+
+    ·  wszystkie elementy menu powinny by widoczne w miar, gdy szeroko ekranu na to
+
+       pozwala, w przeciwnym wypadku powinny by ukrywane, a w ich miejscu powinien pojawia
+
+       si przycisk, który je rozwija,
+
+    ·  bloki na stronie wraz z skalowaniem powinny si przemieszcza,
+
+    ·  z racji tego, e strona bdzie wykonana na 2 kolumnach w przypadku braku wolnego miejsca,
+
+       pasek po prawej stronie (boczna kolumna) zostanie przemieszczony na dól, pod widok postów
+
+       (glówna kolumna).
+
+       Aplikacja natywna bdzie w pelni wykorzystywala dostpne elementy interfejsu uytkownika,
+
+które dostarcza system Android. Natomiast w przypadku rozwizania hybrydowego wizualnie
+
+zawarto, która bdzie osadzona w natywnym kontenerze bdzie przypomina stron mobiln. Oba
+
+programy bd dostarcza wszystkie opcje dostpne dla gocia oraz uytkownika. Panel
+
+administracyjny zostal pominity ze wzgldu na zmniejszenie objtoci obu aplikacji. Ponadto nie ma
+
+sensu umieszczania tej opcji, poniewa programy maj by przeznaczone tylko dla uytkowników.
+
+       Usluga internetowa powinna obslugiwa wszystkie naplywajce dania. Przetworzenie
+
+requestu powinno odbywa si nastpujco:
+
+    1. Otrzymanie dania HTTP GET lub HTTP POST.
+
+    2. Odpowiednie dopasowanie do istniejcej akcji. W razie braku akcji, odeslanie bldu w formacie
+
+       JSON.
+
+    3. Przetworzenie akcji, pobranie danych z bazy danych.
+
+    4. Odpowied wraz z wybranymi danymi w formacie JSON.
+
+Ze wzgldu na moliwo wykonywania bardzo duej liczby operacji przez uslug, naley zastosowa
+
+cache'owanie wyników zapyta. Zmniejszy to ich ilo oraz wplynie korzystnie na wydajno
+
+aplikacji.
+
+
+
+4. Wykorzystane technologie
+
+4.1 Aplikacja internetowa
+
+       Aplikacja internetowa zostala stworzona w jzyku skryptowym PHP [15][16] w wersji 5.5.12
+
+oraz frameworku CakePHP [17] w wersji 2.2.2. Glównymi zaloeniami tej platformy s:
+
+                                               - 18 -
+
+    ·   wykorzystanie wzorca MVC (Model View Controller),
+
+    ·   zintegrowana obsluga CRUD (Create, Read, Update, Delete) dla polcze bazodanowych,
+
+    ·   wbudowana kontrola i walidacja danych,
+
+    ·   wbudowana internacjonalizacja,
+
+    ·   wbudowany routing, które pozwala na obslug ,,przyjaznych" adresów URL,
+
+    ·   sacffolding, który umoliwia generowanie czci aplikacji, odpowiadajcych za akcje CRUD
+
+        na podstawie zdefiniowanych regul.
+
+Glównym atutem tego frameworku jest szybko, z jak mona stworzy aplikacj polczon z baz
+
+danych, która serwuje podstawowe akcje CRUD.
+
+       Struktura katalogów w projektu przedstawia si nastpujco:
+
+Config   Console    Controller   index.php   Lib  Locale   Model   Plugin  Test  tmp   Vendor    View
+
+webroot
+
+
+
+Najwaniejsze katalogi to Config, Controller, Model, View oraz webroot. Pierwszy z nich przechowuje
+
+pliki konfiguracyjne aplikacji, w tym definicj polczenia z baz danych, sole do hashowania hasel,
+
+ustawienia sesji, konfiguracj skrzynek nadawczych poczty e-mail, czy te konfiguracj adresów URL
+
+w aplikacji. Ponadto umieszczona jest tam równie lista kontroli dostpu ACL. Kolejne trzy katalogi s
+
+cile powizane z wzorce MVC. Ostatni z wymienionych folderów, webroot, zawiera wszystkie pliki,
+
+które s dostpne po adresie URL. Nale do nich pliki graficzne wywietlane w serwisie, pliki arkuszy
+
+stylów CSS czy skrypty JavaScript oraz biblioteki. To na ten katalog powinien wskazywa wirtualny
+
+host.
+
+       Pierwsze kroki z now aplikacj naley zacz od skopiowania szkieletu aplikacji z biblioteki
+
+CakePHP. Po wykonaniu tego zabiegu naley ustawi odpowiednie prawa dostpu dla katalogu tmp
+
+(chmod 775 oraz chown zgodnie z preferencjami w systemie, w moim przypadku jest to nazwa
+
+uytkownika oraz grupa serwera Apache), utworzy konfiguracj bazy danych oraz zmieni domylne
+
+wartoci soli szyfrujcych w pliku Config/core.php. O wszystkich tych krokach jestemy informowani
+
+przy próbie wejcia z poziomu przegldarki internetowej. Nastpnym krokiem bdzie zaprojektowanie
+
+bazy danych. Dziki temu moemy od razu wygenerowa wszystkie potrzebne kontrolery, widoki oraz
+
+modele dziki narzdziu cake bake. Oczywicie nie jest to konieczne i mona samemu równie
+
+przygotowa wspomniane pliki, jeli na przyklad odbiegaj od konwencji narzucanej przez framework,
+
+
+                                                - 19 -
+
+poniewa domylnie przestrzegana jest zasada tabela ­ model (gdzie nazwa tabeli zawsze w liczbie
+
+mnogiej, a nazwa modelu w pojedynczej). Dla przykladu, posiadajc tabel posts, powinnimy
+
+utworzy model o nazwie PostModel. Obslugiwa go powinien kontroler PostsController, a wszelkie z
+
+nim zwizane widoki powinny znajdowa si w katalogu View/Posts. Oczywicie nie zawsze wystpuje
+
+konieczno tworzenia modelu. Do czsto przy korzystaniu z relacji wiele do wielu w bazie danych
+
+pomija si calkowicie model lczcy, definiujc jednak odpowiednie polczenia w modelach, które s
+
+ze sob powizane. Równie nie jest wymaganym tworzenie kontrolera dla kadego modelu. mialo
+
+mona tworzy kontrolery w aden sposób niepowizane z modelami. Dobrym przykladem moe by
+
+kontroler MainController, który serwuje akcje takie jak strona glówna czy formularz kontaktowy.
+
+        Wraz z poszczególnymi skladowymi wzorca MVC przychodz elementy pomocnicze. Dla
+
+kadej warstwy mona stworzy uniwersalny abstrakt, który nastpnie mona podpina wedlug
+
+uznania w zwizanych z nim czciach. W przypadku kontrolerów s to Component'y, dla modelu
+
+Behvior'y, a dla widoku Helper'y. Przykladem moe by Behavior, który sluy do tworzenia nazw
+
+adresów    URL, tak zwanych         slugów. Zgodnie z konwencj powinien on nosi nazw
+
+SluggableBehavior. Jego zadaniem jest przetwarzanie wskazanego pola w form nadajc si do
+
+ustawienia jako adres WWW, to znaczy nieposiadajcy adnych znaków diakrytycznych czy znaków
+
+specjalnych. Przed dodaniem nowego rekordu, który wykorzystuje t technik sprawdzane jest, czy w
+
+tabeli istnieje ju rekord o takiej nazwie. Jeli tak, zostaje dodany sufiks -numer, gdzie numer jest
+
+kolejnym po ostatnim rekordzie. W zwizku z tym jestemy w stanie stworzy jedno uniwersalne
+
+narzdzie, które po wskazaniu mu z jakiego pola ma bra dane wejciowe, a w jakim zapisywa wynik,
+
+a nastpnie podpi go w modelach, których tego potrzebujemy jak na przyklad posty czy strony
+
+statyczne. Pozwala to na zmniejszenie objtoci kodu i dziki temu komponent ten mona uywa do
+
+woli, wedle potrzeb.
+
+        Bardzo pomocn rzecz s narzdzia pozwalajce na lokalizacj oraz internacjonalizacj
+
+projektu. CakePHP jest wyposaony w specjalne do tego celu rozwizania (i18n oraz l10n) [18].
+
+Wszelkie stale tekstowe w kodzie wystarczy umieci w funkcji __(). A nastpnie skorzysta z
+
+konsolowego skryptu cake i18n extract. Wynikiem tej operacji bdzie plik o rozszerzeniu .pot, który
+
+znajduje si w katalogu Locale. Z niego naley utworzy plik .po, korzystajc na przyklad z programu
+
+Poedit lub zwyklym edytorem tekstowym (w tym wypadku naley zachowa szczególn ostrono, by
+
+nie naruszy struktury pliku) i zapisa go w odpowiedniej lokalizacji dla danego jzyka, czyli
+
+
+                                                 - 20 -
+
+przykladowo      tworzc      polsk    wersj    jzykow,    plik  ten   naley    umieci   w
+
+Locale/pol/LC_MESSAGES/default.po. Skrót uyty tutaj jest kwesti umown i mona przyj tutaj
+
+dowoln, wlasn konwencj. W celu aktywowania tlumacze znajdujcych si w danej lokacji, naley
+
+w pliku konfiguracyjnym projektu wpisa Configure::write('Config.language', 'pol');. Dziki temu
+
+interpreter bdzie wiedzial w jakim miejscu znajduj si przetlumaczone frazy. Jeli wskazalibymy
+
+nieistniejc wersj, teksty zostan w oryginalnej pisowni wprowadzonej w kodzie.
+
+        Kolejn przydatn rzecz oferowan przez framework CakePHP s shelle. S to na ogól
+
+specjalne skrypty, które wywolywane s z konsoli na potrzeby rónorodnych, czsto dlugotrwalych
+
+zada. Sama platforma ma wlasne, wbudowane shelle, jak na przyklad wspomniany wczeniej bake
+
+czy i18n. Struktury te mona wykorzystywa w dowolny sposób. Przykladem moe by wysylka
+
+mailingu, która w przypadku duej objtociowo bazy adresów e-mail moe trwa bardzo dlugo, a co
+
+za tym idzie, zwykly danie z przegldarki zostalo by przerwane po pewnym, zdefiniowanym przez
+
+serwer czasie. Dlatego te cal logik mona umieci w shellu i wywolywa po stronie serwera w
+
+momencie, gdy jest nam to potrzebne. Do czsto stosuje si te narzdzia do poprawy lub migracji
+
+duej iloci danych. Jeli przykladowo przechowujemy imiona i nazwiska uytkowników w jednym
+
+polu, a duo wygodniejsze dla nas byloby rozdzielenie tego na dwa osobne pola, moemy stworzy
+
+shell, który dokona migracji, a nastpnie go wywola. Wan zalet tego typu rozwizania jest
+
+moliwo umieszczenia komendy, któr chcemy wywolywa cyklicznie w crontabie (tabela programu
+
+cron, który wywoluje okresowo, na podstawie zdefiniowanych regul wprowadzone do niej polecenia).
+
+        Warto wspomnie jeszcze o jednej czci projektu, któr s Pluginy. Najprociej mona je
+
+zdefiniowa jako podprojekty glównego projektu, które do woli mona przenosi pomidzy rónymi
+
+aplikacjami napisanymi w CakePHP. Maj one wlasn struktur, podobn do projektu glównego.
+
+Dziki temu mona stworzy cale moduly jak na przyklad panel administracyjny, który bdzie mial
+
+wlasne mikrorodowisko adresów URL, ale nadrzdna cieka bdzie zdefiniowana w glównej
+
+konfiguracji cieek. Aby plugin byl aktywny naley go zaladowa w pliku bootstrap.php w katalogu
+
+Config, korzystajc z polecenia CakePlugin::load('NazwaPluginu');.
+
+        Jako system bazodanowy zostala wybrana MariaDB w wersji 5.5.37, czyli projekt open source,
+
+bazujcy na wczeniejszych wersjach MySQL. MariaDB, podobnie jak MySQL, oferuje róne typy
+
+mechanizmów bazodanowych. W tym projekcie skorzystalem z dwóch. Pierwszym z nich jest InnoDB,
+
+który posiada obslug kluczy obcych oraz transakcje. Ze wzgldu na moliwo przeszukiwania w
+
+
+                                                 - 21 -
+
+systemie blogowym powstala równie jedna tabela oparta na silniku MyISAM, poniewa w tym
+
+wypadku potrzebne bylo przeszukiwanie pelnotekstowe (ang. full-text search).
+
+       Warstwa prezentacji w aplikacji zostala zbudowana przy pomocy jzyka znaczników HTML 5
+
+oraz kaskadowych arkuszy stylów CSS 3. Ponadto wykorzystano bibliotek Twitter Bootstrap [19].
+
+Dziki niej uzyskalem spójny wygld aplikacji i nie musialem dba o stylowanie wszystkich miejsc w
+
+projekcie, poniewa biblioteka ta dostarcza bardzo estetycznie opracowane komponenty jak przyciski
+
+czy formularze. Ponadto mona równie skorzysta z dymków, pasków postpu czy eleganckich
+
+stylowa dla obrazków. Aplikacja internetowa zostala stworzona na statycznych gridach przy uyciu
+
+biblioteki Grid 960 [20]. Ulatwia ona rozmieszczenie poszczególnych bloków na stronie, przez co w
+
+kodzie panuje mniejszy balagan, ni w przypadku gdy kady blok mialby by definiowany osobn
+
+klas. Glównymi klasami CSS dostpnymi z tej biblioteki s:
+
+    ·  container_{warto}, czyli caly kontener w którymi znajduj si poszczególne gridy (warto
+
+       oznacza jego szeroko w procentach z 960px, 100% - 960px),
+
+    ·  grid_{warto}, pojedynczy blok (warto oznacza jego szeroko w pixelach),
+
+    ·  prefix_{warto} oraz suffix_{warto}, czyli odstpy pomidzy gridami (warto oznacza jego
+
+       szeroko w pixelach).
+
+Jeli wic blok nadrzdny bdzie mial klas container_96, jego szeroko bdzie wynosila 960px i
+
+bdzie w stanie pomieci 96 kolumn. Zalómy, e w tym bloku znajduj si dwa elementy z klasami
+
+grid_30 suffix_3 oraz grid_60 prefix_3. Ich szerokoci sumuj si do pelnych 96, w zwizku z tym
+
+zostala wypelniona cala szeroko kontenera. Bloki wewntrzne wobec tego maj szerokoci
+
+odpowiednio 300px oraz 600 px. Pierwszy blok ma margines z prawej strony o szerokoci 30px, a blok
+
+drugi margines z lewej strony o szerokoci 30px.
+
+             Naglówek                          <div class="container_96">
+                                                    <div class="grid_96">Naglówek</div>
+                                                    <div class="grid_96">
+                                                        <div class="grid_69">Kolumna #1</div>
+      Kolumna #1                   #2                   <div class="grid_25 prefix_2">#2</div>
+                                                    </div>
+                                                    <div class="grid_96">Stopka</div>
+                 Stopka                        </div>
+
+
+
+       Ostatni skladow aplikacji internetowej jest JavaScript. Dziki niemu na stronie mog pojawi
+
+si dynamiczne i mile dla oka efekty, a take mona dziki niemu zoptymalizowa wywietlanie
+
+
+
+                                                - 22 -
+
+niektórych elementów. Przy implementowaniu zostaly wykorzystane take biblioteki JavaScriptowe,
+
+takie jak:
+
+    ·   jQuery ­ podstawowa biblioteka dostarczajca wiele rozszerze,
+
+    ·   jQuery UI ­ dodatek z du iloci efektów wizualnych oraz rozwiza z poziomu interfejsu
+
+        uytkownika,
+
+    ·   Twitter Bootstrap JavaScript ­ w polczeniu z wspominanymi wczeniej kaskadowymi
+
+        arkuszami stylów dostarczaj jeszcze wicej przydatnych i efektownych komponentów.
+
+Dziki bibliotece jQuery mona w duo przystpniejszy sposób korzysta z techniki AJAX. Oferuje
+
+ona funkcje takie jak $.ajax() oraz wrapery dla poszczególnych typów requestów $.get() oraz $.post().
+
+Przykladowe     uycie   w    celu  uzyskania   zawartoci   adresu    URL   metod    HTTP     GET
+
+http://testowy.adres/zawartosc wyglda nastpujco:
+
+$(function() {
+     $.get('http://testowy.adres/zawartosc', function(response) {
+           // obsluga odpowiedzi, której zawarto znajduje si w zmiennej response
+     }
+});
+
+
+
+
+4.2 Strona mobilna
+
+        Ze wzgldu na to, e strona w wersji komputerowej zostala zaprojektowania na stalych gridach,
+
+koniecznym bylo zamienienie ich na gridy, które bd responsywne. W zwizku z tym wykorzystano
+
+przedstawion ju wczeniej bibliotek Twitter Bootstrap. Jest ona stworzona zgodnie z koncepcj
+
+,,mobile first". Rozwizanie to dostarcza grid dwunastokolumnowy, który przystosowuje si do
+
+urzdze o dowolnych rozmiarach ekranu. Zdefiniowane w niej 4 glówne podzialy z pomoc media
+
+queries:
+
+/* Bardzo male urzdzenia, z rozdzielczoci mniejsz ni 768px */
+/* Brak regul media query ­ mobile first */
+
+/* Male urzdzenia (tablety, 768px i wicej) */
+@media (min-width: @screen-sm-min) { ... }
+
+/* rednie urzdzenia (komputery stacjonarne, 992px i wicej) */
+@media (min-width: @screen-md-min) { ... }
+
+/* Due urzdzenia (due komputery stacjonarne, 1200px i wicej) */
+@media (min-width: @screen-lg-min) { ... }
+
+
+
+Warto przyjrze si jeszcze jakie maksymalne szerokoci osigaj kontenery przy uyciu odpowiednich
+
+
+                                                - 23 -
+
+klas oraz jak przedstawiaj si szerokoci odpowiednich kolumn w zalenoci od urzdzenia, na
+
+którym s wywietlane, a take jak zachowuj si elementy w przypadku braku miejsca do
+
+wywietlenia [21]:
+
+                    B. male urzdzenia     Male urzdzenia         rednie urzdzenia     Due urzdzenia
+                    (< 768px)              ( 768px)               ( 992px)              ( 1200px)
+
+Uloenie gridu      Horyzontalne caly czas Wertykalne do linii zalama, po zalamaniu horyznontalne
+
+Prefixy klas               .col-xs-              .col-sm-                 .col-md-                .col-lg-
+
+Szeroko kolumn        Automatyczna              ~62px                    ~81px                  ~97px
+
+Liczba kolumn                12                     12                        12                    12
+
+
+Oprócz tego w projekcie zostaly wykorzystane inne komponenty oraz rozwizania CSS'owe, które
+
+oferuje Twitter Bootstrap. Dodatkowo zostala równie uyta biblioteka jQuery Mobile, która pozwala
+
+na lepsz obslug strony na urzdzeniach mobilnych poprzez lepsz obslug tak zwanych ,,tapni"
+
+(uderze w ekran jednym palcem) oraz gestów.
+
+
+
+4.3 Usluga internetowa
+
+       Usluga internetowa zostala równie zaimplementowana przy uyciu jzyka PHP oraz
+
+frameworka CakePHP. Kod zostal umieszczony w Pluginie, wic w razie czego mona latwo
+
+wyeksportowa go do osobnej aplikacji i na przyklad umieci go na innym serwerze w celu
+
+odcienia serwera macierzystego (nadal jednak pozostaje problem jednej bazy danych, ale tu mona
+
+skorzysta z rónych rozwiza rozproszonych). W przypadku tej aplikacji wymogiem jest zwracanie
+
+wszystkich rezultatów w postaci obiektu JSON. Jest to format przenony pomidzy jzykami, bardziej
+
+czytelny ni XML. W jzyku PHP istniej dwie funkcje, pozwalajce pracowa na obiektach/tablicach
+
+JSON'owych. S ta json_encode oraz json_decode. Druga z nich jako jeden z parametrów moe
+
+przyj informacj o sposobie zwrócenia danych do jzyka PHP. Moe to by tablica bd obiekt. Z
+
+racji tego, e wikszo typów danych we frameworku CakePHP to tablice, znacznie wygodniej
+
+wybra t form zwracanych wartoci. Ponadto w systemie Android nie bdzie problemu z
+
+odczytaniem zawartoci takiej tablicy, poniewa posiada on specjalne klasy do obslugi JSONArray
+
+oraz JSONObject.
+
+
+
+
+                                                  - 24 -
+
+4.4 Aplikacja natywna na platform Android
+
+       Aplikacja natywna zostala napisana w jzyku JAVA. Dodatkowo niektóre charakterystyczne dla
+
+platformy Android zostaly stworzone za pomoc jzyka znaczników XML. W przypadku tego systemu
+
+mobilnego przed przystpieniem do programowania naley wybra docelow wersj systemu oraz
+
+powizan z tym wersj API [22]. Najbardziej aktualna wersja systemu to Android 4.4.4 KitKat, który
+
+obsluguje API w wersji 19. Istnieje równie nieoficjalna jeszcze wersja deweloperska, która zostala
+
+opublikowana 25 czerwca 2014 roku Android 5 o nazwie kodowej L i API 20 [23]. Niestety ze wzgldu
+
+na du wad calego systemu, którym jest fragmentacja ze wzgldu na róne wersje jako API uyte w
+
+projekcie wybralem wersj 16. Kada kolejna odslona API nie jest kompatybilna wstecz, w zwizku z
+
+tym decydujc si na programowanie na wersj o za wysokim numerze, uniemoliwiamy
+
+uytkownikom starszych dystrybucji na korzystanie z naszego rozwizania. Informacj o minimalnych
+
+i docelowych wersjach systemu naley umieci w pliku AndroidManifest.xml. Struktura takiego wpisu
+
+wyglda nastpujco:
+
+<uses-sdk android:minSdkVersion="16"
+            android:targetSdkVersion="17" />
+
+
+
+Plik ten musi zosta umieszczony w katalogu z projektem z dokladnie tak nazw, poniewa
+
+przechowuje istotne informacje dotyczce aplikacji [24]. Nale do nich:
+
+    ·  nawa pakietu JAVA jako unikalny identyfikator aplikacji, znany z samego jzyka JAVA (na
+
+       przyklad com.example.myapplication),
+
+    ·  przedstawia komponenty aplikacji, w sklad których wchodz aktywnoci (ang. activities),
+
+       dostawcy treci (ang. content providers) czy uslugi (ang. services),
+
+    ·  okrela, który proces bdzie obslugiwal komponenty aplikacji,
+
+    ·  okrela minimaln wersj SDK, która jest wymagana do dzialania aplikacji,
+
+    ·  listuje biblioteki, które musz by zalczone,
+
+    ·  przedstawia zezwolenia, jakich aplikacja potrzebuje do prawidlowego funkcjonowania; s one
+
+       wywietlane uytkownikowi podczas instalacji aplikacji, by ten byl wiadom, do jakich czci
+
+       jego urzdzenia ma dostp; wród nich mona wymieni takie, jak dostp do internetu, dostp
+
+       do czytania wiadomoci SMS oraz wysylania czy moliwo zapisu danych na urzdzeniu.
+
+       Kada aplikacja sklada si z komponentów, do których nale aktywnoci (ang. activities),
+
+
+
+                                                 - 25 -
+
+intencje (ang. intents), widoki (ang. views), uslugi (ang. services) oraz dostawcy treci (ang. service
+
+providers) [25]. Wszystkie elementy prezentowane uytkownikowi s zbudowane za pomoc widoków
+
+i grup widoków (ang. View/ViewGroup). Grupa to obiekt zrzeszajcy pojedyncze widoki. Przykladowo
+
+moe to by cz formularza, wywietlajca pole tekstowe oraz przycisk. Natomiast one same nie s
+
+w aden sposób widoczne. Wygld aplikacji buduje si za pomoc pliku XML, definiujc najpierw jaki
+
+typ layoutu zostanie uyty. Poniej zaprezentowano przykladow hierarchi widoków oraz grup
+
+widoków.
+
+
+
+
+                  Rys. 16: Hierarchia widoku w aplikacji Androidowej[26]
+
+
+       Kolejnym istotnym komponentem aplikacji jest aktywno. Odpowiada ona za wykonywanie
+
+zdefiniowanych akcji. Podobnie jak w przypadku kontrolerów i widoków we wzorcu MVC, kada
+
+aktywno posiada wlasny layout, który definiuje UI. Kada aplikacja posiada na ogól wiele activities
+
+oraz jedn, która jest glówn i to od niej rozpoczyna si dzialanie aplikacji. Z jednej aktywnoci,
+
+mona wywola nastpn. W chwili powolania nowej do ycia, stara zostaje zatrzymana, jednak
+
+system w dalszym cigu ma do niej dostp. Wszystkie aktywnoci s przechowywane na stosie, który
+
+jako struktura danych zostal zaprojektowany w postaci kolejki LIFO (Last In First Out). W zwizku z
+
+tym w momencie, gdy uytkownik zakoczy obecnie dzialajc aktywno, wciskajc przycisk wstecz,
+
+zostanie ona cignita ze stosu i zniszczona. Dlatego te przyjmuje si, e kada aktywno ma cykl
+
+ycia. Sklada si on z okrelonych metod, które to nazywa si callback'ami. Korzystajc z zaslonicia
+
+metody w klasie dziedziczcej po activity moemy sterowa w dowolnie wybrany przez siebie sposób
+
+tym cyklem i moemy wykonywa przez siebie okrelone czynnoci. Na pocztku istnienia aktywnoci
+
+zostaje wywolana metoda onCreate(). Nastpnie nastpuj onStart() oraz onResume(), w tej chwili
+
+
+                                                 - 26 -
+
+uytkownik zaczyna widzie aktywno. Dla zabezpieczenia obie te funkcje musz si wykona w
+
+czasie nie przekraczajcym kilkudziesiciu sekund. W przeciwnym przypadku cale dzialania zostan
+
+przerwane, a uytkownik otrzyma komunikat o zatrzymaniu aplikacji oraz otrzyma moliwo podjcia
+
+dalszych kroków ­ wymuszenia zamknicia, bd oczekiwania, a aplikacja wystartuje. W momencie
+
+gdy jest wywolywana nowa aktywno w obecnej zostaje wywolana metoda onPause(). W tym miejscu
+
+system moe zakoczy nasz aplikacj, gdy jaki proces z wyszym priorytetem bdzie potrzebowal
+
+pamici lub moe wywola metod onStop(), gdy aktywno nie jest dluej widoczna, czyli dziala w
+
+tle. Jeli uytkownik powróci do tej aktywnoci, klikajc na przyklad przycisk ,,wstecz", zostaje uyta
+
+metoda onResume(). W momencie zamykania przez system procesu naszej aplikacji jest wywolywany
+
+callback onDestroy(). Jednak jeli aplikacja dziala w tle i uytkownik powróci do niej, zostaje
+
+wywolana funkcja onRestart(), po której nastpuje znów onStart(), a nasza aktywno znów dziala na
+
+pierwszym planie i jest widoczna dla uytkownika.
+
+
+
+
+                                                - 27 -
+
+                  Rys. 17: Cykl ycia aktywnoci w systemie Android [27]
+
+
+      Nastpnym niezbdnym elementem aplikacji natywnej na platform Android jest intencja.
+
+Sluy ona do rozsylania wiadomoci z daniami pomidzy pozostalymi komponentami aplikacji. W
+
+zwizku z tym intencj mona uy do:
+
+   ·  uruchomienia aktywnoci w zalenoci od typu (aktywno zwracajca rezultat bd nie
+
+      zwracajca nic), intencja odpowiada za dostarczenie odpowiednich danych, których aktywno
+
+      wymaga,
+
+   ·  uruchomienia serwisu, czyli operacji wykonywanej w tle, w tym wypadku równie intencja
+
+      dostarcza potrzebne dane do serwisu,
+
+
+
+                                              - 28 -
+
+     ·  wyslania pakietu rozgloszeniowego pomidzy broadcast receiver'ami, czyli wiadomoci, któr
+
+        moe otrzyma kada aplikacja, ale to system decyduje, kto powinien otrzyma dane wezwanie.
+
+Rozrónia si dwa typy intentów jawne i niejawne. W pierwszym przypadku naley jasno okreli, kto
+
+jest odbiorc danego wezwania. Z reguly jest to uywane wewntrz jednej aplikacji. Natomiast drugi
+
+typ, niejawnych intencji, sluy do okrelenia zadania bez wskazywania ich wykonawcy. Wtedy system,
+
+na ogól, sam dobiera odpowiedniego odbiorce, który podejmie prac. Na przyklad, kiedy nasza
+
+aplikacja potrzebuj lokalizacji, nie musimy okrela z jakiej aplikacji ma korzysta by uzyska te
+
+dane, tylko pozwala na ten wybór uytkownikowi.
+
+       Uslugi to czci aplikacji, które pozwalaj na wykonywanie dlugotrwalych operacji, dzialajc w
+
+tle. Aplikacja, która utworzyla uslug, moe nawet zosta porzucona, ale i tak jej dzialania nie zostan
+
+przerwane. Ponadto komponent moe zosta przypisany do uslugi i komunikowa si z nim za pomoc
+
+komunikacji interprocesowej (IPC). Service moe przyj dwie formy:
+
+     ·  started ­ oznacza to, e usluga zostaje uruchomiona przez komponent aplikacji na przyklad
+
+        aktywno, wywolujc startService() i nawet gdy aktywno zostanie zniszczona usluga nadal
+
+        dziala w tle w nieskoczono, do momentu kiedy wykona okrelone zadanie,
+
+     ·  bound ­ oznacza to, e usluga zostala uruchomiona przez komponent przy uyciu metdoy
+
+        bindService(), oferuje interfejs klient-serwer i pozwala komunikowa si z komponentem przy
+
+        jego pomocy, usluga dziala tak dlugo, jak uruchomiony komponent.
+
+Uslugi mog by wykorzystywane nawet przez zewntrzne aplikacje. W razie gdy nie chcemy
+
+dopuci do takie sytuacji, moemy zdefiniowa w pliku manifest, e usluga jest prywatna.
+
+       Dostawcy treci zarzdzaj dostpem do rónych struktur danych systemu. Slu do
+
+enkapsulacji danych oraz dostarczaj mechanizmy zabezpieczajce te dane. Dziki nim jeden proces
+
+moe korzysta z danych innego procesu w zaufany sposób. System Android sam zawiera data
+
+provider'ów, którzy pozwalaj na dostp do muzyki, zdj, wideo czy kontaktów.
+
+
+
+4.5 Aplikacja hybrydowa na platform Android
+
+       Aplikacja hybrydowa zostala stworzona przy wykorzystaniu jzyka znaczników HTML 5 oraz
+
+CSS 3. Jako sposób implementacji zostala wybrana wersja po stronie serwera, która nastpnie jest
+
+umieszczona w aplikacji Androidowej w WebView. WebView to klasa dziedziczca po View, która
+
+
+
+                                                   - 29 -
+
+pozwala na umieszczanie w niej zawartoci internetowej. Z racji wymaganego dostpu do internetu
+
+koniecznie jest umieszczenie w pliku AndoridManifest.xml nastpujcej linijki:
+
+<uses-permission android:name="android.permission.INTERNET" />
+       Ponadto aplikacja hybrydowa korzysta z uslugi internetowej, przez co wymagane jest uycie
+
+JavaScriptu oraz biblioteki jQuery. Jest moliwe, dziki temu, e cz prezentacyjna bdzie
+
+umieszczona na serwerze, a nie w obrbie aplikacji.
+
+
+
+4.6 Uyte narzdzia
+
+       Do implementacji aplikacji internetowej, uslugi internetowej oraz strony mobilne zostal
+
+wykorzystane rodowisko programistyczne NetBeans IDE w wersji 7.4 wzbogacone o dodatki,
+
+pozwalajce w przystpniejszy sposób pisanie w jzyku PHP. Projekty byly uruchamiane oraz
+
+testowane na komputerze wyposaonym w system Arch Linux z jdrem w wersji 3.14.3-1-ARCH. Do
+
+uruchomienia stron konieczny bylo zainstalowanie oraz skonfigurowanie serwera Apache w wersji
+
+2.4.9. Konfiguracja polegala na wlczeniu odpowiednich modulów, które pozwalaj na przepisywanie
+
+adresów URL (mod_rewrite) oraz modul wirtualnych hostów. Ponadto nalealo stworzy wirtualny
+
+host, który wskazywal na katalog webroot w projekcie. Ostatnim krokiem bylo dodanie stworzonego
+
+hosta do pliku /etc/hosts, tak by system mógl odpowiednio interpretowa stworzon lokalnie do mene i
+
+mapowa j na lokalny adres IP.
+
+       Strona mobilna byla testowana zarówno na urzdzeniach mobilnych, jak i na przegldarkach
+
+desktopowych, które emulowaly zachowania przenonych gadetów. Do testowania sluyla glównie
+
+przegldarka Chromium (w najnowszej wersji, aktualizacje automatyczne), po uruchomieniu narzdzi
+
+deweloperskich i wciniciu klawisza escape, co powodowalo moliwo konfiguracji emulowanego
+
+urzdzenia.
+
+
+
+
+                                                - 30 -
+
+           Rys. 18: Narzdzie do emulowania przegldarki mobilnej w Chromium
+
+
+        Oba programy mobilne zostaly napisane przy uyciu innego rodowiska programistycznego,
+
+jakim jest Eclipse. W tym wypadku uyta zostala wersja Kepler. Oprócz samego programu konieczna
+
+byla równie instalacja Android SDK (Software Development Kit). Do testowania tworzonych
+
+aplikacji, mona korzysta z emulatora systemu AVD (Android Virtual Device). Praca z nim jest do
+
+uciliwa ze wzgldu na due problemy ze stabilnoci i czasem, jaki jest potrzebny na jego
+
+uruchomienie oraz due zapotrzebowanie na moc obliczeniow. Niedogodnoci te wynikaj z
+
+przymusu emulowania procesora ARM oraz listy jego instrukcji. Ponadto kadorazowe testowanie
+
+aplikacji lokalnie wie si z koniecznoci edycji pliku /system/etc/hosts na urzdzeniu i
+
+wprowadzaniu adresu 10.0.2.2 oraz nazwy wirtualnego hosta. W przypadku ciglych niewielkich
+
+poprawek moe spowodowa ogromne starty czasu. Znacznie lepszym rozwizaniem jest testowanie na
+
+urzdzeniu, w tym wypadku telefonie Samsun Galaxy Nexus z Androidem w wersji 4.4.2 (KitKat). W
+
+tym wypadku równie naley edytowa plik /etc/hosts oraz wprowadzi adres IP komputera z lokalnej
+
+sieci, na którym jest uruchomiony serwer. Jednak aby tego dokona, naley posiada na telefonie
+
+prawa roota, które domylnie nie s dostpne. Moliwe jest to dopiero, po odpowiednich
+
+modyfikacjach urzdzenia, do których naley midzy innymi odblokowanie bootloadera i zaladowanie
+
+odpowiednich programów wykonywalnych (busybox). Wówczas zyskujemy dostp do komendy su.
+
+Istnieje równie sposób edycji tego pliku na komputerze, do którego podlczone jest urzdzenie przy
+
+uyciu narzdzia dostarczonego przez SDK, które nazywa si ADB (Android Debug Bridge) [28]. W
+
+tym wypadku równie koniecznym bdzie posiadanie odblokowanego bootloadera. ADB jest dostpne
+
+z poziomu konsoli komputera (Linux ­ terminal, Windows ­ interpreter komend cmd). Aby dokona
+
+
+
+                                               - 31 -
+
+edycji pliku hosts naley wykona nastpujce komendy:
+
+$ ./adb pull /system/etc/hosts /katalog/docelowy           // skopiowanie pliku z urzdzenia na
+                                                           dysk lokalny
+$ nano /katalog/docelowy/hosts                             // edycja pliku
+$ ./adb remount                                            // zamontowanie katalogu /system w
+                                                           trybie rw (odczyt i zapis)
+$ ./adb push /katalog/docelowy/hosts                       // skopiowanie edytowanego pliku z
+/system/etc/hosts                                          dysku lokalnego do urzdzenia
+
+
+
+
+5. Realizacja
+       Prace nad projektem rozpoczlem od skopiowania szkieletu aplikacji we frameworku CakePHP
+
+z dostarczonych przez autorów ródel. Nastpnie skonfigurowalem wirtualny host na lokalnym
+
+serwerze Apache. Po prawidlowym zaladowaniu strony powitalnej pustego projektu przeszedlem do
+
+jego konfiguracji, która wymagala ustawienia polczenia z baz danych (w tym celu stworzylem
+
+uytkownika MariaDB wraz z pust baz danych) oraz ustawienia soli do hashowania. Ostatni rzecz
+
+wymagan przez aplikacj do poprawnego dzialania bylo ustawienie praw dostpu do katalogu tmp w
+
+projekcie, by mona by aplikacja miala do niego prawa zapisu.
+
+       Tworzenie aplikacji internetowej rozpoczlem od zaprojektowania bazy danych. Jej struktura
+
+przedstawia si nastpujco:
+
+
+
+
+                                                - 32 -
+
+         Rys. 19: Schemat bazy danych uyty w projekcie
+
+
+        Po utworzeniu tabel kolejnym krokiem bylo wygenerowanie pliku schema.php, który jest
+
+przechowywany w projekcie, jest on przydatny przy wszelkich migracjach oraz aktualizowaniu
+
+struktury bazy danych. W tym celu uyto polecenia cake schema generate. Plik wyjciowy zostal
+
+zapisany w katalogu Config/Schema/schema.php.
+
+        Wszystkie aplikacje lcz si z baz w inny sposób. Aplikacja internetowa, strona mobilna
+
+wykorzystuj bezporednie polczenie. Natomiast w przypadku aplikacji natywnej oraz hybrydowej
+
+jest to realizowane za pomoc uslugi internetowej. Poniszy schemat obrazuje te zalenoci.
+
+
+
+
+                                               - 33 -
+
+ Aplikacja                                           Usluga
+internetowa                                       internetowa
+
+                         Baza danych
+                            MySQL
+
+
+         Strona
+         mobilna                         Aplikacja            Aplikacja
+                                        hybrydowa              natywna
+
+
+Rys. 20: Schemat polcze poszczególnych aplikacji z baz danych
+
+
+
+
+                                 - 34 -
+
+5.1 Aplikacja internetowa
+
+
+
+
+Rys. 21: Wygld strony glównej aplikacji internetowej
+
+
+       Layout strony zostal zgodnie z zaloeniami zakodowany przy uyciu jzyka HTML 5. Tagi,
+
+które zostaly wykorzystanie w glównej mierze, to <header> dla naglówka, <nav> dla paska
+
+nawigacyjnego ­ menu, <section> dla zawartoci strony oraz <footer> dla stopki. Dodatkowo wpisy
+
+znajduj si pomidzy znacznikami <article>. Wszystkie elementy na stronie zostaly uloone z
+
+pomoc biblioteki Grid 960. Rozloenie zawartoci strony zostalo oparte na 2 kolumnach w kontenerze
+
+container_100 (1000px szerokoci), z której lewa korzysta z grid_70, a prawa z grid_28 z odstpem
+
+prefix_2.
+
+       Naglówek strony sklada si z loga, które jest jednoczenie hiperlczem do strony glównej,
+
+menu glównego oraz linków nawigacyjnych gocia/uytkownika. Menu zloone jest z odnonika do
+
+
+                                                - 35 -
+
+strony glównej oraz linków do podstron statycznych. Pobierane s one z rekordów tabeli pages. Dla
+
+lepszej wydajnoci, zapytanie, które jest wykonywane w tym celu, jest cache'owane na godzin. Dziki
+
+temu nie jest konieczne wykonywanie go przy kadorazowym odwieeniu strony. Mona bylo
+
+zastosowa t technik ze wzgldu na fakt, i strony statyczne bardzo rzadko si zmieniaj. Linki dla
+
+uytkowników serwisu róni si w zalenoci od tego czy mamy do czynienia z uytkownikiem
+
+zalogowanym     czy    gociem.   Dodatkowo      jeli jest  zalogowany     uytkownik  z   prawami
+
+administracyjnymi, ma on wywietlony link z moliwoci przejcia do panelu administracyjnego.
+
+
+Rys. 22: Panel widziany przez gocia                Rys. 23: Panel widziany po zalogowaniu
+Strona glówna zawiera list postów posortowanych od najnowszego do najstarszego, które s
+
+dodatkowo paginowane co 5. Pozwala to na lejsze zapytanie, które w przypadku duej liczby wpisów,
+
+nie bdzie zmuszalo bazy danych do zwrócenia wszystkich rekordów. Prawy panel, zwany równie
+
+sidebarem, zawiera elementy z tabeli boxes. Kady pojedynczy box, moe przechowywa dowolne
+
+treci, ze wzgldu ma fakt, i ich zawarto jest przechowywana w bazie danych w polu typu text. W
+
+layoucie znajduje si jeszcze jeden wany element, który sluy do wywietlania powiadomie flash dla
+
+uytkowników. Umieszczono go tu pod naglówkiem. Jest on widoczny w momencie, gdy taka
+
+informacja jest zwrócona przez aplikacj. Nastpuje to na przyklad po udanym, bd nieudanym
+
+logowaniu. Istniej cztery typy powiadomie: informacja (kolor niebieski), ostrzeenie (kolor ólty),
+
+bld (kolor czerwony) oraz powodzenie (kolor zielony).
+
+        Osoby odwiedzajce serwis dziel si na trzy grupy: gocie, uytkownicy oraz administratorzy.
+
+Zalenoci pomidzy grupami oraz poziom dostpu najlepiej charakteryzuje poniszy diagram
+
+przypadków uycia:
+
+
+
+
+                                                 - 36 -
+
+        Rys. 24: Diagram przypadków uycia dla aplikacji internetowej
+
+
+        W aplikacji role zostaly zdefiniowane w pliku konfiguracyjnym i s przechowywane w postaci
+
+tablicy asocjacyjnej. Jest struktura przechowuje jako klucze nazwy kontrolerów. Natomiast
+
+wartociami s kolejne tablice asocjacyjne, w których przypadku kluczami s nazwy akcji z danego
+
+kontrolera, a wartociami poziom dostpu. Konfiguracja ta jest uywana przez komponent
+
+autoryzacyjny, którego metody s wywolywane jako pierwsze w momencie przejcia do danej akcji.
+
+Sprawdzane jest czy dany uytkownik moe mie dostp do danej czci strony. Przynaleno do
+
+grupy jest okrelana na podstawie tego czy dany uytkownik jest zalogowany oraz w przypadku gdy
+
+jest, czy posiada pole w swoim rekordzie is_admin ustawione na warto 1.
+
+        Go jest podstawowym uytkownikiem aplikacji. Zgodnie z zaloeniami, jest to osoba, która
+
+weszla na stron i nie dokonala autentykacji. Ma ona dostp do widoku strony glównej, podstron
+
+statycznych oraz widoku pojedynczego wpisu. Ponadto moe skorzysta z wyszukiwarki, a take
+
+dokona rejestracji lub logowania. Formularz rejestracyjny sklada si z czterech pól, z których kade
+
+jest walidowane wedlug odpowiednich kryteriów:
+
+    ·   nazwa uytkownika ­ dlugo pomidzy 3 a 128 znakami; tylko znaki alfanumeryczne;
+
+        unikatowa, nieistniejca w bazie danych,
+
+    ·   e-mail ­ unikatowy, nieistniejcy w bazie danych; pomidzy 8 a 255 znakami; bdcy
+
+        poprawnym adresem mailowym,
+
+
+                                                - 37 -
+
+   ·   haslo ­ skladajce si przynajmniej z 6 znaków,
+
+   ·   powtórzenie hasla ­ bdce dokladnie tym samym cigiem znaków, co haslo.
+
+Po wypelnieniu pola formularza i przejciu do nastpnego do serwera zostaje wyslane danie
+
+XMLHttpRequest metod post, które oczekuje sprawdzenia poprawnoci danych. Do requestów
+
+AJAX'owych zostala wykorzystana biblioteka jQuery. Odpowied z serwera zwracana jest w postaci
+
+obiektu JSON, które jest nastpnie parsowany i odpowiednio interpretowany przez skrypt JavaScirpt.
+
+Na podstawie zwróconego w odpowiedzi statusu, pole zostaje podwietlone na kolor czerwony w
+
+przypadku nieudanej walidacji lub zielony, gdy wprowadzone dane s poprawne. Ponadto w przypadku
+
+bldu zostaje wywietlona informacja o popelnionym bldzie tu pod miejscem, gdzie on wystpuje.
+
+
+
+
+                                                   {"valid":false,"error":{"email":["This email
+{"valid":true,"error":[]}                          address is not correct"]}}
+
+
+Po wypelnieniu formularza i przyciniciu przycisku ,,wylij", formularz zostaje przeslany do serwera,
+
+gdzie jeszcze raz podlega sprawdzeniu w przypadku, gdyby uytkownik przeslal formularz samemu
+
+wykonujc danie HTTP POST wraz z danymi. Jeli dane s poprawne, nastpuje zapis do bazy. Do
+
+uytkownika zostaje wyslana wiadomo na wskazany w formularzu adres e-mail z linkiem
+
+aktywacyjnym. Link aktywacyjny zawiera w sobie id uytkownika oraz hash, który jest wygenerowany
+
+za pomoc funkcji md5() z adresu e-mail oraz UNIX timestampa w momencie wysylki formularza. Po
+
+klikniciu w hiperlcze, w akcji aktywacyjnej zostaje wybrany rekord uytkownika z podanym ID, a
+
+nastpnie zostaj porównane hashe aktywacyjne. W przypadku gdy si zgadzaj uytkownik zostaje
+
+przekierowany na stron formularza logowania wraz z komunikatem o powodzeniu, a w przeciwnym
+
+przypadku zostaje przeniesiony na stron glówn z komunikatem o bldzie.
+
+       Formularz logowania jest dostpny w dwóch wersjach: jako element na kadej podstronie,
+
+domylnie ukryty lub jako osobna akcja z widokiem. Niezalenie od wersji sklada si on z pola na
+
+adres e-mail, z pola na haslo oraz checkboxa ,,zapamitaj mnie". Korzystajc z rozwizania pierwszego
+
+w przypadku bldnej próby logowania, uytkownik zostaje przekierowany do wersji drugiej wraz ze
+
+stosownym komunikatem o bldzie. Po udanym logowaniu, uytkownik zostaje przeniesiony do
+
+miejsca, gdzie wypelnial formularz (jako element), bd na stron glówn (jako widok). Dane o
+
+
+
+                                                - 38 -
+
+zalogowanym uytkowniku przechowywane s w sesji, w zwizku z tym przemieszczajc si po
+
+podstronach uytkownik nie musi za kadym razem si logowa. Jednak po wylczeniu przegldarki,
+
+bd zdefiniowanym w ustawieniach serwera czasie sesja wygasa. W zwizku z tym uytkownik moe
+
+wybra opcj ,,zapamitania". Wówczas zostaje utworzone specjalne ciasteczko (ang. cookie), które
+
+przechowuje dane uytkownika w postaci adresu e-mail oraz zahashowanego hasla z wanoci
+
+miesica od dodania. Dla zapewnienia maksymalnego bezpieczestwa ciasteczko jest równie
+
+enkryptowane, w zwizku z czym moe ono zosta odczytane jedynie przez aplikacj. Po wybraniu
+
+opcji zapamitaj, przy kadorazowej, póniejszej wizycie jest sprawdzane czy to ciasteczko jest
+
+ustawione. Jeli tak, uytkownik jest automatycznie zalogowany.
+
+        Klikajc na stronie glównej w tytul wpisu, link ,,czytaj wicej", bd liczb komentarzy,
+
+zostajemy przeniesieni do widoku pojedynczego wpisu. Link sklada si z tak zwanego slug'a, znanego
+
+równie jako seokey czy URL name. Zabieg ten ma na celu lepsz optymalizacj witryn pod ktem
+
+SEO, a take bardziej przyjazne hiperlcza, poniewa zawieraj one bezporednio tytul posta lub jego
+
+cz. Slug jest generowany przy pomocy SluggableBehavior, którego dzialanie zostalo opisane w
+
+poprzednim rozdziale. Sklada si z jego tytulu, daty dodania, treci, nazwy autora oraz listy
+
+komentarzy. Jeli dodatkowo odwiedzajcy serwis jest zalogowanym uytkownikiem, ma on dostp do
+
+formularza dodawania komentarzy. Podobnie jak w przypadku strony glównej i listy postów,
+
+komentarze nie s wczytywane jednoczenie, tylko paginowane. Jednak w tym wypadku, jest to
+
+doczytywanie dynamiczne za pomoc da AJAXowych. Uytkownik moe wywola doczytanie,
+
+klikajc przycisk na kocu listy. Po wykonaniu tej akcji, do serwera zostaje wyslany request metod
+
+HTTP GET, który dodatkowo przekazuje dwa parametry: ID postu oraz przesunicie, od którego maj
+
+zosta doczytane kolejne komentarze. Odpowied zostaje zwrócona w postaci kodu HTML, który
+
+nastpnie jest doklejany do bloku przechowujcego komentarze. Jeli zostan wczytane wszystkie
+
+komentarze, przycisk zostaje dezaktywowany tak, by nie mona wicej bylo w niego klikn. Ponadto
+
+lista komentarzy jest odwieana automatycznie, dziki czemu uytkownicy mog prowadzi dyskusj
+
+na temat wpisu. Co 5 sekund do serwera zostaje wysylane danie, które sprawdza czy nie pojawily si
+
+nowe komentarze. W tym wypadku oprócz ID posta i liczby ju doczytanych komentarzy, zostaje
+
+przeslana w formacie UNIX timestamp ostatni czas odwieania. W akcji obslugujcej ten request data
+
+ta jest przekonwertowana na format daty MySQL (RRRR-MM-DD gg:mm:ss) i wyslany w zapytaniu o
+
+komentarze utworzone po tym czasie. Warto doda, e zwracany fragment listy jest zawsze
+
+
+                                                - 39 -
+
+wielokrotnoci 10 (liczby naraz wywietlanych komentarzy), dlatego jeli uytkownik doczytal ju
+
+jakie posty, to zawsze bdzie mial odwiean cal list, a nie skracan do 10, poniewa mogloby to
+
+uniemoliwi dotarcie na sam jej koniec.
+
+       Dodawanie komentarzy równie zostalo zaimplementowane w sposób dynamiczny przy
+
+pomocy technologii AJAX. Analogicznie, jak w przypadku formularza rejestracji czy logowania, pole
+
+do komentarzy podlega sprawdzeniu poprawnoci wprowadzonych danych. W tym wypadku
+
+sprawdzane jest czy komentarz nie jest pusty, zawiera minimum 16 znaków oraz nie przekracza 1000.
+
+Po pomylnej walidacji, tre komentarza jest jeszcze poddawana oczyszczeniu przez specjalny
+
+komponent [29], który zabezpiecza wprowadzane dane, poniewa mog by one interpretowane przez
+
+SQL. Dodatkowo kod HTML jest escape'owany, by unikn sytuacji, w której jaki uytkownik bdzie
+
+próbowal nadpisa istniejce style czy zepsuje uklad strony. Ilo komentarzy przy dany pocie jest
+
+przechowywana w tak zwanym cache field'zie, czyli polu, którego warto jest inkrementowana, bd
+
+dekrementowana podczas odpowiednio dodawania lub usuwania komentarza. Dziki temu mona
+
+szybko wybra informacj o iloci komentarzy przy pocie, bez koniecznoci wykonywania zloonych
+
+zapyta do bazy danych.
+
+       Profil zalogowanego uytkownika przedstawia informacje przechowywane w tabeli users.
+
+Nale do nich ple, data urodzenia oraz awatar uytkownika. Pocztkowo te dane zawieraj puste lub
+
+domylne wartoci. Jednake uytkownik moe dokona ich edycji. Formularz edycji danych jest
+
+walidowany pod ktem poprawnoci daty urodzenia oraz przesylanego pliku, który musi by grafik w
+
+formacie gif, jpg lub png, nie przekraczajc 100kB. Z racji tego, e w aplikacji uywane s pliki o
+
+wymiarach 100x100 px, przeslana grafika zostaje odpowiednio przeskalowana tak, by spelnia te
+
+warunki. Profile innych uytkowników mog by wywietlane przez kadego. Dostp do nich mona
+
+uzyska, klikajc na przyklad w nazw autora komentarza. Dostp do profilu uytkownika, tak samo
+
+jak w przypadku postów jest zrealizowany za pomoc slug'a.
+
+       Strony statyczne to najprostsza w realizacji struktura. Ze wzgldu na moliwo tworzenia ich
+
+jedynie przez administratora, nie potrzebujemy specjalnych regul walidacyjnych. Dostp do stron
+
+odbywa si po wskazaniu odpowiadajcemu danej podstronie slugowi. cieki w aplikacji zostaly
+
+zaprojektowane w taki sposób, by strony statyczne byly dostpne bezporednio po /, czyli roocie.
+
+Dziki temu link prowadzcy do nich jest bardziej elegancki.
+
+       Wyszukiwanie postów jest wykonane przy uyciu opcji full text search, dostpnej w MariaDB
+
+
+                                                - 40 -
+
+na silniku bazodanowym MyISAM, poniewa wspiera on wyszukiwanie pelnotekstowe. W zwizku z
+
+tym w tabeli serches. Przechowywane s cale posty, nazwa modelu oraz ID ich odpowiedników w
+
+tabeli posts. Oczywicie nic nie stoi na przeszkodzie, by podpi tam te inne modele, które moglyby
+
+by wyszukiwane. Przeslana przez uytkownika fraza podlega filtrowania, w celu usunicia
+
+niepodanych struktur, które mog owocowa atakiem SQL Injection. Po wykonaniu tych dziala
+
+szukany tekst trafia do zapytania. Wyniki s prezentowane w formie tytulu wpisu oraz fragmencie jego
+
+tekstu.
+
+       Stale tekstowe wystpujce w aplikacji s drukowane przez funkcj __(), która sluy do
+
+internacjonalizacji. W zwizku z tym aplikacja moe zosta przetlumaczona na dowolny jzyk.
+
+Domylnym jzykiem jest jzyk angielski. Gdyby zaistniala potrzeba przetlumaczenia na przyklad na
+
+jzyk polski, naley przy uyciu shella i18n wygenerowa pliku szablonowego default.pot, z którego
+
+nastpnie mona stworzy plik default.po. Mona tego dokona korzystajc z aplikacji Poedit.
+
+Tlumaczenie formularzu logowania prezentuje si nastpujco:
+
+
+
+
+                     Rys. 25: Edytowanie stalych tekstowych w programie Poedit
+
+
+Kompletny plik z tlumaczeniami zostal umieszczony w katalogu Locale/pol/LC_MESSAGES/ w
+
+plikach aplikacji. Aby tlumaczenia dzialaly nalealo doda do pliku Config/core.php, konfiguracj
+
+wskazujc na wersj jzykow, w tym przypadku pol. W przypadku, gdyby wskazany plik nie istnial,
+
+aplikacja nadal zostalaby z domylnymi stalymi tekstowymi.
+
+
+
+
+                                                - 41 -
+
+Rys. 26: Formularz logowania przed          Rys. 27: Formularz logowania po tlumaczeniu
+tlumaczeniem
+
+
+
+
+Panel administracyjny
+
+
+
+
+Rys. 28: Widok panelu administracyjnego
+
+
+
+
+                                         - 42 -
+
+       Panel administracyjny pozwala uytkownikowi z odpowiednimi uprawnieniami do zarzdzania
+
+treci w obrbie portalu. Podlegaj temu posty, uytkownicy, komentarze, widety oraz strony
+
+statyczne. Panel administracyjny sklada si z menu bocznego, które zezwala na szybkie akcje, jak na
+
+przyklad dodanie nowego posta. Wiksz cz panelu zajmuje zawarto konkretnych akcji.
+
+       Pierwszy modul sluy do obslugi postów. Wybranie pozycji Posts z menu wywietla list
+
+utworzonych postów. Aby stworzy nowy wpis, naley wybra odpowiedni podpozycj w menu.
+
+Formularz dodawania nowego posta jest po przeslaniu walidowany. Sprawdzane jest czy dlugo tytulu
+
+mieci si pomidzy 3 a 128 znakami oraz czy zostala przeslana jaka tre. Jeli dane s poprawne,
+
+nastpuje zapis do bazy. Tu przed wykonaniem tej operacji jest automatycznie tworzony slug na
+
+podstawie tytulu wpisu. Dodany post jest domylnie niewidoczny na stronie, wic by to zmieni,
+
+naley ustawi jego status na 1, przez kliknicie w     , tu obok konkretnego wpisu na licie postów.
+
+Jeli chcemy by dany wpis byl znów niepubliczny, naley ponownie klikn w ikon, która prezentuje
+
+si w nastpujcy sposób:       . Dwie pozostale opcje         oraz     slu odpowiednio do edycji i
+
+usuwania danego posta. Ikony te zostaly równie wykorzystane w pozostalych sekcjach panelu
+
+administratora. List postów mona posortowa po nastpujcych polach: id, autor, tytul, liczba
+
+komentarzy, utworzony, zmodyfikowany.
+
+       Zarzdzanie uytkownikami sprowadza si do trzech moliwoci. Administrator moe
+
+zablokowa uytkownika, mianowa go administratorem oraz usun. Pierwsze dwie opcje dzialaj
+
+analogicznie do publikowania postów. Zmieniaj si jedynie pola w tabeli users, których stan jest
+
+przelczany pomidzy 0 a 1. Usuwanie jest oparte o behavior SoftDeletable, który w polu deleted w
+
+tabeli users ustawia obecn dat. Dziki temu uytkownik nie zostaje zupelnie usunity z tabeli, ale nie
+
+ma moliwoci wczytania jego rekordu z poziomu aplikacji. Natomiast jego komentarze pozostaj w
+
+serwisie, z t rónic, e w polu autor wywietlany jest tekst ,,usunity". Ponadto zostalo wprowadzone
+
+zabezpieczenie uniemoliwiajce zablokowanie bd usunicie wszystkich administratorów. Jeli dany
+
+uytkownik jest jedynym z administratorów nie ma moliwoci zablokowania go, pozbawienia
+
+przywileju czy usunicia.
+
+       Nastpnym modulem do kontrolowania s komentarze. Administrator moe je edytowa,
+
+usuwa, a take blokowa/odblokowywa. Ostatnia opcja zostala zrealizowana na tej samej zasadzie,
+
+co w poprzednich przypadkach, zostaje zmieniony ich status.
+
+       Dwa ostatnie elementy, którymi moe zarzdza administrator s strony statyczne oraz ramki w
+
+
+                                                 - 43 -
+
+panelu bocznym. Proces zarzdzania nimi wyglda analogicznie, jak w przypadku postów. Jednake w
+
+tym przypadku istnieje równie moliwo uloenia ich w kolejno, w jakiej maj si wywietla na
+
+stronie. Dla lepszego komfortu wykonywania tego zadania zostal uyty komponent jQuery UI sortable
+
+[30]. Dziki niemu sortowanie odbywa si poprzez przeciganie elementów i ukladanie ich jednego
+
+nad drugim. Oba moduly nale do tych, które zmieniaj si najrzadziej na stronie, w zwizku z tym
+
+uyto cache'owania wyników zapyta, które pobieraj je z bazy. Dziki temu aplikacja zyskuje na
+
+wydajnoci. Niestety niesie to te ze sob problem szybkiej aktualizacji po zmianie. W aplikacji zostal
+
+zastosowany cache plikowy, wic obiekty s przechowywane w plikach w katalogu /tmp/cache, który
+
+ma rozbudowan struktur z podzialem midzy innymi na modele. Aby usun te pliki, naley
+
+rekursywnie przebrn przez struktur tego katalogu i kolejno je usuwa.
+
+
+
+
+Rys. 29: Widok zarzdzania stronami statycznymi
+
+
+
+
+5.4 Strona mobilna
+
+
+
+
+                                                                 Rys. 31: Zachowanie strony
+Rys. 30: Zachowanie strony mobilnej na urzdzeniu o wikszej     mobilnej na urzdzeniu o malej
+rozdzielczoci                                                   rozdzielczoci
+
+
+                                                 - 44 -
+
+       Strona mobilna zostala wykonana w obrbie glównej aplikacji. Tak, by nie trzeba bylo
+
+kopiowa calej aplikacji czy powiela kontrolerów oraz modeli. Konieczna byla jednak zmiana
+
+struktury projektu. Katalog View zostal przeniesiony do nowo utworzonego katalogu Templates.
+
+Utworzono w nim równie nowy katalog o nazwie MobileView. Teraz, w zalenoci od potrzeb,
+
+wystarczy utworzy link symboliczny do jednego z przygotowanych folderów z widokami za pomoc
+
+komendy (naley znajdowa si w katalogu aplikacji i upewni si, e dowizanie ju nie istnieje):
+
+$ ln -s Templates/nazwa_katalogu_z_widokami View
+
+
+
+       Elementy nawigacyjne zostaly umieszczone na samej górze. Ulatwia to tym samym ich
+
+ukrywanie podczas skalowania. Reszta obiektów zostala rozmieszczona tak samo, jak w przypadku
+
+aplikacji internetowej. Oznacza to, e serce strony jest zloone z dwóch kolumn o szerokociach, na
+
+podstawie gridów dwunastokolumnowych, odpowiednio 9 i 2 oraz odstpie pomidzy nimi szerokoci
+
+1 jednostki. W ten sposób strona dopasowuje si w pelni do rozdzielczoci oferowanej przez
+
+urzdzenie. Ze wzgldu na wykorzystanie biblioteki Twitter Bootstrap przy tworzeniu layoutu do
+
+aplikacji glównej, cz pracy, jeli chodzi o stylowanie zostala ju zrealizowana. Odpowiednie
+
+ustawienie gridów prowadzi do zadowalajcego efektu. Z racji uproszczenia interfejsu dla uytkownika
+
+wersji mobilnej, koniecznym bylo zrezygnowanie z formularza logowania w kadym miejscu na
+
+portalu. W menu glównym pozostal jednak odnonik do podstrony z formularzem. Dolczenie
+
+biblioteki JavaScript jQuery Mobile pozwolilo na znacznie lepsz obslug klikni w poszczególne
+
+elementy na stronie. Dodatkowo niezwykle istotnym okazalo si umieszczenie w naglówku strony
+
+tagu:
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+Dziki niej przegldarka wie, e powinna dopasowa stron do wymiarów urzdzenia, a nie jego
+
+rozdzielczoci.
+
+       Ze wzgldu na fakt, i zmienila si jedynie struktura widoków, a nie logika aplikacji, sposób
+
+tlumacze stalych tekstowych pozostal identyczny, jak w przypadku aplikacji macierzystej.
+
+
+
+
+                                                - 45 -
+
+5.3 Usluga internetowa
+
+       Kolejnym krokiem w realizacji projektu bylo zaimplementowanie uslugi internetowej. Jej
+
+zadanie sprowadza si do obslugi zapyta przychodzcych z aplikacji mobilnych. Wszystkie zwracane
+
+dane s w formacie JSON. W zwizku z tym odpowiedzi HTTP maj w naglówku ustawione pole
+
+Content-Type: application/json, które okrela typ MIME tego formatu danych.
+
+       Usluga internetowa zostala zaprojektowa jako Plugin do aplikacji glównej, w zwizku z tym nie
+
+trzeba bylo od pocztku konfigurowa nowego projektu. Metody, które zwracaj dane s dostpne pod
+
+adresem       http://adres.naszej.strony/service/nazwa_metody/parametr_1/parametr_2/.../parametr_n.
+
+Przyklad odpowiedzi z serwera po nieudanej próbie logowania wyglda nastpujco:
+
+{"status":0,"message":"Username or password is incorrect"}
+
+
+
+       Akcje, które zostaly zbudowane w glównej aplikacji z pomoc technologii AJAX zostaly
+
+ponownie uyte, bez koniecznoci pisania ich na nowo.
+
+
+
+
+                                                 - 46 -
+
+5.4 Aplikacja natywna na platform Android
+
+
+
+
+                                                        Rys. 33: Widok menu w aplikacji
+       Rys. 32: Widok listy postów w                    natywnej
+       aplikacji natywnej
+
+
+
+
+       Aplikacja natywna zgodnie z zaloeniami zostala zaprojektowana tak, by wykorzysta wszelkie
+
+dostpne elementy API systemu Android. W wypadku tego rozwizania nie zostal zastosowany
+
+dotychczasowy podzial strony na dwie kolumny. Obecnie glówna aktywno aplikacji wczytuje list
+
+ostatnich postów. Naglówek zostal rozdzielony i umieszczony w rónych miejscach. Strony glówna
+
+oraz strony statyczny s serwowane przy uyciu zakladek. Pomidzy zakladkami mone swobodnie
+
+slide'owa. Linki do zarzdzania kontem i stanem uytkownika, opcja wyszukiwania zostaly
+
+przeniesione do menu opcji (trzy kropki). Formularz wyszukiwania zostal przeniesiony do osobnej
+
+aktywnoci. Tak samo w przypadku formularza logowania czy moliwo rejestracji, to osobne
+
+
+                                             - 47 -
+
+activities. W przypadku gdy uytkownik jest zalogowany, menu zostaje zaktualizowane i wywietla mu
+
+si opcja edycji profilu oraz wylogowania, zamiast rejestracji i logowania. Stalym elementem tego
+
+menu s pozycje wyszukiwania i opcja wyjcia z aplikacji.
+
+        Lista postów, która znajduje si w glównej aktywnoci programu, podobnie, jak w przypadku
+
+strony WWW, wywietla piciu najnowszych postów. Na kocu listy znajduje si przycisk, który sluy
+
+do doladowania kolejnych wpisów. Kliknicie w dany post, prowadzi do jego szczególów.
+
+        Widok pojedynczego posta zostal odwzorowany podobnie jak w przypadku wersji macierzystej.
+
+Zostal on podzielony na dwie czci. Na górze znajduje si tre wraz z wszystkimi szczególami,
+
+dotyczcymi danego wpisu, a poniej komentarze wraz z moliwoci ich komentowania.
+
+        Wszelkie dzialania w aplikacji s obslugiwane w podobny sposób, co w przypadku da
+
+AJAX'owych w projekcie glównym. Komunikacja z uslug internetow w przypadku pobierania
+
+danych przebiega nastpujco:
+
+    1. Tworzony jest obiekt klasy HttpClient.
+
+    2. Nastpnie powolywany do ycia jest obiektu klasy HttpGet, który jako parametr w
+
+        konstruktorze przyjmuje adres URL, do którego klient bdzie wysylal danie metod GET.
+
+    3. Wykonanie zapytania do serwera, które zostaje zwrócone jako obiekt HttpResponse.
+
+    4. Pobranie odpowiedzi przy pomocy klasy HttpEntity.
+
+Pobrana w ten sposób zawarto musi zosta odpowiednio przeksztalcona na obiekt w aplikacji.
+
+Zgodnie z zaloeniami dzialania uslugi internetowej, zwracane dane maj format JSON. W zwizku z
+
+tym w celu odczytania ich zawartoci naley skorzysta z klas JSONObject lub JSONArray. W
+
+przypadku pojedynczego wpisu, pobrana z serwera tre prezentuje si nastpujco:
+
+[{"Post":{"id":"23","user_id":"1","title":"Przyk\u0142ad","slug":"przyk-ad",
+
+"content":"Przyk\u0142adowa zawarto\u015b\u0107","comments":"0","is_published":"1",
+
+"created":"2014-08-23 13:26:59","modified":"2014-08-23 13:26:59","deleted":null,
+
+"was_edited":false}}]
+
+
+
+Aby oczyta na przyklad tytul posta, naley dwukrotnie pobra JSONObject, najpierw z indeksem 0, a
+
+nastpnie z indeksem Post. Teraz wystarczy skorzysta z metody pobierajcej lacuch znaków, któr
+
+dostarcza klasa JSONObject i przekaza jako parametr lacuch title.
+
+
+        Przeslanie danych do serwera jest prostsze. Nie trzeba si bowiem martwi o struktur
+
+
+                                               - 48 -
+
+przesylanych danych, poniewa serwer odczytuje przeslane argumenty bezporednio z requestu HTTP
+
+POST. W celu wyslania informacji do uslugi internetowej, naley skorzysta z odpowiednika listy
+
+asocjacyjnej i przesla pary klucz-warto. Aby przygotowa tak list, naley postpowa w
+
+nastpujcy sposób:
+
+    1. Utworzy obiekt klasy HttpClient.
+
+    2. Utworzy obiekt klasy HttpPost, przekazujc adres URL, do którego dane zostan wyslane
+
+        metod POST.
+
+    3. Przekaza do obiektu klasy HttpPost list.
+
+    4. Wykona zapytanie do serwera. Zostanie zwrócony obiekt HttpResponse.
+
+    5. Pobra odpowied przy pomocy klasy HttpEntity.
+
+Jak wida uycie metody HTTP POST jest analogiczne do zastosowania metody HTTP GET. Jedyn
+
+rónic jest przekazanie danych.
+
+        Wszystkie dzialania, które s podejmowane do komunikacji z serwerem musz zosta
+
+wykonane poza glównym wtkiem aplikacji, poniewa aplikacja moe przesta odpowiada podczas
+
+próby wczytania listy postów, gdy z jakich przyczyn komunikacja z serwerem bdzie utrudniona. W
+
+przypadku systemu Android, skutkowa to bdzie przerwanie pracy aplikacji. Aby tremu zapobiec,
+
+naley uy klasy AsyncTask [31]. Struktura ta pozwala na wykonywanie dziala w tle, poza glównym
+
+wtkiem aplikacji. Jej zadaniem jest wykonanie operacji i zwrócenie ich wyników do glównego wtku.
+
+        Bazujc na wymienionych wyej przykladach, stworzylem wszystkie, potrzebne do
+
+komfortowego przegldania serwisu na urzdzeniu mobilnym akcje. Formularze logowania oraz
+
+rejestracji wysylane s z wykorzystaniem metody POST. Po odebraniu danych przez uslug
+
+internetow, zostaj one sprawdzone pod ktem poprawnoci zgodnie z zasadami przedstawionymi w
+
+rozdziale 5.1. Jeli pojawia si problem, zostaje on zwrócony w odpowiedzi wraz z komunikatem
+
+bldu. Aplikacja oczekuje na wynik dania, który bdzie w formacie JSON wraz ze statusem, który
+
+moe przyj wartoci 0 lub 1 w zalenoci od bldu lub powodzenia operacji. Wszelkie bldy s
+
+wywietlane w postaci toastów. Jest to prosty element, wywietlany w okrelonym miejscu ekranu,
+
+najczciej u dolu. Prezentuje si on nastpujco:
+
+
+
+
+                               Rys. 34: Przyklad toast'a
+
+
+                                                 - 49 -
+
+       Elementem interfejsu uytkownika, który byl zbdny w przypadku aplikacji webowej, a dla
+
+aplikacji natywnej jest niezbdny, to progress dialog. Dziki niemu uytkownik dostaje informacj, e
+
+trwa wczytywanie danych bd komunikacja z serwerem.
+
+
+
+
+                                Rys. 35: Przyklad okna postpu
+
+
+       Tlumaczenie aplikacji natywnej na róne wersje jzykowe jest prostsze, ni w przypadku
+
+aplikacji macierzystej. Stale tekstowe s przechowywane w jednym pliku, który nazywa si
+
+strings.xml. Znajduje si on w katalogu projektu pod ciek /res/values. W celu dokonania translacji,
+
+wystarczy skopiowa katalog i nada mu nazw z sufiksem dla odpowiedniego jzyka. Przykladowo
+
+dla wersji polskojzycznej bzdzie to /res/values-pl.
+
+
+
+
+                                                 - 50 -
+
+5.5 Aplikacja hybrydowa
+
+
+
+
+Rys. 36: Widok listy postów w aplikacji           Rys. 37: Widok menu w aplikacji hybrydowej
+hybrydowej
+
+
+       Aplikacja hybrydowa zostala zaimplementowana przy uyciu HTML 5 oraz CSS 3, a nastpnie
+
+osadzona za pomoc jzyka JAVA w aplikacji na platform Android. Ponadto wykorzystano równie
+
+JavaScript i bibliotek jQuery. Jest to moliwe dziki umiejscowieniu aplikacji po stronie serwera.
+
+Aplikacja mogla powsta, podobnie jak strona mobilna, w obrbie aplikacji macierzystej. Jednake
+
+skorzystalem z innego sposobu rozwizania tego problemu, wykorzystujc istniejc ju uslug
+
+internetow. Wszystkie akcje w s obslugiwane za pomoc technologii AJAX. Podobnie jak w
+
+przypadku aplikacji natywnej, z t rónic, e calo mona osadzi w natywnym kontenerze na
+
+dowolnej platformie mobilnej, bez koniecznoci ingerencji w kod.
+
+       Warstwa prezentacji przypomina t z aplikacji natywnej. Równie mamy na stronie glównej
+
+list postów. Jednak menu zostalo zaprojektowane w sposób znany z strony mobilnej. Z t rónic, e
+
+jego zachowanie jest odmienne. Domylnie pasek nawigacyjny jest ukryty, mona go otworzy
+
+
+
+                                               - 51 -
+
+przyciskiem umieszczonym w lewym górnym rogu ekranu (trzy paski). Po wykonaniu tej akcji, menu
+
+pokazuje si na czci ekranu poczynajc od pocztku prawej strony. Do stworzenia tej wersji aplikacji
+
+mobilnej nie zostala wykorzystana adna zewntrzna biblioteka CSS, w zwizku z tym wygld jest
+
+bardzo minimalistyczny. W tym rozwizaniu równie zrezygnowano z szybkiego formularza do
+
+logowania.
+
+       Zasada obslugi da jest zbliona do tej, któr oferuje rozwizanie natywne. W tym wypadku
+
+równie wysylane s dania typu HTTP GET oraz HTTP POST do uslugi internetowej. Za ich obslug
+
+odpowiadaj skrypty napisane w jzyku JavaScript. Wykonanie obu z da jest zrealizowane za
+
+pomoc funkcji $.get() oraz $.post() dostarczonych w bibliotece jQuery. Nastpnie w callbacku,
+
+wywolywanym po udanej realizacji requestu do serwera, zostaj obsluone dane, które przychodz w
+
+formacie JSON. Dziki temu, e JavaScript ma domylnie wbudowan obslug tego typu danych, nie
+
+jest konieczne wykorzystywanie adnych innych obiektów, ani metod.
+
+       Umieszczenie aplikacji w komponencie natywnym zostalo zrealizowane nastpujco:
+
+class LogBlogReaderHybridWebViewClient extends WebViewClient {
+     @Override
+      public boolean shouldOverrideUrlLoading(WebView view, String url) {
+          view.loadUrl(url);
+          return true;
+     }
+}
+
+
+
+
+5.6 Testowanie
+
+       Wraz z postpem prac, aplikacje byly testowane na bieco. Kada nowa funkcjonalno byla
+
+wielokrotnie sprawdzana pod rónymi ktami. Niestety z powodu rozlegloci projektu i wieloci
+
+uytych technologii braklo czasu na zaimplementowanie testów jednostkowych. Jednake dla
+
+wszystkich aplikacji zostaly stworzone scenariusze testowe. Ponisza tabela zawiera kilka przykladów.
+
+Wykonywane dzialanie                  Reakcja aplikacji                                     Rezultat
+
+Uytkownik wpisuje w przegldarce Zostaje       wywietlona      strona   bldu   404     z Sukces
+
+niepoprawny adres URL wskazujcy komunikatem o braku znalezienia strony.
+
+na nieistniejc podstron.
+
+Uytkownik     wypelnia    formularz Zostaje wywietlony bld o treci ,,podane hasla Sukces
+
+rejestracyjny   wprowadzajc     dwa róni si".
+
+róne hasla.
+
+
+                                                - 52 -
+
+Uytkownik próbuje si zalogowa. Uytkownik zostaje poprawnie zautoryzowany, a Sukces
+
+Wprowadza     poprawne    dane   do nastpnie przekierowany do strony glównej wraz z
+
+logowania.                          komunikatem o powodzeniu calej akcji.
+
+Zalogowany uytkownik przechodzi Komentarz zostaje przeslany do serwera. Po jego Sukces
+
+na   stron   pojedynczego   wpisu. poprawnej walidacji, zostaje zapisany w bazie
+
+Wypelnia formularz komentarza i danych. Uytkownik otrzymuje komunikat, e jego
+
+wysyla go.                          komentarz     zostal pomylnie    dodany.    Nowy
+
+                                    komentarz pojawia na samej górze listy komentarzy.
+
+Uytkownik        wpisuje     slowa Do serwera zostaje wyslane zapytanie o szukan Sukces
+
+znajdujce si w treci wpisu do fraz. Akcja obslugujca wyszukiwanie poddaje
+
+wyszukiwarki i wciska przycisk wprowadzone dane filtrowaniu, w celu usunicia
+
+,,szukaj".                           niepodanych dla zapytania SQL treci, a nastpnie
+
+                                    buduje i wykonuje zapytanie. Po znalezieniu
+
+                                    wyników, s one prezentowane uytkownikowi.
+
+Uytkownik uruchamia stron w Aplikacja internetowa otrzymuje dane z formularza Sukces
+
+przegldarce      mobilnej.      Po rejestracyjnego. Nastpuje ich walidacja, która
+
+zaladowaniu      strony     wybiera zostaje   pomylnie  zakoczona.    Dane    zostaj
+
+formularz rejestracyjny i wprowadza wprowadzone do bazy. Do uytkownika zostaje
+
+prawidlowe dane.                    wyslany      e-mail z   linkiem     aktywacyjnym.
+
+                                    Uytkownik zostaje przekierowany na stron glówn
+
+                                    wraz z komunikatem, e pomylnie dokonano
+
+                                    rejestracji.
+
+Uytkownik strony mobilnej otwiera Aplikacja pobiera rekord ogldanego uytkownika Sukces
+
+profil innego uytkownika.          na podstawie parametrów przekazanych w adresie
+
+                                    URL, a nastpnie prezentuje je do uytkownika
+
+                                    wywolujcego akcj.
+
+Uytkownik     aplikacji   natywnej Serwer otrzymuje danie dostarczenia listy postów, Sukces
+
+otwiera j, po zladowaniu widoku po wybraniu danych z bazy zwraca ja. Kolejne
+
+postów, wybiera jeden z nich.       danie wymaga zwrócenia konkretnego rekordu.
+
+
+                                               - 53 -
+
+                                    Usluga internetowa przesyla wyniki do aplikacji
+
+                                    natywnej,     gdzie     zostaj    zaprezentowane
+
+                                    uytkownikowi.
+
+Uytkownik    uruchamia   aplikacj Po    uruchomieniu    aplikacji,   glówny    widok Sukces
+
+natywn, wybiera menu, a nastpnie przedstawia list postów. Wybranie przycisku menu,
+
+opcj      logowania.     Wpisuje otwiera menu kontekstowe, a opcja logowania
+
+niepoprawne dane, zatwierdza je.    wywietla okno dialogowe z formularzem. Po
+
+                                    zatwierdzeniu danych, zostaj one przeslane do
+
+                                    serwera,   gdzie   podlegaj   sprawdzeniu.   Okno
+
+                                    dialogowe zostaje zamknite, a aplikacja wywietla
+
+                                    informacj w postaci toast'a, e wprowadzone dane
+
+                                    s niepoprawne.
+
+Zalogowany uytkownik aplikacji Aplikacja otrzymuje puste dane z formularza. Sukces
+
+natywnej znajduje si w widoku Nastpuje wywietlenie bldu w postaci toast'a, e
+
+posta. Naciska przycisk dodania nie przekazano adnej treci.
+
+nowego komentarza.
+
+Zalogowany uytkownik aplikacji Aplikacja       wywietla   uytkownikowi      progress Sukces
+
+natywnej otwiera menu i wybiera z dialog.    W     tym  czasie    wczytuje   dane   dla
+
+niego edycj profilu. Zmienia dat uytkownika z serwera. Po ich otrzymaniu usuwa
+
+urodzenia.     Wybiera    przycisk okno dialogowe i wywietla dane. Po przyciniciu
+
+,,zapisz".                           przycisku ,,zapisz" sprawdza dane, jeli s poprawne
+
+                                    przesyla je na serwer i wywietla progress dialog.
+
+                                    Po otrzymaniu odpowiedzi z serwera wywietla
+
+                                    odpowiedni komunikat i zamyka okno dialogowe.
+
+Uytkownik    uruchamia   aplikacj Po klikniciu w przycisk menu z prawej strony Sukces
+
+hybrydow, nastpnie otwiera menu ekranu pojawia si menu. Po wybraniu przez
+
+i wybiera opcj logowania.          uytkownika     linku   do    logowania,     zostaje
+
+                                    zaladowana podstrona z odpowiednim formularzem.
+
+Uytkownik aplikacji hybrydowej Aplikacja otrzymuje dane, które zostaj przeslane do Sukces
+
+
+                                              - 54 -
+
+wypelnia      formularz    logowania, uslugi internetowej, gdzie nastpuje sprawdzenie ich
+
+podajc prawidlowe dane. Nastpnie poprawnoci. Po porównaniu adresu e-mail oraz
+
+klika przycisk ,,Zaloguj".              hasha hasla, zostaje zwrócony status 1 oraz
+
+                                       komunikat o pomylnym zalogowaniu. Aplikacja
+
+                                       przekierowuje uytkownika na stron glówn,
+
+                                       wywietlajc tre komunikatu wygenerowanego
+
+                                       przez uslug internetow.
+
+Uytkownik aplikacji hybrydowej Aplikacja stwierdza, e nie ma moliwoci pobrania Sukces
+
+uruchamia j, nie majc polczenia z danych       ze    wzgldu    na   braku    polczenia
+
+internetem.                            internetowego.     Zamiast    WebView,    wywietla
+
+                                       zwykly     widok      z    napisem     informujcym
+
+                                       uytkownika o tym fakcie.
+
+
+
+
+6. Podsumowanie
+        Zgodnie z postawionymi zaloeniami zostaly stworzone nastpujce aplikacje: internetowa,
+
+strona mobilna, natywna, hybrydowa oraz usluga internetowa. Ostatnia z nich posluyla jako lcznik
+
+pomidzy baz danych, a aplikacjami stworzonymi na platform Android. Strona internetowa zostala
+
+stworzona w oparciu o najnowsze rozwizania z dziedziny web design'u, czyli HTML 5 oraz CSS 3.
+
+Ponadto zawiera elementy dynamiczne, do których nale tooltip'y, popout'y czy komponent sortable.
+
+Dla lepszej specyfiki przedstawionego na pocztku pracy problemu, layout aplikacji glównej w
+
+zupelnoci nie jest przystosowany do wywietlania na urzdzeniach mobilnych. Otwieranie strony na
+
+mniejszych sprztach zmusza nas do przybliania oraz przesuwania obrazu we wszystkich kierunkach.
+
+        W aplikacji internetowej uyto wiele rozwiza poprawiajcych jako korzystania z niej. Mam
+
+tu na myli wszelkie akcje AJAXowe, które znacznie przyspieszaj pewne operacje, na przyklad
+
+doczytywanie komentarzy. Zastosowanie mechanizmu cache'owania dla elementów statycznych
+
+zwiksza wydajno calej aplikacji, co ma równie pozytywny wplyw na uslug internetow. Dostp
+
+jest do nich szybszy i przy okazji minimalizuje si liczba zapyta do bazy jednego dania.
+
+        Strona mobilna oparta o rozwizanie responsywne moe si równie doskonale sprawowa,
+
+
+
+                                                 - 55 -
+
+jako domylny sposób prezentacji danych w aplikacji internetowej, poniewa dziki zastosowaniu tego
+
+podejcia zyskujemy nieograniczon ilo urzdze, które jestemy w stanie obsluy. Warto jednak
+
+wspomnie, i w przypadku tego rozwizania naley pamita o grafikach, które bd si skalowa,
+
+jednak ich oryginalny rozmiar nadal pozostaje bez zmian. Znacznie lepszym wyjciem z tej sytuacji
+
+jest posiadanie na serwerze danej grafiki w kilku dostpnych wymiarach i serwowania jej w zalenoci
+
+od wymiarów urzdzenia. Pozwoli to nie tylko na szybsze ladowanie strony, ale take pozwoli
+
+uytkownikom mobilnym zaoszczdzi cenny transfer internetowy.
+
+        Aplikacja natywna wykorzystuje wszystkie moliwe komponenty dostarczone przez API
+
+systemu Android. W porównaniu do strony mobilnej, jest ona znacznie wygodniejsza i plynniejsza w
+
+obsludze. Poza tym wywietlanie danych informacji jest duo szybsze i zarazem zuycie danych jest
+
+mniejsze. Najwiksz trudno w projektowaniu aplikacji natywnej sprawily layouty. Uzyskanie
+
+oczekiwanego rezultatu zajmuje sporo czasu. Graficzny kreator nadal nie dziala si zbyt dobrze,
+
+chocia od API 8 wiele zmienilo si na jego korzy.
+
+        W przypadku aplikacji hybrydowej, osignity rezultat jest nieco gorszy od oczekiwanego.
+
+Moliwe, e decyzja o serwowaniu jej zawartoci z serwera ma na to decydujcy wplyw. Wobec tego
+
+warto by równie przetestowa rozwizanie, w którym pliki aplikacji s przechowywane w jej obrbie.
+
+Samo odczucie korzystania z tego rozwizania jest podobne, jak w przypadku aplikacj Steam,
+
+omawianej we wprowadzeniu do pracy.
+
+        Niestety wci pozostaje jeszcze par kwestii, które nalealoby podda badaniom. Jedn z nich
+
+jest przetestowanie i zestawienie prezentowanych w pracy rozwiza na rónych, popularnych
+
+platformach mobilnych. Moliwe, e niektóre z typów aplikacji lepiej zachowywalyby si w innych
+
+rodowiskach. Ze wzgldu na brak dostpnych narzdzi czy sprztów, takie porównanie nie bylo
+
+moliwe do wykonania.
+
+        Interesujcym tematem mog by programy, które pozwalaj na wygenerowanie aplikacji
+
+hybrydowej na róne platformy, jak na przyklad PhoneGap. Wymagaj one dokladnie tych samych
+
+technologii, do wyprodukowania programu, co uyte w projekcie (HTML 5, CSS 3 oraz JavaScript). Z
+
+racji tego, e jest to framework, dostarcza on moe metody, które s znacznie bardziej optymalne, ni
+
+te, pisane wlasnorcznie. Ponadto dostarczaj one wlasne API, które sluy do komunikacji ze sprztem,
+
+std wiksza wygoda przy tworzeniu programu mobilnego. Jednak caly czas duym problemem w
+
+przypadku hybryd jest brak natywnego wygldu aplikacji. Niekiedy aplikacja z tych powodów moe
+
+
+                                                 - 56 -
+
+zosta usunita z centrum dystrybucji. Oprócz tego uytkownicy równie mog mie zle odczucia
+
+korzystajc z rozwizania, które nie jest spójne z systemem lub, co gorsza, przypomina wygldem
+
+interfejs innego systemu.
+
+        Warto wzi jeszcze pod uwag samo polczenie z baz danych, które tutaj jest
+
+wykorzystywane w róny, niejednolity sposób, co czyni go wskim gardlem calego ,,ekosystemu".
+
+Aplikacja internetowa oraz usluga internetowa korzystaj z rónych zapyta, które tak naprawd slu
+
+finalnie do pobrania tych samych danych. W zwizku z tym mona by bylo pokusi si o przepisanie
+
+strony macierzystej, by równie korzystala z dostpnego web service'u. Wówczas posiadalibymy
+
+jeden, spójny format zwracanych danych, co pozwoliloby na latwiejsze skalowanie systemu, a take
+
+zniwelowaloby rónice pomidzy dostpnoci niektórych danych na wszystkich rozwizaniach.
+
+
+
+7. Bibliografia
+[1] Luke Wroblewski, Mobile First, A Book Apart, New York, 2011
+
+[2] http://mobileapphelpers.com/
+
+[3] Luke Wroblewski, Mobile First, A Book Apart, New York, 2011
+
+[4] http://www.businessapps.my/2013/08/differences-between-mobile-web-and-mobile-app/
+
+[5] http://www.responsys.com/blogs/nsm/cross-channel-marketing/difference-responsive-adaptive-
+
+web-design/
+
+[6] http://liquidapsive.com/
+
+[7] Luke Wroblewski, Mobile First, A Book Apart, New York, 2011
+
+[8] https://support.google.com/googleplay/android-developer/answer/113468
+
+[9] https://developer.apple.com/programs/start/ios/
+
+[10] http://msdn.microsoft.com/pl-PL/library/windows/apps/jj863494.aspx
+
+[11] http://mobileapphelpers.com/
+
+[12] https://developer.android.com/design/patterns/pure-android.html
+
+[13] https://play.google.com/store/apps/details?id=com.facebook.katana
+
+[14] https://itunes.apple.com/pl/app/facebook/id284882215
+
+[15] Luke Welling, Laura Thomson, PHP i MySQL. Tworzenie stron WWW. Vademecum
+
+profesjonalisty. Wydanie czwarte, Helion, 2009
+
+
+
+                                                 - 57 -
+
+[16] http://php.net/manual/en/index.php
+
+[17] http://book.cakephp.org/2.0/en/index.html
+
+[18] http://book.cakephp.org/2.0/en/core-libraries/internationalization-and-localization.html
+
+[19] http://getbootstrap.com/
+
+[20] http://960.gs/
+
+[21] http://getbootstrap.com/css/
+
+[22] http://developer.android.com/guide/topics/manifest/uses-sdk-element.html
+
+[23] https://developer.android.com/preview/setup-sdk.html
+
+[24] http://developer.android.com/guide/topics/manifest/manifest-intro.html
+
+[25] http://developer.android.com/guide/components/index.html
+
+[26] http://developer.android.com/guide/topics/ui/overview.html
+
+[27] http://developer.android.com/guide/components/activities.html
+
+[28] http://developer.android.com/tools/help/adb.html
+
+[29] http://book.cakephp.org/2.0/en/core-utility-libraries/sanitize.html
+
+[30] http://jqueryui.com/sortable/
+
+[31] http://developer.android.com/reference/android/os/AsyncTask.html
+
+
+
+
+                                                  - 58 -
+
