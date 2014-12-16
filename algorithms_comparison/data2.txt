@@ -1,0 +1,791 @@
+POLITECHNIKA KRAKOWSKA
+IM. TADEUSZA KOSCIUSZKI
+WYDZIAL FIZYKI MATEMATYKI I INFORMATYKI
+KIERUNEK INFORMATYKA
+
+
+DANIEL LASAK
+
+
+WIELOWARSTWOWA APLIKACJA WSPOMAGAJACA PROWADZENIE ZAJEC DYDAKTYCZNYCH NA UCZELNI WYZSZEJ
+
+
+MULTI-TIER APPLICATION SUPPROTING TEACHING ACTIVITIES AT THE UNIVERSITY
+
+
+PRACA INZYNIERSKA
+STUDIA STACJONARNE
+
+
+
+Promotor:  Dr Agnieszka Krok
+
+
+
+Kraków 2014
+Spis tresci
+1.	Wstep	2
+1.1.	Pojecie i rozwój architektury wielowarstwowej	3
+1.2.	Zastosowanie systemów informatycznych w procesie prowadzenia zajec dydaktycznych	5
+1.3.	Cel i zakres pracy	5
+
+2.	Specyfikacja wymagan	6
+2.1.	Identyfikacja aktorów	6
+2.2.	Wymagania funkcjonalne	6
+2.3.	Wymagania niefunkcjonalne	9
+
+3.	Model systemu	10
+3.1.	Diagram klas modelu domeny	11
+3.2.	Diagram klas odpowiadajacy komponentom	13
+3.3.	Diagram komponentów	14
+3.4.	Diagram wdrozenia	15
+
+4.	Wybór i opis technologii zastosowanych w projekcie	16
+4.1.	Platforma Java Enterprise Edition	17
+4.2.	Framework Spring	17
+4.3.	Biblioteki i narzedzia wspomagajace	18
+
+5.	Opis implementacji	20
+5.1.	Struktura katalogów i plików projektu	20
+5.2.	Rozwarstwienie i zarzadzanie komponentami	21
+5.3.	Warstwa dostepu do danych	22
+5.4.	Warstwa logiki biznesowej	25
+5.5.	Warstwa prezentacji	27
+5.6.	Uwierzytelnienie i autoryzacja dostepu	28
+5.6.1.	Konfiguracja modelu uprawnien	29
+5.6.2.	Zabezpieczenie aplikacji	30
+
+6.	Testowanie	31
+6.1.	Testy jednostkowe	31
+6.2.	Testy integracyjne	33
+6.3.	Testy graficznego interfejsu uzytkownika	34
+
+7.	Prezentacja i opis dzialania systemu	34
+
+8.	Wnioski	39
+
+9.	Bibliografia	41
+
+	
+
+
+
+
+
+1. Wstep
+
+   Zrealizowany projekt zostal wykonany na potrzeby pracy inzynierskiej na kierunku Informatyka na Politechnice Krakowskiej. Ponizszy rozdzial prezentuje kontekst podjetego przeze mnie tematu - przedstawia pojecie i rozwój architektury wielowarstwowej, zastosowanie informatyki w procesie prowadzenia zajec dydaktycznych oraz okresla dokladne cele i zakres pracy.
+
+1.1. Pojecie i rozwój architektury wielowarstwowej
+
+   Sposób organizowania elementów systemu okreslany jest mianem architektury. Jej zadaniem jest okreslenie jak poskladac wszystkie elementy w calosc, która bedzie dostarczac rozwiazanie spelniajace wymagania biznesowe stawiane przez klienta.
+   Poczatkowo w wraz z powstaniem obszaru oprogramowania stosowano podejscie monolityczne, co do ksztaltu i budowy systemów informatycznych. Wszystkie czynnosci i zadania bez wzgledu na ich charakter byly przeplatane pomiedzy soba by tak dostarczyc gotowe rozwiazanie. Wada takiego modelu jest scisle przyleganie elementów powodujac utrate skalowalnosci. Taki system z biegiem czasu staje sie trudny, a nawet niemozliwy w dalszym utrzymaniu.
+   W procesie analizy budowy oprogramowania pojawil sie krok, który pozwolil zmienic podejscie to sprawy. To wlasnie powstanie architektury typu klient-serwer(architektura dwuwarstwowa) otworzylo nowe mozliwosci w procesie ksztaltowania budowy systemów. Z jej pomoca mozliwe jest rozdzielenie zadan pomiedzy rózne jednostki wykonawcze z uzyciem sieci komputerowych. Istnieja dwie odmiany tej architektury, pierwsza "fat client/thin server", która okresla, ze logika aplikacji i prezentacji znajduje sie po stronie klienta, a dostep do serwera bazy danych uzyskuje sie przy uzyciu róznego rodzaju API dla jezyka SQL. Druga forma to to "thin client/fat server" i wskazuje ona, ze serwer bazy danych równiez moze realizowac pewne funkcje logiki aplikacji. Ma to miejsce w przypadku niektórych baz danych np. Oracle przy uzyciu procedur skladowanych. Jednak "fat client/thin server" znaczaco obciaza siec danymi, zas "thin client/fat server" w przypadku awarii powoduje zmniejszenie wydajnosci pracy systemu z przyczyn wplywu operacji logiki aplikacji po stronie serwera na procesy bazy danych.
+   
+      W koncu zaprojektowano architekture trójwarstwowa, jako nowe rozwiazanie usprawniajace poprzedni model. Teraz, klient oraz serwer bazy danych zostal odciazony od operacji wykonujacych logike aplikacji[1]. 
+W tej architekturze wyróznic mozna nastepujace warstwy i ich funkcje:
+1) Warstwa klienta
+   W najmniejszym zakresie do jej zadan nalezy prezentacja wyników oraz inicjacja zadan logiki aplikacji znajdujacej sie w warstwie drugiej. Najczesciej reprezentowana jest w postaci przegladarki internetowej.
+2) Warstwa aplikacji
+   Jest odpowiedzialna za wlasciwe przetwarzanie zadan od klientów, realizuje operacje logiki aplikacji zwiazane z wymaganiami ustalonymi przez klienta.
+3) Warstwa danych
+   Odpowiedzialna jest za skladowanie oraz wyszukiwanie danych. Zazwyczaj odpowiada procesowi systemu zarzadzania baza danych.
+   
+   Wykorzystanie podejscia komponentowego oraz wprowadzenia serwerów aplikacyjnych, jako srodowiska pozwalajacego na wdrazanie i uruchamianie dowolnych aplikacji w warstwie drugiej dla wyzej omówionego modelu przyczynilo sie do powstania architektury wielowarstwowej [2]. 
+   Architektura wielowarstwowa nazywamy powiekszona architekture trójwarstwowa poprzez kolejny podzial warstwy drugiej. Jednak ma ona charakter czysto logiczny, a proces rozwarstwienia polega na wertykalnym grupowaniu komponentów oprogramowania ze wzgledu na ich funkcjonalnosc, które dzialaja pod kontrola serwera aplikacyjnego. Wprowadzenie dodatkowych warstw komponentów jest przydatne glównie dla programistów i architektów oprogramowania.  W literaturze podzial na grupy komponentów okreslany jest tez mianem rozwarstwienia logicznego(multilayer), poniewaz zazwyczaj ma zastosowanie w ramach jednej lokalizacji fizycznej, np. serwer aplikacyjny. [3]. 
+
+   Architektura wielowarstwowa jest najbardziej powszechna, jesli chodzi o systemy klasy enterprise. Glównym czynnikiem jej popularnosci jest zwiekszona skalowalnosc oraz niezaleznosc fragmentów systemu np. powiekszenie przestrzeni dyskowej bez koniecznosci ingerencji w stacje, na której dziala serwer aplikacyjny, albo zmiana sposobu pobierania informacji z bazy danych bez koniecznosci zmiany reszty programowych komponentów odpowiedzialnych za prezentacje wyników. Równiez klasyfikacja programowych elementów systemu umozliwia rozdzielenie prac na rózne zespoly posiadajace odpowiednia wiedze i umiejetnosci. Architektura wielowarstwowa jest obecnie sprawdzonym rozwiazaniem w projektowaniu i budowie skalowalnych, niezawodnych oraz bezpiecznych systemów informatycznych wykorzystujacych siec komputerowa. Do takich systemów mozna wlasnie zaliczyc pewna grupe, których zadaniem jest wspomaganie procesu edukacji. W nastepnym rozdziale zostanie przedstawiony kontekst problemu, którego rozwiazanie posluzy, jako przyklad realizacji omówionej architektury.
+
+1.2.  Zastosowanie systemów informatycznych w procesie prowadzenia zajec dydaktycznych
+
+   W dzisiejszej dobie nieustajacej informatyzacji naszego zycia mozna poszukiwac coraz to nowszych obszarów jej zastosowania. Takim przykladem moze byc proces prowadzenia zajec dydaktycznych na uczelni wyzszej. Wykladowcy w wraz z asystentami odpowiedzialni sa za prowadzenie i przechowywanie listy ocen oraz obecnosci zazwyczaj w tradycyjnej formie lub w postaci arkusza kalkulacyjnego. Skutkuje to pewnym utrudnieniem w procesie komunikacji zarówno miedzy prowadzacymi jak i samymi uczestnikami kursów, studentami. Osoba odpowiedzialna za prowadzenie przedmiotu chcialaby miec wglad w przebieg zajec w trakcie semestru. By to osiagnac asystenci zobowiazani sa do regularnego przesylania wyników najczesciej droga mailowa i w róznych postaciach. Studenci posiadaja mozliwosc podgladu swoich wyników oraz obecnosci wylacznie w trakcie trwania zajec, co powoduje skrócenie czasu i spadek wydajnosci w procesie prowadzenia zajec dydaktycznych. W dodatku sposób okreslania koncowych wyników jest procesem wymagajacym dodatkowego, czesto zmudnego wysilku.
+   Wychodzac naprzeciw tej sytuacji zostanie stworzony system ulatwiajacy przeprowadzenie tych czynnosci przez prowadzacych zajecia na uczelni wyzszej. Usprawni on dostep do danych zwiazanych z procesem nauczania i tym samym ulatwi komunikacje pomiedzy wszystkimi osobami zaangazowanymi w przebieg zajec. Oszczedzi czas i ujednolici sposób przeprowadzania zajec dydaktycznych w zakresie niektórych czynnosci. Taki system powinien byc przede wszystkim bezpieczny i latwy w uzytkowaniu. Zakres jego uslug powinien dostepny spoza jednostek uczelni, co powoduje wymóg wykorzystania istniejacej infrastruktury sieciowej. Wszystkie te cechy wskazuja na zastosowanie architektury wielowarstwowej przy budowie opisywanego rozwiazania informatycznego.
+1.3.  Cel i zakres pracy
+
+   Celem pracy jest projekt oraz implementacja systemu w architekturze wielowarstwowej, który wspomagac bedzie proces prowadzenie zajec dydaktycznych na uczelni wyzszej.
+W pracy zostanie pokazana i omówiona przykladowa realizacja wyzej wymienionej architektury z uzyciem wybranych narzedzi informatycznych.
+2. Specyfikacja wymagan
+
+   Specyfikacja wymagan w bardziej szczególowy sposób okresla ksztalt oraz wymagania tworzonego systemu. W tym celu w pierwszym kroku zidentyfikowano aktorów wchodzacych w interakcje z aplikacja. Nastepnie przedstawiono wszystkie czynnosci realizowane przez system z poziomu okreslonych uzytkowników.
+
+2.1. Identyfikacja aktorów
+
+   W systemie zidentyfikowano czterech aktorów posiadajacych okreslone znaczenie. Ich nazwy oraz opis roli zostaly przedstawione w formie tabelarycznej.
+
+
+
+
+NazwaOpisAdministratorUzytkownik odpowiedzialny za zarzadzanie wszystkimi uzytkownikami w systemieWykladowcaUzytkownik reprezentujacy role wykladowcy na uczelni wyzszej. Odpowiedzialny za definiowanie nadzorowanych przez siebie przedmiotów oraz prowadzenie zajec audytoryjnych.AsystentUzytkownik reprezentujacy role asystenta na uczelni wyzszej.
+Odpowiedzialny za prowadzenie zajec laboratoryjnych, cwiczeniowych lub projektowych. StudentUzytkownik reprezentujacy studenta, który moze uczestniczyc w zajeciach w ramach prowadzonych przedmiotów.
+
+2.2. Wymagania funkcjonalne
+
+   Wymagania funkcjonalne okreslaja czynnosci, które system powinien realizowac by osiagnac wyznaczony cel. Ponizej zostala przedstawiona lista pogrupowanych po roli funkcji, oferowanych przez tworzony system. Wymagania zostaly zebrane na podstawie wlasnych obserwacji, gdyz autor pracy czesciowo uczestniczyl w omawianym procesie. Pomocna role odegraly takze rozmowy z pracownikami dydaktycznymi, prowadzacymi zajecia.
+
+   Administrator:
+> Tworzenie, edycja róznych uzytkowników systemu z jednoczesnym okresleniem ich roli(administrator, wykladowca, asystent, student).
+
+Wykladowca:
+> Definiowanie, edytowanie, usuwanie wylacznie prowadzonych przez siebie przedmiotów.
+> Okreslanie liczby wykladów oraz zajec w semestrze dla wszystkich grup
+> Okreslanie rodzaju drugiej czesci zajec w ramach przedmiotu(projekt, laboratoria lub cwiczenia).
+> Dodawanie, edytowanie, usuwanie grup wykladowych
+> Dodawanie, usuwanie studentów dla grup wykladowych
+> Dodawanie, edytowanie, usuwanie grup zajeciowych
+> Przypisywanie asystentów do poszczególnych grup
+> Definiowanie wag poszczególnych ocen w celu automatycznego obliczenia oceny koncowej z przedmiotu.
+> Definiowanie procentowej skali ocen dla calego przedmiotu
+> Edytowanie obecnosci dla grupach audytoryjnych
+> Edytowanie ocen z egzaminu
+> Mozliwosc podgladu wszystkich ocen studentów dla przedmiotu - czastkowe z zajec, egzamin, finalne automatycznie wyliczone z zajec i z przedmiotu
+> Podglad wszystkich obecnosci studentów dla przedmiotu
+> Edytowanie adresu email
+> Mozliwosc pogladu adresu email studentów, wykladowców oraz asystentów
+
+Asystent:
+> Dodawanie, usuwanie studentów dla prowadzonych grup zajeciowych
+> Definiowanie liczby ocen w semestrze dla grup laboratoryjnych, projektowych lub cwiczeniowych
+> Definiowanie liczby niedozwolonych nieobecnosci po przekroczeniu, których student nie uzyskuje sie oceny z zajec
+> Edytowanie ocen studentów w prowadzonych grupach
+> Edytowanie obecnosci studentów w prowadzonych grupach
+> Mozliwosc podgladu ocen z zajec dla studentów przypisanych do prowadzonych grup
+> Mozliwosc podgladu obecnosci z zajec dla studentów przypisanych do prowadzonych grup
+> Edytowanie adresu email
+> Mozliwosc pogladu adresu email studentów, wykladowców oraz asystentów
+
+
+Student:
+> Edytowanie numeru albumu
+> Edytowanie adresu email
+> Mozliwosc podgladu swoich ocen(czastkowe i koncowe)
+> Mozliwosc podgladu swoich obecnosci
+> Mozliwosc podgladu informacji kontaktowych na temat wykladowców oraz asystentów
+
+      Wymaganiem funkcjonalnym systemu, które nie jest zwiazane bezposrednio z zadnym uzytkownikiem jest automatyczne obliczanie ocen. 
+      
+Obliczanie oceny koncowej z przedmiotu wystepuje w przypadku edycji:
+* Wagi dla oceny
+* Skali ocen
+* Obecnosci studentów w dowolnych grupach
+* Ocen z egzaminu
+Koncowy wynik przeliczany jest na podstawie zdefiniowanej przez prowadzacego skali ocen oraz sumy nastepujacych skladników: 
+* waga_egzamin * ocena_egzamin 
+* waga_zajecia * ocena_zajecia 
+* waga_obecnosci * (liczba_obecnosci/liczba_wszystkich_wykladów) * 5.0
+, gdzie suma poszczególnych wag jest równa 1.
+
+   Obliczanie oceny z zajec laboratoryjnych, projektowych lub cwiczeniowych przeprowadzane jest na podstawie sredniej arytmetycznej ocen uzyskanych w ramach kursu i wystepuje w przypadku edycji:
+* Obecnosci w grupach innych zajeciowych
+* Ocen czastkowych z zajec
+* Liczby ocen czastkowych w semestrze z zajec
+* Liczby dozwolonych nieobecnosci
+
+Dodatkowym kryterium uzyskania pozytywnej oceny z tej czesci zajec jest nieprzekroczenie liczby niedozwolonych nieobecnosci zdefiniowanej przez asystenta prowadzacego grupe.
+Kazda zmiana oceny z zajec skutkuje równiez ponownym przeliczeniem oceny koncowej z przedmiotu.
+
+2.3. Wymagania niefunkcjonalne
+
+   Kategoria wymagan niefunkcjonalnych przedstawia ograniczenia nalozone na funkcje oraz wydajnosc systemu. Pozwala na okreslenie innych oczekiwan, niz bylo to w przypadku wymagan funkcjonalnych. Ponizej przedstawiono w postaci tabel wszystkie wymagania, które beda mialy wplyw na jakosc dzialania tworzonego systemu.
+   	
+IDNFR_0NazwaBezpieczenstwo danychOpisDane zwiazane z konkretnym uzytkownikiem powinny byc zabezpieczone przed niepowolanym dostepem. Nie mozna dopuscic do wycieku ocen lub obecnosci przechowywanych w systemie.UzasadnienieZapewnianie bezpieczenstwa wrazliwych danych systemu jest obligatoryjnym dzialaniem oferowanym przez prawie kazdy system informatyczny. Wymaganie spowoduje wzrost zaufania aktualnych i przyszlych uzytkowników. 
+IDNFR_1NazwaLatwosc uzytkowaniaOpisSystem nie powinien sprawiac trudnosci w jego uzytkowaniu. Interfejs uzytkownika powinien byc prosty i przejrzysty.UzasadnieniePrzejrzysty interfejs oszczedzi wysilek na tworzenie dokladnej dokumentacji uzytkowania systemu.
+IDNFR_2NazwaLatwosc instalacjiOpisBy korzystac z systemu koncowy uzytkownik bedzie potrzebowal wylacznie przegladarki internetowej obslugujacej javascript.
+Wspierane wersje przegladarek: IE10+, Firefox 20+, Google Chrome 20+ UzasadnienieBrak potrzeby instalacji dodatkowych elementów po stronie klienta spowoduje ulatwienie w dostepie do systemu i chec korzystania z niego.
+IDNFR_3NazwaSkalowalnoscOpisSystem powinien byc przystosowany do przezroczystej rozbudowy urzadzen bez przerwy w dzialaniu systemu. Powinien równiez pozwolic na przyszla rozbudowe jego elementów programowych bez wplywu, na jakosc pracy systemu.UzasadnienieWraz ze wzrostem uzytkowników lub funkcjonalnosci systemu, jakosc jego dzialania nie zmieni sie.
+Wszystkie zaprezentowane wymagania niefunkcjonalne podkreslaja wybór zastosowania architektury wielowarstwowej.
+
+3. Model systemu
+
+   Przed procesem implementacji niezbedna czynnoscia jest spojrzenie na system z innej perspektywy. Wlasnie do tego celu sluzy proces modelowania, który ma za zadanie przedstawic strukture oraz dzialanie systemu w bardziej ujednolicony oraz abstrakcyjny sposób. Najczesciej w tym celu stosuje sie okreslone notacje, które zwiezle i precyzyjnie artykuluja zlozone pomysly. W pracy wykorzystano metodyke obiektowa do budowy struktur oraz elementów systemu, dlatego glówna notacja bedzie jezyk UML, który jest standardem w przemysle wytwórczym oprogramowania.
+   
+   
+W projekcie architektura oparta zostala na trzech logicznych warstwach:
+* Warstwa prezentacji
+* Warstwa logiki biznesowej
+* Warstwa dostepu do danych
+
+Zastosowany podzial klasyfikuje operacje na serwerze aplikacyjnym ze wzgledu na dostarczane funkcje dla poszczególnych warstw fizycznych, opisanych w rozdziale 1.1.
+3.1. Diagram klas modelu domeny
+
+   W pierwszej kolejnosci nalezy stworzyc model koncepcyjny wszystkich elementów specyficznych dla naszego zagadnienia, tak zwany model domeny. Do tego celu uzyto notacji diagramu klas, który uzywany jest do opisu struktury systemu uzywajac takich okreslen jak klasy, atrybuty i relacje pomiedzy nimi. Model domeny w architekturze wielowarstwowej jest anemiczny, poniewaz nie zawiera rozbudowanej logiki biznesowej i jest przeznaczony glównie dla komponentów rezydujacych w warstwach logiki biznesowej i dostepu do danych, które przetwarzaja ich skladowe. Ponizszy schemat przedstawia model zwiazany z prowadzeniem zajec dydaktycznych na uczelni wyzszej. 
+
+
+
+Zaprezentowane elementy maja nastepujace znaczenie w stosunku do modelowanego zagadnienia:
+
+Klasa User
+   Reprezentuje uzytkownika systemu, który posiada okreslona role. Zawiera atrybuty odzwierciedlajace: nazwe uzytkownika i haslo przetwarzane w procesie logowania, status aktywacji w systemie, imie i nazwisko. W zaleznosci od roli niektóre atrybuty zostana wykorzystane, sa nimi: tytul naukowy dla wykladowców i asystentów oraz numer albumu w przypadku studenta.
+
+Klasa Subject
+   Klasa reprezentujaca przedmiot. Zawiera takie atrybuty jak: tytul przedmiotu, rok akademicki oraz numer semestru, typ drugiej czesci zajec(laboratoria, cwiczenia, projekt), wspólczynniki ocen czastkowych, progi procentowe dla skali ocen oraz uzytkownika reprezentujacego wykladowce odpowiedzialnego za konkretny przedmiot.
+
+Klasa Group
+   Reprezentacja grupy wykladowej, laboratoryjnej, cwiczeniowej lub projektowej. Posiada zwiazek z przedmiotem. Zawiera numer grupy, jej opis, rodzaj(podzial na audytoryjna i zajeciowa), liczbe ocen w semestrze oraz liczbe niedozwolonych nieobecnosci w przypadku grup innych niz audytoryjne. W tej klasie sa równiez przechowywane daty poszczególnych zajec.
+
+Klasa GroupAssociation
+   Reprezentacja przynaleznosci studenta do grupy. Jest przypisaniem studenta do okreslonej grupy. Przechowuje historie przebiegu zajec w grupy dla studenta. Zawiera obecnosci i oceny zdobyte podczas uczestnictwa w zajeciach.
+
+Klasa SubjectAssociation
+   Reprezentacja uczestnictwa studenta w dowolnych zajeciach z przedmiotu. Identyfikuje studenta z przedmiotem w przypadku, gdy przynalezy do co najmniej jednej grupy w ramach tego przedmiotu. Zawiera wyliczone wyniki koncowe studenta uzyskane z przedmiotu to jest ocene finalna, ocene z egzaminu, ocene z zajec projektowych, laboratoryjnych lub cwiczeniowych oraz odpowiadajace im srednie, które przeliczane sa z uwzglednieniem progów procentowych.
+
+Klasa Role
+   Przechowuje stale identyfikujace dostepne role uzytkowników w systemie.
+
+Klasy GroupAssociationId oraz SubjectAssociationId
+   Klasy pomocnicze w modelu reprezentujace klucz kompozytowy, to jest klucz zlozony z wiecej niz jednego elementu, który identyfikuje obiekt.
+
+
+
+
+
+
+3.2. Diagram klas odpowiadajacy komponentom
+
+   Cecha charakterystyczna komponentów jest scislosc okreslania dostarczanych interfejsów oraz wymaganych zaleznosci, co powoduje, ze sa one dobrymi, zamknietymi i reuzywalnymi jednostkami budowy systemów informatycznych. W procesie implementacji komponenty zostaly zrealizowane poprzez uscislenie metodyki obiektowej. Pokazany ponizej diagram klas przedstawia elementy bedace wyrazem pewnej grupy komponentów, które jako calosc realizuja operacje zwiazane z przedmiotami. Lista oraz postac operacji reprezentowana jest przez interfejs komponentu logiki biznesowej o nazwie ISubjectService.
+   
+   Wszystkie elementy intensywnie wykorzystuja model domeny omówiony w poprzednim rozdziale i pokazanym na schemacie w postaci pakietu duniv.model. Na komponent realizujacy operacje zwiazane z przedmiotami sklada sie klasa SubjectService, która wystawia i realizuje interfejs ISubjectService. Klasa do swojego dzialania wymaga komponentów wystawiajacyh interfejsy ISubjectDAO oraz ISubjectAssociationDAO oraz ich realizacji w postaci klas SubjectDAO oraz SubjectAssociationDAO.
+
+3.3. Diagram komponentów
+
+   Poprzedni model w postaci diagramu klas prezentuje elementy systemy w sposób bardzo dokladny. W celu pokazania ogólnej struktury elementów oraz zaleznosci pomiedzy nimi skorzystano z diagramu komponentów równiez nalezacego do rodziny jezyka UML. Z punktu widzenia aplikacji najwazniejsze do zaprojektowania sa elementy warstwy logiki biznesowej oraz dostepu do danych. Warstwa prezentacji moze zostac zbudowana z wykorzystaniem dowolnej technologii i z tego powodu proces modelowania tej czesci zostanie pominiety w pracy. Zalaczony ponizej diagram prezentuje podzial odpowiedzialnosci pomiedzy komponentami logiki biznesowej oraz ich zaleznosci od komponentów warstwy dostepu do danych.
+
+
+
+
+3.4. Diagram wdrozenia
+
+   Diagram wdrozenia sluzy do wizualizacji fizycznego rozmieszczenia elementów systemu. System podzielono zgodnie z architektura trójwarstwowa na trzy wezly, co prezentuje ponizej zalaczony schemat. Paczka wdrozeniowa "duniverity.war" zawiera logicznie pogrupowane komponenty oprogramowania bedace pod kontrola wezla serwera aplikacyjnego, co w polaczeniu z takim fizycznym rozmieszczeniem odzwierciedla architekture wielowarstwowa.
+   
+4. Wybór i opis technologii zastosowanych w projekcie
+
+      W celu pozytywnej realizacji projektu istotnym czynnikiem jest dobór odpowiednich technologii i bibliotek programistycznych. Bledna decyzja moze skutkowac niepowodzeniem lub brakiem mozliwosci dalszego rozwoju systemu. 	
+
+Przy wyborze nalezy miec na uwadze nastepujace kryteria:
+1) Sposób licencjonowania
+Nalezy uwzglednic czy zasady licencjonowania nie zostana naruszone oraz czy wymagaja dodatkowych nakladów finansowych.
+2) Wielkosc spolecznosci rozwijajacej produkt
+Ma duzy wplyw na jakosc produktu oraz dlugosc okresu przez jaki bedzie wspierany.
+
+3) Popularnosc
+Popularnosc równiez przyczynia sie do wzrostu stabilnosci technologii.
+W wraz z jej wzrostem rosnie dostepnosc materialów, która przyspiesza i ulatwia rozwiazywanie czesto napotykanych problemów. 
+4) Zastosowanie
+Trzeba pamietac, ze narzedzia maja okreslone przeznaczenie. Dobór powinien byc dokonany z uwzglednieniem swoich celów i mozliwosci oferowanych przez wybierane biblioteki.
+
+	Po analizie powyzszych czynników jezykiem, który zostanie wybrany do realizacji procesu implementacji bedzie Java. Jest ona jedna z najpopularniejszych technologii, jesli chodzi o rozwiazania typu enterprise. Wielkosc spolecznosci zaangazowanej w proces jej udoskonalenia daje gwarancje przyszlego rozwoju projektu. Dodatkowo zastosowanie oferowanych dla niej bibliotek i narzedzi wspiera budowanie systemów wielowarstwowych.
+
+4.1. Platforma Java Enterprise Edition
+
+   Caly projekt zostal oparty na wycinku platformy Enterprise Edition dla jezyka javy. Dostarcza ona srodowiska serwerowego do budowy systemów w architekturze wielowarstwowej. Platforma ma forme specyfikacji utrzymywanej przez grupy spolecznosci uczestniczacych w programie Java Comunity Process. Na konkretna jej realizacje wybrany zostal serwer Apache Tomcat w wersji siódmej. Jest on lekkim serwerem aplikacyjnym, który zapewnia srodowisko wykonawcze dla róznego typu komponentów programowych realizujacych logike aplikacji.
+   Oprogramowania Apache Tomcat posluzylo w projekcie w roli "niepelnej" realizacji warstwy drugiej architektury trójwarstwowej. Poprzez niepelnosc nalezy rozumiec, ze nie jest ona kompletnym rozwiazaniem, a srodowiskiem dostarczajacym podstawowych uslug infrastruktury oprogramowania(np. obsluga protokolu http). Dzieki temu w trakcie tworzenia systemu skupiono sie na modelowania zagadnienia, a srodki do komunikacji pomiedzy "fizyczna" warstwa pierwsza i trzecia zostaly dostarczone. Finalnie aplikacja tworzona na potrzeby tej pracy stanowi zbiór komponentów dzialajacych pod kontrola tego serwera.
+   
+   
+4.2. Framework Spring
+
+
+   Framework Spring jest alternatywa jak i uzupelnieniem platformy Enterprise Edition. Ma budowe modulowa i dostarcza szereg dodatkowych funkcjonalnosci. Wyznacza standard oraz sposób zarzadzania praca komponentów dzialajacych na serwerze aplikacyjnym. Framework zostal wykorzystany w procesie rozwarstwienia warstwy drugiej. W projekcie rozwazano uzycie innej technologii do tego celu, a mianowicie Enterprise Java Beans. Jednak obecny wybór uzasadniony byl tym, ze Spring jest jednym z pierwszych i sprawdzonych rozwiazan tego typu, oferujac ponad to bogate srodowisko w zakresie uwierzytelnienia oraz zarzadzania transakcjami. W sposób latwy integruje sie z innymi rozwiazaniami. W projekcie uzyto jego glównej funkcjonalnosci, kontenera IoC, który pozwala na definiowanie, tworzenie i wiazanie komponentów. Dokladny sposób podzialu zostal omówiony w rozdziale poswieconym implementacji.
+
+4.3. Biblioteki i narzedzia wspomagajace
+
+   Decydujacym kryterium wyboru narzedzi i bibliotek wspierajacych budowe systemu byl sposób licencjonowania, brak dodatkowych kosztów z nimi zwiazanych oraz ich zastosowanie. W projekcie wykorzystano wylacznie rozwiazania typu open source. Rozdzial przedstawia i pokrótce opisuje glówne narzedzia i biblioteki majace zastosowanie w procesie implementacji.
+
+
+Apache Maven 3.2
+      Maven jest narzedziem zarzadzajacym procesem budowy projektu. Do jego zadan nalezy ujednolicenie struktury projektu przez wprowadzenie archetypów, czyli wzorców okreslajacych ksztalt i proces budowy oprogramowania. Najbardziej uzyteczna cecha jest oferowany system zarzadzania zaleznosciami. Dzieki temu w latwy sposób mozna okreslic lub z aktualizowac zaleznosci biblioteczne uzywane w projekcie, które zostana automatycznie pobrane z publicznego repozytorium mavena.
+      
+MySql 5.6
+      Jest najbardziej powszechnym rozwiazaniem, jesli chodzi o systemy zarzadzania relacyjna baza danych. Otwartosc, brak dodatkowych kosztów i dobre narzedzia ulatwiajace dostep do bazy danych, takie jak "MySQL Workbench" przyczynily sie do wyboru tego rozwiazania. 
+
+JSF 2.2
+	Java Server Faces to technologia, która równiez wchodzi w sklad platformy Enterprise Edition. Jest standardem budowy graficznego interfejsu uzytkownika dla aplikacji biznesowych. Stanowi abstrakcje na klasyczny model komunikacji http i jest do swojego dzialania potrzebuje wylacznie srodowiska serwerowego wspierajacego specyfikacje serwletów, np. Apache Tomcat. 
+JSF scisle przylega do architektury serwerowej przez zastosowanie komponentowego modelu interfejsu uzytkownika, który przechowywany jest po stronie serwera. Technologia wprowadza swój autorski mechanizm szablonów dla budowy formularzy, które komunikuja sie w procesie zadania z programowymi komponentami na serwerze.
+
+Primefaces 5.0
+      Primefaces to biblioteka dostarczajaca rozszerzonych komponentów graficznego interfejsu uzytkownika dla biblioteki JSF. Wzbogaca zbór standardowych elementów graficznych Java Server Faces.
+
+Hibernate 4.x
+	Jest dostawca specyfikacji JPA(Java Persistence Api), która stanowi standard mapowania obietkowo-relacyjnego dla javy. Ze wzgledu ma wymieszanie koncepcji miedzy relacyjnymi bazami danych i podejsciem obiektowym potrzebny jest mechanizm odwzorowania jednego modelu na drugi. Z wykorzystaniem tej biblioteki nie ma potrzeby dokonywania tego w sposób manualny. Hibernate zapewnia mozliwosci oznaczenia klas okreslajac tym samym sposób ich reprezentacji oraz skladowania w relacyjnej bazie danych. 
+
+Spring  Security
+   Modul Spring Security to sprawdzone rozwiazanie w dziedzinie uwierzytelnienia i autoryzacji dostepu do aplikacji. Chroni przed nieautoryzowanym dostepem do danych na poszczególnych poziomach. W warstwie prezentacji zabezpiecza dostep do linku, zas w warstwie logiki biznesowej tylko uzytkownicy z okreslonymi prawami moga miec dostep do okreslonej funkcji. Spring Security dostarcza konfigurowalny model zabezpieczen przez mozliwosc konfiguracji dostawcy uwierzytelnienia. Z zastosowaniem modulu spelnione zostalo wyspecyfikowane wymaganie niefunkcjonalne NFR_0: "Bezpieczenstwo danych". 
+
+Eclipse
+   Jest z integrowanym srodowiskiem programistycznym bazujacym na modelu wtyczek, które rozszerzaja jego mozliwosci. Dostawcy narzedzi i technologii informatycznych dbaja o dostarczenie wtyczek umozliwiajaca graficzna prace z projektem w jednym miejscu. Wybór tego srodowiska byl równiez uzasadniony tym, ze Eclipse wspiera platforme Enterprise Edition, framework Spring, oraz narzedzia do budowy projektu takie jak Maven.
+   
+Git
+   Powszechny, rozproszony system wersjonowania. Zostal wykorzystany do wersjonowania kodu zródlowego oraz dokumentów razem z prywatnym repozytorium 	GitLab.
+5. Opis implementacji
+
+   Implementacja odnosi sie do procesu technicznej realizacji przedsiewziecia programistycznego, popartego wczesniejszym planem i projektem. Waznymi aspektami tego zagadnienia jest organizacja plików skladajacych sie na wykonywany projekt oraz sposób realizacji poszczególnych elementów.
+   
+5.1. Struktura katalogów i plików projektu
+
+   Fizyczna zawartosc projektu znajduje sie w katalogu o nazwie "duniversity" i jest zblizona do struktury klasycznego projektu na platforme Enterprise Edition z wykorzystaniem narzedzi Eclipse oraz Maven. W folderze mozna odnalezc plik "pom.xml", który zawiera konfiguracje procesu budowy oraz zaleznosci bibliotecznych.
+   
+   Interfejsy i klasy odpowiadajace komponentom lub modelowi domeny zostaly pogrupowane z uzyciem pakietów w celu uzyskania wiekszego uporzadkowania. Wszystkie pakiety znajduja sie w katalogu "src" i z poziomu systemu maja postac zwyklych katalogów. 
+Ich znaczenie zostalo przedstawione w postaci ponizszej tabeli.
+
+Pelna nazwa pakietuOpis zawartosciduniv.modelZawiera klasy reprezentujace dziedzine modelowanego problemu, przedstawione w rozdziale 3.1.duniv.daoZawiera pliki interfejsów wystawianych przez komponenty warstwy dostepu do danych.duniv.dao.implZawiera pliki klas, które realizuja wystawiane interfejsy z duniv.dao poprzez ich implementacje, tworzac wlasciwe komponenty warstwy dostepu do danych.duniv.serviceZawiera pliki interfejsów wystawianych przez komponenty warstwy logiki biznesowej.duniv.service.implZawiera pliki klas, które realizuja wystawiane interfejsy z duniv.service poprzez ich implementacje tworzac wlasciwe komponenty warstwy logiki biznesowejduniv.viewZawiera klasy reprezentujace zarejestrowane obiekty warstwy prezentacji technologii JSF
+Katalog "WebContent/WEB-INF" zawiera trzy pliki konfiguracyjne:
+1) "faces-config.xml"
+   Plik konfiguracyjny biblioteki Java Server Faces.
+2) "applicationContext.xml" 
+   Plik konfiguracyjny dla frameworka Spring(moduly Core, Security). Zawiera deklaracje podstawowych komponentów realizujacych nisko poziomowy dostep do bazy danych(warstwa danych), kontrolujacych transakcyjnosc oraz uwierzytelnienie w dostepie do funkcji i zasobów.
+3) "web.xml"
+   Plik konfiguracyjny calej aplikacji dla srodowiska Java Enterprise Edition. Z jego pomoca zostaly zarejestrowane biblioteki Spring i JSF.
+
+Ostatnim istotnym katalogiem jest "WebContent/pages", który zawiera strony widoków formularzy w technologii facelet JSF.
+
+
+
+
+
+5.2. Rozwarstwienie i zarzadzanie komponentami
+
+   Definiowanie, wiazanie oraz grupowanie komponentów oprogramowania, które znajduja sie na serwerze Apache Tomcat uzyskano z wykorzystaniem frameworka Spring.
+W systemie wiekszosc komponentów funkcjonuja pod kontrola kontenera IoC(Inversion of Control). Jego nazwa odzwierciedla fakt, ze zadanie tworzenia i zarzadzania komponentami zostalo przerzucone na biblioteke. Kontrola obiektów jest jakby odwrócona w stosunku do klasycznego podejscia. W celu definiowania komponentów wykorzystano dwie oferowane przez framework mozliwosci. 
+   Pierwsza to plik konfiguracyjny "applicationContext.xml", który zawiera podstawowe deklaracje komponentów w postaci znaczników jezyka xml. Druga mozliwosc to uzycie odpowiednich adnotacji jezyka Java w kodzie zródlowym na polach klas lub klasach odpowiadajacych komponentom. 
+   Rozwarstwienie uzyskano poprzez uzycie odpowiednich andotacji @Repository oraz @Service okreslanych mianem stereotypu w bibliotece Spring. Oznaczenie obiektu taka adnotacja jest jednoznaczne z deklaracja komponentu, jego utworzeniem i przypisaniem do okreslonej warstwy. Kazdy komponent w projekcie sklada sie z co najmniej dwóch czesci, pierwsza to interfejs stanowiacy kontrakt w procesie komunikacji pomiedzy innymi komponentami w róznych warstwach oraz druga, która jest realizacja wystawianego interfejsu. Komunikacja pomiedzy poszczególnymi warstwami oparta jest wiec na interfejsach. Oczywiscie liczba i funkcja warstw moze byc rózna dzieki wsparciu podejscia aspektowego, jednak w projekcie skorzystano z domyslnych stereotypów.
+   W celu powiazania komponentów znajdujacych sie w róznych warstwach wykorzystano wzorzec wstrzykiwania zaleznosci(dependency injection) oferowany przez framework. W kodzie zródlowym zadeklarowanych komponentów umieszczono referencje do interfejsów komponentów warstwy nizszej, a dzieki specjalnej adnotacji @Autowired biblioteka automatycznie przeskanuje kontener komponentów i "wstrzyknie" odnaleziony pasujacy do interfejsu komponent.
+    W dalszej czesci zostanie przedstawiona charakterystyka poszczególnych warstw zastosowanych w projekcie. 
+
+
+
+5.3. Warstwa dostepu do danych
+
+   Warstwa ta sklada sie z komponentów, których zadaniem jest komunikacja z baza danych. 
+Elementy w tej warstwie maja budowe oparta na wzorcu projektowym Data Access Object.
+Z poziomu oferowanych funkcji dostep realizowany jest na wyzszym poziomie abstrakcji, poprzez udostepnianie metod, których argumentami sa obiekty klas z modelu domeny przedstawionego w rozdziale 3.1. Liczba i nazwy komponentów równiez czesciowo odpowiadaja klasom z modelu domeny, poniewaz realizuja operacje z nimi zwiazane i to wlasnie stanowilo glówne kryterium podzialu odpowiedzialnosci. W projekcie wyrózniono nastepujace interfejsy okreslajace funkcje komponentów w warstwie dostepu do danych:
+ISubjectDAO
+   Operacje bazodanowe zwiazane z przedmiotami.
+   
+IGroupDAO
+   Operacje bazodanowe zwiazane z grupami wykladowymi, projektowymi, cwiczeniowymi lub laboratoryjnymi.
+   
+IGroupAssociationDAO
+   Operacje bazodanowe zwiazane z obiektami reprezentujacymi przynaleznosc studenta do grupy.
+   
+ISubjectAssociationDAO
+   Operacje bazodanowe zwiazane z obiektami reprezentujacych uczestnictwo studenta w przedmiocie.
+   
+IUserDAO
+   Operacje bazodanowe zwiazane z uzytkownikami.
+
+
+
+
+
+
+Ponizsza tabela przedstawia interfejs, jego implementacje oraz rejestracje dla komponentu groupDAO.
+
+Interfejs komponentuImplementacja i rejestracja komponentupublic interface IGroupDAO {
+  void save(Group group);
+
+  void update(Group Group);
+
+  void saveOrUpdate(Group group);
+
+  void delete(Group group);
+
+  Group findById(Long id);
+
+  List<Group> findAll();
+}@Repository("groupDAO")
+public class GroupDAO implements IGroupDAO {
+ 
+ @Autowired
+  SessionFactory sf;
+
+  @Override
+  public void save(Group entity) {
+    // some validation
+    sf.getCurrentSession().save(entity);
+  }
+ ... 
+}
+      
+      Adnotacja @Repository okresla, ze klasa GroupDAO implementujaca interfejs IGroupDAO bedzie zarejestrowana, jako komponent o nazwie groupDAO w warstwie dostepu do danych w kontenerze IoC.
+	
+      Na konkretna komunikacje z baza danych wykorzystano mapowanie obiektowo relacyjne w postaci biblioteki hibernate. Kazdy komponent wykorzystuje obiekt sessionFactory który sluzy do uzyskania sesji komunikacyjnej z wlasciwym systemem zarzadzania baza danych i jest globalnie zadeklarowany w pliku "applicationContext.xml". Mapowanie obiektowo relacyjne uzywane podczas kazdej sesji zostalo skonfigurowane przy pomocy adnotacji standardu Java Persistence Api na klasach modelu domeny.
+Ponizej znajduje sie fragment klasy Subject z mapowanej na strukture bazodanowa.
+
+@Entity
+@Table(name = "subjects")
+public class Subject implements Serializable{  
+
+  @ManyToOne
+  @JoinColumn(name = "lecturer_id", nullable = false)
+  private User lecturer;
+
+  @Column(nullable = false)
+  private String title;
+
+  ...
+}
+Adnotacja @Entity i @Table okresla tutaj, ze klasa Subject ma odpowiednik w bazie danych w postaci tabeli o nazwie subjects.
+
+   Warstwa dostepu do danych pelni tez funkcje tlumaczenia wyjatków wyrzucanych przez rózne technologie komunikacji z baza danych. Niezaleznie czy w projekcie zastosowano by klasyczny sposób, czy mapowanie obiektowo relacyjne z uzyciem dowolnej biblioteki to wyjatki zglaszane podczas komunikacji sa przeksztalcane do jednakowej hierarchii wyjatków oferowanych przez framework Spring.
+   
+5.4. Warstwa logiki biznesowej
+
+   Komponenty w tej grupie realizuja operacje zwiazane z wymaganiami funkcjonalnymi okreslonymi w rozdziale 2.2. Jest warstwa wyzsza w stosunku do warstwy dostepu do danych.  Przynaleznosc do warstwy zostala zdefiniowana dzieki adnotacji @Service, która podobnie jak wyzej pozwala okreslic nazwe komponentu w kontenerze Spring. Ponizej zostal przedstawiony jeden z wielu wystepujacych w projekcie komponentów w postaci interfejsu oraz jego implementacji, który realizuje operacje zwiazane z grupami zajeciowymi.
+
+Interfejs komponentu realizujacego operacje zwiazane z grupamipublic interface IGroupService {
+  
+  /* 
+   * Dodanie grupy wykladowej dla przedmiotu  z okresleniem wykladowcy, ktróry jest 
+   * odpowiedzialny za przedmiot  przedmiot
+   */
+  @PreAuthorize("hasRole('LECTURER')")
+  void addLectureGroup(Group group, Subject subject, User lecturer);
+
+  /* Edycja grupy wykladowej */ 
+  @PreAuthorize("hasRole('LECTURER')")
+  void editLectureGroup(Group group);
+
+  /* Dodanie grupy drugiej czesci zajec w ramach przedmiotu z przypisaniem 
+   * asystenta do grupy */
+  @PreAuthorize("hasRole('LECTURER')")
+  void addClassGroup(Group group, Subject subject, User assistant);
+
+  /* Edycja wskazanej grupy z drugiej czesci zajec.*/
+  void editClassGroup(Group group);
+
+  /* Usuwanie wskazanej grupy. */
+  @PreAuthorize("hasRole('LECTURER')")
+  void removeGroup(Group group);
+  
+  /* Dodanie studenta do wskazanej grupy. */
+  void addStudentToGroup(User student, Group group);
+}
+
+Implementacja i rejestracja komponentu realizujacego operacje zwiazane z grupami@Service("groupService")
+public class GroupService implements IGroupService {
+  @Autowired 
+  IGroupDAO groupDAO;
+  
+  @Autowired
+  IUserDAO userDAO;
+
+  @Autowired
+  IGroupAssociationDAO groupAssociationDAO;
+
+  @Override
+  @Transactional
+  public void addStudentToGroup(User student, Group group) {
+    try {
+       subjectService.addStudentToSubject(student, group.getSubject());
+    } catch (StudentAlreadyAddedToSubjectException e) {}
+    GroupAssociation ga = new GroupAssociation();
+    ga.setStudent(student);
+    ga.setGroup(group);
+    ga.setExcusesNumber(0);
+    groupAssociationDAO.save(ga);
+  }
+ . . .
+}
+   
+   Komponent groupService do swojego dzialania wykorzystuje komponenty nizszej warstwy wystawiajace nastepujace interfejsy: IUserDAO, IGroupAssociationDAO i IUserDAO, co odpowiada zaleznosciom przedstawionym w rozdziale 3.3 w postaci diagramu komponentów.
+   
+	Warstwa logiki biznesowej w systemie pelni tez funkcje zarzadzania transakcjami.
+Framework Spring dostarcza abstrakcyjny model infrastruktury transakcji i pozwala na deklaratywne zarzadzanie przy pomocy adnotacji. W projekcie skorzystano z jednego z menadzerów transakcji przygotowanego pod obsluge biblioteki hibernete. 
+Deklaracja tego menadzera razem z powiazaniem go z adnotacjami zostala równiez umieszczona w pliku "applicationContext.xml", za co odpowiada jest ponizszy fragment.
+
+<tx:annotation-driven transaction-manager="txm" />
+
+<bean id="txm"         
+      class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+   <property name="sessionFactory" ref="sf"></property>
+</bean>
+   Wszystkie metody i klasy w warstwie logiki biznesowej zostaly oznaczone adnotacja @Transactional, co w polaczeniu z powyzsza konfiguracja pozwolilo na zamkniecie operacji róznych obiektów warstwy dostepu do danych w ramach pojedynczej transakcji. 
+
+5.5. Warstwa prezentacji
+
+   Warstwe prezentacji utworzono z wykorzystaniem technologii Java Server Faces opartej na dobrze znanym wzorcu MVC. Wprowadza ona swój kontener komponentów i metode wstrzykiwania zaleznosci, która jest podobna do tej realizowanej w bibliotece Spring.
+Elementami tej warstwy w projekcie sa:
+* Strony formularzy w technologii facelet dla JSF
+* Obiekty(managed beans), które sa zarejestrowane i zarzadzane przez biblioteke JSF
+    
+    W projekcie oznaczenie dowolnej klasy adnotacja @ManagedBean jest jednoznaczne z rejestracja komponentu przypisaniem go do warstwy prezentacji.
+Z uzyciem specjalnego jezyka "expression language" strony formularzy w trakcie przetwarzania przez serwer komunikuja sie z juz zarejestrowanymi obiektami widoku poprzez odwolywanie sie do ich metod oraz wartosci. W celu osiagniecia wzajemnej komunikacji pomiedzy komponentami widoku oraz logiki biznesowej w pliku konfiguracyjnym "faces-config.xml" wskazano klase SpringBeanFacesELResolver, jako realizacje przeszukiwania kontenera JSF. Teraz biblioteka JSF oprócz zbiornika z komponentami widoku równiez bedzie przeszukiwac kontener z biblioteki Spring, zawierajacy komponenty logiki biznesowej i dostepu do danych. Czynnosc ta pozwolila na integracje warstwy prezentacji z warstwa logiki biznesowej pomimo róznic technologicznych, w dalszym ciagu opierajac sie na koncepcji wstrzykiwania zaleznosci.
+
+      Wszystkie komponenty warstwy prezentacji posiadaja sufiks Controller i zostaly skategoryzowane wedlug funkcji zwiazanej z trescia, prezentowana przez fragmenty formularzy. Do glównych zadan tej warstwy naleza:
+* gromadzenie i walidacja danych pochodzacych od uzytkownika
+* przygotowanie danych do wyswietlenia w formularzach prezentowanych na zadanie uzytkownika
+* inicjacja wlasciwych operacji dla aplikacji zawartych w komponentach logiki biznesowej z uzyciem zebranych i z walidowanych danych
+       
+Ponizsza lista przedstawia najwazniejsze komponenty oraz odpowiadajaca im tresc formularzy.
+
+Nazwa komponentuPowiazana tresc formularzyUserControlleruzytkownicy systemu(administratorzy, wykladowcy, asystenci, studenci)SubjectControllerprzedmioty uzytkownikaMarksControlleroceny z zajec, egzaminu i przedmiotuLectureGroupsControllergrupy wykladoweLectureAttendancesControllerobecnosci grup wykladowychClassGroupsControllergrupy inne niz wykladoweClassAttendancesControllerobecnosci grup innych niz wykladowe
+
+5.6. Uwierzytelnienie i autoryzacja dostepu
+
+   Proces uwierzytelnienia oraz autoryzacji utworzono z uzyciem elastycznego modulu Spring Security. Konfiguracja zabezpieczen znajduje sie w pliku "applicationContext.xml".
+W dalszej czesci zostanie omówiony sposób realizacji modelu uprawnien i zabezpieczenia aplikacji.
+
+
+
+
+
+
+
+
+5.6.1. Konfiguracja modelu uprawnien
+
+<authentication-manager>
+<authentication-provider>
+ <jdbc-user-service data-source-ref="dataSource" 
+    users-by-username-query="SELECT  username, password, enabled 
+                             FROM users 
+                             WHERE username = ?"
+
+   authorities-by-username-query="SELECT username , rolename
+                                  FROM users 
+                                  WHERE username = ?" />
+</authentication-provider>
+</authentication-manager>       W pierwszym kroku skonfigurowano model uprawnien uzywanych w projekcie i aplikacji. Model uprawnien okresla miejsce oraz sposób skladowania nazw, hasel i uprawnien uzytkowników. Ponizszy fragment odpowiada konfiguracji tego modelu w projekcie.
+
+      By okreslic model uprawnien wykorzystano jedna z oferowanych przez modul postaci, a mianowicie parametryzowany SQL. Znacznik jdbc-user-service mówi, ze informacje na temat uzytkowników oraz ich uprawnien beda pozyskiwane z uzyciem jezyka SQL oraz standardowego interfejsu dostepu do bazy danych JDBC dla javy. Znacznik posiada trzy atrybuty: data-source-ref,  users-by-username-query oraz authorities-by-username-query.
+Pierwszy wskazuje na obiekt zródla danych, równiez skonfigurowany w pliku. Jest odpowiedzialny za wlasciwe nawiazanie polaczenia z warstwa danych(MySQL).
+Drugi zawiera wyrazenie SQL, które pozwala wyszukac haslo i status aktywnosci uzytkownika w systemie po parametrze okreslajacym nazwe uzytkownika.
+Trzeci atrybut zawiera wyrazenie SQL, które pozwala wyszukac wszystkie role uzytkownika po parametrze reprezentujacym jego nazwie. 
+W zaleznosci od postaci tych zapytan model uprawnien moze byc rózny. W systemie stworzono model uprawnien, w którym rola uzytkownika jest jednoznaczna z jego uprawnieniem. W dodatku kazdemu uzytkownikowi przyporzadkowana jest tylko i wylacznie jedna rola, która przechowywana jest w tym samym miejscu, co jego nazwa, haslo oraz status aktywnosci. Taka ziarnistosc w zupelnosci wystarcza by spelnic wymagania stawiane przed systemem.
+
+
+5.6.2. Zabezpieczenie aplikacji
+
+   Posiadajac skonfigurowany model uprawnien, zabezpieczenia aplikacji dokonano na róznych poziomach jej funkcjonowania:
+      	
+1) Dostep do zasobów przez protokól http (warstwa prezentacji)
+
+   Klient uzyskuje dostep do aplikacji poprzez zadania pobrania formularzy przy uzyciu protokolu http. Ponizszy wpis konfiguracyjny posluzyl do zabezpieczenia przed niepowolanym dostepem do okreslonych zasobów.
+   
+<http use-expressions="true">
+      <form-login login-page="/login.jsp" />
+      <intercept-url pattern="/login.jsp" access="permitAll" />
+      <intercept-url pattern="/**" access="isAuthenticated()" />
+ </http>
+Konfiguracja przy pomocy znacznika "form-login" okresla domyslny formularz logowania, który bedzie wyswietlony podczas próby pierwszego dostepu do zasobu w celu weryfikacji danych uzytkownika wzgledem okreslonego wczesniej modelu uprawnien. Znacznik intercept-url  przy uzyciu wyrazenia regularnego okresla wymagane uprawnienia do grup zasobów. Dla formularza logowania "login.jsp" ustawiono dostep publiczny. Dla calej reszty zasobów wymagane jest poprawne przejscie uwierzytelnienia z domyslnym formularzem logowania. Sprawdzaniem czy zadania w ramach sesji zostaly juz uwierzytelnione zajmuje sie biblioteka Spring.
+
+2) Autoryzacja dostepu do funkcji komponentów logiki biznesowej
+(warstwa logiki biznesowej)
+      Przy pomocy adnotacji @PreAuthorize oferowanej przez Spring Security, zabezpieczono dostep do funkcji komponentów logiki biznesowej. Ponizej znajduje sie fragment kodu przedstawiajacy czesc interfejsu komponentu odpowiedzialnego za wykonywanie operacji zwiazanych z grupami studenckimi. 
+      
+public interface IGroupService {
+    @PreAuthorize("hasRole('LECTURER')")
+    void editLectureGroup(Group group);
+ 
+   ...
+}
+      Uprawnienia dostepu do funkcji editLectureGroup realizujacej edycje grupy wykladowej uzyskac moze tylko uzytkownik posiadajacy role wykladowcy.
+
+6. Testowanie
+
+   W dzisiejszych czasach, jakosc oferowanych rozwiazan informatycznych jest jednym z glównych czynników sukcesu. Testowanie odgrywa istotna role w osiagnieciu wysokiej jakosci tworzonego oprogramowania. Praktycznie zadne przedsiewziecie projektowe nie moze obyc sie bez tej czynnosci. Rozdzial ten opisuje proces testowania zastosowany do tworzonego na potrzeby pracy systemu.
+
+6.1.  Testy jednostkowe
+
+   Testowanie jednostkowe dotyczy testowania poszczególnych elementów systemu w scislej izolacji. Powodem takiego podejscia jest fakt, ze w przypadku wykrycia bledu jest on w szybki sposób lokalizowany i naprawiany. Dodatkowo ciagla zautomatyzowana weryfikacja zgodnosci oczekiwanego rezultatu podczas pracy z rozwijanym kodem zródlowym daje wieksza gwarancje jakosci. Testy jednostkowe musza byc przede wszystkim szybkie w swoim dzialaniu ze wzgledu na powtarzajacy sie cykl ich przeprowadzania. W metodyce obiektowej jednostka oprogramowania moze byc poszczególna metoda lub klasa, która implementuje pewne operacje na róznym poziomie abstrakcji.[5]
+
+   W projekcie wykorzystano biblioteke "junit", bedaca de facto standardem, jesli chodzi o przeprowadzanie testów automatycznych i jednostkowych. Testom poddano pojedyncze elementy w warstwie logiki biznesowej.
+By osiagnac niezaleznosc pomiedzy komponentami skorzystano równiez z mozliwosci oferowanej przez biblioteke mockito, która pozwala na szybkie tworzenie sztucznych obiektów, tak zwanych "mocków".
+
+   Sposób testowania warstwy logiki biznesowej polegal na spreparowaniu obiektów reprezentujacych zalezne komponenty z warstwy dostepu do danych, w taki sposób by odzwierciedlaly mozliwe przypadki ich dzialania oraz na wielokrotnym wywolywaniu testowanej funkcji z przypuszczalnymi argumentami majac na uwadze ich warunki brzegowe i oczekiwany rezultat.
+   
+   Ponizej zamieszczony zostal przypadek testowy w postaci klasy testujacej metode dodawania nowej grupy wykladowej. Adnotacja @Mock tworzy sztuczny obiekt komponentu na podstawie interfejsu IGroupDAO. Przy pomocy specjalnych wyrazen z biblioteki mockito okreslono mozliwe scenariusze dzialania testowanej funkcji.
+* Pierwszy uwzglednia poprawne utworzenie i zapisanie grupy z uzyciem sztucznego obiektu groupDAO
+* Drugi oczekuje wystapienia zdarzenia wyjatkowego podczas dodania grupy w przypadku, gdy juz istnieje lub zostana naruszone wiezy integralnosci w dostepie do zasobów danych
+*  Trzeci oczekuje zdarzenia wyjatkowego w przypadku pominiecia dowolnego argumentu w wywolaniu funkcji
+
+@RunWith(MockitoJUnitRunner.class)
+public class GroupServiceTest {
+  @Mock
+  private IGroupDAO groupDAO;
+  
+  @InjectMocks
+  private GroupService groupService;
+  
+  private Group newGroup;
+  private Subject subject;
+  private User lecturer;
+
+  @Before
+  public void init() { /* create mock newGroup, subject, lecturer */ }
+  
+  @Test
+  public void testTryingAddLectureGroup() {
+    try {
+      groupService.addLectureGroup(newGroup, subject, lecturer);
+    } catch (Exception e) {
+      fail("Failed to add lecture Group!");
+    }
+  }
+  
+  @Test(expected = LectureGroupAlreadyExistException.class)
+  public void testTryingAddLectureGroupWhenAlreadyExist() {
+    doThrow(new DataIntegrityViolationException("")).when(groupDAO).save(newGroup);
+    groupService.addLectureGroup(newGroup, subject, lecturer);
+  }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testTryingAddLectureGroupFailsWithInvalidArguments() {
+    groupService.addLectureGroup(null, subject, lecturer);
+    groupService.addLectureGroup(newGroup, null, lecturer);
+    groupService.addLectureGroup(newGroup, subject, null);
+  }
+}
+6.2. Testy integracyjne
+
+   Ten typ testowania ma na celu sprawdzenie jakosci wzajemnie wspóldzialajacych komponentów oprogramowania, które skladaja sie na wiekszy fragment systemu. W przeciwienstwie do testów jednostkowych ich obecnosc jest opcjonalna, a proces przeprowadzania znacznie rzadszy, co powoduje, ze nie sa nalozone na nie zadne wymogi zwiazane z typem oraz czasem wykonywanych operacji.
+   
+   Komponenty warstwy dostepu do danych zostaly przetestowane z uzyciem testów integracyjnych ze wzgledu na ich charakter oraz realizowane funkcje. Fragmentem systemu, który bedzie uczestniczyl równiez w tym procesie jest konkretny system zarzadzania baza danych.
+   Do realizacji czynnosci w dalszym ciagu wykorzystano biblioteke junit, jako sposób automatyzacji. W celu zachowania nienaruszalnosci pierwotnej struktury bazodanowej skorzystano  z dodatkowego silnika bazy danych HSQLDB. Jego cecha charakterystyczna jest mozliwosc uruchomienia wszystkich elementów w pamieci operacyjnej na zadanie uzytkownika.
+   
+Ponizej znajduje sie fragment kodu, przypadku testujacego metode zapisu nowego uzytkownika do testowej bazy HSQLDB. Andotacja @ContextConfiguration wskazuje polozenie pliku konfiguracyjnego dla testowego kontenera komponentów Spring. Znajduja sie w nim ustawienia testowej bazy danych oraz deklaracje testowanych komponentów.
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:testAppCtx.xml"})
+@Transactional
+public class UserDAOTest {
+  @Autowired  
+  IUserDAO userDAO;
+  
+  @Test
+  public void testSaveUser() {
+    User user = new User();
+    user.setUsername("mnowic");
+    user.setPassword("mnowic");
+    user.setFirstName("Marek");
+    user.setLastName("Nowicki");
+    user.setRolename(Role.LECTURER);
+    
+    assertNull(user.getId());
+    userDAO.save(user);
+    assertNotNull(user.getId());
+    assertTrue(user.getId() > 0);
+  } 
+}
+
+6.3. Testy graficznego interfejsu uzytkownika
+
+   Ostatnia grupa testów przeprowadzonych na potrzeby tworzonej aplikacji sa testy graficznego interfejsu uzytkownika. Na podstawie opinii potencjalnych odbiorców zbadano jakosc w procesie graficznej komunikacji pomiedzy uzytkownikami oraz systemem. Wymaganie niefunkcjonalne  "NFR_0: Latwosc uzytkowania" okresla, ze system ma byc na tyle przejrzysty, by nie sprawial wiekszego problemu z jego obsluga. Dobrze zaprojektowany interfejs uzytkownika pozwoli na automatyczna i intuicyjna nauke korzystania z systemu.
+   Weryfikacja polegala na zaproszeniu grupy osób w róznym wieku i zrealizowaniu kilku czynnosci przedstawionych w rozdziale zwiazanym z wymaganiami funkcjonalnymi systemu.
+W testach braly udzial: dwie osoby w roli wykladowców, cztery osoby w roli asystentów oraz dziesiec osób w przedziale wiekowym 20 - 25 w roli studentów. Calosc zostala rozbita na dwa przedmioty prowadzone przez dwóch innych wykladowców uczestniczacych w badaniu. Reszta asystentów i studentów uczestniczyla w obydwu przedmiotach poprzez ich odpowiednie przypisanie, zgodne z dzialaniem aplikacji.
+   Uzytkowanie systemu oraz wykonywanie okreslonych operacji nie stanowilo zadnej trudnosci. Osobom testujacym bardzo odpowiadal zarówno kolor jak ksztalt poszczególnych elementów interfejsu uzytkownika. Wskazywali oni zalety zastosowania intuicyjnych grafik, dzieki którym odnalezienie poszczególnych funkcji systemu bylo naprawde proste i szybkie.
+Na podstawie ich opinii stwierdzono, ze wynik testu okazal sie wiec pozytywny. 
+
+7. Prezentacja i opis dzialania systemu
+
+   W tym rozdziale zostalo zaprezentowane dzialanie systemu. Ponizej pokazano najwazniejsze oferowane funkcje w formie graficznej i opisowej. Niezaleznie od posiadanej przez uzytkownika roli uzyskuje on dostep do zasobów systemu tylko w przypadku pozytywnego zakonczenia procesu uwierzytelnienia.
+
+   Po zalogowaniu do systemu kazdy uzytkownik otrzymuje odpowiednia liste przygotowanych dla niego przedmiotów. Wykladowca zobaczy przedmioty, które zdefiniowal w systemie, asystent tylko te, w których jest przypisany jako prowadzacy jakiejkolwiek grupy, student zas tylko te w których uczestniczy, poprzez obecnosc w dowolnej grupie dla przedmiotu. Ponizej zaprezentowany jest widok dla wykladowcy, który posiada najwieksze uprawnienia w stosunku do swoich przedmiotów.
+   W ostatniej kolumnie kazdego wiersza znajduja sie kolejno przyciski umozliwiajace: podglad szczególów przedmiotu, uzyskanie informacji na temat sposobu wyliczenia oceny koncowej, edycje lub podglad skali ocen, edycje przedmiotu oraz jego usuniecie.
+
+
+      
+      Tylko dla wykladowcy jest dostepny przycisk "Dodaj", znajduja sie w dole ekranu na liscie przedmiotów. Z jego pomoca moze zdefiniowac nowy, prowadzony przez siebie przedmiot. Podczas tego dzialania okresla okres trwania przedmiotu, typ drugiej czesci zajec(laboratoria, projekt, cwiczenia), liczbe wykladów, liczbe zajec dla reszty grup oraz wagi poszczególnych ocen czastkowych. Calosc przedstawia nastepujacy formularz.
+
+
+
+      Kolejna czynnoscia mozliwa dla wykladowcy jest okreslenie skali ocen dla przedmiotu oraz grup zajeciowych. Na ponizszym formularzu zaprezentowana jest edycja dolnej granicy procentowego progu dla oceny 3.0. Jej górna granica jest dolny próg procentowy kolejnej oceny. 
+
+      
+      
+      
+      Dla kazdego przedmiotu w systemie mozna uzyskac szczególowe dane na jego temat przy pomocy pokazanego przycisku z symbolem strzalki na rys. 1. Formularz podzielony jest na trzy czesci w postaci zakladek.
+      Pierwsza dotyczy informacji na temat grup wykladowych. Zakladka jest dostepna tylko dla wykladowcy oraz studenta. Ten drugi widzi wylacznie swoja grupe audytoryjna bez zadnych dodatkowych informacji na temat innych studentów w niej uczestniczacych. 
+Na formularzu widac przyciski "Dodaj grupe" oraz "Dodaj studenta", które pozwalaja odpowiednio na dodanie nowej grupy wykladowej oraz na przypisanie studenta do zaznaczonej grupy.  W wierszu kazdej grupy znajduja sie przyciski umozliwiajace kolejno: podglad lub edycje obecnosci, edycje oraz usuniecie grupy.
+
+      
+      
+      Ponizszy formularz przedstawia edycje obecnosci dla grupy wykladowej i jest on analogiczny dla innych rodzajów grup. Podglad dla studenta jest w takiej samej formie za wyjatkiem braku mozliwosci edycji i widocznosci tylko swojego rekordu.
+
+
+      Kolejna zakladka dotyczy drugiej czesci zajec okreslonych przy dodawaniu przedmiotu - projekt, laboratoria lub cwiczenia. Jest ona zblizona funkcjonalnoscia i sposobem prezentacji do poprzedniej. Jednak w tym przypadku oferowane czynnosci przeznaczone sa glównie dla asystenta, który prowadzi poszczególne grupy. Wykladowca dodajac grupe okresla asystenta odpowiedzialnego za przebieg zajec. Asystent po zalogowaniu widzi przedmiot z przypisana grupa, a w widoku szczególów moze równiez edytowac swoja grupe zajeciowa, jednak w tym przypadku opcje zmiany beda inne.
+Na ponizszych rysunkach widac edycje grupy drugiej czesci zajec dla wykladowcy oraz asystenta. Ten drugi moze okreslic liczbe ocen oraz liczbe dozwolonych nieobecnosci w semestrze, po których przekroczeniu student nie otrzymuje zaliczenia z tej czesci zajec.
+Po lewej stronie widac dialog edycji grupy zajeciowej dla wykladowcy, po prawej dla asystenta.
+
+
+
+
+
+
+
+
+W stosunku do poprzedniej zakladki w wierszu grupy dochodzi przycisk, który umozliwia podglad ocen dla studenta i wykladowcy oraz ich edycje w przypadku asystenta, co prezentuje ponizszy formularz.
+
+
+
+	
+
+
+      Ostatnia zakladka prezentuje wszystkie oceny czastkowe i koncowe dla przedmiotu.
+Wykladowca, asystent i student widza odpowiednia dla siebie liczbe wpisów i kolumn.
+Prowadzacy przedmiot ma mozliwosc edycji oceny z egzaminu, zas reszta uzytkowników
+wylacznie podgladu wyliczonych przez system ocen.
+
+
+
+
+8. Wnioski
+
+   Celem pracy bylo stworzenie systemu w architekturze wielowarstwowej, który bedzie wspomagac prowadzenie zajec na uczelni wyzszej. Wszystkie zalozenia stawiane w celach pracy oraz w wymaganiach projektowych zostaly zrealizowane. Udalo sie zbudowac system wykorzystujacy wszystkie wlasciwosci tej architektury.
+   
+   W procesie implementacji systemu zauwazono, ze taka architektura wprowadza dodatkowy naklad pracy w postaci realizacji kazdej warstwy. Sposób budowy jej elementów z uzyciem narzedzi informatycznych wykorzystuje niestandardowe podejscie i moze stanowic trudnosc w procesie poznawczym. Potrzeba zmiany komponentów staje sie poczatkowo procesem zmudnym przez jednoczesne utrzymanie interfejsów oraz klas ich realizujacych. Rozbicie i okreslenie ksztaltu komponentów nie jest tez procesem ustandaryzowanym. Jednak w wraz z rozrostem projektu, caly ten wysilek sie oplaca. Do najwiekszych zauwazalnych zalet nalezy sam fakt dekompozycji pewnych zagadnien. Juz w przypadku takiego projektu ciezko bylo by go spójnie rozwijac i panowac nad caloscia. Wielokrotne uzycie tych komponentów w warstwie dostepu do danych znaczaco ulatwila i skrócila czas wykonania pewnych operacji. Sposób grupowania i wiazania komponentów z uzyciem wstrzykiwania zaleznosci staje sie wrecz wymogiem stosowania w stosunku do klasycznego podejscia. Odnalezienie definicji komponentów oraz ich zaleznosci po opanowaniu tego sposobu staje sie przejrzyste i proste. Dojsc mozna równiez do wniosku, ze model takiej architektury zbliza sie do programowania proceduralnego z powodu wykorzystania modelu domeny, zawierajacego bardzo niewielka ilosc logiki biznesowej, a sluzacego glównie jako zbiornik dla danych przetwarzanych przez wlasciwe komponenty logiki biznesowej oraz dostepu do danych. Architektura przede wszystkim zmniejsza podatnosc na bledy i zwieksza poziom zabezpieczen poprzez testowanie komponentów i wprowadzenie mechanizmów zabezpieczen i walidacji danych na poziomie kilku warstw. 
+   
+	Sam system moze zostac wdrozony w wielu jednostkach dydaktycznych i z pewnoscia ulatwi proces prowadzenia spójnej historii przebiegu zajec w postaci listy ocen oraz obecnosci. Uwolni asystentów od okresowego wysylania wyników swoich podopiecznych prowadzacym. System ma mozliwosc dalszego rozwoju i jako jedna z nich jest integracja z innymi modulami oprogramowania przeznaczonych dla uczelni wyzszych np. moduly EHMS stosowane miedzy innymi na Politechnice Krakowskiej. Integracja z prawdziwa baza studentów i pracowników dydaktycznych oraz dostep do edycji informacji zwiazanych z przebiegiem studiów przechowywanych i zarzadzanych przez taki modul znaczaco usprawnia równiez prace dziekanatu.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9. Bibliografia
+ 
+1. Heiko Schuldt,
+ "Multi-Tier Architecture"
+2. Andrzej Sikorski,	
+"Rozszerzone architektury wielowarstwowe w srodowisku komunikacyjnym aplikacji rozproszonych"
+3. Buschmann Frank; Meunier Regine; Rohnert Hans; Sommerlad Peter; Stal Michael,
+"Pattern-Oriented Software Architecture", Volume 1
+4. Bernd Bruegge, Allen H. Dutoit,
+"Object-Oriented Software Engineering Using UML, Patterns, Java"
+5. Kshirasagar Naik, Priyadarshi Tripathy
+"Software Testing and Quality Assurance"
+6. Dokumentacja Tomcat,
+http://tomcat.apache.org/
+7. Dokumentacja Spring,
+http://projects.spring.io/spring-framework/
+8. Dokumentacja Primefaces, http://www.primefaces.org/docs/guide/primefaces_user_guide_5_0.pdf
+9. Dokumentacja Hibernate,
+ http://hibernate.org/orm/documentation/
+10. Zbiór artykulów,
+http://www.mkyong.com/
+
+
+
+1
+
+

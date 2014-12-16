@@ -1,0 +1,1076 @@
+POLITECHNIKA KRAKOWSKA 
+IM. TADEUSZA KOSCIUSZKI
+WYDZIAL FIZYKI MATEMATYKI I INFORMATYKI
+KIERUNEK INFORMATYKA 
+
+
+JAROSLAW ROLA
+
+
+SYSTEM DO ZARZADZANIA PLANEM TRENINGOWYM SPORTOWCA
+
+A SYSTEM FOR MANAGING A TRAINING PLAN
+
+
+PRACA MAGISTERSKA
+STUDIA STACJONARNE 
+
+
+
+
+Promotor: dr Agnieszka Krok
+
+
+
+
+
+Kraków 2014
+Spis tresci
+   	1
+    1.	Wstep	1
+    1.1	Rozwój i historia aplikacji mobilnych	2
+    1.2	Rozwój i historia aplikacji internetowych	4
+    1.3	Przeglad konkurencyjnych aplikacji	5
+    1.4	Cele, zalozenia i zakres pracy	11
+    2.	Projekt aplikacji	13
+    2.1	Wymagania funkcjonalne	13
+    2.2	Wymagania niefunkcjonalne	16
+    2.3	Architektura systemu	18
+    2.4	Struktura bazy danych	19
+    2.5	Diagramy jezyka UML	20
+    2.5.1	Diagramy przypadków uzycia	20
+    2.5.2	Diagram encji	24
+    2.6	Zastosowane technologie i narzedzia wspomagajace	24
+    3.	Implementacja i wdrozenie	26
+    3.1	Aplikacja mobilna	26
+    3.2	Aplikacja internetowa	39
+    3.3	Komunikacja	43
+    3.4	Opis wdrozenia	45
+    4.	Testy aplikacji	46
+    4.1	Testy jednostkowe	47
+    4.2	Przypadki testowe	47
+    4.3	Testy interfejsu	49
+    5.	Uzytkowanie aplikacji	50
+    5.1	Aplikacja mobilna	50
+    5.2	Aplikacja internetowa	56
+    6.	Wnioski	60
+    7.	Bibliografia	61
+    Dodatek A.	Uruchomienie aplikacji	63
+    Dodatek B.	Zawartosc plyty CD	64
+      
+       
+
+1. Wstep
+      Zrealizowany projekt zostal wykonany na potrzeby pracy magisterskiej na kierunku Informatyka na Politechnice Krakowskiej. Tematem pracy jest zbudowanie systemu, który umozliwi sportowcom planowanie treningu. System bedzie sie skladac
+z dwóch aplikacji: mobilnej, przeznaczonej na telefony komórkowe i inne urzadzenia 
+z systemem Android oraz aplikacji internetowej. Zebrane poprzez aplikacje mobilna dane bedzie mozna umiescic w sieci, korzystajac z aplikacji internetowej, tym samym prezentujac je pozostalym uzytkownikom.  
+      W obecnych czasach mozna dostrzec pewna mode na uprawianie sportu. Wynika to z faktu, ze ludzie spedzajacy wiele godzin dziennie w szkole, badz tez w pracy, pracujac umyslowo, odczuwaja potrzebe relaksu poprzez aktywnosc fizyczna. To w polaczeniu z ogólnorozumianym rozwojem techniki, wszechobecnymi w zyciu kazdego czlowieka urzadzeniami mobilnymi z dostepem do sieci i portalami spolecznosciowymi powoduje nieustanna popularyzacje trendu aktywnosci fizycznej w Internecie.  
+      
+     1.1 Rozwój i historia aplikacji mobilnych
+      Rozwój Internetu pociagnal za soba powstanie urzadzen przenosnych, które umozliwialy dostep do niego z dowolnego miejsca. Wraz ze wzrostem popularnosci telefonów komórkowych i innych urzadzen mobilnych rosnie takze ilosc dostepnych na nie aplikacji. Przez pojecie aplikacji mobilnej (z ang. mobile software, mobile application) nalezy rozumiec oprogramowanie dzialajace na urzadzeniach przenosnych, takich jak telefony komórkowe, smartfony, palmtopy czy tablety, które budowane sa w oparciu o rózne platformy i jezyki programowania [1]. Logiczna konsekwencja wzrostu popularnosci urzadzen mobilnych jest wzrost zapotrzebowania na róznego typu aplikacje mobilne. Zgodnie z badaniem wykonanym przez TNS Polska w ciagu ostatnich dwóch lat liczba uzytkowników smartfonów wzrosla o 1/3 [2]. Obecnie az 44% Polaków posiada smartfona. Jesli ten trend sie utrzyma, to na poczatku 2015 Polska powinna osiagnac poziom bliski 60%. 
+      Swój dynamiczny rozwój aplikacje mobilne rozpoczely pod koniec XX wieku [3]. Poczatkowo byly to bardzo proste aplikacje, takie jak gry zrecznosciowe, edytory tekstowe, kalkulatory itp. dostosowane do technicznych mozliwosci urzadzen przenosnych z tamtego okresu. Wraz ze wzrostem mozliwosci sprzetowych urzadzen, rosly takze mozliwosci oferowane przez aplikacje. W 1983 roku pojawil sie pierwszy dostepny w sprzedazy telefon. Byla Motorola DynaTAC 800X o wymiarach 330 (z antena) 
+x 88,9 x 44,5 mm oraz wadze blisko 2 kg. Telefon ten umozliwial wykonywanie polaczen oraz posiadal prosta aplikacje do zarzadzania kontaktami. 
+      Wraz ze spadkiem cen, polepszeniem jakosci akumulatorów i parametrów technicznych urzadzen, rynek poszerzal sie i telefony komórkowe przestaly byc tylko nowinka technologiczna. Przelomem w rozwoju tych urzadzen przenosnych okazalo sie zapewnienie im dostepu do Internetu. Ówczesne telefony posiadaly bardzo male, monochromatyczne wyswietlacze oraz bardzo ograniczone pamieci. Równiez koszt polaczenia z Internetem byl wówczas bardzo wysoki. Rozwojowi aplikacji pomoglo wprowadzenie standardu WAP (z ang. Wireless Application Protocol) [4]. Umozliwial on dostep do uslug internetowych uwzgledniajac ograniczenia urzadzen mobilnych. Protokól ten nie spelnial jednak w pelni pokladanych w nim oczekiwan, glównie ze wzgledu na szybkosc dzialania. Korzystanie z niego powodowalo spore koszty, a co za tym idzie ogólne niezadowolenie uzytkowników.  
+      W pierwszej dekadzie XXI w. w urzadzeniach mobilnych zaczely pojawiac sie kompaktowe wersje popularnych systemów operacyjnych, jak Linux czy Windows. Powodowalo to zaangazowanie sie w powstawanie nowego oprogramowania programistów znajacych te systemy. Oprogramowanie zwiazane z urzadzeniami mobilnymi stawalo sie wiec coraz bardziej dostepne dla coraz szerszej grupy programistów. Rosla popularnosc Javy w wersji Micro Edition [5], ale takze Symbian OS [6], który byl 
+Rys. 1.1
+      Udzial w rynku najpopularniejszych systemów na urzadzenia mobilne w drugim kwartale 2014 roku [7].
+
+wykorzystywany w urzadzeniach takich firm jak Nokia, Sony Ericsson, Motorola, czy Samsung. W 2007 roku zaprezentowany zostal system iPhone iOS firmy Apple. Rok pózniej Google przedstawilo pierwsze urzadzenie z systemem Android. Systemy te sa obecnie najpopularniejsze i aplikacje do nich napisane stanowia najwieksza czesc rynku aplikacji mobilnych (Rys. 1.1) [7].
+      
+     1.2 Rozwój i historia aplikacji internetowych
+      Wraz z rozwojem Internetu nieustannie rosnie popularnosc aplikacji internetowych (potocznie zwanych aplikacjami webowymi) [8]. Aplikacje te wypieraja systemy  
+      
+      Rys. 1.2
+      Wzrost liczby nazw hostingowych oraz aktywnych stron w latach 1995-2014 wedlug ankiety przeprowadzonej przez agencje Netcraft [8].
+      
+      
+pisane w klasycznym modelu klient-serwer, który dominowal w ostatnich dziesiecioleciach. Model ten polegal - w duzym uproszczeniu - na podziale zadan pomiedzy serwer, który zapewnial uslugi dla klientów, którzy z kolei zglaszali do niego zadania. Aplikacje napisane w tym modelu mialy sporo wad. Do najwazniejszych mozna zaliczyc z pewnoscia koniecznosc posiadania aplikacji klienckiej na kazdej maszynie, która chciala sie komunikowac z serwerem. Równiez aktualizacje aplikacji klienckiej byly problematyczne. Aby zachowac zgodnosc z oprogramowaniem serwera, aktualizacja musiala zostac przeprowadzona we wszystkich aplikacjach klienckich. Powodowalo to sporo trudnosci, zarówno dla programisty, gdy ten chcial zapewnic wsparcie dla aplikacji stworzonej w  modelu klient-serwer, jak i dla uzytkownika koncowego aplikacji, który musial te aktualizacje wykonywac.	
+      Wymienione wyzej wady nie maja miejsca, gdy mówimy o aplikacjach internetowych. Aplikacje te wykorzystuja dokumenty internetowe do przesylania informacji. Dokumenty te sa odczytywane przez przegladarki internetowe, które obecnie mozna spotkac w kazdym systemie operacyjnym. Aby dokonac aktualizacji oprogramowania wystarczy to zrobic jedynie na serwerze. Aplikacje internetowe mozna w pewnym sensie sklasyfikowac jako pewien rodzaj architektury klient-serwer, gdzie przegladarka internetowa pelni role cienkiego klienta (z ang. thin client) [9].
+      Dynamiczny rozwój aplikacji internetowych rozpoczal sie w 1995 roku. Wtedy to firma Netscape wprowadzila jezyk JavaScript [10]. Jezyk ten zapewnial wieksza interaktywnosc aplikacjom na dzialania uzytkownika. Przed tym wydarzeniem strony internetowe dostarczaly jedynie statyczna, czyli taka sama dla kazdego klienta, tresc. Kolejnym waznym wydarzeniem bylo wprowadzenie technologii Flash [11] przez firme Macromedia (1996 r., obecnie zarzadzana przez firme Adobe). Umozliwiala ona dodawanie multimedialnych tresci na strony www. Istotne z punktu widzenia rozwoju aplikacji internetowych okazaly sie takze: wprowadzenie koncepcji servletów [12] do jezyka Java, wprowadzenie technologii AJAX [13], czy tez przedstawienie standardu HTML5 [14].
+      Aplikacje webowe to obecnie jedna z najszybciej rozwijajacych sie dziedzin tworzenia oprogramowania. Badania przeprowadzone przez agencje 
+Netcraft [8] w kwietniu 2014 roku pokazuja, ze w Internecie bylo wtedy 958 919 789 nazw hostingowych  (Rys. 1.2). Rosnacy trend z roku na rok sie utrzymuje i nic nie wskazuje na to, by w najblizszych latach mialo sie to zmienic.
+
+     1.3 Przeglad konkurencyjnych aplikacji
+      Na rynku funkcjonuje wiele serwisów internetowych i aplikacji mobilnych zwiazanych z planowaniem treningu sportowców. Ponizej przedstawiona zostanie charakterystyka najbardziej popularnych i dostepnych za darmo aplikacji.
+Endomondo
+      Platforma Endomondo [15] sklada sie z dwóch czesci: aplikacji mobilnej Endomondo Sports Tracker, która umozliwia zbieranie danych z przeprowadzonych treningów oraz aplikacji internetowej, w której uzytkownicy moga umieszczac dane zebrane przez aplikacje mobilna. Nie jest to typowa aplikacja do planowania treningu. Jej glównym przeznaczeniem jest rejestracja aktywnosci fizycznej w czasie rzeczywistym. Aplikacja daje tez mozliwosc dodania treningu wczesniej odbytego. Pierwsza wersja na urzadzenia przenosne zostala wydana w listopadzie 2007 roku i od tego czasu wersja tej aplikacji na system Android zostala pobrana z Google Play (oficjalnego internetowego sklepu z aplikacjami dla systemu Android) ponad 10 milionów razy. Aplikacja mobilna posiada dwie wersje: bezplatna i platna. Najwazniejsze funkcje bezplatnej wersji to:
+* rejestracja predkosci, spalonych kalorii i czasu podczas uprawiania dowolnego sportu na zewnatrz wykorzystujac modul GPS,
+* mozliwosc wprowadzenia treningu recznie, po jego odbyciu, nawet gdy brak zasiegu dla GPS,
+* wskazówki glosowe podczas wykonywania cwiczen,
+* umozliwienie wysylania wiadomosci pomiedzy uzytkownikami,
+    
+Rys. 1.3
+Aplikacja mobilna Endomondo Sports Tracker.
+* mozliwosc obejrzenia trasy swojego treningu na mapie, 
+* rejestracja i kontrola tetna (mozliwosc wykorzystania pulsometrów),
+* mozliwosc utrzymywania historii treningów i analizowania uzyskanych wyników,
+* mozliwosc definiowania celów i korzystanie z informacji glosowych aby je zrealizowac,
+* synchronizacja treningów na róznych platformach (np. wpis poprzez strone internetowa),
+* mozliwosc publikowania uzyskanych rezultatów na portalach spolecznosciowych (np. Facebook, Twitter),
+* mozliwosc sledzenia treningów znajomych,
+* mozliwosc rywalizacji ze znajomymi, porównywanie osiagnietych rezultatów,
+* definiowanie tras i rywalizacja z innymi uzytkownikami o uzyskanie jak najlepszego wyniku na danej trasie,
+* mozliwosc sledzenia biezacej aktywnosci znajomych,
+* historia sluchanych utworów podczas treningów,
+* mozliwosc korzystania z mapy w celu orientacji w terenie,
+* mozliwosc zatrzymania treningu i pózniejszego wznowienia go,
+* polaczenie z rowerowym czujnikiem predkosci oraz pulsometrem,
+* aplikacja dostepna jest na urzadzenia mobilne z systemami: Android, iOS, Windows Phone, Symbian.
+Aplikacja mobilna posiada jeszcze wiele innych funkcji, które dostepne sa w opcji platnej. Idealnie sprawdza sie jako rejestrator aktywnosci fizycznej, gdy uzytkownik wykonuje trening zwiazany z przebyciem dystansu. Nie sprawdzi sie natomiast, gdy uprawiany sport jest bardziej statyczny (np. silownia, fitness, pilka nozna, tenis). 
+      Aplikacja internetowa platformy Endomondo sluzy do prezentacji zebranych danych. Jesli uzytkownik dokona rejestracji, wszystkie dane z aplikacji mobilnej beda automatycznie przesylane na portal internetowy. Aplikacja ta daje wieksze mozliwosci analizowania i porównywania wyników, komunikacji ze znajomymi oraz nawet sledzenia ich treningów w czasie rzeczywistym.
+
+Rys. 1.4
+Aplikacja internetowa Endomondo.
+
+Gym Book: training notebook
+		Aplikacja Gym Book: training notebook [16] jest przeznaczona dla uzytkowników silowni, którzy chca monitorowac postepy swojego treningu. Od momentu pojawienia sie na rynku aplikacji dla systemu Android pobralo ja ponad 100 000 osób. Najwazniejsze jej funkcjonalnosci to:
+* mozliwosc monitorowania treningów nastepujacych dyscyplin: lekkoatletyka, kulturystyka, trójbój silowy,
+* mozliwosc sledzenia osiagniec,
+* tworzenie programu szkoleniowego na kazdy dzien treningowy,
+* mozliwosc stworzenia cykli treningowych,
+* podglad statystyk po zakonczonym treningu,
+* przechowywanie statystyk i historii treningów,
+* podglad zmian w treningu silowym w formie wykresu,
+* import i eksport historii treningu,
+* instrukcje jak wykonywac dane cwiczenie.
+Aplikacja jest latwa w obsludze i posiada intuicyjny interfejs uzytkownika. Przeznaczona dla osób, które preferuja tworzenie planów treningowych przed udaniem sie na trening.
+
+  
+Rys. 1.5
+Aplikacja mobilna Gym Book: training notebook.
+
+Redy Gym Log - Workout Tracker
+      Redy Gym Log - Workout Tracker [17] jest aplikacja przeznaczona dla osób preferujacych trening silowy, kulturystyke lub podnoszenie ciezarów. Do tej pory aplikacja zostala pobrana ponad 10 000 razy. Najwazniejsze cechy darmowej wersji aplikacji to:
+* mozliwosc zdefiniowania ulubionych cwiczen,
+* mozliwosc zdefiniowania wlasnych planów treningowych,
+* duzy wybór cwiczen,
+* mozliwosc publikowania treningów na portalach Runkeeper, Dailymile, Facebook, Twitter i Google+,
+* dodawanie notatek, tworzenie dzienników cwiczen,
+* zegar obliczajacy przerwy pomiedzy cwiczeniami, okresy odpoczynku,
+* szczególowa historia poprzednich treningów,
+* tworzenie kopii zapasowych i przywracanie danych dziennika za posrednictwem poczty, lokalnego przechowywania lub uslug w chmurze.
+   
+Rys. 1.6
+Aplikacja mobilna Redy Gym Log - Workout Tracker.
+
+Virtuagym Fitness Home & Gym
+	Aplikacja Virtuagym Fitness Home & Gym [18] przeznaczona jest dla osób, które podczas wykonywania cwiczen skupiaja sie przede wszystkim na poprawnej technice. Do tej pory zostala pobrana ponad 1 000 000 razy. Swoim uzytkownikom daje dostep do:
+* planów treningowych przeznaczonych na silownie oraz do cwiczen w domu,
+* demonstracji poprawnego wykonania cwiczenia poprzez trójwymiarowe animacje, które sa przydatne szczególnie dla nowych uzytkowników,
+* szczególowe instrukcje wykonywania cwiczenia,
+* modul umozliwiajacy pomiar pracy serca,
+* ponad 800 cwiczen, 
+* ponad 100 planów treningowych,
+* synchronizacja aplikacji z portalem internetowym,
+* darmowych planów zywieniowych,
+* mozliwosc zdefiniowania celów treningu.
+
+
+
+  
+Rys. 1.7
+Aplikacja mobilna Virtuagym Fitness Home & Gym.
+
+     1.4 Cele, zalozenia i zakres pracy
+   	Celem pracy jest projekt i implementacja systemu o nazwie Vigym, który skladac sie bedzie z dwóch aplikacji: aplikacji mobilnej vigyMobile przeznaczonej na urzadzenia przenosne z systemem Android oraz aplikacji internetowej vigym.com. Aplikacje dzialajac razem beda tworzyc system, który bedzie umozliwial sportowcom zaplanowanie treningu. Przeznaczony bedzie glównie dla sportowców trenujacych na silowni. 
+W intuicyjny sposób zapewni funkcje takie jak planowanie treningu, pamietanie historii cwiczen i monitorowanie postepów. System bedzie umozliwial wzajemna komunikacje obu aplikacji. Przeplyw danych bedzie nastepowal od aplikacji mobilnej, na której dane dotyczace treningów uzytkowników beda zbierane, do aplikacji internetowej, która bedzie te dane prezentowac do ogólu uzytkowników Internetu. System bedzie laczyc cechy konkurencyjnych aplikacji zwiazanych z planowaniem treningu. Bedzie umozliwial nie tylko rejestrowanie treningów w czasie rzeczywistym, ale równiez monitorowanie postepów i porównanie ich z innymi uzytkownikami aplikacji webowej.  
+   	Rozdzial pierwszy zawiera wstep do pracy, okreslono w nim glówne cele, zalozenia i zakres pracy. W tym rozdziale przedstawiona zostala historia aplikacji internetowych i mobilnych i ich rozwój na przestrzeni ostatnich dziesiecioleci. Dokonany zostal takze przeglad konkurencyjnych aplikacji o podobnej tematyce, oferujace porównywalna funkcjonalnosc. W drugim rozdziale omówiono projekt aplikacji w oparciu 
+o elementy inzynierii oprogramowania wraz z zastosowaniem odpowiednich diagramów UML. Ponadto scharakteryzowano uzyte technologie oraz narzedzia wspomagajace. W trzecim rozdziale dokonano omówienia szczególów implementacyjnych poszczególnych elementów systemu oraz w jaki sposób w implementacji pomocne okazaly sie wykorzystane narzedzia i technologie. Dodatkowo opisany zostal proces wdrozenia aplikacji do srodowiska produkcyjnego. Rozdzial czwarty opisuje sposób testowania 
+i weryfikacji systemu. W piatym rozdziale szczególowo omówione zostaly funkcjonalnosci 
+z punktu widzenia uzytkownika koncowego systemu. Podsumowanie zawiera rozdzial szósty. W Dodatku A opisano sposób uruchomienia aplikacji, a Dodatek B przedstawia zawartosc plyty CD dolaczonej do pracy.
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+     2. Projekt aplikacji
+   	Celem procesu projektowania aplikacji informatycznych jest przygotowanie ta-kiego projektu aplikacji, który bedzie uzyteczny i wykonalny. Wynikiem projektu jest powstanie dokumentacji. Niniejszy rozdzial przedstawia projekt systemu Vigym.
+    
+     2.1 Wymagania funkcjonalne
+   Wymagania funkcjonalne wzgledem aplikacji mobilnej:
+* bedzie mozliwosc utworzenia konta podajac: 
+o nazwe uzytkownika (wymagane),
+o haslo (opcjonalne),
+o adres e-mail (opcjonalne),
+* bedzie mozliwe zalogowanie sie do aplikacji za pomoca nazwy uzytkownika i hasla,
+* aplikacja umozliwi zmiane hasla podanego przy rejestracji,
+* bedzie mozliwe wylogowanie uzytkownika z aplikacji,
+* gdy uzytkownik zapomni hasla, bedzie mozliwe przypomnienie hasla korzystajac z adresu e-mail, jesli zostal on podany przy rejestracji, 
+* aplikacja bedzie umozliwiala korzystania z niej wielu uzytkownikom na jednym urzadzeniu mobilnym,
+* jednoczesnie zalogowany moze byc tylko jeden uzytkownik.
+* bedzie mozliwa synchronizacja danych z aplikacja internetowa,
+* uzytkownik bedzie mógl definiowac charakteryzujace go cechy (wzrost, waga, obwód w pasie itp.),
+* uzytkownik bedzie mógl edytowac zdefiniowane wczesniej charakteryzujace go cechy,
+* uzytkownik bedzie mógl usuwac zdefiniowane wczesniej charakteryzujace go cechy,
+* do zdefiniowanej wczesniej cechy uzytkownik bedzie mógl dodawac pomiary okreslajac: wartosc, date oraz jednostke miary,
+* uzytkownik bedzie mial mozliwosc edytowania lub usuniecia dodanych wczesniej pomiarów,
+* aplikacja bedzie dawac mozliwosc podgladu wszystkich dokonanych pomiarów wraz z szczególami pomiaru (wartosc, data oraz jednostka miary),
+* aplikacja bedzie wyswietlac zmiane cechy, która bedzie róznica ostatniego 
+i pierwszego pomiaru,
+* aplikacja bedzie posiadac zdefiniowana pule cwiczen wraz z opisami,
+* uzytkownik bedzie mógl dodac trening wybierajac cwiczenie z listy, podajac date treningu, ilosc powtórzen danego cwiczenia oraz obciazenie w kilogramach,
+* przy dodawaniu treningu i wyborze cwiczenia uzytkownik powinien widziec opis cwiczenia,
+* uzytkownik bedzie mógl zobaczyc wszystkie treningi wykonane w ramach danego cwiczenia,
+* uzytkownik bedzie mógl zobaczyc statystyki w ramach cwiczenia, które wykonane zostalo przynajmniej jeden raz:
+o informacja na temat ostatniego wykonanego treningu,
+o informacja na temat maksymalnego obciazenia w pojedynczym powtórzeniu,
+o informacja na temat maksymalnego obciazenia w ramach jednej serii wykonywania cwiczenia,
+o informacja na temat sredniego obciazenia w pojedynczym powtórzeniu dla cwiczenia,
+o informacja na temat sredniego obciazenia w jednej serii dla cwiczenia,
+* aplikacja bedzie umozliwiac uzytkownikowi edycje treningu wykonanego wczesniej (mozliwa bedzie zmiana daty wykonania cwiczenia, ilosci powtórzen oraz obciazenia),
+* aplikacja bedzie umozliwiac uzytkownikowi usuniecie treningu wykonanego wczesniej. 
+   
+   Wymagania funkcjonalne wzgledem aplikacji internetowej:
+* bedzie mozliwe zalogowanie sie do aplikacji za pomoca nazwy uzytkownika i hasla,
+* panel logowania bedzie dostepny na kazdej stronie aplikacji,
+* panel logowania bedzie zawieral takze odnosniki do:
+o strony glównej systemu,
+o do listy wszystkich uzytkowników systemu, 
+* po zalogowaniu sie uzytkownik bedzie mial mozliwosc wylogowania sie,
+* przegladanie wszystkich podstron aplikacji powinno byc mozliwe zarówno dla zalogowanych uzytkowników jak i tych, którzy nie posiadaja konta 
+w systemie,
+* strona glówna aplikacji bedzie wyswietlac liste ostatnio wykonanych treningów przez uzytkowników aplikacji podajac nastepujace informacje:
+o osoba wykonujaca trening wraz z odnosnikiem do jej profilu w systemie,
+o wykonywane cwiczenie,
+o ilosc wykonanych powtórzen,
+o uzyte obciazenie,
+o data wykonania treningu,
+* lista wszystkich uzytkowników bedzie zawierac:
+o odnosniki do profilów uzytkowników w systemie,
+o informacje o ostatnim wykonanym treningu (wykonywane cwiczenie, data wykonania cwiczenia, liczba powtórzen oraz zastosowane obciazenie),
+* strona z profilem uzytkownika bedzie zawierac nastepujace sekcje:
+o porównanie,
+o informacje o uzytkowniku,
+o wykonane treningi,
+* sekcja porównanie bedzie dostepna dla zalogowanych uzytkowników i wyswietli porównanie cwiczen, które zostaly wykonane zarówno przez uzytkownika zalogowanego jak i uzytkownika, którego profil jest przegladany,
+* sekcja informacje o uzytkowniku wyswietli szczególy cech charakterystycznych uzytkownika, które zostaly przez niego zdefiniowane:
+o nazwe cechy,
+o opis cechy,
+o postep, jako róznice ostatniego pomiaru cechy i pierwszego pomiaru wraz z data ostatniego pomiaru,
+o liste dokonanych pomiarów,
+o wykres zmiany pomiarów w czasie,
+* sekcja treningi powinna udostepniac nastepujace szczególowe informacje na temat wykonanych przez uzytkownika treningów, pogrupowane wzgledem cwiczen:
+o maksymalne uzyte obciazenie w pojedynczej próbie,
+o maksymalne uzyte obciazenie w serii,
+o srednie uzyte obciazenie dla danego cwiczenia w pojedynczej próbie,
+o srednie uzyte obciazenie dla danego cwiczenie w serii,
+o data, ilosc powtórzen oraz uzyte obciazenie w ostatnim treningu,
+o liste wszystkich wykonanych treningów w ramach danego cwiczenia.  
+   
+     2.2 Wymagania niefunkcjonalne
+Ogólne: 
+* system musi byc w pelni skonfigurowany, czyli przygotowany do realizacji wszystkich wymagan funkcjonalnych, 
+* system musi spelniac wymogi bezpieczenstwa w zakresie dostepu uzytkowników do zasobów systemu, poprzez zastosowanie mechanizmów uwierzytelnienia uzytkownika, 
+* wykorzystane licencje oprogramowania musza pozwalac na bezterminowe uzytkowanie,
+* system musi byc dostepny przez 99,5% czasu,
+* system musi byc kompatybilny wewnetrznie (poszczególne elementy systemu, czyli aplikacja internetowa i mobilna musza  poprawnie wspólpracowac w ramach systemu),
+* system musi zapewniac bezpieczenstwo komunikacji pomiedzy aplikacjami wchodzacymi w jego sklad,
+* wszystkie komunikaty powinny byc w jezyku polskim.
+
+Interfejs aplikacji: 
+* powinien umozliwiac interakcje uzytkownika z aplikacja oraz prezentowac mozliwosci i funkcje jakie zostaly zaimplementowane, 
+* powinien posiadac strukture ulatwiajaca korzystanie z aplikacji i mozliwosci, które oferuje, 
+* musi byc przejrzysty, nie zawierac zbyt wielu grafik, umozliwiac bezproblemowa nawigacje, 
+* powinien wyswietlac podpowiedzi po umieszczeniu kursora na pewnych elementach interfejsu oraz gdzie to tylko mozliwe zawierac krótkie informacje odnosnie funkcjonalnosci,
+* musi pomagac uzytkownikowi korzystac z funkcjonalnosci systemu w sposób intuicyjny, bez koniecznosci zapoznawania sie z dokumentacja, 
+* tekst powinien byc czytelny i zrozumialy, zarówno dla uzytkowników korzystajacych z komputera stacjonarnego, laptopa, jak i dla uzytkowników urzadzen mobilnych. 
+
+Techniczne:
+* aplikacja internetowa, która jest integralnym skladnikiem systemu musi miec budowe trójwarstwowa (serwer bazy danych, serwer aplikacyjny, aplikacja uzytkownika),
+* system musi pracowac pod kontrola przynajmniej dwóch róznych systemów operacyjnych, w tym przynajmniej jednego udostepnianego na zasadzie wolnego oprogramowania, 
+* system musi dzialac w technologii trójwarstwowej tzn. wykorzystywac w zakresie wszystkich oferowanych funkcji prace poprzez graficzne przegladarki internetowe pochodzace od minimum trzech róznych producentów, które sa dostepne bezplatnie,
+* interfejs aplikacji internetowej musi byc zgodny ze standardem XHTML 1.0 Transitional [19],
+* system musi zapewnic skalowalnosc wydajnosciowa oraz funkcjonalna,
+* system musi umozliwiac modyfikacje sposobu dzialania systemu przez uprawnionych uzytkowników bez koniecznosci ingerencji osób zewnetrznych,
+* system musi wspólpracowac z bazami danych dostepnymi bezplatnie, 
+* system w zakresie czasów odpowiedzi musi spelniac kryteria:
+o sredni czas odpowiedzi systemu przy transakcjach nie wprowadzajacych danych nie moze przekraczac 5 sekund, a maksymalny 10 sekund,
+o sredni czas odpowiedzi systemu przy transakcjach wprowadzajacych dane do systemu nie moze przekraczac 5 sekund, a czas maksymalny nie moze przekraczac 20 sekund,
+* aplikacja internetowa wchodzaca w sklad systemu musi poprawnie dzialac dla 100 000 uzytkowników w tym dla 1 000 zalogowanych jednoczesnie,
+* aplikacja mobilna wchodzaca w sklad systemu musi poprawnie dzialac dla 100 uzytkowników,
+* sesja bedzie utrzymywana do momentu, gdy uzytkownik wyloguje sie. 
+
+     2.3 Architektura systemu
+      Projekt architektury systemu:
+
+     2.4 Struktura bazy danych 
+      Jako, ze system Vigym skladac sie bedzie z dwóch niezaleznych aplikacji, konieczne jest posiadanie dwóch odrebnych baz danych. Jedna znajdowac sie bedzie na maszynie, na której znajduje sie serwer aplikacyjny, natomiast druga na urzadzeniu mobilnym. Struktura obu baz bedzie prawie identyczna. Jedyna róznica jest taka, ze prawie kazda tabela bazy danych aplikacji internetowej bedzie posiadac dodatkowa kolumne, która bedzie uzywana podczas synchronizacji danych z aplikacja mobilna. Baza danych systemu Vigym sklada sie z nastepujacych tabel:
+* USERS - tabela zawierajaca dane zarejestrowanych uzytkowników:
+o USER_ID - identyfikator uzytkownika,
+o USER_NICKNAME - nazwa uzytkownika,
+o USER_MAIL - adres e-mail,
+o USER_PASSWORD - haslo uzytkownika zaszyfrowane za pomoca SHA1,
+o USER_MOBILE_ID - identyfikator uzywany przy synchronizacji (obecny tylko w bazie danych aplikacji internetowej),
+* PROFILE_INFORMATION - tabela zawierajaca cechy charakterystyczne uzytkownika:
+o PROF_INFO_ID - identyfikator cechy,
+o PROF_INFO_NAME - nazwa cechy,
+o PROF_INFO_DESC - opis cechy,
+o PROF_INFO_USER_ID - identyfikator uzytkownika powiazanego z cecha,
+o PROF_INFO_MOBILE_ID - identyfikator uzywany przy synchronizacji (obecny tylko w bazie danych aplikacji internetowej),
+* PROFILE_INFORMATION_VALUES - tabela zawierajaca pomiary cech charakterystycznych:
+o PROF_INFO_VAL_ID - identyfikator pomiaru,
+o PROF_INFO_VAL_DATE - data wykonania pomiaru,
+o PROF_INFO_VAL_VALUE - wartosc pomiaru,
+o PROF_INFO_VAL_UNIT_ID - identyfikator jednostki pomiaru,
+o PROF_INFO_VAL_INFO_ID - identyfikator powiazanej cechy,
+o PROF_INFO_VAL_MOBILE_ID - identyfikator uzywany przy synchronizacji (obecny tylko w bazie danych aplikacji internetowej),
+* UNITS - tabela zawierajaca liste miar:
+o UNIT_ID - identyfikator jednostki,
+o UNIT_NAME - nazwa jednostki miary,
+o UNIT_DESC - opis jednostki miary,
+o UNIT_SHORT_NAME - skrócona nazwa jednostki miary,
+* TRAININGS - tabela zawierajaca dane odbytych treningów:
+o TRAINING_ID - identyfikator treningu,
+o TRAINING_DATE - data wykonania treningu,
+o TRAINING_VALUE - uzyte obciazenie,
+o TRAINING_COUNT - ilosc wykonanych powtórzen,
+o TRAINING_EXERCISE_ID - identyfikator wykonywanego cwiczenia,
+o TRAINING_USER_ID - identyfikator uzytkownika wykonujacego cwiczenie, 
+o TRAINING_MOBILE_ID - identyfikator uzywany przy synchronizacji (obecny tylko w bazie danych aplikacji internetowej),
+* EXERCISES - tabela zawierajaca liste cwiczen:
+o EXERCISE_ID - identyfikator cwiczenia,
+o EXERCISE_NAME - nazwa cwiczenia, 
+o EXERCISE_DESC - opis cwiczenia.
+   Diagram encji przedstawiajacy zaleznosci pomiedzy tabelami przedstawiony zostal w rozdziale 2.5.2.
+   
+     2.5 Diagramy jezyka UML
+      W tym rozdziale przedstawiono diagramy jezyka UML [20] zwiazane z przed-stawionym systemem.
+       
+     2.5.1 Diagramy przypadków uzycia
+      Diagramy przypadków uzycia stosuje sie w celu opisania wymagan tworzonego systemu informatycznego. Przypadki uzycia okreslaja wymagania funkcjonalne systemu.
+
+
+
+Aplikacja mobilna:
+* funkcjonalnosc ogólna:
+
+
+* funkcjonalnosc modulu Cechy profilu:
+
+
+
+
+
+
+
+
+
+* funkcjonalnosc modulu Trening:
+
+
+Aplikacja internetowa:
+* funkcjonalnosc ogólna:
+
+
+
+
+
+
+
+
+
+
+
+
+* funkcjonalnosc modulu Lista uzytkowników:
+
+
+* funkcjonalnosc modulu Profil:
+
+
+    
+    
+    
+    
+    
+2.5.2 Diagram encji 
+      Diagram encji przedstawiajacy powiazania pomiedzy tabelami znajdujacymi sie w bazie danych:
+
+
+
+     2.6 Zastosowane technologie i narzedzia wspomagajace
+      Jedna z najwazniejszych, ale i najbardziej problematycznych decyzji na etapie projektowania systemu informatycznego, jest wybór technologii, które zostana wykorzystane. Blad na tym etapie moze znaczaco odbic sie na dalszych fazach budowy oprogramowania. Do realizacji niniejszej pracy wykorzystane zostaly nastepujace technologie i narzedzia:
+      * aplikacja mobilna:
+      o system: Android 4.4 [21], 
+      o baza danych: SQLite 3.7.11 [22], 
+      o narzedzia wspomagajace:
+      * srodowisko programistyczne - Android Developer Tools v.22.3.0-887826 [23],
+      * edytor dla bazy SQLite: SQLite Database Browser 3.1.0 [24],
+* aplikacja internetowa:
+      o jezyk programowania: Java 1.7 [25], 
+      o technologie wspomagajace:  
+      * JavaServer Faces 2.2.7 [26] - biblioteka do budowania interfejsu uzytkownika, 
+      * Hibernate 4.3.6 [27] - biblioteka do mapowania obiektowo-relacyjnego,  
+      * JUnit 4.11 [28] - biblioteka do testowania jednostkowego,
+      * Primefaces 5.0 [29]- biblioteka komponentów dla JavaServer Faces,
+      * Log4j 1.2.17 [30] - biblioteka do logowania,
+      o baza danych: Oracle Express Edition 11g [31],
+      o serwer aplikacyjny: WebLogic 12c [32],
+      o narzedzia wspomagajace:
+      * srodowisko programistyczne - Eclipse Luna 4.4 EE for Web Developers [33], 
+      * srodowisko programistyczne dla baz Oracle - SQL Developer 3.0.04 [34],
+      * narzedzie automatyzujace budowe oprogramowania: Apache Maven 3.2.2 [35],
+* system zarzadzania wersja - Git 1.9.0 [36],
+* narzedzie do projektowania diagramów - Visual Paradigm for UML CE 10.2 [37].
+      Technologie które mialy zostac wykorzystane do budowy systemu Vigym próbowano dobrac tak, aby zachowac jednolitosc jezyka programowania w obrebie obu aplikacji wchodzacych w jego sklad. Dodatkowo wzieto pod uwage cechy bibliotek dostepnych dla jezyka, która umozliwia w latwy sposób realizacje postawionych wymagan projektowych. Te ograniczenia spowodowaly, ze wybór jezyka programowania musial byc dokonany pomiedzy platformami: Java oraz .Net [38]. Wybrana zostala Java, ze wzgledu na jej lepsza znajomosc, wieksza popularnosc oraz przenosnosc. 
+     3. Implementacja i wdrozenie 
+      Rozdzial ten opisuje proces implementacji systemu Vigym. Opisane zostaly wykorzystane mozliwosci wybranych technologii.
+      
+     3.1 Aplikacja mobilna 
+Struktura projektu
+      Aplikacja mobilna sklada sie z dwóch projektów budowanych w srodowisku Eclipse:
+* vigyMobile - projekt aplikacji,
+* vigyMobileTests - projekt zawierajacy testy jednostkowe, posiadajacy taka sama strukture jak projekt aplikacji.
+Projekt aplikacji i testów posiada nastepujaca strukture katalogowa:
+KatalogZawartosc.settingsKatalog z ustawieniami srodowiska programistycznego. Nie obecny w projekcie 
+z testami.assetsZasoby aplikacji. Pliki umieszczone tutaj zostana umieszczone w pliku APK.binZbudowana aplikacja. Znajduje sie tam plik APK do umieszczenia na urzadzeniu mobilnym.genPliki generowane automatycznie przez srodowisko programistyczne. libsBiblioteki zewnetrzne dolaczone do projektu.resZasoby aplikacji (obrazy, pliki XML).srcKod zródlowy. W przypadku aplikacji do testów jednostkowych kod zawiera testy..classpathPlik konfiguracyjny sciezki dla projektu..projectPlik konfiguracyjny projektu.AndroidManifest.xmlPlik konfiguracyjny kazdej aplikacji dla systemu Androidlocal.propertiesUstawienia projektu specyficzne dla maszyny, na której sie znajduje. Nie obecny w projekcie z testami.
+Kazdemu ekranowi aplikacji w systemie Android odpowiada klasa, która musi dziedziczyc z klasy android.app.Activity [21] - tzw. Aktywnosc (Aktywnosc, czyli klasa Activity zostanie opisana w pózniejszym podrozdziale). Z tego faktu wynika podzial struktury zródel projektu aplikacji:
+Pakiet (zawarty w pl.jrola.java.android.vigym.vigymobile.activities)ZawartoscACTIVITY_NAMEKlasy, które wchodza w sklad Aktywnosci, zazwyczaj elementy interfejsu uzytkownika. ACTIVITY_NAME to nazwa klasy, która dziedziczy po klasie 
+android.app.Activity.ACTIVITY_NAME.tasksKlasy watków.ACTIVITY_NAME.validatorsKlasy sprawdzajace zawartosc danych w formularzu.W projekcie wystepuja nastepujace klasy dziedziczace po klasie Activity: LoginActivity, RegisterActivity, ImportDataActivity, MainActivity, ProfileManagementActivity 
+i TrainingAcitivty.
+
+
+
+
+Pozostale pakiety w zródlach:
+PakietZawartoscpl.jrola.java.android.vigym.vigymobileKlasy ogólnego uzytku.pl.jrola.java.android.vigym.vigymobile.db.daoKlasy dostepu do bazy danych.pl.jrola.java.android.vigym.vigymobile.dao.toKlasy zawierajace informacje pochodzace z bazy danych.pl.jrola.java.android.vigym.vigymobile.tasksKlasy ogólne dla watków.pl.jrola.java.android.vigym.vigymobile.uiKlasy ogólne dla interfejsu uzytkownika.pl.jrola.java.android.vigym.vigymobile.utilsKlasy zawierajace funkcje, które sa uzywane w calym projekcie.pl.jrola.java.android.vigym.vigymobile.validatorKlasy ogólne sprawdzajace poprawnosc formularzy.
+Komponenty interfejsu uzytkownika
+      Kazda klasa, która jest glówna czescia interfejsu uzytkownika  (czyli taka, która zawiera inne elementy interfejsu) powinna implementowac interfejs 
+VigymUIComponent:
+public interface VigymUIComponent {
+	void refresh();
+	void refresh(Collection<TransferObject> to);
+	LoadingSpinner getLoadingSpinner();
+	DbHelper getDatabaseHelper();
+	String getStringRes(int resId);
+	Context getContext();
+}
+
+
+
+
+Opis funkcji zawartych w interfejsie:
+FunkcjaOpisvoid refresh();Odswieza komponent.void refresh(Collection<TransferObject> to);Odswieza komponent w oparciu o dane przekazane jako argument wywolania funkcji.LoadingSpinner getLoadingSpinner();Zwraca pasek postepu wczytywania danych.DbHelper getDatabaseHelper();Zwraca obiekt umozliwiajacy wykonywanie operacji bazodanowych.String getStringRes(int resId);Zwraca ciag znaków powiazany z identyfikatorem przekazanym jako argument wywolania funkcji.Context getContext();Zwraca obiekt aktualnego kontekstu aplikacji.
+Aktywnosc
+		Aktywnosc (z ang. Activity) jest to podstawowy komponent systemu Android. Klasa ta dziedziczy z klasy android.app.Activity i odpowiedzialna jest m.in. za interakcje z uzytkownikiem i uruchamianie okna aplikacji. Zazwyczaj jest tak, ze jedna Aktywnosc odpowiada jednemu oknu. Kazda musi byc takze zadeklarowana w pliku AndroidManifest.xml. Wszystkie Aktywnosci w systemie Android znajduja sie na wspólnym stosie. Gdy nastepuje uruchomienie Aktywnosci, umieszczana jest ona na jego szczycie. W razie problemów z pamiecia, system podejmuje decyzje, które z nich usunac na podstawie pozycji na stosie - te znajdujace sie najnizej sa usuwane jako pierwsze. Bardzo wazne jest zrozumienie cyklu zycia obiektów tej klasy (Rys. 2.1). 
+Z cyklu zycia wynika jakie metody sa uruchomiane podczas dzialania aplikacji i innych zdarzen zewnetrznych, które to dzialanie przerywaja (np. rozmowa przychodzaca 
+w trakcie korzystania z aplikacji). Najwazniejsze metody znajdujace sie w klasie Activity:
+FunkcjaOpisonCreateMetoda jest wywolywana, gdy Aktywnosc jest tworzona. Jest najlepszym miejscem do inicjalizacji komponentu.onRestartFunkcja jest uruchamiana, gdy Aktywnosc zostala wczesniej zatrzymana. Po tej funkcji zawsze jest uruchamiana funkcja onStart.onStartMetoda uruchamiana jest zanim Aktywnosc staje sie widoczna dla uzytkownika.onResumeFunkcja uruchamiana jest zanim Aktywnosc bedzie gotowa do interakcji 
+z uzytkownikiem.onPauseMetoda jest wywolywana, gdy system zaczyna rozpoczynac inna Aktywnosc.onStopFunkcja jest wywolywana, gdy Aktywnosc przestaje byc widoczna dla uzytkownika.onDestroyMetoda jest wywolana przed usunieciem Aktywnosci z pamieci. Jest najlepszym miejscem dla zwolnienia zasobów.
+		W aplikacji mobilnej vigyMobile kazda Aktywnosc powinna rozszerzac klase VigymActivity. Skorzystanie z tej klasy:
+* ulatwi dostep do obiektu klasy DbHelper, który:
+o umozliwia korzystanie z bazy danych,
+o otwiera polaczenie z baza, gdy Aktywnosc jest tworzona - programista nie musi tego robic,
+o zamyka polaczenie z baza danych, gdy Aktywnosc jest usuwana z pamieci,
+* daje dostep do komponentu klasy LoadingSpinner, który jest paskiem postepu. Mozliwe jest dzieki temu wlaczanie i wylaczanie paska korzystajac z tego obiektu w obrebie Aktywnosci. 
+
+
+Rys. 2.1
+Cykl zycia Aktywnosci.
+Zródlo: http://developer.android.com/reference/android/app/Activity.html.
+      
+      
+      
+Fragment
+      Fragment w systemie Android jest modularna czescia Aktywnosci, posiadajaca swój wlasny cykl zycia. Fragment jest zawsze zagniezdzony w Aktywnosci i cykl jego zycia, zalezy od cyklu zycia Aktywnosci. Cykl zycia Fragmentu zostal przedstawiony na Rys. 2.2.
+       
+Rys. 2.2
+Cykl zycia Fragmentu.
+Zródlo: http://developer.android.com/guide/components/fragments.html.
+W aplikacji vigyMobile kazdy Fragment powinien rozszerzac klase 
+VigymFragment. Ulatwi to miedzy innymi dostep do polaczenia bazodanowego.
+
+Okna dialogowe
+      Okno dialogowe jest to male okno, które jest wyswietlane, gdy potrzebne jest potwierdzenie uzytkownika do wykonania operacji lub tez uzupelnienie dodatkowej informacji. W aplikacji vigyMobile wszystkie okna dialogowe pochodza od klasy bazowej  
+VigymDialog. Zapewni to mozliwosc korzystania z polaczenia bazodanowego i paska ladowania w oknie dialogowym.
+
+Layout
+      Layout w systemie Android definiuje rozmieszczenie komponentów graficznych, czyli ich uklad. W systemie Android mozna zadeklarowac uklad komponentów na dwa sposoby:
+* jako plik XML i przypisac go do Aktywnosci,
+* zbudowac uklad tworzac obiekty elementów interfejsu uzytkownika w trakcie dzialania aplikacji.
+System Android zapewnia elastycznosc w doborze metody budowania interfejsu uzytkownika. Mozliwe jest uzycie obu metod jednoczesnie. Zaleta deklarowania ukladu 
+w pliku XML jest oddzielenie warstwy prezentacji aplikacji od kodu. Daje to mozliwosc zmieniania wygladu bez koniecznosci dokonywania zmian w kodzie aplikacji. Gdy layout zostanie zbudowany z uzyciem XML nalezy go przypisac do Aktywnosci 
+w metodzie onCreate:
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main_layout);
+}
+ 
+Zostal ustawiony przykladowy layout zawierajacy pole tekstowe oraz przycisk:
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
+    <TextView android:id="@+id/text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Hello, I am a TextView" />
+    <Button android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello, I am a Button" />
+</LinearLayout>
+
+Formularze
+      Kazdy komponent aplikacji vigyMobile wprowadzajacy dane do systemu, czyli zawierajacy formularz powinien implementowac interfejs VigyForm:  
+public interface VigymForm {
+	void clearForm();
+	void clearFormErrors();
+	boolean validate();
+	TransferObject submitForm();
+	void initForm(TransferObject transferObject);
+}
+
+Opis funkcji zawartych w interfejsie:
+FunkcjaOpisvoid clearForm();Funkcja usuwa wszystkie wartosci wpisane przez uzytkownika z formularza.void clearFormErrors();Funkcja usuwa wszystkie komunikaty o bledach walidacji pól formularza.boolean validate();Funkcja sprawdzajaca poprawnosc danych formularza.TransferObject submitForm();Funkcja odczytujaca dane z formularza i zwracajaca je w formie obiektu.void initForm(TransferObject transferObject);Funkcja uzupelniajaca formularz danymi z obiektu, który zostal przekazany jako argument wywolania.
+Sprawdzanie poprawnosci formularza odbywa sie w oparciu o wzorzec projektowy Lancuch zobowiazan [39, pp. 244-253], którego diagram klas zostal przedstawiony ponizej.
+[a1]
+      
+Dostep do zródla danych
+      W aplikacji vigyMobile dla systemu Android jako zródlo danych wykorzystana zostala baza danych. Dostep do niej zostal zrealizowany w oparciu o wzorce projektowe: metoda wytwórcza [39, pp. 110-119], DAO (z ang. Data Access Object) [40] oraz  obiekt transferowy (z ang. Transfer Object) [41]. Diagram klas przedstawiony zostal ponizej.
+[a2]
+
+Zastosowanie wzorca DAO powoduje uniezaleznienie warstwy danych od sposobu dostepu do nich. Zapewnia jednolity interfejs ukrywajacy szczególy implementacyjne.  Daje programiscie elastycznosc, gdy trzeba zmienic zródlo danych (np. system bazodanowy) lub sposób dostepu do nich. Wzorzec Transfer Object uzyty zostal do transportowania danych. Zastosowanie tego wzorca powoduje zmniejszenie liczby odwolan przez interfejsy, które czesto sa zdalne, a co za tym idzie, zmniejszenie ruchu sieciowego. Przykladowo pobierajac dane uzytkowników z tabeli bazodanowej potrzebny bedzie identyfikator uzytkownika oraz jego login. Najkorzystniej bedzie zaprojektowac klase obiektu transferowego posiadajacej dwa atrybuty odpowiadajace identyfikatorowi i haslu. Przy zadaniu danych ze zródla danych tworzony jest obiekt transferowy i zostaje on wypelniony danymi. Mozliwy jest teraz odczyt wlasciwosci z instancji obiektu transferowego za pomoca metod dostepu bez posrednictwa zdalnego interfejsu.
+      
+Wielowatkowosc
+      Podczas wykonywania czasochlonnych operacji w systemie Android optymalnie jest wykorzystanie mozliwosci oferowanych przez ten system w zakresie wielowatkowosci. Pozwoli to na wykonanie w obrebie jednego procesu kilku 
+zadan. Twórcy systemu oddali do dyspozycji programistów klase 
+android.os.AsyncTask<Params, Progress, Result>, która ulatwi korzystanie 
+z mozliwosci jakie daje wielowatkowosc. Najwazniejsze metody tej klasy:
+FunkcjaOpisonPreExecuteMetoda uruchamiana przed wykonaniem watku.doInBackgroundGlówna metoda wykonania watku. 
+W niej powinien zostac umieszczony kod, który zajmuje najwiecej czasu.onProgressUpdateFunkcja uzywana do przekazywania parametrów postepu do watku interfejsu uzytkownika.onPostExecuteMetoda ta jest wywolywana po zakonczeniu dzialania watku.Obiekt stworzony na podstawie klasy AsyncTask moze byc wykonany tylko jeden raz.
+      W aplikacji vigyMobile, kazda klasa watku powinna rozszerzac klase: 
+VigymAsyncTask. Spowoduje to:
+* automatyczne pokazanie sie paska ladowania, gdy watek zacznie sie wykonywac,
+* automatyczne ukrycie paska ladowania, gdy watek zakonczy swoje dzialanie,
+* aktualizacja komponentu interfejsu uzytkownika, z którego watek zostal wykonany.
+      
+Internacjonalizacja
+      Do dobrych praktyk budowania aplikacji mobilnych w systemie Android nalezy umieszczanie ciagów znaków w osobnym pliku. Umozliwi to przetlumaczenie aplikacji na inne jezyki. Aby tego dokonac wystarczy w katalogu res projektu utworzyc strukture katalogowa jak w ponizszym przykladzie:
+MyProject/
+    res/
+       values/
+           strings.xml
+       values-es/
+           strings.xml
+       values-fr/
+           strings.xml.
+W katalogu values powinny znajdowac sie pliki XML dla domyslnej wersji jezykowej, w values-es dla wersji hiszpanskiej, a w values-fr dla francuskiej. System Android automatycznie zlokalizuje z której wersji powinien skorzystac bazujac na ustawieniach lokalizacji urzadzenia. Przykladowa zawartosc pliku dla wersji angielskiej:
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title">My Application</string>
+    <string name="hello_world">Hello World!</string>
+</resources>
+
+Kompatybilnosc z róznymi urzadzeniami
+      System Android jest dostepny dla wielu urzadzen przenosnych rózniacymi sie znacznie parametrami technicznymi, takimi jak rozmiar wyswietlacza, szybkosc procesora, rozmiar pamieci. Sporym wyzwaniem jest dla programistów aplikacji sprawienie, zeby aplikacja na kazdym z urzadzen dzialala poprawnie. System Android posiada wiele ulatwien, które pomagaja w realizacji tego celu:
+* plik konfiguracyjny AndroidManifest.xml - plik ten zawiera informacje niezbedne dla systemu Android, dotyczace:
+o dla jakich wersji systemu Android aplikacja jest przeznaczona,
+o z jakich zasobów systemu aplikacja bedzie korzystac i do jakich zasobów bedzie potrzebowac uprawnien,
+* rózne rozmiary obrazów - twórca aplikacji moze umiescic obrazy, z których korzysta aplikacji w róznych rozmiarach, system automatycznie wybierze ten, który jest odpowiedni bazujac na rozmiarze wyswietlacza, 
+* rózne rozmiary layoutów - programista moze zaprojektowac kilka layoutów, 
+a nastepnie system, w zaleznosci od urzadzenia na którym dziala wczyta odpowiedni, 
+* biblioteki zgodnosci - sa to biblioteki, które zapewniaja dostep do nowych funkcji systemu w starszych urzadzeniach.
+      
+     3.2 Aplikacja internetowa 
+Struktura projektu
+      Aplikacja internetowa zostala zbudowana w srodowisku Eclipse z uzyciem narzedzia Apache Maven. Projekt aplikacji posiada nastepujaca strukture katalogowa:
+KatalogZawartosc.gitKatalog z ustawieniami repozytorium..settingsKatalog z ustawieniami srodowiska 
+programistycznego. src/main/javaKod zródlowy.src/main/resourcesPliki konfiguracyjne: plik z konfiguracja biblioteki Hibernate oraz pliki jezykowe. src/main/webappDokumenty xHTML i inne.src/test/javaTesty jednostkowe.targetKatalog ze zbudowana wersja aplikacji..classpathPlik z konfiguracja sciezki dla projektu..gitignorePlik konfiguracyjny repozytorium. Zawiera informacje na temat plików, które nie maja sie znalezc w repozytorium.pom.xmlPlik konfiguracyjny Apache Maven.
+Struktura kodu zródlowego:
+PakietZawartoscpl.jrola.java.www.vigym.modelKatalog z ustawieniami repozytorium.pl.jrola.java.www.vigym.model.daoWarstwa dostepu do danych.pl.jrola.java.www.vigym.model.dao.exceptionsWyjatki.pl.jrola.java.www.vigym.model.entitiesEncje, czyli klasy, na podstawie których sa tworzone obiekty odpowiadajace rekordom z tabeli bazodanowej.pl.jrola.java.www.vigym.viewcontrollerKomponenty interfejsu uzytkownika.
+Dostep do bazy danych
+      W aplikacji internetowej vigym.com jako zródlo danych wykorzystana zostala baza danych. Dostep do niej zostal zrealizowany analogicznie jak w aplikacji mobilnej -  w oparciu o wzorce projektowe: metoda wytwórcza [39, pp. 110-119], DAO (z ang. Data Access Object) [40] oraz  obiekt transferowy (z ang. Transfer Object) [41]. Diagram klas przedstawiony zostal ponizej.
+[a3]
+
+W warstwie dostepu do danych wykorzystana zostala biblioteka Hibernate. Zapewnia ona mapowanie danych zawartych w relacyjnej bazie danych na obiekty jezyka Java. Klasy, z których maja byc tworzone obiekty zawierajace dane pochodzace z tabel bazodanowych musza posiadac specjalne adnotacje. Dodatkowo Hibernate zwieksza wydajnosc operacji na bazie danych dzieki optymalizacji zapytan. 
+
+Interfejs uzytkownika
+      JavaServer Faces [26] jest biblioteka dostepna w jezyku Java, która upraszcza tworzenie interfejsu uzytkownika. Jest czescia specyfikacji Java Enterprise Edition [42]. Jest oparta o komponenty, które dzialaja po stronie serwera. Zakres funkcjonalny JSF obejmuje:
+* budowe stanowego interfejsu uzytkownika opartego na komponentach zarzadzalnych,
+* obsluge nawigacji pomiedzy stronami,
+* walidacje danych,
+* internacjonalizacje, czyli wsparcie dla aplikacji wielojezycznych.
+Primefaces [29] jest biblioteka, która zapewnia dodatkowy zestaw komponentów dla aplikacji internetowych pisanych z uzyciem JavaServer Faces. Zapewnia bogaty zestaw komponentów interfejsu uzytkownika, które wykorzystuja technologie AJAX.
+
+Zarzadzalne komponenty
+      Zarzadzalne komponenty lub zarzadzalne ziarna (z ang. managed beans) sa to klasy spelniajace reguly JavaBeans [43, pp. 8-10], czyli:
+* bezargumentowy konstruktor,
+* brak publicznych pól,
+* dostep do pól przez metody get i set,
+i zarejestrowane w pliku konfiguracyjnym lub poprzez adnotacje. Ziarna w aplikacji internetowej sluza przede wszystkim do przechowywania danych dynamicznych. Przy rejestracji nadawana jest nazwa oraz zakres w jakim dzialac beda utworzone na podstawie zarejestrowanych klas obiekty. Po zarejestrowaniu programista moze korzystac z obiektów na stronach JSF. Biblioteka ta oferuje nastepujace zakresy waznosci komponentów:
+ZakresOpisApplicationScopeObiekt o takim czasie zycia funkcjonuje przez caly cykl zycia aplikacji. Jest tworzony w momencie uruchamiania aplikacji 
+i niszczony w momencie zatrzymywania jej dzialania.SessionScopeKomponenty o takim czasie zycia dostepne sa tworzone w momencie utworzenia sesji i zyja tak dlugo, jak dlugo trwa sesja.ViewScopeZasieg zycia obiektu jest ograniczony do jednego widoku.RequestScopeTak utworzony obiekt jest dostepny od momentu rozpoczecia przetwarzania zadania wyswietlenia strony az do momentu jej calkowitego utworzenia. Po wyslaniu strony do klienta obiekt jest niszczony.NoneScopeObiekt nie posiadajacy zadnego zasiegu.
+Internacjonalizacja
+      Aby zwiekszyc potencjalne grono odbiorców aplikacji internetowej nalezy uczynic ja dostepna dla uzytkowników, którzy porozumiewaja sie w róznych jezykach. Dobra praktyka jest umieszczanie ciagów znaków w osobnym pliku. Umozliwi to latwe przetlumaczenie aplikacji na inne jezyki. Aby tego dokonac wystarczy w katalogu src/main/res utworzyc nastepujaca strukture:
+src/main/res 
+       lang.properties
+       lang-en.properties
+       lang-es.properties
+i zarejestrowac ja w pliku konfiguracyjnym:
+	<application>
+		<locale-config>
+			<default-locale>pl</default-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>lang</base-name>
+			<var>msg</var>
+		</resource-bundle>
+	</application> 
+
+Pliki zawierajace ciagi znaków wykorzystywane w aplikacji maja nastepujaca strukture:
+date=Data
+desc=Opis
+exercise=\u0106wiczenie
+history=Historia
+history_chart=Wykres zmiany
+
+Aplikacja korzystajaca z bibliotek JSF automatycznie, na podstawie lokalizacji uzytkownika wykryje, która wersje jezykowa wybrac.
+
+     3.3 Komunikacja
+      Aplikacje dzialajace w ramach systemu Vigym komunikuja sie ze soba za posrednictwem Internetu. Dane zebrane na aplikacji mobilnej sa przesylane na aplikacje internetowa na zadanie uzytkownika. Aplikacja mobilna nie potrzebuje wiec ciaglego polaczenia z Internetem do poprawnego dzialania. Rozwiazanie takie powoduje, ze uzytkownik laczy sie z siecia tylko wtedy, gdy chce zsynchronizowac dane. Transfer nie jest zbednie zuzywany.
+      Algorytm synchronizacji danych jest nastepujacy:
+1. Uzytkownik aplikacji mobilnej wykonuje synchronizacje.
+2. Jezeli uzytkownik wykonywal juz wczesniej synchronizacje, nalezy przejsc do punktu 3. W przeciwnym przypadku - jezeli jest to pierwsza synchronizacja:
+a. uzytkownik proszony jest o podanie:
+i. nazwy uzytkownika,
+ii. adresu e-mail,
+iii. hasla,
+   		jezeli dane te zostaly podane przy rejestracji, nie ma potrzeby ich ponownego wprowadzania,
+b. sprawdzana jest unikalnosc nazwy uzytkownika i adresu e-mail:
+i. jezeli dane sa unikalne, na podany adres e-mail wysylany jest klucz aktywacyjny,
+ii. jezeli dane nie sa poprawne, uzytkownik proszony jest o poprawne podanie danych, 
+c. po otrzymaniu odnosnika z kluczem aktywacyjnym i uruchomieniu go 
+w przegladarce konto jest w pelni aktywowane,
+d. nastepuje umieszczenie wszystkich danych z aplikacji mobilnej na koncie uzytkownika w aplikacji webowej,
+3. Jezeli uzytkownik wykonywal juz wczesniej synchronizacje:
+a. system dodaje brakujace dane w bazie danych aplikacji internetowej,
+b. system edytuje dane zmienione w aplikacji internetowej, a które nie zmienily sie w 
+c. system usuwa dane, które zostaly usuniete z aplikacji mobilnej, a istnieja w aplikacji internetowej.
+Wykorzystywana jest kombinacja kluczy glównych tabel. Ponizej zostal przedstawiony przykladowy proces synchronizacji dla tabeli fragmentu tabeli TRAININGS, które zawiera informacje na temat treningów odbytych przez uzytkownika. Zawartosc tabeli bazodanowej na urzadzeniu mobilnym:
+TRAINING_ID
+(klucz glówny)TRAINING_DATETRAINING_USER_ID
+(klucz obcy z tabeli USERS)TRAINING_COUNT12014/08/0211022014/08/0611232014/08/091272014/08/22112
+Zawartosc tabeli TRAININGS w bazie danych aplikacji internetowej dla danego uzytkownika:
+TRAINING_ID
+(klucz glówny)TRAINING_DATETRAINING_USER_ID
+(klucz obcy z tabeli USERS)TRAINING_COUNTTRAINING_MOBILE_ID126012014/08/02551101406422014/08/06551112609932014/08/0951123712142014/08/2051144
+Kazda z tabel posiada odrebna numeracje klucza glównego. Równiez identyfikator tego samego uzytkownika w obu bazach danych jest rózny. Znaczenia ma tutaj kolumna TRAINING_MOBILE_ID, która znajduje sie w bazie danych aplikacji internetowej. Na jej podstawie system podejmuje decyzje dotyczace zmian w tabeli aplikacji internetowej:
+* pozostawienie wierszy o identyfikatorach 12601 oraz 60993, gdyz nie ulegly one zmianie,
+* aktualizacja wiersza o identyfikatorze 40642, gdyz zostal on zmieniony na urzadzeniu mobilnym,
+* usuniecie wiersza o identyfikatorze 71214, gdyz zostal on takze usuniety z urzadzenia mobilnego,
+* dodanie wiersza o identyfikatorze 7, gdyz nie istnieje on w bazie danych aplikacji internetowej.
+      Do wymiany danych pomiedzy urzadzeniem mobilnym oraz aplikacja internetowa zostal wykorzystany format JSON [44]. Glówna jego zaleta jest uniezaleznienie od jezyka programowania, czy tez technologii i latwosc implementacji. 
+
+     3.4 Opis wdrozenia
+Aplikacja mobilna
+      Aplikacja mobilna vigyMobile zostala zaprojektowana tak, aby poprawnie dzialac z urzadzeniami mobilnymi posiadajacymi wersje systemu Android 2.2 i nowsza. Aplikacja wykorzystuje baze danych wbudowana w system Android. Ponadto aplikacja musi posiadac uprawnienia do zapisu pamieci zewnetrznej i polaczenia z Internetem. 
+O przydzielenie tych uprawnien aplikacja zapyta przy instalacji.  
+   	Aby korzystac z aplikacji wystarczy skopiowac plik vigyMobile.apk znajdujacy sie w katalogu bin projektu zbudowanego w srodowisku programistycznym na urzadzenie przenosne z systemem Android. Po uruchomieniu aplikacja jest gotowa do uzytku.	
+   
+Aplikacja internetowa
+      Aplikacja internetowa vigym.com do poprawnego dzialania wymaga serwera aplikacyjnego dla jezyka Java 1.6 lub nowsza. Aplikacja wykorzystuje baze danych, stad istnieje koniecznosc poprawnego skonfigurowania dostepu do niej przed pierwszym polaczeniem. Aby to zrobic nalezy edytowac fragment pliku 
+hibernate.cfg.xml, który znajduje sie w katalogu src/main/resources: 
+		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
+		<property name="hibernate.connection.username">test</property>
+		<property name="hibernate.connection.password">test</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+
+Przedstawiony powyzej fragment jest prawidlowa konfiguracja dla bazy danych Oracle Express Edition 11g. 
+		Aplikacja vigym.com korzysta z wielu bibliotek wspomagajacych. Do poprawnego dzialania nalezy zagwarantowac ich obecnosc na serwerze aplikacyjnym. Mozna to zrobic na dwa sposoby:
+* umieszczajac biblioteki na serwerze w taki sposób, aby byly one dostepne dla wszystkich aplikacji dzialajacych w obrebie danego serwera aplikacyjnego,
+* umieszczajac biblioteki w pliku vigym.war, który jest wynikowym plikiem kompilacji.
+Nastepnie mozna umiescic plik vigym.war na serwerze aplikacyjnym. Dla serwera aplikacyjnego Oracle Weblogic 12c mozna skorzystac z narzedzia Enterprise Manager, które jest integralna jego czescia.
+       
+       
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     4. Testy aplikacji
+      Chcac zapewnic wysoka jakosc wytworzonego oprogramowania konieczne jest wykonanie testów. Maja one na celu:
+* weryfikacje oprogramowania, czyli sprawdzenie, czy realizuje ono przyjete zalozenia, które zostaly zawarte w specyfikacji,
+* walidacje oprogramowania, czyli sprawdzenie, czy dzialanie aplikacji jest poprawne, czyli czy daje spodziewane wyniki w okreslonych sytuacjach.
+W tym rozdziale opisany zostal proces testowania systemu Vigym.
+
+     4.1 Testy jednostkowe 
+      Testy jednostkowe (z ang. unit test) sa niskopoziomowa technika weryfikacji dzialania pojedynczych jednostek programu. Fragment kodu, który zostaje poddany testowi jest wykonywany, a wynik jego dzialania jest porównywany z wartoscia oczekiwana.
+      Niektóre jezyki posiadaja biblioteki, które ulatwiaja wykonywanie testów jednostkowych. W jezyku Java najpopularniejsza biblioteka sluzaca do testowania jednostkowego jest JUnit. 
+      Kazdy fragment logiki biznesowej systemu Vigym zostal przetestowany jednostkowo pod katem poprawnosci dzialania.
+      Budujac system Vigym wykorzystano technike zwana TDD. Programowanie sterowane testami (z ang. Test Driven Development, TDD) [45] jest technika tworzenia oprogramowania zaliczana do metodyk zwinnych [46]. Polega na powtarzaniu nastepujacych kroków:
+* napisanie testu jednostkowego sprawdzajacego funkcjonalnosc. Test w tym momencie nie powinien sie udac,
+* implementacja funkcjonalnosci. W tym momencie wczesniej napisany test powinien sie udac,
+* dokonanie refaktoryzacji napisanego kodu, aby spelnial on przyjete standardy.
+
+
+     4.2 Przypadki testowe
+      Przypadek testowy jest zbiorem danych wejsciowych, wstepnych warunków wykonania, oczekiwanych rezultatów i koncowych warunków wykonania. Zostal utworzony w celu wykonania pewnej sciezki programu lub zweryfikowania zgodnosci 
+z konkretnym wymaganiem. Szablon przypadku uzycia sklada sie z:
+* unikalnego identyfikatora,
+* nazwy testu,
+* opisu srodowiska, w którym przypadek testowy jest wykonywany,
+* warunków wstepnych, czyli takich, które musza byc spelnione przed wykonaniem testu,
+* kroków koniecznych wykonania,
+* oczekiwanego rezultatu,
+* warunków koncowych, czyli takich, które musza byc spelnione po wykonaniu testu.
+Przykladowe przypadki testowe dla systemu Vigym:
+* aplikacja mobilna:
+1.1Nazwa testuPrawidlowe dodanie nowego treningu.SrodowiskoUrzadzenie mobilne z systemem Android z wersja 2.2 lub nowsza.Warunek wstepnyOtworzone okno z lista treningów. Uzytkownik aplikacji musi byc zalogowany.Kroki do wykonania* nacisnij przycisk Dodaj trening,
+* wypelnij formularz:
+* wybierajac cwiczenie z listy,
+* podajac ilosc wykonanych powtórzen,
+* podajac uzyte obciazenie,
+* wybierajac date wykonania cwiczenia,
+* nacisnij przycisk OK. Oczekiwany rezultatDodanie nowego treningu i przypisanie go do aktualnie zalogowanego uzytkownika. Zaktualizowanie statystyk dostepnych na liscie z wykonanymi cwiczeniami. Warunki koncoweDodano nowy trening. Zaktualizowano statystyki.
+* aplikacja internetowa:
+1.1Nazwa testuPrawidlowe logowanie.SrodowiskoDowolny system operacyjny, dowolna przegladarka internetowa z wlaczona obsluga JavaScript.Warunek wstepnyWlaczona przegladarka na dowolnej stronie systemu. Zaden uzytkownik nie moze byc zalogowany.Kroki do wykonania* wypelnij formularz logowania, który dostepny jest na kazdej stronie aplikacji, podajac:
+* nazwe uzytkownika,
+* haslo,
+* nacisnij przycisk Loguj. Oczekiwany rezultatZalogowanie uzytkownika. Warunki koncoweUzytkownik jest zalogowany. W panelu uzytkownika widoczny jest adres e-mail, jaki uzytkownik podal przy rejestracji. 
+
+     4.3 Testy interfejsu
+      Z punktu widzenia uzytkowników systemu Vigym interfejs uzytkownika jest najwazniejsza warstwa systemu. Jest warstwa z która osoby korzystajace z systemu maja bezposredni kontakt. Dlatego tez bardzo wazne jest wykonanie odpowiednich testów interfejsu uzytkownika. Spowoduje to, ze aplikacja bedzie uzyteczna dla korzystajacych z niej osób.
+      Testowanie uzytecznosci interfejsu systemu Vigym polegalo na zebraniu grupy uzytkowników z róznych przedzialów wiekowych i wykonanie przez nich okreslonych operacji, okreslonych przez diagramy przypadków uzycia. W testach uczestniczylo:
+* 5 osób z przedzialu wiekowego 15-25, 
+* 5 osób z przedzialu wiekowego powyzej 25 lat.
+Korzystanie z zadnej funkcjonalnosci systemu nie okazalo sie dla osób testujacych problematyczne. Na tej podstawie mozna wiec stwierdzic, ze interfejs systemu jest uzyteczny.
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+     5. Uzytkowanie aplikacji
+      System Vigym umozliwia tworzenie planów treningowych. Ponizszy rozdzial opisuje uzytkowanie aplikacji wchodzacych w sklad systemu: mobilnej oraz internetowej.
+      
+     5.1 Aplikacja mobilna
+Ekran startowy
+		Po uruchomieniu aplikacji mobilnej ukazuje sie ekran zawierajacy trzy przyciski (Rys. 5.1):
+* Logowanie - powoduje przejscie do ekranu logowania (Rys. 5.3), 
+* Stwórz profil - powoduje utworzenie nowego konta uzytkownika w aplikacji (Rys. 5.2),
+* Wyjscie - powoduje zamkniecie aplikacji.
+
+   Rys. 5.1
+   Glówna strona aplikacji dla uzytkownika niezalogowanego.
+   Rys. 5.2
+   Formularz umozliwiajacy zalozenie nowego konta.
+Tworzenie nowego konta
+      Aby uzyskac dostep do funkcjonalnosci oferowanych przez aplikacje vigyMobile wymagane jest posiadanie konta. Aby to zrobic nalezy poprawnie wypelnic formularz rejestracyjny: 
+* nazwa uzytkownika - maksymalnie 30 znaków, 
+* haslo (moze pozostac puste), 
+* adres e-mail (opcjonalnie) - maksymalnie 75 znaków. 
+      Nastepnie nalezy nacisnac przycisk Rejestruj. Jesli wszystko zostalo wypelnione poprawnie to konto zostanie utworzone. Nastepnie uzytkownik zostanie automatycznie zalogowany do systemu i przekierowany do glównego menu aplikacji (Rys. 5.4).
+      
+
+   Rys. 5.3
+   Formularz logowania.
+   Rys. 5.4
+   Glówna strona aplikacji dla uzytkownika zalogowanego.    
+    
+Ekran logowania
+      Aby zalogowac sie do systemu nalezy podac nastepujace dane:
+* nazwe uzytkownika,
+* haslo uzytkownika.
+Jesli powyzsze dane zostana poprawnie podane to nastapi przekierowanie do menu glównego aplikacji.
+   
+Menu glówne
+      Menu glówne zawiera nastepujace pozycje:
+* Trening - nacisniecie powoduje przejscie do modulu trening,
+* Zarzadzenie profilem - nacisniecie powoduje przejscie do ustawien, gdzie uzytkownik moze zmienic haslo lub wprowadzic swoje cechy personalne (Rys. 5.5),
+* Synchronizacja / Eksport - synchronizacja danych z aplikacja internetowa,
+* Wyloguj - wylogowanie uzytkownika z aplikacji.
+
+
+   Rys. 5.5
+   Ekran cech personalnych zdefiniowanych przez uzytkownika.
+   Rys. 5.6
+   Formularz do zarzadzania pomiarami cech personalnych.      
+      
+Zarzadzanie profilem
+      Po wybraniu z menu pozycji Zarzadzanie profilem uzytkownik ma do wyboru dwie karty (Rys. 5.5):
+* Konto - umozliwia zmiane hasla podanego przy rejestracji,
+* Personalne - umozliwia zdefiniowanie cech charakterystycznych dla uzytkownika i dokonywanie pomiarów.
+
+Zarzadzanie cechami personalnymi profilu
+      Uzytkownik aplikacji vigyMobile ma mozliwosc zarzadzania cechami personalnymi (Rys.5.5). Decyzja jakie cechy monitorowac nalezy do uzytkownika. Aby zdefiniowac nowa ceche wystarczy nacisnac przycisk Dodaj wlasnosc - spowoduje to otworzenie okna dialogowego, w którym uzytkownik powinien podac:
+* nazwe wlasnosci (pole obowiazkowe),
+* opis wlasnosci (pole opcjonalne),
+i zatwierdzic przyciskiem Dodaj. Po poprawnym zdefiniowaniu wlasnosci uzytkownik moze edytowac wlasnosc (), usunac ja () lub dodac pomiar (). Aby dodac nowy pomiar konieczne podanie jest podanie nastepujacych informacji w nowo otwartym oknie dialogowym:
+* wartosci pomiaru (liczba),
+* jednostki pomiaru (wybór z listy),
+* daty pomiaru,
+i zatwierdzic naciskajac przycisk . Dodane pomiary mozna edytowac () oraz usuwac (). Kazde dodanie, edycja lub usuniecie pomiaru powoduje zaktualizowanie informacji dostepnych na liscie wlasnosci: daty ostatniego pomiaru, postepu oraz aktualnej wartosci.
+
+Zarzadzanie treningiem
+      Po wybraniu z menu pozycji Treningu uzytkownik przekierowany zostanie do modulu umozliwiajacego zarzadzenie treningami (Rys. 5.7).  Aby dodac nowy trening nalezy nacisnac przycisk Dodaj trening. Nastepnie w nowo otwartym oknie dialogowym (Rys. 5.8) nalezy podac:
+* cwiczenie (pole obowiazkowe), którego dotyczy pomiar, wybierajac z listy dostepnych - wybranie cwiczenia spowoduje wyswietlenie sie jego opisu,
+* ilosc powtórzen (pole obowiazkowe, liczba calkowita),
+* uzyte obciazenie (pole obowiazkowe, liczba),
+* data pomiaru (pole obowiazkowe). 
+
+   Rys. 5.7
+   Ekran cech personalnych zdefiniowanych przez uzytkownika.
+   Rys. 5.8
+   Formularz do zarzadzania pomiarami cech personalnych.
+Kazde dodanie, edycja () lub usuniecie () treningu powoduje aktualizacje statystyk dla danego cwiczenia dostepnych na liscie cwiczen (Rys. 5.7):
+* maksymalnie - maksymalna wartosc obciazenia w pojedynczej próbie,
+* seria - maksymalna wartosc obciazenia w serii,
+* srednia - srednia wartosc obciazenia w pojedynczej próbie,
+* srednio w serii - srednia wartosc obciazenia w serii,
+* ostatnio - informacje na temat ostatnio wykonanego treningu.
+   
+      
+      
+
+     5.2 Aplikacja internetowa
+Ekran logowania
+      Aby zalogowac sie do systemu nalezy podac nastepujace dane:
+* nazwe uzytkownika,
+* haslo uzytkownika.
+Panel logowania jest dostepny na kazdej stronie systemu. Jesli powyzsze dane zostana poprawnie podane panel logowania przestanie byc widoczny. Jego miejsce zajmie panel uzytkownika, w którym uzytkownik zobaczy swój adres e-mail podany przy rejestracji konta w systemie oraz otrzyma mozliwosc wylogowania sie z systemu.
+
+Strona glówna
+      Na stronie glównej aplikacji internetowej wyswietlana jest lista ostatnich treningów wykonanych przez wszystkich uzytkowników systemu (Rys. 5.9). Treningi posortowane sa malejaco wedlug daty wykonania treningu. Oprócz daty wykonania treningu znajduja sie tu informacje na temat rodzaju wykonywanego cwiczenia, ilosci powtórzen i uzytego obciazenia. Z prawej strony dostepny jest takze odnosnik do profilu uzytkownika w aplikacji internetowej, który wykonal trening. Domyslnie wyswietlana lista treningów zawiera dziesiec pozycji. Jesli uzytkownik przewinie liste do konca, zaladowane zostanie kolejne dziesiec elementów.
+
+   Rys. 5.9
+   Fragment strony glównej aplikacji vigym.com. 
+Lista uzytkowników
+      Lista uzytkowników zawiera informacje na temat wszystkich uzytkowników systemu (Rys. 5.10). Strona ta zawiera tabele z odnosnikami do profili zarejestrowanych uzytkowników (), a takze informacje na temat ostatniego wykonanego przez nich treningu (dostepna po kliknieciu  w otwartym oknie dialogowym).
+
+   Rys. 5. 10
+   Lista zarejestrowanych uzytkowników.
+
+Profil uzytkownika
+      Kazdy zarejestrowany w systemie uzytkownik posiada wlasna podstrone (Rys. 5.11), na której zamieszczone sa informacje na temat:
+* cech personalnych zdefiniowanych przez uzytkownika,
+* treningów wykonanych przez uzytkownika.
+Dodatkowo jesli strona jest przegladana przez zalogowanego uzytkownika wyswietlana jest sekcja zawierajaca porównanie uzytkownika przegladajacego profil i uzytkownika do którego dany profil nalezy.
+		Profil uzytkownika jest podzielony na nastepujace sekcje:
+* Porównanie - dostepny jedynie dla zalogowanych uzytkowników. Zawiera szczególowe porównanie  cwiczen, które wykonal uzytkownik, którego profil jest przegladany oraz uzytkownik przegladajacy. Zawiera takze zbiorcze podsumowanie, wyswietlajace informacje, który uzytkownik osiagnal sumarycznie lepszy rezultat. 
+* Informacje o uzytkowniku - zawiera informacje personalne, które uzytkownik do którego profil nalezy zdefiniowal. Na podstawie pomiarów, które zostaly dokonane wyswietlany jest postep uzytkownika, historia wykonanych pomiarów () oraz wykres postepu (). 
+* Treningi - sekcja ta zawiera informacje na temat treningów wykonanych przez uzytkownika. Treningi zostaly pogrupowane wzgledem cwiczenia. 
+
+
+   Rys. 5.11
+   Przykladowy profil uzytkownika aplikacji. 
+    
+      
+		Dostepne sa szczególowe informacje na temat statystyk dotyczacych cwiczen:
+* Maksymalne obciazenie - maksymalna wartosc obciazenia w pojedynczej próbie,
+* Maksymalnie w serii - maksymalna wartosc obciazenia w serii,
+* Srednie obciazenie - srednia wartosc obciazenia w pojedynczej próbie,
+* Srednie obciazenie w serii - srednia wartosc obciazenia w serii,
+* Ostatni trening - informacje na temat ostatnio wykonanego treningu,
+* Historia - podglad dotychczas wykonanych cwiczen wyswietlane w oknie dialogowym.   
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+     6. Wnioski
+      Celem niniejszej pracy magisterskiej bylo stworzenie systemu, który umozliwi sportowcom planowanie treningu. System skladac sie mial z dwóch aplikacji: mobilnej, przeznaczonej na urzadzenia z systemem Android oraz internetowej. Aplikacje powinny dzialac niezaleznie. System zapewniac mial mozliwosc komunikacji aplikacji, potrzebna w celu synchronizacji danych. Wszystkie zalozenia projektowe zostaly w pelni zrealizowane. Zbudowanie aplikacji okazalo sie sporym wyzwaniem. Problemy integracji aplikacji wykorzystujacych rózne technologie naleza do najczestszych i najbardziej skomplikowanych problemów budowania systemów informatycznych.
+      Pomimo, ze wszystkie zakladane funkcje systemu zostaly w pelni zrealizowane, posiada on spore mozliwosci rozwoju. Jako przykladowe rozszerzenia dla aplikacji mobilnej mozna wymienic: dodanie mozliwosci tworzenia zestawów cwiczen, planowania czasu treningu i powiadomienia o zaplanowanym treningu, czy tez komunikacje uzytkowników w obrebie aplikacji. Aplikacje internetowa mozna rozbudowac poprzez dodanie mozliwosci tworzenia planów treningowych, które obecnie jest dostepne jedynie dla aplikacji mobilnej. Kierunek dalszego rozwoju aplikacji bedzie wynikac z zadan jej uzytkowników.
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+       7. Bibliografia
+       
+    [1] "Aplikacja mobilna," 2014. [Online]. Available: http://pl.wikipedia.org/wiki/Aplikacja_mobilna.    [2] "Mamy coraz wiecej smartfonów i jestesmy tego coraz bardziej swiadomi," 4 2 2014. [Online]. Available: http://www.tnsglobal.pl/coslychac/2014/02/04/mamy-coraz-wiecej-smartfonow-i-jestesmy-tego-coraz-bardziej-swiadomi/.    [3] P. J. F. Clark, "History of Mobile Applications," [Online]. Available: http://www.uky.edu/~jclark/mas490apps/History%20of%20Mobile%20Apps.pdf.    [4] "WAP," [Online]. Available: http://technical.openmobilealliance.org/Technical/technical-information/material-from-affiliates/wap-forum.    [5] "Java ME," [Online]. Available: http://www.oracle.com/technetwork/java/embedded/javame/index.html.    [6] "Symbian OS," 26 7 2014. [Online]. Available: http://developer.nokia.com/community/wiki/Symbian_OS.    [7] "Android and iOS Devices Account for 96% of the Global Market," 14 8 2014. [Online]. Available: http://www.idc.com/getdoc.jsp?containerId=prUS25037214.    [8] "April 2014 Web Server Survey," 7 2014. [Online]. Available: http://news.netcraft.com/archives/2014/04/02/april-2014-web-server-survey.html.    [9] "Cienki klient," [Online]. Available: http://pl.wikipedia.org/wiki/Cienki_klient.    [10] "JavaScript," [Online]. Available: http://www.w3.org/standards/techs/js.    [11] "Adobe Flash," [Online]. Available: http://www.adobe.com/pl/products/flash.html.    [12] "Package javax.servlet," [Online]. Available: http://docs.oracle.com/javaee/7/api/javax/servlet/package-summary.html.    [13] "AJAX," [Online]. Available: http://www.w3.org/standards/webdesign/script.    [14] "HTML5," [Online]. Available: http://www.w3schools.com/html/html5_intro.asp.    [15] "Endomondo," [Online]. Available: https://www.endomondo.com.    [16] "Gym Book: training notebook," 18 7 2013. [Online]. Available: https://play.google.com/store/apps/details?id=com.rk.gymstat_limited.    [17] "Redy Gym Log - Workout Tracker," 12 8 2014. [Online]. Available: https://play.google.com/store/apps/details?id=com.redyApps.redyGymLog.    [18] "Virtuagym Fitness Home & Gym," 16 7 2014. [Online]. Available: https://play.google.com/store/apps/details?id=digifit.virtuagym.client.android.    [19] "XHTML 1.0 The Extensible HyperText Markup Language," [Online]. Available: http://www.w3.org/TR/xhtml1/.    [20] B. M. K. W. Stanislaw Wrycza, Jezyk UML 2.0 w modelowaniu systemów informatycznych, Gliwice : Helion, 2006.     [21] "Android for developers - documentation," 2014. [Online]. Available: https://developer.android.com/index.html.    [22] "SQLite documentation," 2014. [Online]. Available: http://www.sqlite.org/docs.html.    [23] "Android Developer Tools," [Online]. Available: http://developer.android.com/tools/index.html.    [24] "Database Browser for SQLite," 28 8 2014. [Online]. Available: http://sourceforge.net/projects/sqlitebrowser/.    [25] "Java," [Online]. Available: https://www.java.com/pl/.    [26] "JavaServer Faces documentation," 2014. [Online]. Available: https://javaserverfaces.java.net/docs/2.2/.    [27] "Hibernate ORM documentation," 2014. [Online]. Available: http://hibernate.org/orm/documentation/.    [28] "JUnit," [Online]. Available: http://junit.org/.    [29] "Primefaces," [Online]. Available: http://primefaces.org/.    [30] "Log4j," [Online]. Available: http://logging.apache.org/log4j.    [31] "Oracle Database Express Edition Documentation," [Online]. Available: http://docs.oracle.com/cd/E17781_01/index.htm.    [32] "Oracle WebLogic Server documentation," [Online]. Available: http://www.oracle.com/technetwork/middleware/weblogic/documentation/index.html.    [33] "Eclipse," [Online]. Available: https://www.eclipse.org.    [34] "Oracle SQL Developer," [Online]. Available: http://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/index.html.    [35] "Apache Maven," [Online]. Available: http://maven.apache.org/.    [36] "Git," [Online]. Available: http://git-scm.com/.    [37] "Visual Paradigm," [Online]. Available: http://www.visual-paradigm.com/.    [38] ".Net," [Online]. Available: http://www.microsoft.com/net.    [39] R. H. R. J. J. M. V. Erich Gamma, Wzorce projektowe. Elementy oprogramowania obiektowego wielokrotnego uzytku, Gliwice: Helion, 2010.     [40] "Core J2EE Patterns - Data Access Object," Oracle, 2001. [Online]. Available: http://www.oracle.com/technetwork/java/dataaccessobject-138824.html.    [41] "Core J2EE Patterns - Transfer Object," Oracle, 2001. [Online]. Available: http://www.oracle.com/technetwork/java/transferobject-139757.html.    [42] "Java EE," [Online]. Available: https://www.oracle.com/java/technologies/java-ee.html.    [43] B. B. K. Sierra, Sun Certified Programmer for Java 6 Study Guide, McGraw-Hill, 2008.     [44] "Format JSON," [Online]. Available: http://www.json.org/json-pl.html.    [45] "Test Driven Development," [Online]. Available: http://msdn.microsoft.com/library/test-driven-development.aspx.    [46] "Manifest Zwinnego Tworzenia Oprogramowania," [Online]. Available: http://agilemanifesto.org/iso/pl/.    [47] R. C. Martin, Czysty Kod. Podrecznik dobrego programisty, Gliwice: Helion, 2010.     
+       
+       
+       
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+Dodatek A. Uruchomienie aplikacji
+Aplikacja mobilna
+      Aplikacje mobilna vigyMobile mozna uruchomic na dwa sposoby:
+      1. Jako projekt w srodowisku programistycznym Android Developer Tools. Aby to zrobic nalezy:
+* uruchomic srodowisko programistyczne,
+* wybrac z menu File > Import,
+* wybrac General > Existing Project Into Workspace,
+* wskazac lokalizacje projektu,
+* nacisnac Finish,
+* nastepnie klikajac na zaimportowanym projekcie wybrac Run as > Android Application. Nalezy pamietac, ze urzadzenie (lub emulator) powinno byc podpiete do komputera przez port USB.
+      2. Jako aplikacja na urzadzeniu mobilnym. Aby to zrobic wystarczy skopiowac plik vigyMobile.apk na urzadzenie mobilne i uruchomic.
+Aplikacja internetowa
+      Aplikacje internetowa vigym.com mozna uruchomic na dwa sposoby:
+1. Jako projekt w srodowisku programistycznym Eclipse. Aby to zrobic nalezy:
+* uruchomic srodowisko programistyczne,
+* wybrac z menu File > Import,
+* wybrac General > Existing Project Into Workspace,
+* wskazac lokalizacje projektu,
+* nacisnac Finish,
+* nastepnie klikajac na zaimportowanym projekcie wybrac Run as > Run on server.
+2. Jako archiwum na serwerze aplikacyjnym. Aby to zrobic, wystarczy skopiowac plik vigym.com.war na serwer aplikacyjny i uruchomic z przegladarki internetowej.
+
+    
+
+
+Dodatek B. Zawartosc plyty CD
+../docPraca.docxNiniejsza praca w formacie docx.Praca.pdfNiniejsza praca w formacie pdf./srcKatalog z kodem zródlowym aplikacji./vigyMobileKod zródlowy aplikacji mobilnej./vigym.comKod zródlowy aplikacji internetowej.       
+       
+       
+       
+     [a1]Brak numeru i opisu rysunku 
+     [a2]Brak numeru i opisu rysunku 
+    
+     [a3]Brak numeru i opisu rysunku 
+    
+    62
+    
+    
