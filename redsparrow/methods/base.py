@@ -5,7 +5,10 @@ class BaseMethod(object):
         Base method class
         it helps to make rpc interface
     """
-    def __init__(self, name):
+    def __init__(self, name=None):
+        if name is None:
+            name = self.__class__.__name__
+
         self._name = name
         self.__application = None
         self._response = None

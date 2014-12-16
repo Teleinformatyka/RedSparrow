@@ -1,7 +1,7 @@
 import os
 import tornado
 
-from redsparrow.extractor import pdf_to_text, docx_to_text
+from redsparrow.extractor import pdf_to_text, docx_to_text, odt_to_text, doc_to_text
 
 
 from .base import BaseMethod
@@ -19,8 +19,12 @@ class GetText(BaseMethod):
             text = pdf_to_text(file_path)
         elif ext == '.docx':
             text = docx_to_text(file_path)
+        elif ext == '.odt':
+            text = odt_to_text(file_path)
+        elif ext == '.doc':
+            text = doc_to_text(file_path)
         else:
-            self.logger.error('Unknow ext {}'.format(ext))
+            self.logger.error('Unknown ext {}'.format(ext))
             return
 
 

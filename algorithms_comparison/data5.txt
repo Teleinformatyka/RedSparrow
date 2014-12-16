@@ -1,0 +1,592 @@
+POLITECHNIKA KRAKOWSKA
+IM. TADEUSZA KOSCIUSZKI
+WYDZIAL FIZYKI MATEMATYKI I INFORMATYKI
+KIERUNEK INFORMATYKA
+     
+     
+     BARTLOMIEJ PACURA
+     
+     
+     PORÓWNANIE ISTNIEJACYCH ROZWIAZAN BAZUJACYCH NA TECHNOLOGII WEBRTC DO STWORZENIA CZATU TEKSTOWEGO/AUDIO/WIDEO.
+     
+     THE COMPARISON OF WEBRTC TECHNOLOGIES FOR CREATING TEXT/AUDIO/VIDEO CHAT
+     
+     PRACA MAGISTERSKA
+     STUDIA NIESTACJONARNE
+     
+     
+     
+     
+      Promotor:  Dr Agnieszka Krok
+
+
+      Kraków 2014
+Spis tresci
+      1. Wprowadzenie do Web Real-Time Communication	5
+      1.1 Komunikacja	5
+      1.1.1 Definicja komunikacji	5
+      1.1.2 Wspólczesne sposoby komunikacji	6
+      1.1.3 Historia rozwoju sposobów komunikacji	7
+      1.2 Wplyw aplikacji webowych na dzisiejsze zycie	8
+      1.3 Krótkie omówienie technologii WebRTC	9
+      1.3.1 Pojecie Real-Tome Communication	10
+      1.3.2 Web Real-Time Communication	10
+      1.4 Potrzeby, które zrodzily ten standard	11
+      1.5 Cel pracy magisterskiej	13
+      1.6 Historia standardu	13
+      2. Obecne mozliwosci i ograniczenia	15
+      2.1 Mozliwosci i zalozenia	15
+      2.1.1 Slowo wstepu	15
+      2.1.2 Bezposrednia komunikacja przegladarek i zmniejszenie roli serwera	15
+      2.1.3 Wspólne i proste API	17
+      2.1.4 Przechwytywanie strumienia audio/wideo	17
+      2.1.5 Zarzadzanie strumieniem danych	17
+      2.1.6 Prowadzenie rozmów w trybie rzeczywistym	18
+      2.1.7 Przezroczystosc oprogramowania i sprzetu	18
+      2.1.8 Wieloosobowe konferencje	18
+      2.1.9 Wspóldzielenie plików	18
+      2.1.10 Zarzadzanie jakoscia strumienia	18
+      2.1.11 Negocjowanie mediów	19
+      2.1.12 Wykorzystanie komunikacji w innych obszarach	19
+      2.1.13 Ogromna ilosc koncowych uzytkowników	19
+      2.2 Przykladowe aplikacje wykorzystujace technologie WebRTC	19
+      2.2.1 Wideokonferencje	19
+      2.2.2 Modyfikacja strumienia	20
+      2.2.3 Uzycie komunikacji rzeczywistej w grach	21
+      2.2.4 Udostepnianie plików	22
+      2.3 Obecne ograniczenia	23
+      3. Omówienie skladowych technologii	25
+      3.1 Przechwytywanie strumieni poprzez MediaStream	25
+      3.2 Komunikacja przesylania danych na poziomie przegladarki	26
+      3.3 Sygnaly i obsluga sesji	28
+      3.5 Topologia sieci i obsluga polaczen przez Network Address Translation	29
+      4. Bezpieczenstwo i prywatnosc	34
+      4.1 Obecne zabezpieczenia wykorzystywane w WebRTC	34
+      4.1.1 Przegladarka internetowa	34
+      4.1.2 Zezwolenie na dostep do mikrofonu/kamerki	34
+      4.1.3 Brak zewnetrznych wtyczek	35
+      4.1.4 Szyfrowane polaczenia	35
+      4.2 Mozliwe slabe punkty	36
+      4.2.1 Wirusy i szkodliwe oprogramowanie	36
+      4.2.2 Kradziez strumienia audio/wideo	36
+      4.2.3 Atak DDoS na przegladarke	37
+      4.2.4 Brak szyfrowania strumienia lub sygnalów	37
+      4.3 Prywatnosc	37
+      4.3.1 Kradziez strumien audio/wideo	37
+      4.3.2 Znajomosc adresu IP	38
+      5. Porównanie istniejacych technologii	39
+      5.1 Projekt aplikacji	39
+      5.1.1 Wymagania funkcjonalne	39
+      5.1.2 Wymagania przy korzystaniu z WebRTC	40
+      5.2 Kryteria porównawcze	40
+      5.3 Zestawienie narzedzi	41
+      5.3.1 SimpleWebRTC	41
+      5.3.2 WebRTC jQuery plugin	43
+      5.3.3 Peer.js	44
+      5.3.4 EasyRTC	46
+      5.3.5 WebRTC.io	48
+      5.3.6 OpenTok	49
+      5.3.7 WebRTCCopy	52
+      5.4 Porównanie przedstawionych rozwiazan	53
+      5.4.1 Zestawienie mozliwosci narzedzi	54
+      5.4.2 Porównanie wedlug kryteriów	54
+      5.5 Podsumowanie	56
+      6. Zakonczenie	57
+      Bibliografia	58
+      Zródla rysunków	61
+      
+     
+
+     1. Wprowadzenie do Web Real-Time Communication
+      Komunikacja jest jednym z najwazniejszych elementów zycia spolecznego czlowieka. Rozwój techniki ulatwil i przyspieszyl mozliwosc przesylania informacji pomiedzy ludzmi. Idea porozumiewania sie zostala jednak bez zmian od dawien dawna. Technologia Web Real-Time-Communication jest jednym z rozwiazan, które ma byc medium do komunikacji.
+      
+      1.1 Komunikacja
+      Cele postawione przed technologia WebRTC sa scisle zwiazane z aspektem ludzkiego zycia, jakim jest porozumiewanie sie. By zrozumiec to zagadnienie, trzeba spojrzec na nie od strony psychologicznej.
+      
+      1.1.1 Definicja komunikacji
+      Slowo komunikacja pochodzi od lacinskiego czasownika communico, communicare (uczynic wspólnym, polaczyc) i rzeczownika communio (wspólnosc, poczucie lacznosci) [1]. Celem komunikacji jest przekazanie drugiej osobie pewnej wiadomosci (informacji) poprzez pewien kanal. Jest ona uzywana nie tylko przez ludzi, ale równiez przez zwierzeta (np. do ostrzezenia o zblizajacym sie niebezpieczenstwie) [1]. 
+      Komunikacja towarzyszy ludziom od poczatków ich istnienia i jest ona jednym z najwazniejszych elementów ludzkiej egzystencji. Pozwala ona na przekazywanie nam mysli, wiedzy, emocji. Ludzie sa stworzeniu do zycia w grupie, co wymaga rozmowy, przekazania informacji. Brak lub ograniczenie komunikacji z innymi osobami wplywa negatywnie na nasza psychike. Moze to doprowadzic do samotnosci takiej osoby lub nawet depresje i zaburzenia psychologiczne [1].
+      Ogólny sposób komunikacji bardzo dobrze przedstawia model zaproponowany w 1948 roku przez amerykanskich naukowców Shannona i Weavera w artykule "A Mathematical Theory of Communication", który ukazal sie w "Bell System Technical Journal": 
+       
+      
+ 
+      Nadawca jest osoba, która chce przekazac wiadomosc. Jest ona kodowana i przez kanal (medium) jest dostarczana do odbiorcy. Zanim ona do niego trafi jest dekodowana. Po zakonczeniu przesylania wiadomosci jest odsylana odpowiedz od odbiorcy do nadawcy. Dodatkowo pojawia sie szum, którego celem jest utrudnienie przeslania wiadomosci lub znieksztalcenie jej [1].
+      Patrzac na ten diagram od strony komunikacji internetowej - wysylania wiadomosci e-mail - to kodowaniem i dekodowaniem jest proces zapisu wiadomosci w odpowiednim standardzie, medium to polaczenie TCP, a szumem moze bys zaklócenie polaczenia internetowego.
+      
+      1.1.2 Wspólczesne sposoby komunikacji
+      Dzisiejszy rozwój technologii pozwala na bardzie wiele róznych sposób komunikacji miedzy ludzmi i przekazywania sobie informacji. Poza takimi klasycznymi takimi jak rozmowa, pisanie listów, ksiazek wspólczesny Internet i technologia pozwala m.in. na:
+? rozmowy telefoniczne, VoIP
+? popularne wiadomosci SMS
+? wiadomosci e-mail
+? fora, listy dyskusyjne
+? rozmowy poprzez komunikatory tekstowe, np. polskie Gadu-Gadu, amerykanski IRC
+? rozmowy przez komunikatory wideo, np. popularny Skype
+? serwisy spolecznosciowe, np. Facebook
+? popularne kiedys chaty, np. czateria.interia.pl
+       
+      Wszystkie wymienione wyzej sposoby komunikacji sa wynikiem wielu lat rozwoju technologii informatycznej. Ich celem jest jak najszybsze dostarczenie nam informacji niezaleznie od miejsca, w którym przebywa uzytkownik. Dzisiejszy swiat pozwala na staly dostep do Internetu i sieci  komórkowej, co zmienilo sposoby porozumiewania sie i zniwelowalo takie pojecia jak granice lub daleka fizyczna odleglosc. 
+      
+      1.1.3 Historia rozwoju sposobów komunikacji
+      Sposoby komunikacji zmienialy sie na przestrzeni wieków. Kazde nowe odkrycie rewolucjonizowalo przesylanie wiadomosci i kontaktowanie sie ludzi. Ponizej przedstawiono liste najwazniejszych narzedzi i metod do porozumiewania sie. Ma ona pokazac, ze technologia przekazywania informacji caly czas sie rozwija i bedzie ciagle udoskonalana. Dodatkowo warto sie zastanowic, jak ludzie beda sie kontaktowac ze soba za kilkadziesiat lat - przesylanie mysli, hologramy?
+      Prehistoria to glównie etap ksztaltowania sie mowy i jezyka. Jedynym sposobem komunikacji byla rozmowa.
+      W starozytnosci najwazniejsze jest stworzenie podstaw pisma. Wiadomosci takie jednak byly czesto przekazywane przez gonców, co na duzych odleglosciach bylo bardzo czasochlonne. W pózniejszych czasach glównie byl rozwijany druk i sposoby przesylania wiadomosci np. stworzenie poczt.
+      W 1794 roku Claude Chappe stworzyl telegraf, co pozwolilo przesylac krótkie wiadomosci na bardzo dlugie odleglosci w duzo szybszym czasie niz przykladowo poczta.
+      W 1876 roku Elisha Gray i Alexander Bell zaprezentowali swiatu pierwszy telefon. Pozwolil on po raz pierwszy porozmawiac z druga osoba. Mozna smialo uznac, ze jest to pierwszy wynalazek, który pozwala na komunikacje w trybie rzeczywistym.
+      Kolejne wazne odkrycia pojawily sie dopiero w polowie XX-go wieku. Wideo konferencje pojawily sie juz w latach 30-stych w Niemczech. Lata 50-te to pierwszy telefon komórkowy zaprezentowany przez firme Motorola w 1956. Pod koniec lat 60-tych powstal zalazek Internetu - siec ARPANET (1969) i poczta elektroniczna (1965). Byla ona internetowa alternatywa do klasycznych listów wysylanych poczta. W 1974 na uniwersytecie w Illinois zaczal dzialac pierwszy komunikator (chat online) PLATO. W 1992 zostala wyslana pierwsza wiadomosc SMS (Short Message Service). W latach 90'tych zaczely pojawiac sie pierwsze serwisy spolecznosciowe np. theglobe.com (1995). Po 2000 roku popularne staly sie darmowe rozmowy wideo w sieciach Skype i iChat.
+      W dzisiejszych czasach komunikacja wsród ludzi odbywa sie glównie poprzez rozmowy telefoniczne, wiadomosci SMS, e-mail, komunikatory w serwisach spolecznosciowych (np. Facebook, Google+). 
+      
+      1.2 Wplyw aplikacji webowych na dzisiejsze zycie
+      Dzisiejsze przegladarki nie sluza tylko do wyswietlania stron internetowych, ale dzieki swojemu zaawansowaniu, sa gotowymi srodowiskami do uruchamiania rozbudowanych aplikacji. Wykorzystujac takie technologie jak HTML5 (jezyk znaczników do budowy struktury i zawartosci strony www), CSS3 (odpowiada za wyglad strony), jezyk skryptowy JavaScript (odpowiada za logike dzialania strony i akcji wykonywanej na niej) mozna budowac bardzo rozbudowane aplikacje zamkniete w oknie przegladarki. 
+      Glówny wplyw na rozwój aplikacji webowych ma ulatwienie dostepu do Internetu, zwiekszenie mozliwosci przegladarek, ustandaryzowanie zasad dzialania technologii i wzrost szybkosci dzialania naszych komputerów. Dodatkowym motywem jest zmiana sposobu komercjalizacji oprogramowaniu przez ich autorów. Przy aplikacjach desktopowych uzytkownik placi twórcy za licencje do danej wersji. Przy technologii webowej glównym zarobkiem sa reklamy (np. udostepniane przez firme Google). Dosc czesto mozna spotkac model, w którym dana strona z podstawowymi mozliwosciami jest dostepna za darmo, a oplacajac abonament ma sie dostep do pelnej wersji z duzo wieksza iloscia elementów i funkcjonalnosci.
+      W ciagu kilku lat zmienilo sie podejscie do wykorzystania technologii webowej. W dzisiejszych czasach jest tendencja do migracji aplikacji uruchamianych na komputerze na rozwiazania bazujace na tzw. chmurze (rozwiazania po stronie serwerów i przegladarki internetowej) - ogólnie technologii webowej. Nie zastapi to specjalistycznych narzedzi (np. edytorów wideo), ale czesc rozwiazan uzytkownych juz jest coraz czesciej wykorzystywanych z poziomu przegladarki internetowej. 
+      Dawniej uzytkownik musial instalowac klienta poczty e-mail na swoim komputerze, a potem go skonfigurowac podajac adresy serwerów, porty, dane autoryzacyjne. Wymagalo to pewnej wiedzy. Obecnie loguje sie on tylko na strone www i ma wszystko w jednym miejscu. Jak chce dodac zalaczniki do tresci e-mail to przesuwa pliki z pulpitu w odpowiednie miejsce na stronie. Aplikacje webowe bardzo czesto sa rozbudowane (np. poczta Gmail, Facebook) i nie ustepuja pod wzgledem funkcjonalnym swoim odpowiednikom w wersji desktopowej.
+      Korzystanie z rozwiazan internetowych jest coraz bardziej popularne i wykorzystywane. Uzytkownik ma dostep do danej uslugi w kazdym miejscu na swiecie gdzie jest dostepna siec  Internet, na dowolnym urzadzeniu (komputer, tablet, telefon komórkowy, telewizor, itd.). Media te maja dzisiaj zainstalowana nawet prosta przegladarke internetowa. Wystarczy zapamietac adres www strony i dane do logowania. Kolejnym atutem tego rozwiazania jest coraz wieksza integracja uslug. Mozna dzisiaj polaczyc konto z serwisu Facebook z poczta internetowa Gmail poprzez kilka klikniec i juz po chwili miec dostepne na liscie kontaktów dane ludzi, którzy sa znajomi w serwisie spolecznosciowym. Z dnia na dzien uslugi internetowe beda coraz bardziej wykorzystywane, glównie przez latwy do nich dostep oraz prostote ich obslugi. Bardzo latwo tez jest poprawiac bledy i wprowadzac nowe funkcjonalnosci w tego typu oprogramowania, poniewaz sa dostepne od razu dla wszystkich uzytkowników i nie wymagaja przygotowywania i instalacji aktualizacji.
+      Niestety technologie webowe maja tez swoje zagrozenia. Najwazniejszym z nich jest bezpieczenstwo danych i dostepu do uslug. Jesli ktos sie wlamie do konta pocztowego, to ma dostep do wszystkich kont w serwisach internetowych. Kolejnym waznym elementem jest to, ze korzystajac aplikacji webowych trzeba udostepnic prywatne dane (osobowe, zdjecia, notatki) obcym firmom i zaufac im, ze nie beda ich przegladac ani wykorzystywac.
+      
+      1.3 Krótkie omówienie technologii WebRTC 
+      Technologia WebRTC jest wykorzystywana do komunikacji w trybie rzeczywistym. Jest to bardzo wazna informacja, poniewaz definiuje ona wymagania i sposób jej dzialania.
+      
+      1.3.1 Pojecie Real-Tome Communication
+      Technologia Real-Time Communication mozna przetlumaczyc jako komunikacja w czasie rzeczywistych. Sama nazwa okresla warunki jakie maja byc spelnione:
+? ma sluzyc do komunikacji
+? ma ona sie odbywac w czasie rzeczywistym
+
+      Jest to bardzo ogólne pojecie. Wykorzystywane jest ona dzisiaj w kazdym komunikatorze, takim jak Jabber, Skype, czy polskie Gadu-Gadu. 
+      
+      1.3.2 Web Real-Time Communication
+      WebRTC (Web Real-Time Communication) jest komunikacja w trybie rzeczywistym z wykorzystaniem technologii webowej. Jej zadaniem jest dostarczenie uzytkownikom mozliwosci komunikacji z poziomu przegladarki internetowej bez instalacji dodatkowych wtyczek. Wymaga ona jednak posiadania jej nowszej wersji. Wazna informacja jest to, ze ta technologia jest jeszcze na etapie projektowania i niektóre elementy moga sie nieznacznie zmienic. Obecnie wspieraja ja Chrome, Firefox i czesciowo w nowej wersji Opera. Internet Explorer nie posiada jeszcze jej obslugi. WebRTC jest rozwinieciem technologii HTML5, która jest dopiero wprowadzana i jej standard jest jeszcze rozwijany. 
+      Dlaczego, pomimo ze jest to jeszcze rozwijajacy sie standard, jest z dnia na dzien coraz chetniej poznawana i wykorzystywana? Po wprowadzeniu w piatej wersji HTML'a znaczników audio i video oraz API strumieni i metody getUserMedia (obslugiwanej po stronie JavaScript) strona ma dostep do naszego mikrofonu i kamerki. Moze ona przechwycic w bardzo latwy sposób strumien, który jest generowany przez kamerke lub/i mikrofon, i dowolnie potem na nim pracowac. Mozliwe jest zrobienie zdjecia z poziomu strony www (przegladarki), przeslanie danych z kamerki w dowolne miejsce lub zmodyfikowanie ich. Daje to olbrzymie mozliwosci. Glównym celem tej technologii jest mozliwosc stworzenia chatu, w którym dwie lub wiecej osób beda mogly rozmawiac lub prowadzic wideokonferencje. Dodatkowo jest mozliwosc prowadzenia w prosty sposób czatu tekstowy.
+      Docelowo ma technologia ta ma byc dostepna na bardzo wielu mediach takich jak komputery, smartfony, tablety, telefony, telewizory. Obecnie trwaja juz prace wykorzystania jej w komunikacji VoIP. Pozwoli to na prowadzenie rozmowy pomiedzy uzytkownikami, z których jeden bedzie korzystal z telefonu, a drugi z przegladarki internetowej.
+      
+	Po stronie interfejsu WebRTC ma sie charakteryzowac bardzo prosta obsluga. Po wejsciu na odpowiednia strone uzytkownik ma pozwolic jej na dostep do mikrofonu/kamerki internetowej, co poskutkuje tym, ze  po chwili bedzie mial juz polaczenie z druga osoba.
+      W zalozeniu tej technologii przegladarki maja miec bezposrednie polaczenia miedzy soba i przesylac dane pomiedzy siebie. Rola serwerów zostala zmarginalizowana do generowania i obslugi polaczen i sesji. 
+      Standard ten jest tak przygotowany, by dac koncowym programistom, którzy beda tworzyc aplikacje dla przegladarek, gotowe i bardzo proste API. Jednak by to osiagnac trzeba bylo przygotowac od podstaw i wykorzystac mnóstwo technologii i rozwiazan. Jest to bardzo rozbudowany system z wieloma elementami. 
+
+      1.4 Potrzeby, które zrodzily ten standard
+      Kazda wprowadzona nowa technologia wynikala z za potrzebowania na cos. Na powstanie standardu WebRTC mialo wplyw kilka elementów.
+      Rozwój technologii internetowych i mozliwosci przegladarek powoduja, ze coraz wiecej uslug jest pisanych z wykorzystaniem mozliwosci jakie daja webowe narzedzia. HTML w wersji 5  posiada bardzo duzo mozliwosci. Ma on docelowo wyeliminowac takie technologie jak Adobe Flash, Microsoft Silverlight i applety java'owe. Obecnie bardzo duzo komunikatorów internetowych jest napisana z wykorzystaniem tych srodowisk. Wymaga to instalowanie odpowiedniego oprogramowania lub bibliotek. Microsoft oficjalnie juz zrezygnowal z technologii Silverlight na rzecz HTML5. Celem numer jeden jest wyeliminowanie wtyczek i obsluga komunikacji tylko poprzez standard HTML5 i WebRTC. Jedna z prób rozmów wideo z poziomu przegladarki bylo stworzenie przez firme Microsoft wtyczki do Internet Explorer, która pozwala na prowadzenie rozmowy w sieci Skype. Niestety wymagalo to instalowanie dodatkowego oprogramowania i bylo dostepne tylko dla wczesniej wymienionej przegladarki.
+      Druga potrzeba bylo stworzenie jednego uniwersalnego standardu, który by opisywal w jaki sposób maja sie odbywac rozmowy audio/wideo. Obecnie wiekszosc dostepnych komunikatorów ma swoje sposoby dzialania i sa one zazwyczaj zamkniete. 
+      Obecnie wiekszosc komunikatorów, czatów do swojej pracy wymaga zewnetrznych serwerów. Strumien audio/wideo lub wiadomosc tekstowa jest najpierw wysylana do serwera, a stamtad dopiero do drugiego odbiorcy. Powoduje to wiekszy ruch sieciowy i dodatkowe obciazenie hostów. Standard WebRTC pozwala na przesylanie danych bezposrednio pomiedzy przegladarkami. 
+      W ciagu kilku lat zwiekszyl sie zasób urzadzen, na których mozna prowadzic komunikacje. Dawniej byly to komputery i to najczesciej z systemem Microsoft Windows. Obecnie sa to urzadzenia z system MS Windows, MacOs, Linux; tablety, smartfony z systemami takimi jak Windows Phone, Symbian, iOS; dedykowane przegladarki internetowe, zarówno te w wersji desktopowej jak Mozilla Firefox, Google Chrome, Opera czy Internet Explorer; do tego dodatkowo telewizory, moze w przyszlosci inteligentne zegarki. Przy duzej ilosci koncowych urzadzen i systemów pojawia sie problem z tworzeniem dedykowanych komunikatorów. Trzeba pisac osobne wersje na kazda platforme, co zwieksza koszty i utrudnia utrzymywanie jakosci i wprowadzanie nowych funkcjonalnosci. Jeden system WebRTC ma skutkowac tym, ze programista koncowego produktu ma pisac tylko jeden kod, który bedzie docelowo dzialal na wszystkich platformach i urzadzeniach. Samym zaimplementowaniem technologii WebRTC zajma sie twórcy przegladarek i systemów operacyjnych.
+      
+      1.5 Cel pracy magisterskiej 
+      Tematem pracy jest porównanie istniejacych rozwiazan bazujacych na technologii WebRTC. Narzedzia te maja przyspieszyc i pomóc w tworzeniu gotowych aplikacji. Do porównania zostaly wybrane kilka najciekawszych. Standard ten dopiero sie rozwija, ale widac juz w sieci duze zainteresowanie tym rozwiazaniem. Jest bardzo duze zaangazowanie programistów Google'a, fundacji Mozilla w rozwój tej technologii i jej promowanie. Moze ona w najblizszej przyszlosci wprowadzic wiele zamieszania na rynku webowym. Gdy wszystkie przegladarki beda juz poprawnie i calosciowo implementowac te rozwiazanie, to jest duza szansa, ze bedzie mozna prowadzic rozmowy wideo w przezroczysty sposób, niezaleznie od platformy sprzetowej i systemowej.
+      WebRTC to nie tylko proste API po stronie przegladarki, ale równiez bardzo duzo ciekawych technologii i rozwiazan, które sie pojawily podczas tworzenia tego standardu.
+      By móc zgodnie z tematem porównac istniejace juz biblioteki, skrypty trzeba miec podstawowa wiedze o tym zagadnieniu. W kolejnych rozdzialach przedstawione zostana elementy, jakie skladaja sie na te technologie. Obejmuje ona nie tylko interfejs dostepny po stronie przegladarki, ale równiez rozwiazania po stronie serwerowej i warstwie sieciowej, która sluzy do komunikacji pomiedzy tymi elementami.
+      Tak zebrana wiedza pozwoli na odpowiednie przygotowanie kryteriów podczas wyboru elementów do porównania.
+      Celem ponizszej pracy magisterskiej jest przygotowanie podloza do pózniejszego wykorzystania tego zagadnienia. Znajac zasade dzialania skladowych elementów tego systemu, jak i gotowych juz rozwiazan, latwo bedzie przygotowac gotowa aplikacje.
+      
+      1.6 Historia standardu
+      Pierwsze wzmianki pojawily sie w 2009, kiedy to twórcy przegladarki Chrome zaczeli eksperymentowac z rozwiazaniem dla komunikacji w czasie rzeczywistym. W 2010 roku firma Google kupila firme On2 [4] odpowiedzialna za kodeki wideo z linii VP i firme Global IP Solutions (GIPS) [5], która rozwijala rozmowy audio/wideo.
+      W maju 2011 firma Google oficjalnie rozpoczela rozwój technologii WebRTC przy wspólpracy programistów odpowiedzialnych za przegladarki Firefox i Opera [6]. 23 sierpnia 2011 roku zostal udostepniony pierwszy szkic standardu WebRTC zaproponowanego przez organizacje W3C [7]. W kolejnych latach standard ten jest rozwijany. 
+      W lipcu 2012 na konferencji Google I/O zostala zaprezentowana technologia WebRTC. 4 stycznia 2013 roku obywal sie pierwsza slynna rozmowa programistów przegladarek Chrome i Firefox poprzez technologie WebRTC [3].
+      Kolejne przegladarki otrzymywaly wparcie dla tej technologii: Google Chrome w wersji 23 (listopad 2012), Mozilla Firefox w wersji 22 (czerwiec 2013), Opera w wersji 18 (listopad 2013).
+     
+
+     2. Obecne mozliwosci i ograniczenia
+      Technologia WebRTC jest ciagle rozwijana i udoskonalana. By móc przygotowac porównanie istniejacych rozwiazan, które pozwola na przygotowanie projektu aplikacji, trzeba najpierw poznac jakie funkcjonalnosci wspiera obecnie ten standard.
+      
+      2.1 Mozliwosci i zalozenia
+      Podczas tworzenia standardu Web Real Time Communication zostaly okreslone funkcjonalnosci, które maja byc przez niego udostepniane. Ponizszy rozdzial przedstawia te najwazniejsze i najbardziej przydatne.
+      
+      2.1.1 Slowo wstepu
+      Podczas tworzenia standardu WebRTC wzieto pod uwage wiele róznych zalozen, które maja ulatwic pózniejsze jego wykorzystanie i zapotrzebowan, które trzeba rozwiazac. Standard ten nadal jest rozwijany i jeszcze wiele z jego rozwiazan nie zostalo do konca sprecyzowanych. Obecnie przegladarki desktopowe nie do konca wspieraja niektóre rozwiazania lub jeszcze nie maja go zaimplementowanego.
+      Wstepne zalozenia, jakie okreslono do zrobienia, sa bardzo obiecujace. W ponizszych podrozdzialach zostana opisane najwazniejsze funkcjonalnosci tego standardu, jakie maja byc wspierane przez wszystkie przegladarki i korzysci wynikajace z tego. Podrozdzial 2.3 zawiera informacje i obecnych ograniczeniach w dostepnie do tej technologii, oraz w tym, co zostalo jeszcze do zrobienia.
+      
+      2.1.2 Bezposrednia komunikacja przegladarek i zmniejszenie roli serwera
+      Projektantom tej technologii przyswiecal cel, by przegladarki mogly bezposrednio ze soba sie komunikowac [8, rozdzial 3.1.2]. Rola serwerów zostala zmarginalizowana do nawiazywania polaczen miedzy uzytkownikami (poprzez np. wspóldzielony adres www), zarzadzania sesjami. Dzisiaj bardzo czesto strumienie sa wysylane najpierw na serwer, a dopiero potem do uzytkownika docelowego [8, rozdzial 3.1.1].
+      Z serwerów pobierana jest gotowa aplikacja webowa (strona internetowa), która przejmuje obsluge i zarzadza potem rozmowa. Gdy prowadzi sie z druga osoba konferencje, to strumien wideo i audio jest przesylany do niej  bezposrednio. Bardzo dobrze przedstawia to rysunek 3 [8, rozdzial 1.1.4].
+      
+      Pokazuje on w bardzo uproszczony sposób jak wyglada komunikacja miedzy dwoma przegladarkami. Po pobraniu aplikacji (strony HTML5) z serwera przegladarki same zajmuja sie przesylaniem danych pomiedzy soba. Podejscie to zmniejsza obciazenie serwera. Nie musi sie on zajmowac wysylaniem danych do odbiorców. Zmniejsza to równiez wykorzystanie lacza internetowego, poniewaz dane sa przesylane tylko raz (do odbiorcy), a nie duplikowane przez serwer, który musi otrzymac te dane, a potem przeslac ponownie.
+      Serwery maja odpowiadac za przeslanie aplikacji (strony www), nawiazywanie i utrzymywanie sesji, wymiany przez klientów informacji o komunikacji (tzw. sygnaly), ustawien [8, rozdzial 4.1]. Dodatkowo ich zadaniem jest obejscie ograniczen komunikacji Peer-to-Peer, które naklada NAT (Network Address Translators - translacja adresów prywatnych sieci na publiczne) i Firewall (filtrowanie ruchu wejsciowego/wyjsciowego przez klienta) [8, wstep do rozdzialu 3].
+      
+      2.1.3 Wspólne i proste API
+       W ramach prac nad tym standardem przygotowano API, które jest dostepne dla wszystkich przegladarek. Docelowo ma ono posiadac wspólny interfejs i byc niezalezne od wersji przegladarki (patrz rozdzial 3.1). Ulatwi to pisanie aplikacji, gdyz przygotowany kod pod instancja Google Chrome bedzie poprawnie dzialal równiez pod Mozilla Firefox czy inna przegladarka. Interfejs dla programisty ma byc jak najbardziej prosty i intuicyjny. Zostal on przystosowany do zalozen i skladni jezyka JavaScript, w którym bedzie wykorzystywany. 
+       WebRTC jest technologia rozwijajaca sie, przez co funkcje maja obecnie prefiksy, które przypisali im twórcy przegladarek (patrz rozdzial 3.1). Docelowo beda mialy one jednakowa nazwe.
+      
+      2.1.4 Przechwytywanie strumienia audio/wideo
+      Najwazniejszym elementem technologii WebRTC jest mozliwosc przechwytywania strumienia audio i wideo [9,  wstep do rozdzialu 1; 18, rozdzial 2]. Aplikacja zglasza, ze chce miec dostep do obrazu z kamerki lub/i dzwieku z mikrofonu. 
+      Zabezpieczeniem przed podsluchiwaniem lub szpiegowaniem uzytkownika jest to, ze musi on swiadomie zezwolic aplikacji na dostep do tych urzadzen. Po przechwyceniu strumienia audio/wideo aplikacja moze juz dowolnie nim zarzadzac i na nim operowac (tj. modyfikowac go).
+      
+      2.1.5 Zarzadzanie strumieniem danych
+      Gdy aplikacja ma dostep do strumienia audio/wideo, to programista ma calkowita dowolnosc, co z nim moze zrobic. Podczas rozmowy z druga osoba mozna taki strumien przeslac do innej przegladarki. Mozna go zapisac na dysk [10, rozdzial 8.10], zmodyfikowac [11]. Kolejny podrozdzial 2.2.2 przedstawia bardzo ciekawy przyklad, w którym obraz z kamerki jest zamieniamy na znaki ASCII. Istnieje równiez mozliwosc przeslania drugiej osobie zawartosci pliku z naszego dysku twardego jako strumienia, lub takiego, który wczesniej zostal zmodyfikowany [8, rozdzial 5.3.2.5]. Jest bardzo duzo mozliwosci pracy nad danymi, jakie dostajemy z mikrofonu i kamerki wideo. Gotowy strumien mozna wyslac do dowolnej ilosci punktów docelowych [8, rozdzial 1.3] - przykladowo prowadzic wieloosobowa konferencje.
+      
+      2.1.6 Prowadzenie rozmów w trybie rzeczywistym
+      Glównym celem stworzenia technologii WebRTC jest mozliwosc komunikacji w trybie rzeczywistym. Gdy prowadzona jest rozmowa wideo z druga osoba, to dostanie ona od razu obraz z kamerki. Nie za godzine, nie jutro -  tylko teraz. 
+      Ograniczeniem jest tylko przepustowosc lacza, ale wtedy mozna zmniejszyc jakosc wideo, co poprawi komfort rozmowy.
+      
+      2.1.7 Przezroczystosc oprogramowania i sprzetu
+      Bardzo waznym zalozeniem jest to, by to jaka jest uzywana przez uzytkownika przegladarka i na jakim pracuje ona systemie i sprzecie, bylo calkowicie przezroczyste (w zalozeniu, ze wspieraja ona technologie WebRTC). 
+      Dzieki jednemu wspólnemu standardowi nie ma znaczenia, miedzy jakimi przegladarkami jest prowadzona rozmowa. Jeden rozmówca moze korzystac z Google Chrome pod systemem Android, a drugi z Mozilla Firefox'a pod systemem Linux.
+      
+      2.1.8 Wieloosobowe konferencje
+      Technologia WebRTC pozwala nam na prowadzenie rozmów tekstowych/audio/wideo z wieloma osobami na raz (np. rozmowa wideo w OpenTok, rozdzial 5.3.6).
+      
+      2.1.9 Wspóldzielenie plików
+      Jednym ze strumieni, z jakim mozemy pracowac moze byc dowolny plik. Mozna bezposrednio wyslac jego zawartosc bezposrednio do drugiej przegladarki (patrz przykladowa aplikacja, rozdzial 2.2.4). Plik taki jest przesylany z ominieciem serwera w tzw. sposobie P2P (Peer-to-Peer).
+      
+      2.1.10 Zarzadzanie jakoscia strumienia
+      Podczas przechwytywania strumienia wideo programista moze okreslic, jaka chce obslugiwac jakosc strumienia [8, rozdzial 5.3.2.2; 9, rozdzial 11]. Mozna ustawic wymiary domyslne, opcjonalne strumienia, np. ilosc klatek na sekunde.
+      
+      2.1.11 Negocjowanie mediów
+         Podczas polaczenia przegladarka potrafi negocjowac dostepne formaty audio i wideo. Dostosuje ona wysylany strumien do mozliwosci odbiorcy [8, rozdzial 4.1.2].
+      
+      2.1.12 Wykorzystanie komunikacji w innych obszarach
+      Fakt, ze przegladarki moga sie laczyc bezposrednio i moga w trybie rzeczywistym przesylac sobie dane mozna wykorzystac nie tylko w komunikacji audio/wideo, ale równiez w innych obszarach. Jednym z nich moga byc gry komputerowe, które uzytkownik uruchamia w oknie przegladarki. Dobrym przykladem moze byc gra online ping-pong (patrz rozdzial 2.2.3). 
+      Pomiedzy graczami wymieniane sa informacje o pozycji pileczek, paleczek. Serwer uczestniczy tylko w nawiazaniu polaczenia, sprawdzenia statusów uzytkowników i zapisaniu wyników pojedynków.
+      
+      2.1.13 Ogromna ilosc koncowych uzytkowników
+	Na swiecie sa niezliczone ilosci urzadzen, które maja dostep do Internetu i posiadaja przegladarke internetowa. Po zaimplementowaniu przez ich twórców technologii WebRTC i ich aktualizacji dostajemy bardzo duza ilosc koncowych uzytkowników, którzy moga wykorzystac te funkcjonalnosc.
+
+      2.2 Przykladowe aplikacje wykorzystujace technologie WebRTC
+      Pomimo, ze WebRTC jest caly czas rozwijana i jest jeszcze wspierana przez przegladarki w bardzo malym stopniu, w sieci pojawiaja sie kolejne strony, które wykorzystuja te technologie. Pokazuje to, ze jest bardzo duze zainteresowanie ta nowoscia. Ponizsze podrozdzialy przedstawia kilka z najciekawszych. Oczywiscie mozna znalezc inne zastosowania dla tej technologii, które nie zostaly wymienione ponizej. 
+      
+      2.2.1 Wideokonferencje
+      Witryna apprtc.appspot.com (http://apprtc.appspot.com/) jest oficjalna strona twórców standardu, dzieki której mozna przeprowadzic rozmowe wideo w technologii WebRTC. 
+      Wystarczy, ze zostanie udostepniony drugiej osobie adres url, który zostal wygenerowany i moze ona wtedy dolaczyc sie do naszej konwersacji.
+      
+      2.2.2 Modyfikacja strumienia
+      ASCII Camera (http://idevelop.ro/ascii-camera/) to bardzo ciekawy przyklad, który pokazuje mozliwosci modyfikacji strumienia wideo. Zamienia ona obraz rejestrowany przez kamere i zamienia go na znaki ASCII. 
+       Rysunek 5 Przyklad dzialania aplikacji ASCII Camera
+      
+      2.2.3 Uzycie komunikacji rzeczywistej w grach
+      Bardzo dobrym obszarem do wykorzystania WebRTC sa gry online. CubeSlam (https://www.cubeslam.com/) to bardzo prosta gra typu ping-pong, która pokazuje mozliwosci tej technologii. Gracze odbijaja pileczke paleczkami. Na duzych monitorach, zaraz za boiskiem, wyswietlany jest obraz z kamerki przeciwnika. Jesli uzytkownik chce z kims zagrac, to wystarczy wysylac przeciwnikowi adres url, który jest przypisany do danej gry.
+
+      2.2.4 Udostepnianie plików
+      ShareFest (https://www.sharefest.me/) to bardzo prosta aplikacja webowa, która pozwala na udostepnianie i przesylanie plików drugiej osobie. Po wybraniu pliku do przeslania generowany jest unikalny adres. Gdy ten adres otworzy druga osoba, to zostanie poinformowana o mozliwosci zapisaniu tego pliku na dysk. Wazne jest to, by nadawca  nie zamykal tej strony, poniewaz dane sa wysylane bezposrednio do odbiorcy, a rola serwera jest tylko zadbanie o utrzymanie sesji.
+
+      2.3 Obecne ograniczenia
+      Standard WebRTC jest caly czas rozwijany. Pomimo swoich mozliwosci jest on traktowany obecnie jako ciekawostka. Nie jest on do konca wspierany przez wszystkie przegladarki, co jest glównym ograniczeniem jego popularnosci. Przegladarki Microsoft Internet Explorer i Apple Safari nie wspieraja tej technologii w zadnej swojej wersji. Przegladarki Google Chrome, Mozilla Firefox i Opera obsluguja metode getUserMedia, strumienie (MediaStream), polaczenia do serwerów TURN, przesylanie danych Peer-to-Peer. Elementy takie jak dostep do pulpitu, przesylanie "dalej" strumienia od jednego uzytkownika do drugiego (przy np. konferencji wieloosobowej) jest dopiero na etapie implementacji w przegladarkach.
+      Najnowsze wersje mobilne przegladarek Chrome, Firefox i Opera dla systemu android posiadaja wsparcie dla rozmów wideo.
+      Przegladarka Internet Explorer dla systemu Windows Phone i Chrome dla systemu iOS nie posiadaja wsparcia technologii WebRTC.
+      W sieci istnieje projekt "Is WebRTC Ready Yet" (http://iswebrtcreadyyet.com/), którego celem jest monitorowanie stanu wsparcia w przegladarkach danego rozwiazania. Innym ciekawym projektem jest strona CatIUse (http://caniuse.com/) , która wyswietla mozliwosci uzycia wybranej technologii webowej w danej przegladarce. Mozna sprawdzic status implementacji obslugi metody getUserMedia pod adresem http://caniuse.com/#search=getUserMedia/Stream%20API .
+      Podczas tworzenia tego standardu pojawil sie problem sieciowy z NAT'em (Network Address Translators), który przy wyjsciu ruchu poza siec lokalna zamienia adres prywatny na publiczny. Gdy jest potrzeba przeslac dane z jednej przegladarki do drugiej, to trzeba znac jej bezposredni adres IP. W celu obejscia tego problemu do obslugi WebRTC sa potrzebne serwery, które obsluguja technologie STUN (Session Traversal Utilities for NAT) i TURN (Traversal Using Relays around NAT), których celem jest obsluzenie sesji i polaczen dla klientów, którzy sa poza NAT'em (patrz rozdzial 3.5).
+      Innym duzym problemem z rozpowszechnieniem tej technologii jest aktualizacja przegladarek do nowszych wersji. Duzo uzytkowników nie zna sie na komputerach i posiada ich stare wersje. Najbardziej problematyczna aplikacja bedzie pod tym wzgledem Internet Explorer. Jego wersje sa przypisane do konkretnej wersji systemu operacyjnego Windows [12]. Firmie Microsoft zalezy na tym, by uzytkownicy przesiadali sie na nowsze wersje systemu Windows, co moze sugerowac ze starsze wersje ich przegladarek nie dostana obslugi technologii WebRTC.
+      Kolejnym problemem jest niedostateczna implementacja tej technologii w systemach mobilnych.
+      
+      
+      
+
+      
+     3. Omówienie skladowych technologii
+      Technologia WebRTC sklada sie z wielu elementów. Podczas projektowania tej technologii zostaly stworzone przydatne narzedzia i standardy. W tym rozdziale zostana omówione najwazniejsze i najciekawsze z nich. Znajac skladowe technologii WebRTC bedzie latwiej omówic i przeanalizowac gotowe juz rozwiazania, sluzace do zbudowania prostej aplikacji.
+      Elementy te mozna podzielic na trzy glówne kategorie, które mocno ze soba wspólpracuja:
+? elementy frontowe - technologie, które sa uzyte po stronie przegladarki uzytkownika i z którymi ma on stycznosc.
+? komunikacja - protokoly i inne elementy, które sa wykorzystywane do komunikacji z serwerami i innymi uzytkownikami
+? elementy serwerowe - aplikacje i rozwiazania uzywane po stronie serwerowej
+
+3.1 Przechwytywanie strumieni poprzez MediaStream
+      Glównym elementem po stronie przegladarki, który jest wykorzystywana przez WebRTC, jest przechwytywanie strumienia. Moze nim byc strumien audio/wideo czy nawet sama zawartosc pliku. Po przechwyceniu go, programista moze go w dowolny sposób modyfikowac czy przesylac dalej.
+      Przegladarki udostepniaja metode navigator.getUserMedia, która pozwala aplikacji webowej na dostep do strumienia [9, rozdzial 10.1; 8, rozdzial 5.3.2.1; 18, rozdzial 2]. Jest to element API (Application Programming Interfaces) jezyka JavaScript [13].
+
+      navigator.getUserMedia ( constraints, successCallback, errorCallback );
+gdzie:
+? constraints - to stale opisujace strumien, jaki chcemy uzyskac
+? successCallback - funkcja, która ma byc wykonana, gdy uda sie przechwycic strumien
+? errorCallback - funkcja wykonana przy niepowodzeniu
+
+      Gdy aplikacja chce uzyskac dostep do strumienia poprzez powyzsza metode, przegladarka prosi uzytkownika o uprawnienia (patrz rozdzial 4.1.2).
+      WebRTC jest jeszcze technologia rozwijajaca sie, przez co przegladarki uzywaja tej funkcji pod wlasnymi nazwami [13]. Przedstawia to ponizsza tabelka:
+      
+Nazwa funkcjiPrzegladarka      getUserMediama to byc docelowa nazwa funkcji      webkitGetUserMediaChrome, Opera      mozGetUserMediaFirefox      msGetUserMediaInternet Explorer (przydzielona, nie obslugiwana)             	Tabela 1. Róznice w nazw funkcji getUserMedia w kolejnych przegladarkach.
+
+	Metoda getUserMedia pozwala na okreslenie parametrów strumienia, który chcemy uzywac [8, rozdzial 5.3.2.2]. Dla wideo mozemy okreslic jakosc i wymiary otrzymywanego obrazu. W parametrze constraints mozemy wstawic tablice z wymiarami dla strumienia wideo. Okresla sie sekcje mandatory i optional, w których podajemy oczekiwana przez nas jakos i opcjonalna, która dopuszczamy.
+	Po uzyskaniu strumienia poprzez metode getUserMedia aplikacja moze wydobyc z niego dana sciezke audio (getAudioTracks()) lub wideo (poprzez getVideoTracks()) [8, rozdzial 5.3.2.5].
+
+3.2 Komunikacja przesylania danych na poziomie przegladarki
+	Bardzo waznym elementem technologii WebRTC jest API RTCPeerConnection. Sluzy ono do nawiazywania polaczen pomiedzy dwoma odbiorcami (przy komunikacji webowej sa to przegladarki internetowe).  Pozwala ono na pominiecie roli serwerów podczas przesylania danych [8, rozdzial 2.1.2; 18, rozdzial 3]. Przy komunikacji wieloosobowej obsluga wielu odbiorców spoczywa na programiscie i jego aplikacji.
+	API to korzysta z protokolu ICE (Interactive Connectivity Establishment) [18, rozdzial 5], którego celem jest umozliwienie dostepu do mediów dla urzadzen, których ruch przechodzi przez NAT (Network Address Translation) [8, wstep rozdzialu 6.2.7]; Jego zadaniem jest równiez weryfikacja poprawnosci komunikacji (dane zostana wyslane do odbiorcy, który ich oczekuje).
+	RTCPeerConnection korzysta z RTCSessionDescription do negocjacji obslugi mediów i obslugi sesji multimediów [8, rozdzial 2.1.3].
+	Podczas komunikacji w trybie rzeczywistym powinny wystepowac jak najmniejsze opóznienia w dostarczaniu danych do odbiorcy. Wszelkie zaklócenia moga wplywac na pogorszenie sie jakosci przesylanych danych, np. przycinanie sie rozmowy wideo [8, rozdzial 3.1.2]. Wazne jest zadbanie o rozwiazanie takich problemów jak:
+? chwilowe zmniejszenie sie przepustowosci lacza
+? utrata czesci przesylanych pakietów internetowych
+? opóznienia w dostarczaniu pakietów
+
+	Mozna je rozwiazac korzystajac z:
+? buforowania przesylanych danych
+? chwilowe pogorszenie jakosci transmisji - przykladowo pogorszenie jakosci wideo, ale utrzymanie rzeczywistego przesylanego obrazu bez przyciec - za to jest odpowiedzialny kodek wideo
+
+	WebRTC pozwala na przesylanie danych w trybie rzeczywistym. RTCDataChannel jest kanalem do bezposredniej komunikacji pomiedzy odbiorcami [8, rozdzial 5.3.1.2]. Podczas konferencji wideo bedzie to przesylanie strumienia audio i wideo pomiedzy przegladarki internetowe.
+	Celem powyzszego API jest przesylanie danych z jak najwieksza transmisja i jak najmniejszym opóznieniem. Dodatkowo pozwala na równolegla obsluge wielu kanalów danych i piorytetowanie ich. Moze ono byc uzywane równiez do przesylania komunikatów w grach internetowych czy przesylania plików.
+      
+
+      3.3 Sygnaly i obsluga sesji
+      Sygnaly sluza do koordynacji komunikacji i przesylania wiadomosci pomiedzy przegladarkami. Glównymi ich zadaniami sa [8, wstep do rozdzialu 4.1; 18, rozdzial 1 i 4]:
+? Negocjowanie typów mediów, dostepnych kodeków i ich ustawien
+? Autoryzacja uzytkowników
+? Kontrola sesji, np. obsluga bledów, wiadomosci
+      
+      Obsluga sygnalów nie jest okreslona w zadnym standardzie. Programista sam musi okreslic ich konwencje i sposób zachowania. Okreslona jest tylko warstwa transportowa (HTTP), sposób zapisu (HTML) i medium (WebRTC) [8, rozdzial 4.1.1].
+      Obsluga sygnalów wymaga serwera jako posrednika pomiedzy przegladarkami. Same wiadomosci moga byc przesylane poprzez zadanie HTTP [8, rozdzial 4.2.1],  WebSocker [8, rozdzial 4.2.2] lub Data Channel [8, rozdzial 4.2.3]. W przypadku korzystania z HTTP dane moga byc wysylane wykorzystujac XHR, AJAX lub REST'owe API. [8, rozdzial 4.2.1]. Ponizszy rysunek numer 8 przedstawia przyklad wykorzystania sygnalów poprzez powyzsza metode [8, rozdzial 4.2.1]:
+      
+      Programista moze samemu zaprojektowac protokól do obslugi sygnalów, skorzystac z dostepnych, takich jak SIP czy Jungle lub wykorzystac inna dostepna biblioteke [8, rozdzial 4.3].
+      
+      3.5 Topologia sieci i obsluga polaczen przez Network Address Translation
+      Celem WebRTC jest zmniejszenie roli serwerów podczas komunikacji. Dane maja byc przesylane bezposrednio odbiorcami. Zmniejsza to transfer danych i niepotrzebnie nie obciaza serwerów.
+      Ponizszy rysunek numer 9 przedstawia prosta siec (wszystkie urzadzenia sa w tej samej sieci).
+      
+      Serwer www udostepnia tylko kod aplikacji webowej. Przegladarki pobieraja go, a nastepnie nawiazuja polaczenie pomiedzy soba. Dane (audio/wideo) sa wysylane bezposrednio pomiedzy nimi [8, rozdzial 1.1.4] poniewaz znaja one swoje prywatne adresy IP.
+      Bardzo czesto ruch czesci przegladarek polaczonych do Internetu przechodzi przez NAT. Network Address Translation (tlumaczenie adresów sieciowych) jest usluga, która zamienia adresy IP zródlowe i docelowe. NAT staje sie taka brama pomiedzy sieciami internetowymi - wewnetrzna i zewnetrzna [8, rozdzial 3.2.3; 18, rozdzial 3]. 
+      
+      Adres prywatny IP jest ukrywany przed swiatem zewnetrznym adresem publicznym. Router podczas zamiany adresów czesto tez zmienia numer portu. Dzieki temu moze obsluzyc wiele zadan z róznych urzadzen korzystajacych z tej samej sieci internetowej.
+      Przesylanie danych pomiedzy przegladarkami, które "sa za NAT'em" przedstawia ponizszy rysunek numer 11 [8, rozdzial 3.2.1]:
+		
+      Jak wczesniej zostalo wspomniane ruch internetowy, który "przechodzi przez NAT" ma zmieniony adres IP. Gdy przegladarki przesylaja dane pomiedzy soba, to musza one znac swoje prywatne adresy. Pojawia sie problem - jak przeslac dane do odbiorcy, skoro nie zna sie jego adresu?
+      ICE jest protokolem, którego zadaniem jest rozwiazywanie problemów z polaczeniami pomiedzy komputerami, których sieci sa za NAT'em [8, rozdzial 6.2.7]. Róznymi sposobami stara sie on nawiazac najlepsze polaczenie typu Peer-to-Peer pomiedzy urzadzeniami. W sytuacji, gdy nie uda sie nawiazac polaczenia wykorzystywane sa kolejno serwery STUN lub TURN [18, rozdzial 1].
+      Serwer STUN (Session Traversal Utilities for NAT) dziala na zasadzie klient - serwer. Jego zadaniem jest rozpoznanie adresu IP i portu urzadzenia klienta. Odczytuje on adres IP i port z przychodzacego zadania (urzadzenia bedacego poza NAT'em) odsyla je z powrotem jako odpowiedz [8, rozdzial 6.2.5]. Dzieki temu urzadzenie klienckie poznaje swój adres w sieci i moze te informacje wykorzystac do bezposredniego polaczenia z innych uzytkownikiem.
+      Jesli próba polaczenia P2P (Peer-to-Peer) za pomoca serwera STUN sie nie powiedzie, to jest wykorzystywany serwer TURN [8, rozdzial 6.2.6]. Jest on rozszerzeniem funkcjonalnosci STUN'a. Poza rozpoznawaniem publicznego adresu IP potrafi przesylac caly strumien od jednego uzytkownika do drugiego. Jest to ostateczne rozwiazanie sluzace do komunikacji. Wymaga on jednak do tego zadania duzo wiekszych zasobów sprzetowych i sieciowych niz swój poprzednik.
+      
+      
+      
+
+      
+     4. Bezpieczenstwo i prywatnosc
+          Temat prywatnosci i bezpieczenstwa od dluzszego czasu jest jednym z wazniejszych punktów, podczas wprowadzania kazdej nowej technologii. Po aferze PRISM z podsluchiwaniem uzytkowników przez rzad amerykanski temat prywatnosci stal sie jednym z najwazniejszych i najczesciej poruszanych [14, 15].
+      Kazda technologia moze chronic system tylko w ograniczonym stopniu. Kazdy uzytkownik musi podjac pewne kroki, by zapewnic sobie bezpieczenstwo w Internecie.
+      
+      4.1 Obecne zabezpieczenia wykorzystywane w WebRTC
+      Podczas projektowania systemu WebRTC próbowano w jak najwiekszym obszarze zabezpieczyc transmisje i dzialanie. Ponizej przedstawiono kilka z najwazniejszych zabezpieczen.
+      
+      4.1.1 Przegladarka internetowa
+      Pierwszym ogniwem, który jest najblizej uzytkownika jest przegladarka internetowa. Czesty cykl wydawniczy pozwala na szybsze naprawianie bledów i wykrytych luk bezpieczenstwa. Nie  uchroni to jednak komputera, gdy jest wykorzystywana do przegladania niebezpiecznych lub podejrzanych stron. Uzytkownik musi swiadomie podawac swoje dane tylko tym witrynom, które sa zaufane i znajome.
+      
+      4.1.2 Zezwolenie na dostep do mikrofonu/kamerki
+      Gdy aplikacja webowa prosi o dostep do urzadzenia takiego jak mikrofon lub kamerka internetowa, to uzytkownik musi swiadomie dac jej dostep do niego [18, rozdzial 2].
+
+      Prosba o dostep do takich uprawnien jest pierwszym etapem zabezpieczenia przed niechcianym podgladaniem i podsluchiwaniem uzytkownika. Informacja o zgodzie powinna byc ustawiona dla kazdej sesji aplikacji webowej [8, rozdzial 10.2]. Dodatkowo przegladarki w rózny sposób staraja sie informowac uzytkownika, ze dana aplikacja ma dostep do mikrofonu lub kamery internetowej. W przegladarce Chrome jest to czerwona kropka widoczna na zakladce.
+      
+      4.1.3 Brak zewnetrznych wtyczek
+      Standardowi WebRTC przyswieca cel, by uzytkownik nie potrzebowal instalowac jakichkolwiek wtyczek i rozszerzen. Niweluje to potencjalne miejsce ataku poprzez dziury i bledy, które znajduja sie w dodatkowych bibliotekach.
+      
+      4.1.4 Szyfrowane polaczenia
+      Standard WebRTC zaleca korzystac podczas polaczenia z serwerem z szyfrowanego lacza wykorzystujacego protokól HTTPS. Jest to wazne równiez na etapie pobierania kodu aplikacji www na lokalny komputer, jak i podczas uruchamiania go w oknie przegladarki.
+      Strumienie przesylane pomiedzy przegladarkami korzystaja z protokolów DTLS (Datagram Transport Layer Security) i SRTP (Secure Real-time Transport Protocol). SRTP korzysta z symetrycznego klucza AES [8, rozdzial 10.3.1].
+      Przy polaczeniu z serwerem STUN uzywany jest HTTPS z TLS (Transport Layer Security) [8, rozdzial 6.2.5]. Mozna wtedy sprawdzic poprawnosc certyfikatu witryny i uzytkownika w zaufanym systemie (Urzad Certyfikacji) [16, rozdzial 3.1.1]. Niestety jest to drogie rozwiazanie (koszt certyfikatu), dlatego czesto uzywa sie do weryfikacji uzytkownika loginu, hasla i odpowiednio ustawionego ciasteczka  [8, rozdzial 10.1.3].
+      Sam etap wymiany kluczy do szyfrowania polaczen i sygnalów powinien równiez byc zabezpieczony.
+      
+      4.2 Mozliwe slabe punkty
+      W ponizszym podrozdziale przedstawiono tylko kilka z mozliwych bledów lub prób ataków. Przy odpowiednio zabezpieczonym systemie, którego uzytkownicy sa swiadomi bezpieczenstwa i zagrozen, mozliwosc ataku lub bledu jest bardzo mala.
+      
+      4.2.1 Wirusy i szkodliwe oprogramowanie
+      Nawet najlepsze zabezpieczenia przegladarki nie uchronia uzytkownika przed niebezpiecznym oprogramowaniem. Wszelkie wirusy, aplikacje typu malware z latwoscia moga udostepnic wrazliwe dane lub w nieswiadomy dla uzytkownika sposób zamienic zawartosc strony lub jej dzialania. Kazdy komputer powinien byc zaopatrzony w odpowiednie oprogramowanie, które zapewni mu bezpieczenstwo przed niechcianymi aplikacjami.
+      
+      4.2.2 Kradziez strumienia audio/wideo
+      Zgoda na udostepnienie aplikacji strumienia audio/wideo przez uzytkownika nie chroni go przed tym, co sie potem z tymi danymi stanie. Powinien on dawac zgode tylko zaufanym witrynom. 
+      Zla aplikacja moze zmodyfikowac strumien, który dostaje z zewnetrznego urzadzenia, a potem wyslac go na serwer bez wiedzy uzytkownika o tym. Strony nie musza informowac o tym, co robia z danymi, które dostaja. Jest to szczególnie wazne, przy prywatnych i poufnych rozmowach czy wideokonferencjach.
+      Taka sama sytuacja moze wystapic, gdy dzialanie serwera jest zagrozone przez wlamanie. Pomimo, ze cale polaczenie jest szyfrowane haker moze przejac klucze lub dane o transmisji i je potem wykorzystac.
+      
+      4.2.3 Atak DoS na przegladarke
+      Strumien z danymi moze generowac znaczny ruch internetowy. Odbiorca nie wie, ile danych dostaje i w pewnym momencie moze dojsc do ataku DoS (Denial of Service - odmowa dostepu) [17, dodatek C], podczas którego haker moze wykorzystac bledy w przegladarce.
+      
+      4.2.4 Brak szyfrowania strumienia lub sygnalów
+      W sytuacji, gdy przesylane dane nie sa szyfrowane, to mozna podsluchac (wiec i przejac) ruch sieciowy i wykorzystac go w róznych zamiarach. Wlamywacz moze równiez zmienic dane o nadawcy, odbiorcy lub serwerze, czy tez zmniejszyc poziom zabezpieczen jakie sa uzywane podczas transmisji.
+      
+      4.3 Prywatnosc
+      Technologia WebRTC stawia sobie bardzo wysoko punkt zwiazany z bezpieczenstwem, ale duzo czynników zalezy od dzialan czlowieka. Uzytkownik musi byc swiadomy tego, co umieszcza w Internecie. 
+      Istnieje przekonanie o wolnosci i anonimowosci w Internecie ale przykladowo osoba, która zamieszcza pornografie dziecieca moze byc namierzona przez adres IP oraz dodatkowe informacje (login, adres e-mail) i pociagnieta do odpowiedzialnosci karnej za swoje czyny.
+      
+      4.3.1 Kradziez strumien audio/wideo
+      Uzytkownik, który korzysta z wideokonferencji czy przesyla jakiekolwiek dane (slowne, pliki, audio), musi byc swiadomy tego, ze ktos moze podsluchac czy przejac ruch sieciowy. Uruchamianie nieznanych aplikacji webowych, którym dajemy dostep do urzadzen przechwytujacych dzwiek lub obraz, moga w niecny sposób wykorzystac (przejac, przeslac dalej, udostepnic bez zgody) takie dane. Wazne jest, by korzystac tylko z wiarygodnych stron www.
+      
+      4.3.2 Znajomosc adresu IP
+      Adres IP jest tym elementem, który pozwoli namierzyc lokalizacje uzytkownika w sieci internetowej. Jest on uzywany przez serwer, z którego korzystamy. 
+      Technologia WebRTC do przeslania strumienia potrzebuje znac adres prywatny uzytkownika. Znajac adres prywatny i publiczny mozna dokladnie okreslic, z jakiego komputera sa przesylane dane  [8, rozdzial 10.6.2].
+      
+      
+      
+      
+      
+      
+      
+      
+
+      
+     5. Porównanie istniejacych technologii
+      Rozdzial ten zawiera prosty projekt funkcjonalny aplikacji, dla której bedzie wybrane gotowe narzedzie. Wymaga to przygotowania kryteriów wedlug których bedzie ono ocenianie.
+      5.1 Projekt aplikacji
+      Projekt aplikacji jest pierwszym etap przed przystapieniem do implementacji. W ponizszym rozdziale okreslone zostana podstawowe wymagania, jakie ma spelniac program.
+      Zgodnie z tematem pracy aplikacja ma byc czatem tekstowy/audio/wideo dla uzytkowników. O ile konferencja audio - wideo jest ze soba scisle powiazana, to czat tekstowy bedzie dodatkowym niezaleznym modulem. Na ponizszym projekcie skupiono sie na wymaganiach funkcjonalnych, które pozwola na wybór odpowiednich narzedzi.
+      Kwestia GUI (graficzny interfejs uzytkownika) zostaje tutaj pominieta. Nie jest on najwazniejszym elementem systemu. Mozna go szybko zrealizowac wykorzystujac taka biblioteke, jak np. Twitter Bootstrap (http://getbootstrap.com/).
+      Technologia WebRTC naklada na projekt pewne wymagania, którym projektant musi sprostac. Jest to spowodowane sama architektura i budowa tego systemu.
+      
+      5.1.1 Wymagania funkcjonalne
+      Przykladowa prosta aplikacja bedzie sie skladac z kilku elementów. Okreslenie ich na samym poczatku pozwoli dobrze zaprojektowac koncowy produkt. Technologia WebRTC w zalozeniu ma dzialac na przegladarce internetowej, dlatego ma byc to jedyne wymagane oprogramowanie i docelowe srodowisko uruchomieniowe.
+      Aplikacja ma byc czatem uzytkowników. Ma ona pozwalac na przechwytywanie z urzadzenia typu kamera obrazu i dzwieku. Te dane wraz z tekstem maja byc przesylane do odbiorcy. Dla uproszczenia w pierwszej wersji moze byc pominiety aspekt autoryzacji i logowania uzytkowników do systemu. Maja oni porozumiewac sie w tzw. pokojach - grupie uzytkowników, którzy prowadza konwersacje. W internetowych produktach jest dosc popularne generowanie unikalnego klucza, który identyfikuje okreslony pokój. Adres www wraz z tym kluczem jest wysylany do kolejnych odbiorców. Po otwarciu go trafiaja oni od razu do odpowiedniej grupy.
+      Otrzymane dane (tekstowe, strumien audio/wideo) aplikacja powinna przeslac do odbiorcy. Najlepiej jakby byly one transportowane bezposrednio (P2P), na co pozwala technologia WebRTC. Przy tym etapie projektowania mozna zalozyc, ze dane beda transportowane w ten sposób - wszelkie bledy powinny rozwiazac serwery STUN i TURN (patrz rozdzial 3.5).
+      Kolejnym waznym wymaganiem jest to, by skorzystac z istniejacych juz rozwiazan. Przy obecnym postepie technologicznym warto wykorzystywac gotowe narzedzia. Zaoszczedza to czas i pracuje sie wtedy na przetestowanym i uzywanym przez wielu uzytkowników rozwiazaniu.
+          
+      5.1.2 Wymagania przy korzystaniu z WebRTC
+      Kazda wykorzystana technologia opiera sie o pewnych wymaganiach, które zdefiniowali jej twórcy. Nie inaczej jest z WebRTC. Przy wyborze tej techniki trzeba wziac pod uwage jej ograniczenia. Aplikacja powinna sie skladac z kilku nastepujacych elementów.
+      W pierwszym etapie (patrzac od strony uzytkownika - przegladarki internetowej) potrzebna jest biblioteka, która pozwoli na przechwycenie tresci audio/wideo. Dane te nastepnie maja byc przeslane do odbiorcy.
+      Przydatny jest serwer z kodem aplikacji, lecz nie jest to konieczne wymaganie. Mozna wykorzystac darmowy serwer HTTP - apache.
+      Kolejnym waznym punktem bedzie serwer sluzacy do wymiany komunikatów i obslugi sesji. Nie ma potrzeby od razu definiowac interfejsu sluzacego do komunikacji. Warto wykorzystac takie, jakie udostepniaja istniejace juz rozwiazania.
+      
+      5.2 Kryteria porównawcze
+      Przed przystapieniem do rozpoznania narzedzi i wybrania z nich odpowiednich warto przygotowac kryteria porównawcze. Pozwoli to okreslic cechy (elementy), jakie maja byc brane pod uwage podczas analizy.
+      Pierwszym i najwazniejszym elementem, na który trzeba uwzglednic, sa mozliwosci danego produktu. Narzedzie jest przydatne, gdy spelnia choc jeden warunek postawiony w rozdziale 5.1.2. Im wiecej punktów spelnia dane rozwiazanie, tym bardzie jest przydatne.
+      Dokumentacja, opis interfejsu, stanowia kolejny wazny element. Dobrze opisany produkt pozwoli na szybkie jego wykorzystanie, poznanie mozliwosci. Przyklady zamieszczone przez autorów umozliwiaja na sprawdzenie manualnie funkcjonalnosci ich produktu przed przystapieniem do implementacji wlasnej aplikacji. Przydaja sie równiez, gdy tworzymy na ich bazie gotowy system. Bardzo cenna rzecza sa tzw. tutoriale, które opisuja instalacje i budowe aplikacji krok po kroku.
+      Kolejna  punktem jest latwosc instalacji i uzycia danego produktu. Pomimo dobrej dokumentacji dana biblioteka moze byc skomplikowana w wykorzystaniu, co znacznie zmniejsza uzytecznosc narzedzia.
+      Waznym czynnikiem decydujacym o wyborze technologii jest fakt, czy jest ona caly czas rozwijana i utrzymywana. Wykorzystanie dobrego, ale juz starego narzedzia moze w przyszlosci wygenerowac duze problemy z utrzymaniem aplikacji. Moze to skutkowac potrzeba przepisania naszego produktu na inna biblioteke.
+      Dodatkowym skladnikiem, który moze decydowac o wyborze jest to, czy dane rozwiazanie jest komercyjne czy darmowe. Przy prostych aplikacjach warto korzystac z darmowego narzedzia, ale jesli chcemy zbudowac zaawansowany system przewidziany dla wielu uzytkowników, to warto sie zainteresowac komercyjnym rozwiazaniem. Ostatnimi czasy popularny sie staje model, w którym twórcy udostepniaja za darmo w ograniczonym zakresie (funkcjonalnym lub czasowym) dany produkt. Pozwala ono przy malych projektach przetestowac go i w przyszlosci zdecydowac sie na platne i bardziej rozbudowane wersje.
+      
+      5.3 Zestawienie narzedzi
+      Wsród wykorzystanych w porównaniu narzedzi widac ciekawy trend. Wszystkie projekty sa dostepne za darmo w serwisie GitHub. Bardzo czesto wykorzystywany jest Node.js, który pozwala na tworzenie aplikacji serwerowych w jezyku JavaScript i zarzadzanie nimi [18, rozdzial 4]. Kazdy produkt zostal opisany wedlug podanych w rozdziale 5.2 kryteriów
+      
+      
+      5.3.1 SimpleWebRTC
+      SimpleWebRTC jest darmowa biblioteka, której celem jest szybkie przygotowanie prostej aplikacji po stronie przegladarki. Strona projektu to http://simplewebrtc.com/, natomiast kod tego narzedzia jest rozwijany na portalu GitHub pod adresem https://github.com/HenrikJoreteg/SimpleWebRTC.
+      
+      Pierwszym elementem, który sie rzuca w oczy na stronie tego rozwiazania jest prostota jego uzycia, która byl celem jej powstania. Biblioteka ta korzysta domyslnie z serwera STUN Google'a (stun.l.google.com:19302) oraz z serwera sygnalów dostepnego pod adresem signaling.simplewebrtc.com:8888. Istnieje mozliwosc nadpisania tych wartosci wlasnymi.
+      Po sklonowaniu repozytorium, a nastepnie instalacji odpowiednich modulów Node.js'a i uruchomieniu pliku server.js dostajemy bardzo prosta aplikacje. Pozwala ona na stworzenie pokoju i przeprowadzenie konwersacji audio/wideo oraz udostepnienie pulpitu (tej funkcjonalnosci niestety nie udalo sie uruchomic).
+      Biblioteka ta jest reklamowana jako bardzo proste narzedzie, co ukazuje zalaczona do kodu przykladowa aplikacja. Niestety bardzo duzym minusem tego narzedzia jest dokumentacja techniczna. Brakuje informacji o jego mozliwosciach, dostepnym interfejsie. Jedyna droga, by poznac funkcjonalnosc tej biblioteki jest przegladanie jej kodu, co znacznie utrudnia z nia prace i wymaga znajomosci jezyka JavaScript. Dobrze, ze jest on skomentowany przez twórców.
+      WebRTC odpowiada za obsluge audio/wideo, przesylania danych pomiedzy uzytkownikami, obsluge serwerów STUN i sygnalów. Programista musi jedynie skonfigurowac te biblioteke i dorobic jej obsluge po stronie przegladarki, np. osadzenie elementu wideo czy mozliwosc wpisania nazwy nowego pokoju.
+      Strona projektu zawiera odnosniki do innych narzedzi, które mozemy wykorzystac w zalozonej aplikacji, np. SignalMaster (https://github.com/andyet/signalmaster). Moze posluzyc za wlasny serwer sygnalów. Autor zaznacza, ze jego biblioteka SimpleWebRTC jest wykorzystywana przez projekt talky.io (https://talky.io/), który pozwala na darmowa konwersacje audio/wideo.
+      
+      5.3.2 WebRTC jQuery plugin
+      WebRTC jQuery plugin jest darmowa wtyczka, której celem jest prosta obsluga WebRTC. Wymaga ona do dzialania biblioteki jQuery. Kod  tego rozszerzenia znajduje sie w serwisie GitHub (https://github.com/freshtilledsoil/webrtc-jquery-plugin).
+      Opisywane narzedzie to bardzo prosta biblioteka, która nie posiada duzych mozliwosci. Pozwala ona na przechwytywanie strumienia audio/wideo z przegladarki, stworzenie pokoju, przesylanie w sieci lokalnej danych pomiedzy uzytkownikami. Konferencja moze byc prowadzona tylko pomiedzy dwoma uczestnikami. Funkcjonalnosci te mozna zobaczyc w wersji online pod adresem http://www.freshtilledsoil.com/the-future-of-web/webrtc-video/.
+      W kodzie repozytorium git znajduje sie plik z biblioteka w jezyku JavaScript i przykladowa aplikacja www. Jej mozliwosci zostaly opisane w powyzszym akapicie. Niestety udalo sie ja uruchomic tylko pod przegladarka Google Chrome.
+      Strona projektu zawiera krótka dokumentacje jej mozliwosci. Zamieszczono tam opis jak zainstalowac i przygotowac prosta aplikacje (te przykladowa). Dodatkowo twórca zamiescil informacje, na jakich przegladarkach bedzie dzialac jego biblioteka.	 
+      
+      Niestety aplikacja nie jest juz rozwijana. Ostatnie zmiany w repozytorium sa datowane na ponad rok czasu. Jednak dzieki mozliwosciom serwisu GitHub jest duze prawdopodobienstwo, ze ktos przejmie ten projekt i bedzie go dalej rozwijal.
+      
+      
+      5.3.3 Peer.js
+	System Peer.js (http://peerjs.com/) jest darmowa aplikacja rozwijana na GitHub'ie. Sklada sie ona z dwóch powiazanych ze soba czlonów - biblioteki do obslugi technologii WebRTC po stronie klienckiej (https://github.com/peers/peerjs) i gotowego serwera (https://github.com/peers/peerjs-server), którego celem jest nawiazywanie polaczen przy wykorzystaniu wczesniej wspomnianego narzedzia. Sa one napisane w jezyku JavaScript. Serwer opiera sie o technologie Node.js.
+
+      Twórcy aplikacji nie musza instalowac dedykowanego serwera do nawiazywania polaczen. Mozna wykorzystac przygotowany przez nich hosting. W wersji darmowej pozwala on na obsluge do 50 uzytkowników. Rozwiazanie takie pozwala na szybkie przetestowanie aplikacji w sieci. Zmniejsza równiez ilosc systemów, które ma do utrzymania twórca aplikacji we wstepnym etapie prac.
+      Na stronie projektu (http://peerjs.com/) znajduja sie dzialajace przyklady, które ukazuja mozliwosci tego narzedzia. Dostarcza ona tez dobrze przygotowana dokumentacje i instrukcje, jak krok po kroku stworzyc gotowy projekt.
+      Peer.js pozwala na stworzenie konferencji audio/wideo i czata tekstowego. Mozna dzieki niej tez przesylac dane (pliki). Dodatkowo jeden z zalaczonych przykladów przedstawia, jak uzyc te technologie do stworzenia webowej wieloosobowej gry internetowej - Tetris.
+      Caly kod wraz z przykladami mozna sklonowac z GitHub'a i uruchomic z poziomu lokalnej przegladarki. Domyslnie jako serwer do nawiazywania polaczen jest ustawiony hosting udostepniony przez twórców. Najpierw trzeba pobrac repozytorium git'a, zainstalowac niezbedne zaleznosci po stronie Node.js, a nastepnie wykonac skrypt znajdujacy sie w katalogu bin podajac wlasna domene, port i sciezke path. Uruchomi to gotowy serwer, dzieki któremu bedzie mozna uzyskac polaczenia przez przegladarki. Mozna go wykorzystac jako lokalny serwer, ustawiajac w konstruktorze elementu Peer odpowiednio jego serwera, port i adres path.
+      Biblioteka kliencka w domyslnej konfiguracji korzysta z serwera STUN Google'a. Mozna jednak ten adres nadpisac w konstruktorze obiektu Peer i skorzystac z innego, np. wlasnego serwera. Dodatkowo jest równiez mozliwosc ustawienia adresu serwera TURN (patrz rozdzial 3.5).
+      Kod zarówno biblioteki klienckiej jak i serwerowej jest dosc dobrze skomentowany, co pozwoli na szersze poznanie jego mozliwosci. Autorzy dodatkowo na swojej stronie zamiescili tabele, w której mozna sprawdzic pomiedzy jakimi wersjami przegladarek jest mozliwe przesylanie danych P2P (http://peerjs.com/status/).
+      Dzieki dobrej dokumentacji z tego narzedzia korzysta sie latwo i przyjemnie. Wykorzystanie technologii Node.js po stronie serwera pozwala osobie, która zajmuje sie frontendem latwo napisac odpowiedni kod aplikacji.
+      
+      
+      
+      5.3.4 EasyRTC
+      EasyRTC jest darmowym narzedziem do obslugi WebRTC. Na stronie projektu (http://easyrtc.com/) znajduje sie informacja o wersji platnej. Udostepnia ona odpowiednie API dla systemów takich jak Android i iOs. Kod projektu (w wersji darmowej) jest dostepny po portalu GitHub (https://github.com/priologic/easyrtc).
+      
+      Projekt ten sklada sie on z dwóch czesci - serwerowej i klienckiej. Umieszczone zostaly one w jednym repozytorium. Pierwsza czesc opiera sie o technologie Node.js. Znajduje sie tam prosty serwer, sluzacy do polaczen pomiedzy przegladarkami. Zapewnia on równiez obsluge przykladowych aplikacji, które maja przedstawic mozliwosci tego narzedzia. Ich wersja online dostepna jest równiez pod adresem http://demo.easyrtc.com/demos/index.html. Przedstawiaja one takie funkcjonalnosci jak czat tekstowy, konferencja audio/wideo czy przesylanie plików pomiedzy uzytkownikami. Drugi element to biblioteka JavaScript'owa, która zapewnia powyzsze elementy po stronie przegladarki internetowej.
+      W repozytorium Git (https://github.com/xirsys/easyrtc#documentation) znajduje sie dobra dokumentacja. Instruuje ona jak krok po kroku, jak zainstalowac to narzedzie, jak je uruchomic i jak zbudowac aplikacje w kolejnych etapach. Sam interfejs API tez jest dobrze opisany i zaopatrzony odpowiednimi przykladami. Sam kod bibliotek jest dobrze udokumentowany.
+      EasyRTC ma duze mozliwosci. Pozwala ono na stworzenie czatu tekstowego, konferencji audio/wideo, przesylania danych, udostepnianie pulpitu. Domyslnie jest ustawione kilka darmowych serwerów STUN, ale mozna uzyc wlasny. Autorzy na stronie dokumentacji pokazuja jak wykorzystac w ich projekcie autoryzacje uzytkowników, szyfrowanie danych oraz tworzyc pokoje, w których beda oni obslugiwani.
+      Narzedzie to moze spokojnie do zbudowania duzej aplikacji i czatu audio/wideo. Duzym jest plusem jest wachlarz mozliwosci, które zapewnia oraz dobra dokumentacja i przyklady.
+      
+      5.3.5 WebRTC.io
+      WebRTC.io to darmowy projekt na GitHub'e (https://github.com/webRTC). Jego celem jest stworzenie abstrakcyjnej warstwy do komunikacji przy uzyciu WebRTC. Sklada sie on z dwóch elementów, które sa w osobnych repozytoriach. Webrtc.io-client (https://github.com/webRTC/webrtc.io-client) jest biblioteka stworzona w jezyku JavaScript, która sluzy do obslugi polaczen po stronie przegladarki. Drugie repozytorium - webRTC.io (https://github.com/webRTC/webRTC.io) - dostarcza serwer sygnalów, który mozna zaimplementowac w technologii Node.js.
+      Powyzsze rozwiazania to zestaw gotowych narzedzi, które mozna wykorzystac do zbudowania czatu uzytkownika. Domyslnie korzystaja one z serwerów STUN Google'a, ale mozna je zmienic na dowolne inne. Niestety kod tego projektu nie jest utrzymywany. Ostatnie zmiany odbyly sie ponad rok temu. Jest on jednak na tyle zaawansowany, ze warto go umiescic w ponizszym zestawieniu.
+      Pierwszym elementem, który rzuca sie w tym projekcie jest bardzo slaba dokumentacja. Jest informacja jak zainstalowac modul odpowiedzialny za serwer sygnalów, oraz jak przygotowac bardzo prosta dzialajaca aplikacje, która bedzie sie na nim opierac. Niestety autorzy nie zamiescili dokladnych informacji o jego mozliwosciach. Jest tylko notka, ze ma on sluzyc jako abstrakcyjna warstwa do WebRTC. Projekt nie posiada dokumentacji interfejsu dostepnego API.
+      Autorzy w ramach tego projektu dostarczyli na szczescie trzecie repozytorium (https://github.com/webRTC/webrtc.io-demo) z prosta przykladowa aplikacja. Dostarcza ona gotowy serwera. Po wpisaniu adresu w przegladarce wyswietli sie gotowa aplikacja. Informacja jak zainstalowac ja krok po kroku jest opisana na stronie projektu. Demo sklada sie z prostego serwera sygnalów, który ma posluzyc do nawiazywania polaczen i aplikacji, która pozwala na kontaktowanie sie uzytkownikom. Komunikacja odbywa sie w podobny sposób jak dzialaja biblioteki socket.io i WebSocket.
+      Przykladowa aplikacja przedstawia mozliwosci omawianego narzedzia. Biblioteka JavaScript pozwala na przechwycenie strumienia audio/wideo z przegladarki i przeslanie go do odbiorcy. Poza danymi multimedialnymi mozna równiez przesylac dane tekstowe - czat testowy. Konferencje odbywaja sie w ramach pokoi, których identyfikatory sa generowane. Gotowy serwer sygnalów poza przechowywaniem i zarzadzaniem informacji  o pokojach sluzy tez jako serwer www aplikacji. Dane pomiedzy przegladarkami sa wysylane bezposrednio.
+      
+      
+      5.3.6 OpenTok
+      OpenTok (http://tokbox.com/) jest komercyjnym rozwiazaniem, które ma dostarczac gotowy czat tekstowy i audio/wideo. Jest on dedykowany projektom, które przewiduja duza ilosc uzytkowników i dlugi czas ich rozmów. Uzytkownik na start dostaje 10 tysiecy minut w czasie pierwszego darmowego miesiaca. Kolejne miesiace sa rozliczane wg ilosci wykorzystanych przez uzytkowników minut.
+      
+      Projekt dostarcza gotowe API, dzieki któremu mozna przygotowac gotowa aplikacje czatu tekstowego i audio/wideo. Po zarejestrowaniu sie na stronie uzytkownik dostaje identyfikator API i token dla aplikacji, które sa generowane dla kazdej uslugi osobno. Klucze te sa niezbedne do uruchomienia aplikacji napisanych w tym systemie.
+      OpenTok dostarcza gotowe rozwiazania w technologii WebRTC, które udostepniaja mozliwosc stworzenia czasu dla uzytkowników. Glównym celem jest udostepnienie mozliwosci wieloosobowej konferencji audio/wideo i czatu tekstowego. Twórcy chca przygotowac platforme do komunikacji dla wszystkich systemów. Poza przegladarkami internetowymi autorzy przygotowaniu równiez adapter pozwalajacy na obsluge WebRTC dla Internet Explorer'a, gotowe srodowisko programistyczne dla urzadzen mobilnych z systemem Android i iOS. Projekt dostarcza równiez obsluge serwerów STUN i TURN. Twórcy chwala sie równiez inteligentna obsluge jakosci rozmów w zaleznosci od mozliwosci i predkosci lacza internetowego. Dodatkowo jest mozliwosc archiwizacji konferencji audio/wideo - nagrania ich i zapisania na pózniej.
+      Twórcy w ramach projektu dostarczaja gotowe rozwiazania dla programistów. Po stronie przegladarki internetowej - tzw. frontowej - udostepniaja biblioteke JavaScript, której celem jest obsluga WebRTC po stronie uzytkownika systemu. Po stronie backendowej mozna przygotowac serwer z aplikacja i obsluga sygnalów i polaczen. Na serwisie GitHub znajduje sie uzytkownik opentok (https://github.com/opentok), który zawiera w sobie repozytoria zwiazane z tym projektem. Kody sa caly czas aktualizowane - widac, ze jest to komercyjne oprogramowanie, które twórcy caly czas utrzymuja i rozwijaja. Znajduja sie tutaj gotowe biblioteki w takich jezykach jak Ruby, Node.js, .Net, PHP, Java; dla srodowisk Android, iOS; wtyczka dla PhoneGap'a.
+      Czat ma byc aplikacja webowa, dlatego skupimy sie na tej technologii. Po stronie frontowej do obslugi aplikacji potrzebne jest dolaczenie w kodzie biblioteki https://swww.tokbox.com/webrtc/v2.0/js/TB.min.js zgodnie z opisem na stronie https://dashboard.tokbox.com/quickstart. Strona ta zawiera instrukcje, jak krok po kroku przygotowac i sprawdzic, czy nasz token i klucz API sa poprawne.
+      Do obslugi, po stronie serwerowej, sesji i polaczen, zostalo przygotowane repozytorium https://github.com/opentok/opentok-node. Dostarcza ono gotowy kod, który pozwoli na stworzenie uslugi w technologii Node.js. Znajduje sie tam dobra dokumentacja, która opisuje jak obslugiwac sesje, generowac tokeny potrzebne do stworzenia pokojów i jak archiwizowac rozmowy.
+      Na serwisie GitHub znajduje sie równiez repozytorium z przykladowa aplikacja - https://github.com/opentok/OpenTokRT. Do jej uruchomienia równiez potrzebny jest  wygenerowany token i klucz API. Na tej stronie znajduje sie instrukcja krok po kroku jak zainstalowac i uruchomic ja w lokalnym srodowisku. Serwer, wykorzystujacy technologie Node.js, obsluguje tworzenie pokoi, zarzadzanie sesjami i potrafi zwrócic aplikacje www. Wspomniany w tym podrozdziale przyklad spelnia wszystkie wymagania, jakie zostaly okreslone w rozdziale 5.1.1, to jest czat tekstowy i mozliwosc konferencji audio/wideo. Jest on równiez dostepny w wersji online pod adresem https://opentokrtc.com/.
+      Dokumentacja projektu jest dostepna na stronie twórców OpenTok http://tokbox.com/opentok/quick-start/. Zawiera ona opis podstawowych funkcjonalnosci tego systemu, zarówno dla biblioteki JavaScript dla przegladarki jak i dla SDK dla róznych jezyków. Dostepne sa przyklady ich uzycia. Twórcy udostepnili równiez opis interfejsów API funkcji i modulów.
+      
+      5.3.7 WebRTCCopy
+      WebRTCCopy jest darmowym projektem dostepnym na serwisie GitHub (https://github.com/erbbysam/webRTCCopy). Jest to gotowa implementacja czatu tekstowego dla uzytkowników z mozliwoscia przesylania plików. Dodatkowo twórcy zapewniaja warstwe szyfrowania danych.
+      Repozytorium git'owe sklada sie z dwóch elementów - czesci klienckiej, która jest przewidziana do obslugi po stronie przegladarki internetowej i czesci backendowej, która udostepnia serwer aplikacji i serwer sygnalów i przechowywania sesji. Jest ona oparta o technologie Node.js.
+      Aplikacja udostepnia prosty czat tekstowy dla uzytkowników, który odbywa sie w wydzielonych pokojach. Dodatkowo jest mozliwosc przesylania plików w sieci P2P pomiedzy przegladarkami uczestników. System ten moze posluzyc jako gotowa wstepna implementacja komunikatora, który mozna w ramach projektu rozwinac, dodajac obsluge konferencji audio/wideo. Projekt ten jest darmowy, przez co mozna go uzyc jako bazowego systemu dla naszej aplikacji.
+      Na stronie WebRTCCopy znajduje sie prosta dokumentacja, która opisuje mozliwosci i wymagania tego systemu. By zainstalowac WebRTCCopy na naszym komputerze wystarczy pobrac repozytorium, zainstalowac zaleznosci Node.js i uruchomic serwer, którego wywolanie znajduje sie w opisie.
+      
+      Aplikacja ta zawiera mozliwosc stworzenia pokoju, w ramach którego bedzie odbywal sie czat tekstowy. Mozna ja przetestowac w wersji online pod adresem https://www.rtccopy.com. Ostatni raz byla on uaktualniana kilka miesiecy temu.
+      
+      5.4 Porównanie przedstawionych rozwiazan
+      Przygotowanie przedstawienie rozwiazan w rozdziale 5.3 pozwolilo zapoznac sie z narzedziami i ich mozliwosciami. Do wyboru odpowiednich potrzebne beda dwa porównania. Jednym z nich jest zestawienie dostepnych funkcjonalnosci. Drugim jest konfrontacja wedlug kryteriów przedstawionych w podrozdziale 5.2
+      
+      5.4.1 Zestawienie mozliwosci narzedzi
+	Podrozdzial ten przedstawia zbiorcze porównanie mozliwosci narzedzi zgodnie z zalozeniami z rozdzialu 5.1.1. Zbiera to tabela numer 2. 
+
+SimpleWebRTCWebRTC jQuery pluginPeer.jsEasyRTCWebRTC.ioOpenTokWebRTCCopy      Obsluga audio/wideotaktaktaktaktaktaknie      Czat tekstowynienietaktaktaktaktak      Pokojetaktaktaktaktaktaktak      Polaczenie P2Ptaktaktaktaktaktaktak      Obsluga NATtaknietaktaktaktaktak      Serwer STUN/TURNnienienienienietaktak      Serwer sygnalównienietaktaktaktaktak      Serwer aplikacjitaktaktaktaktaktaktak             	Tabela 2. Porównanie narzedzi wedlug funkcjonalnosci.
+	
+	Analizujac powyzsza tabele mozna zauwazyc, ze pod wzgledem funkcjonalnosci najlepszym rozwiazaniem bedzie OpenTok. Spelnia on wszystkie zalozenia. Kolejnymi wartymi uwagi projektami sa EasyRTC, WebRTC.io i Peer.js. Wymagaja one jednak zewnetrznych serwerów STUN  i TURN do obslugi.
+
+	5.4.2 Porównanie wedlug kryteriów
+      Po analizie funkcjonalnej nadszedl czas na zestawienie wedlug kryteriów z rozdzialu 5.2. Pozwoli ono na wybór najciekawszych narzedzi do zaimplementowania aplikacji WebRTC.
+      
+SimpleWebRTCWebRTC jQuery PluginPeer.jsEasyRTCWebRTC.ioOpenTokWebRTCCopy      Mozliwosci5477787      DokumentacjaSlabaSlabaDobraDobraSlabaB. dobraSlaba      TutorialeBrak SaSa Sa Brak Sa Brak       PrzykladyJest Jest Sa Sa Jest Jest Jest       Czy platnyNieNieTakTakNieNieTak      Czy rozwijanyTak Nie Tak Tak Nie Tak Nie       Latwosc instalacji i uzycieTrudna Trudna Latwa Latwa Trudna Latwa Trudna             Tabela 3. Porównanie narzedzi wedlug kryteriów z rozdzialu 5.2.
+      
+      W celu uproszczenia porównania przyjeto nastepuje kryteria i wartosci:
+? Mozliwosci - jakie funkcjonalnosci dostarcza dane rozwiazanie. Wartosc to ilosc elementów, które spelnia (patrz tabela 2)
+? Dokumentacja - dokumentacja techniczna, opis interfejsu, mozliwosci ocenione w skali slaba, dobra, bardzo dobra
+? Tutoriale - czy sa instrukcje krok po kroku
+? Przyklady - czy sa przykladowe aplikacje, które ukazuja mozliwosci narzedzia
+? Czy platny - czy projekt jest darmowy czy komercyjny (wszystkie narzedzia obecne w porównaniu posiadaja wersje platna) 
+? Czy rozwijany - czy projekt jest nadal rozwijany. Przyjeto czas maksymalnie 3 miesiecy od ostatniej zmiany w repozytorium
+? Latwosc instalacji i uzycie - czy narzedzie sie latwo instaluje i z niego korzysta. Ma na to wplyw dokumentacja
+      5.5 Podsumowanie	
+	Podczas analizy tabel 2 i 3 mozna zauwazyc kilka interesujacych wniosków. Projekty komercyjne maja dobra dokumentacje i ich twórcy dbaja o ich rozwój. Autorzy projektów darmowych nie przywiazuja wagi do dokumentacji. Udostepniaja oni najczesciej prosta przykladowa aplikacje. Wszystkie porównywane narzedzia maja dostepny swój kod na serwisie GitHub, nawet te komercyjne. 
+      Zestawienie w podrozdziale 5.4 pokazuje, ze postawione na samym poczatku rozdzialu kryteria najlepiej spelnia komercyjne narzedzie OpenTok. Dostarcza ono wszystkie zalozone funkcjonalnosci. Dokumentacja, strona i przyklady projektu sa na dobrym poziomie. Kolejnymi wartymi uwagi narzedziami sa EasyRTC oraz Peer.js. Wsród tych trzech wymienionych produktów warto wybrac jeden, na bazie którego przygotuje sie gotowa aplikacje. Inne pozycje mozna potraktowac jako ciekawostki. Mozna je uzyc i zbudowac na ich podstawie aplikacje, ale bedzie to wymagalo nakladu czasu i pracy, by spelnily one wszystkie postawione w rozdziale 5.1.1 kryteria.
+      
+      
+     
+      
+
+     
+     6. Zakonczenie
+      Tematem powyzszej pracy magisterskiej jest "Porównanie istniejacych rozwiazan bazujacych na technologii WebRTC do stworzenia czatu tekstowego/audio/wideo". Jak ona pokazala, standard Web Real Time Communication ma byc docelowym rozwiazaniem, które pozwoli na  latwa komunikacje, niezaleznie od uzywanej platformy sprzetowej i systemowej. Czat tekstowy, czy konferencja audio/wideo sa najlatwiejszymi sposobami przekazywania informacji. Sluza one zwyklym ludziom, do utrzymywania przyjazni i znajomosci, niezaleznie od wieku czy dzielacych ich odleglosci. 
+      W pracy skupiono sie zgodnie z tematem na porównaniu istniejacych rozwiazan. Tempo rozwoju nowych technologii jest dzisiaj bardzo duze. Ciagle powstaja nowe projekty, które maja ulatwic czlowiekowi codzienne zycie. Wybór gotowego narzedzia, zamiast tworzenie go od podstaw, pozwala szybko stworzyc aplikacje i wypuscic ja na rynek jako nowy produkt. Nie wymaga to doglebnej znajomosci standardu WebRTC, ale wystarczy do tego podstawowa wiedza o nim. Jednak przy takim modelu tworzeniu oprogramowania trzeba poswiecic czas na przygotowanie kryteriów zgodnych z projektem, a nastepnie analize i wybór odpowiedniego narzedzia, który bedzie je spelnial. W rozdziale numer 5 przedstawiono porównanie siedmiu najciekawszych wedlug autora produktów. Jest to najwazniejszy element pracy, który zostal zrealizowany z powodzeniem. Na koncu zestawienia wybrano rozwiazanie, które spelnia ustalone na poczatku projektu zalozenia. 
+      Podczas tworzenia pracy magisterskiej napotkano kilka trudnosci. Jednym z nich byla podstawowa znajomosc jezyka JavaScript i sposobu dzialania sieci internetowych. Jednak czas poswiecony na jej zdobywanie pozwolil na poznanie tych elementów i poszerzenie wiedzy zwiazanej z nimi. Analizowanie funkcjonalnosci narzedzi, które nastepnie porównano, wzbogacilo autora o odkrycie technologii Node.js stajacej sie z dnia na dzien coraz bardziej popularna i wykorzystywana w rozwiazaniach serwerowych. 
+      Pomimo olbrzymich mozliwosci technologii WebRTC rozdzial trzeci ujawnil, ze standard ten nie jest jeszcze dojrzaly i gotowy. Niepelne wsparcie przez Google Chrome, Mozilla Firefox czy Opera, a nawet calkowite jego ignorowanie w systemowych przegladarkach Internet Explorer i Safari, nie pozwalaja na uzycie go jako uniwersalnego rozwiazania do komunikacji. Przed jego twórcami stoi jeszcze duzo pracy w popularyzacji tego rozwiazania wsród producentów oprogramowania dla komputerów stacjonarnych i urzadzen mobilnych. 
+      Uklad rozdzialów w pracy ukazuje tok pracy autora. Na samym poczatku zastanowiono sie, czym jest komunikacja, jak ona wyglada teraz, a jak wygladala kiedys. Nastepnie zdobyto podstawowa wiedze na temat technologii WebRTC. Pozwolilo to na okreslenie celu, zakresu i tematu pracy. Kolejny drugi rozdzial to zbiór mozliwosci, na które pozwala omawiany standard. Autor po tym rozdziale ocenil, czy jest mozliwosc zrealizowania postawionego celu w temacie pracy. Rozdzial trzeci to etap poznawania sposobu dzialania WebRTC, uzytych technologii i standardów. Pozwolilo to na okreslenie, w jaki sposób trzeba zaprojektowac przykladowa aplikacje (rozdzial 5.1), jakie ona moze miec funkcjonalnosci i jak przygotowac kryteria dla porównania narzedzi. Kolejny czwarty element to krótkie omówienie tematu prywatnosci. Ostatnim etapem pracy bylo przygotowanie projektu aplikacji i wybór odpowiedniego narzedzia. Byla to baza dla kolejnych prac, w tym okresleniem kryteriów porównawczych. Nastepnie przygotowano liste kilku najciekawszych rozwiazan. Kazde z nim bylo rozpoznawane, instalowane i sprawdzane pod katem mozliwosci spelniania zdefiniowanych wczesniej zalozen. Skutkowalo to ich porównaniem i wylonieniem najlepszych dla projektu narzedzi. 
+      Powyzsza prace magisterska mozna okreslic jako pierwszy etap w przygotowaniu czatu dla uzytkowników. Po okresleniu rozwiazan, na bazie których moze byc on stworzony,  mozna przystapic do kolejnego etapu prac, jakim jest implementacja gotowego produktu. Bedac w tym miejscu mozna sie jeszcze zdecydowac, czy zbudowac projekt na bazie istniejacych rozwiazan, czy zdecydowac sie na samodzielne tworzenie calego systemu (w przypadku, gdy nie udalo sie wylonic odpowiedniego narzedzia). Dzieki rozdzialowi trzeciemu posiada sie wymagana wiedze, jaka jest niezbedna do stworzenia gotowego produktu niezaleznie od wybranej metody. 
+      
+      
+      
+      
+
+     Bibliografia
+1. "Podstawy Komunikowania Spolecznego", Boguslawa Dobek-Ostrowska, Wroclaw 1999, Wydawnictwo ASTRUM
+2. Artykul online "Shannon and Weaver Model of Communication" (stan na 2014-07-21) http://communicationtheory.org/shannon-and-weaver-model-of-communication/
+3. Artykul online "Chrome and Firefox now talking to each other through WebRTC chats" (stan na 2014-06-22) http://www.engadget.com/2013/02/04/chrome-and-firefox-now-talking-to-each-other-through-webrtc-chat/
+4. Artykul online "Google Closes On2 Technologies Acquisition" (stan na 2014-06-26)  http://investor.google.com/releases/2010/0219.html
+5. Artykul online "Google buys GIPS for $68 million - to take on Skype? Apple? Microsoft?" (stan na 2014-07-22) http://www.disruptivetelephony.com/2010/05/google-buys-gips-for-68-million---to-take-on-skype-apple-microsoft.html
+6. Nota na stronie projektu WebRTC (stan na 2014-05-22) http://www.webrtc.org/blog/introducingwebrtc-anopenreal-timecommunicationsproject
+7. Szkic standardu WebRTC na stronie organizacji W3C (stan na dzien 2014-07-13) http://dev.w3.org/2011/webrtc/editor/webrtc-20110823.html
+8. "WebRTC: APIs and RTCWEB Protocols of the HTML5 Real-Time Web Second", Edition, Johnston, Alan B. & Burnett, Daniel C., Digital Codex LLC, Czerwiec 2013
+9. Specyfikacja przechwytywania strumieni w serwisie W3C (stan na 2014-05-22) http://dev.w3.org/2011/webrtc/editor/getusermedia.html
+10. Scenariusze przechwytywania strumieni w W3C (stan na 2014-07-02) https://dvcs.w3.org/hg/dap/raw-file/tip/media-stream-capture/scenarios.html#capturing-a-media-stream
+11. Przyklady modyfikacji strumieni w W3C (stan na 2014-06-25) https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/webrtc-integration.html
+12. Wykaz przegladarek Internet Explorer w danych wersjach systemu Microsoft Windows (stan na 2014-06-25) http://windows.microsoft.com/en-us/internet-explorer/which-version-am-i-using#ie=other
+13. Opis interfejsy metody getUserMedia na portalu dokumentacji Mozilli (stan na 2014-05-22)  https://developer.mozilla.org/en-US/docs/Web/API/Navigator.getUserMedia
+14. Artykul "U.S., British intelligence mining data from nine U.S. Internet companies in broad secret program" (stan na 2014-05-22) http://www.washingtonpost.com/www.washingtonpost.com/investigations/us-intelligence-mining-data-from-nine-us-internet-companies-in-broad-secret-program/2013/06/06/3a0c0da8-cebf-11e2-8845-d970ccb04497_story.html
+15. Artykul "PRISM scandal: tech giants flatly deny allowing NSA direct access to servers" (stan na 2014-06-13) http://www.theguardian.com/world/2013/jun/07/prism-tech-giants-shock-nsa-data-mining
+16. "Network Security with OpenSSL", Pravir Chandra, Matt Messier, John Viega; 2002, O'Reilly
+17. "Hacking Exposed 6: Network Security Secrets & Solutions", Stuart McClure, Joel Scambray George Kurtz, 2009, The McGraw-Hill Companies
+18. "Real-Time Communication with WebRTC", Salvatore Loreto, Simon Pietro Romano, 2014, O'Reilly Media
+
+
+      
+
+
+Zródla rysunków
+1. Z http://communicationtheory.org/shannon-and-weaver-model-of-communication/
+2. Z http://www.engadget.com/2013/02/04/chrome-and-firefox-now-talking-to-each-other-through-webrtc-chat/
+3. Z bibliografia pozycja nr 8, rozdzial 1.1.4
+4. Zrzut pobrany z http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/
+5. Zrzut wlasny z aplikacji ASCII Camera
+6. Zrzut wlasny z gry CubeSlam 
+7. Zrzut wlasny z aplikacji ShareFest 
+8. Z bibliografii, pozycja nr 8, rozdzial  4.2.1
+9. Z bibliografii, pozycja nr 8, rozdzial 1.1.4
+10. Z bibliografii, pozycja nr 8, rozdzial 3.2.3
+11. Z bibliografii, pozycja nr 8, rozdzial 3.2.1
+12. Zrzut wlasny aplikacji AppSpot
+13. Z http://www.sourcetrunk.com/node/165
+14. Zrzut wlasny z aplikacji WebRTC jQuery plugin
+15. Zrzut wlasny z aplikacji Peer.js
+16. Zrzut wlasny z aplikacji demo EasyRTC
+17. Zrzut wlasny z przykladowej aplikacji WebRTC.io
+18. Zrzut wlasny z aplikacji demo OpenTok
+19. Zrzut wlasny z aplikacji WebRTCCopy
+      
+      58
+      
