@@ -70,6 +70,9 @@ class Login(BaseMethod):
 class UserMethods(BaseMethod):
     # for user setters and getters
 
+    def __init__(self):
+        super(UserMethods, self).__init__('user_methods')
+
     @db_session
     def edit_user(self, columnName, value, userId):
         if len(User[userId]) > 0:
@@ -128,6 +131,11 @@ class UserMethods(BaseMethod):
 
 
 class ThesisMethods(BaseMethod):
+
+    def __init__(self):
+        super(ThesisMethods, self).__init__('thesis_methods')
+
+
     @db_session
     def edit_thesis(self, columnName, value, thesisId):
         if len(Thesis[thesisId]) > 0:
@@ -223,6 +231,9 @@ class ThesisMethods(BaseMethod):
 
 class ThesisDetailsMethods(BaseMethod):
 
+    def __init__(self):
+        super(ThesisDetailsMethods, self).__init__('thesis_details_methods')
+
     @db_session
     def edit_thesis_detail(self, columnName, value, detailsId):
         if len(ThesisDetails[detailsId]) > 0:
@@ -245,6 +256,8 @@ class ThesisDetailsMethods(BaseMethod):
 
 
 class ThesisStatusMethods(BaseMethod):
+    def __init__(self):
+        super(ThesisStatusMethods, self).__init__('thesis_status_methods')
 
     @db_session
     def list_all_of_statuses(self):
@@ -285,6 +298,8 @@ class ThesisStatusMethods(BaseMethod):
 
 
 class FieldOfStudyMethods(BaseMethod):
+    def __init__(self):
+        super(FieldOfStudyMethods, self).__init__('field_of_study_methods')
 
     @db_session
     def list_all_of_fos(self):
@@ -326,6 +341,8 @@ class FieldOfStudyMethods(BaseMethod):
 
 
 class KeywordMethods(BaseMethod):
+    def __init__(self):
+        super(KeywordMethods, self).__init__('key_methods')
 
     @db_session
     def list_all_of_keywords(self):
@@ -376,6 +393,8 @@ class KeywordMethods(BaseMethod):
 
 
 class LevelMethods(BaseMethod):
+    def __init__(self):
+        super(LevelMethods, self).__init__('level_methods')
 
     @db_session
     def list_all_of_levels(self):
