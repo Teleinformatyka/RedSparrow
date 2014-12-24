@@ -3,7 +3,7 @@ import tornado
 
 from pony.orm import db_session
 
-from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Level, ThesisStatus, FieldOfStudy
+from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisStatus, FieldOfStudy
 from .base import BaseMethod
 
 
@@ -37,7 +37,6 @@ class Register(BaseMethod):
             return self.error(code=-32602, message='User with email %s already exists' % email)
         user = User(login=login, password=password, email=email, name=name, surname=surname)
         self.success("User %s added to DB" % login)
-
 
 
 class Login(BaseMethod):
@@ -93,10 +92,10 @@ class UserMethods(BaseMethod):
         self.error("User not found")
 
     @db_session
-    def add_user_level_by_user_id(self,userId, levelId):
+    def add_user_role_by_user_id(self,userId, roleId):
         user = User.select(lambda u: u.id == userId)
         if len(user) > 0:
-            user[0].levels.add(levelId)
+            user[0].roles.add(roleId)
             self.success()
         self.error("User not found")
 
@@ -123,11 +122,6 @@ class UserMethods(BaseMethod):
                 fin.add(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("List is empty")
-
-
-
-
-
 
 
 class ThesisMethods(BaseMethod):
@@ -228,7 +222,6 @@ class ThesisMethods(BaseMethod):
         self.error("Thesis not found")
 
 
-
 class ThesisDetailsMethods(BaseMethod):
 
     def __init__(self):
@@ -252,7 +245,6 @@ class ThesisDetailsMethods(BaseMethod):
         if len(ThesisDetails[thesisDetailsId]) > 0:
             self.success(Thesis[thesisDetailsId].delete())
         self.error("Thesis details not found")
-
 
 
 class ThesisStatusMethods(BaseMethod):
@@ -392,52 +384,50 @@ class KeywordMethods(BaseMethod):
         self.error("Keyword not found")
 
 
-class LevelMethods(BaseMethod):
+class RoleMethods(BaseMethod):
     def __init__(self):
-        super(LevelMethods, self).__init__('level_methods')
+        super(RoleMethods, self).__init__('role_methods')
 
     @db_session
-    def list_all_of_levels(self):
-        mlevel = Level.select(lV for lV in Level)
-        if len(mlevel) > 0:
+    def list_all_of_roles(self):
+        mrole = Role.select(rV for rV in Role)
+        if len(mrole) > 0:
             fin = []
-            for special in mlevel:
+            for special in mrole:
                 fin.add(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("List is empty")
 
     @db_session
-    def get_level_by_user_id(self, userId):
-        mlevel = Level.select(lambda l: l.users.contains(userId))
-        if len(mlevel) > 0:
-            self.success(mlevel)
-        self.error("Levels not found")
+    def get_role_by_user_id(self, userId):
+        mrole = Role.select(lambda l: l.users.contains(userId))
+        if len(mrole) > 0:
+            self.success(mrole)
+        self.error("Roles not found")
 
     @db_session
-    def add_user_to_level(self, levelId, userId):
-        mlevel = Level.select(lambda lvl: lvl.id == levelId)
-        if len(mlevel) > 0:
-            mlevel[0].users.add(userId)
+    def add_user_to_role(self, roleId, userId):
+        mrole = Role.select(lambda rl: rl.id == roleId)
+        if len(mrole) > 0:
+            mrole[0].users.add(userId)
             self.success()
-        self.error("Level not found")
+        self.error("Role not found")
 
     @db_session
-    def edit_level(self, columnName, value, lvlId):
-        if len(Level[lvlId]) > 0:
+    def edit_role(self, columnName, value, rlId):
+        if len(Role[rlId]) > 0:
             d = {columnName : value}
-            self.success(Level[lvlId].set(**d))
+            self.success(Role[rlId].set(**d))
 
     @db_session
-    def get_level_by_id(self, lvlId):
-        mlevel = Level.select(lambda lvl: lvl.id == lvlId)
-        if len(mlevel) > 0:
-            self.success(mlevel[0].to_dict(with_collections=True, related_objects=True))
-        self.error("Level not found")
+    def get_role_by_id(self, rlId):
+        mrole = Role.select(lambda rl: rl.id == rlId)
+        if len(mrole) > 0:
+            self.success(mrole[0].to_dict(with_collections=True, related_objects=True))
+        self.error("Role not found")
 
     @db_session
-    def delete_level(self, lvlId):
-        if len(Level[lvlId]) > 0:
-            self.success(Level[lvlId].delete())
-        self.error("Level not found")
-
-
+    def delete_role(self, rlId):
+        if len(Role[rlId]) > 0:
+            self.success(Role[rlId].delete())
+        self.error("Role not found")
