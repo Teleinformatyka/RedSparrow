@@ -19,6 +19,7 @@ class Thesis(db.Entity):
     thesisDetails = Optional("ThesisDetails")
     users = Set("User", table="User_Thesis", column="user_id")
     keywords = Set("Keyword", table="Keyword_Thesis", column="keyword_id")
+    similarities = Set("Similarity")
 
 
 class ThesisDetails(db.Entity):
@@ -61,13 +62,36 @@ class User(db.Entity):
     name = Required(str, 30)
     surname = Required(str, 60)
     theses = Set(Thesis, column="thesis_id")
-    levels = Set("Level", table="User_Level", column="level_id")
+    roles = Set("Role", table="User_role", column="role_id")
 
 
-class Level(db.Entity):
-    _table_ = "Level"
+class Role(db.Entity):
+    _table_ = "Role"
     id = PrimaryKey(int, size=8, auto=True)
-    level = Required(str, 9)
+    role = Required(str, 9)
     users = Set(User, column="user_id")
 
 
+class Similarity(db.Entity):
+    _table_ = "Similarity"
+    id = PrimaryKey(int, size=16, auto=True)
+    thesis1 = Required(Thesis)
+    thesis2 = Required(Thesis)
+    percentageSimilarity = Required(int, size=8, column="percentage_similarity")
+    keywordSimilarity = Required(int, size=8, column="keyword_similarity")
+    similarWords = Required(int, column="similar_words")
+    linesWords = Set(LinesWords)
+
+
+class LinesWords(db.Entity):
+    _table_ = "Lines_Words"
+    id = PrimaryKey(int, size=16, auto=True)
+    similarity = Required(Similarity)
+    thesis1LineStart = Required(str, 5, column="thesis1_line_start")
+    thesis2LineStart = Required(str, 5, column="thesis2_line_start")
+    thesis1LineEnd = Required(str, 5, column="thesis1_line_end")
+    thesis2LineEnd = Required(str, 5, column="thesis2_line_end")
+    thesis1WordStart = Required(str, 5, column="thesis1_word_start")
+    thesis2WordStart = Required(str, 5, column="thesis2_word_start")
+    thesis1WordEnd = Required(str, 5, column="thesis1_word_end")
+    thesis2WordEnd = Required(str, 5, column="thesis2_word_end")
