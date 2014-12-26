@@ -1,10 +1,11 @@
 import os
 import tornado
-
+import hashlib
 from pony.orm import db_session
 
 from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisStatus, FieldOfStudy
 from .base import BaseMethod
+from .gettext import GetText
 
 
 class Register(BaseMethod):
@@ -128,6 +129,52 @@ class ThesisMethods(BaseMethod):
 
     def __init__(self):
         super(ThesisMethods, self).__init__('thesis_methods')
+
+    @db_session
+    def add_thesis(self, thesis_name, user_id, supervisor_id, fos_id, keywords, filepath):
+        """
+            Add Thesis method
+            :param thesis_name: thesis title
+            :param user_id: author's id
+            :param supervisor_id: thesis supervisor's id
+            :param fos_id: field of study's id
+            :param keywords: array of keywords
+            :param filepath: path to thesis's file
+        """
+        hasher = hashlib.md5()
+        with open(filepath, 'rb') as file:
+            buf = file.read()
+            hasher.update(buf)
+        converted_text = GetText(file)
+
+        thesis_status = ThesisStatus.select(lambda ts: ts.status == "Waiting")
+        thesis = Thesis(title=thesis_name,
+                        thesisStatus=thesis_status.id,
+                        fieldOfStudy=fos_id,
+                        filenameHash=hasher.hexdigest(),
+                        text=converted_text
+                        )
+
+        thesis.users.add(User['user_id'], User['supervisor_id'])
+        for key in keywords:
+            thesis.keywords.add(Keyword[key])
+
+        # count characters
+        c_chars = len(converted_text)
+        # count sentences assuming that each sentence ends with . or ! or ?
+        c_sentences = converted_text.count('.') + converted_text.count('?') + converted_text.count('!')
+        # split at any whitespace
+        tempwords = converted_text.split(None)
+        c_words = len(tempwords)
+        # count quotes
+        c_quotes = converted_text.count('\"')/2
+
+        thesis_details = ThesisDetails(thesis=thesis.id,
+                                       words=c_words,
+                                       chars=c_chars,
+                                       quotes=c_quotes,
+                                       sentences=c_sentences)
+        thesis.thesisDetails = thesis_details.id
 
 
     @db_session
@@ -270,20 +317,20 @@ class ThesisStatusMethods(BaseMethod):
         self.error("Thesis Status not found")
 
     @db_session
-    def edit_fos(self, columnName, value, thesisStatusId):
+    def edit_thesis_status(self, columnName, value, thesisStatusId):
         if len(ThesisStatus[thesisStatusId]) > 0:
             d = {columnName : value}
             self.success(ThesisStatus[thesisStatusId].set(**d))
 
     @db_session
-    def get_fos_by_id(self, thesisStatusId):
+    def get_thesis_status_by_id(self, thesisStatusId):
         mts= ThesisStatus.select(lambda fos: fos.id == thesisStatusId)
         if len(mts) > 0:
             self.success(mts[0].to_dict(with_collections=True, related_objects=True))
         self.error("Thesis Status not found")
 
     @db_session
-    def delete_fos(self, thesisStatusId):
+    def delete_thesis_status(self, thesisStatusId):
         if len(ThesisStatus[thesisStatusId]) > 0:
             self.success(ThesisStatus[thesisStatusId].delete())
         self.error("Thesis Status not found")

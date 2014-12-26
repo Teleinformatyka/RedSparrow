@@ -12,9 +12,8 @@ class Thesis(db.Entity):
     thesisStatus = Required("ThesisStatus", column="thesis_status_id")
     fieldOfStudy = Required("FieldOfStudy", column="field_of_study_id")
     title = Required(str, 120)
-    filename = Required(str, 40)
-    filenameHash = Required(str, 40, column="filename_hash")
-    dateOfAlligance = Required(date, column="date_of_alligance")
+    filenameHash = Required(str, 32, column="filename_hash")
+    dateOfAlligance = Required(datetime, sql_default='CURRENT_TIMESTAMP', column="date_of_alligance")
     text = Required(LongUnicode)
     thesisDetails = Optional("ThesisDetails")
     users = Set("User", table="User_Thesis", column="user_id")
@@ -29,7 +28,7 @@ class ThesisDetails(db.Entity):
     thesis = Required(Thesis, column="thesis_id")
     words = Required(int, size=16)
     chars = Required(int, size=24)
-    qoutes = Required(int, size=16)
+    quotes = Required(int, size=16)
     sentences = Required(int, size=16)
 
 
