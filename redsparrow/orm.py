@@ -71,6 +71,19 @@ class Role(db.Entity):
     role = Required(str, 9)
     users = Set(User, column="user_id")
 
+class LinesWords(db.Entity):
+    _table_ = "Lines_Words"
+    id = PrimaryKey(int, size=16, auto=True)
+    # similarity = Required(Similarity)
+    thesis1LineStart = Required(str, 5, column="thesis1_line_start")
+    thesis2LineStart = Required(str, 5, column="thesis2_line_start")
+    thesis1LineEnd = Required(str, 5, column="thesis1_line_end")
+    thesis2LineEnd = Required(str, 5, column="thesis2_line_end")
+    thesis1WordStart = Required(str, 5, column="thesis1_word_start")
+    thesis2WordStart = Required(str, 5, column="thesis2_word_start")
+    thesis1WordEnd = Required(str, 5, column="thesis1_word_end")
+    thesis2WordEnd = Required(str, 5, column="thesis2_word_end")
+
 
 class Similarity(db.Entity):
     _table_ = "Similarity"
@@ -82,16 +95,3 @@ class Similarity(db.Entity):
     similarWords = Required(int, column="similar_words")
     linesWords = Set(LinesWords)
 
-
-class LinesWords(db.Entity):
-    _table_ = "Lines_Words"
-    id = PrimaryKey(int, size=16, auto=True)
-    similarity = Required(Similarity)
-    thesis1LineStart = Required(str, 5, column="thesis1_line_start")
-    thesis2LineStart = Required(str, 5, column="thesis2_line_start")
-    thesis1LineEnd = Required(str, 5, column="thesis1_line_end")
-    thesis2LineEnd = Required(str, 5, column="thesis2_line_end")
-    thesis1WordStart = Required(str, 5, column="thesis1_word_start")
-    thesis2WordStart = Required(str, 5, column="thesis2_word_start")
-    thesis1WordEnd = Required(str, 5, column="thesis1_word_end")
-    thesis2WordEnd = Required(str, 5, column="thesis2_word_end")
