@@ -1,5 +1,5 @@
 from pony.orm import *
-from datetime import date
+from datetime import datetime
 
 from redsparrow.config import Config
 

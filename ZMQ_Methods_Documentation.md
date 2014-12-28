@@ -946,6 +946,53 @@ Method called when JSON-RPC for __name
 <br>
 <br>
 
+# thesismethods-add_thesis
+    JSON-RPC
+
+**Args**
+
+*
+
+ * thesis_name
+
+ * user_id
+
+ * supervisor_id
+
+ * fos_id
+
+ * keywords
+
+ * filepath
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+Add Thesis method
+:param thesis_name: thesis title
+:param user_id: author's id
+:param supervisor_id: thesis supervisor's id
+:param fos_id: field of study's id
+:param keywords: array of keywords
+:param filepath: path to thesis's file
+
+
+
+<br>
+<br>
+
 # thesismethods-add_thesis_to_user_by_user_id
     JSON-RPC
 
@@ -1384,7 +1431,7 @@ None
 <br>
 <br>
 
-# thesisstatusmethods-delete_fos
+# thesisstatusmethods-delete_thesis_status
     JSON-RPC
 
 **Args**
@@ -1415,7 +1462,7 @@ None
 <br>
 <br>
 
-# thesisstatusmethods-edit_fos
+# thesisstatusmethods-edit_thesis_status
     JSON-RPC
 
 **Args**
@@ -1450,7 +1497,7 @@ None
 <br>
 <br>
 
-# thesisstatusmethods-get_fos_by_id
+# thesisstatusmethods-get_thesis_status_by_id
     JSON-RPC
 
 **Args**
