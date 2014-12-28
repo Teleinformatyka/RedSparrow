@@ -1,5 +1,5 @@
 from pony.orm import *
-from datetime import date
+from datetime import datetime
 
 from redsparrow.config import Config
 
@@ -12,13 +12,14 @@ class Thesis(db.Entity):
     thesisStatus = Required("ThesisStatus", column="thesis_status_id")
     fieldOfStudy = Required("FieldOfStudy", column="field_of_study_id")
     title = Required(str, 120)
-    filename = Required(str, 40)
     filenameHash = Required(str, 40, column="filename_hash")
-    dateOfAlligance = Required(date, column="date_of_alligance")
+    dateOfAlligance = Required(datetime, sql_default='CURRENT_TIMESTAMP', column="date_of_alligance")
+    text = Required(LongUnicode)
     thesisDetails = Optional("ThesisDetails")
     users = Set("User", table="User_Thesis", column="user_id")
     keywords = Set("Keyword", table="Keyword_Thesis", column="keyword_id")
-    text = Required(LongUnicode)
+    similarities1 = Set("Similarity", reverse="thesis1")
+    similarities2 = Set("Similarity", reverse="thesis2")
 
 
 class ThesisDetails(db.Entity):
@@ -27,7 +28,7 @@ class ThesisDetails(db.Entity):
     thesis = Required(Thesis, column="thesis_id")
     words = Required(int, size=16)
     chars = Required(int, size=24)
-    qoutes = Required(int, size=16)
+    quotes = Required(int, size=16)
     sentences = Required(int, size=16)
 
 
@@ -61,20 +62,36 @@ class User(db.Entity):
     name = Required(str, 30)
     surname = Required(str, 60)
     theses = Set(Thesis, column="thesis_id")
-    levels = Set("Level", table="User_Level", column="level_id")
+    roles = Set("Role", table="User_role", column="role_id")
 
 
-class Level(db.Entity):
-    _table_ = "Level"
+class Role(db.Entity):
+    _table_ = "Role"
     id = PrimaryKey(int, size=8, auto=True)
-    level = Required(str, 9)
+    role = Required(str, 9)
     users = Set(User, column="user_id")
 
-class AnalysisResult(db.Entity):
-    """Result of the analysis"""
-    id = PrimaryKey(int, size=8, auto=True)
-    json = Required(LongUnicode)
+class LinesWords(db.Entity):
+    _table_ = "Lines_Words"
+    id = PrimaryKey(int, size=16, auto=True)
+    similarity = Required('Similarity', reverse="linesWords")
+    thesis1LineStart = Required(str, 5, column="thesis1_line_start")
+    thesis2LineStart = Required(str, 5, column="thesis2_line_start")
+    thesis1LineEnd = Required(str, 5, column="thesis1_line_end")
+    thesis2LineEnd = Required(str, 5, column="thesis2_line_end")
+    thesis1WordStart = Required(str, 5, column="thesis1_word_start")
+    thesis2WordStart = Required(str, 5, column="thesis2_word_start")
+    thesis1WordEnd = Required(str, 5, column="thesis1_word_end")
+    thesis2WordEnd = Required(str, 5, column="thesis2_word_end")
 
 
-
+class Similarity(db.Entity):
+    _table_ = "Similarity"
+    id = PrimaryKey(int, size=16, auto=True)
+    thesis1 = Required(Thesis, reverse="similarities1")
+    thesis2 = Required(Thesis, reverse="similarities2")
+    percentageSimilarity = Required(int, size=8, column="percentage_similarity")
+    keywordSimilarity = Required(int, size=8, column="keyword_similarity")
+    similarWords = Required(int, column="similar_words")
+    linesWords = Set(LinesWords, reverse="similarity")
 

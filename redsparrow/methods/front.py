@@ -1,10 +1,11 @@
 import os
 import tornado
-
+import hashlib
 from pony.orm import db_session
 
-from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Level, ThesisStatus, FieldOfStudy
+from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisStatus, FieldOfStudy
 from .base import BaseMethod
+from .gettext import GetText
 
 
 class Register(BaseMethod):
@@ -39,7 +40,6 @@ class Register(BaseMethod):
         self.success("User %s added to DB" % login)
 
 
-
 class Login(BaseMethod):
 
     def __init__(self):
@@ -70,6 +70,9 @@ class Login(BaseMethod):
 class UserMethods(BaseMethod):
     # for user setters and getters
 
+    def __init__(self):
+        super(UserMethods, self).__init__('user_methods')
+
     @db_session
     def edit_user(self, columnName, value, userId):
         if len(User[userId]) > 0:
@@ -90,10 +93,10 @@ class UserMethods(BaseMethod):
         self.error("User not found")
 
     @db_session
-    def add_user_level_by_user_id(self,userId, levelId):
+    def add_user_role_by_user_id(self,userId, roleId):
         user = User.select(lambda u: u.id == userId)
         if len(user) > 0:
-            user[0].levels.add(levelId)
+            user[0].roles.add(roleId)
             self.success()
         self.error("User not found")
 
@@ -122,12 +125,58 @@ class UserMethods(BaseMethod):
         self.error("List is empty")
 
 
-
-
-
-
-
 class ThesisMethods(BaseMethod):
+
+    def __init__(self):
+        super(ThesisMethods, self).__init__('thesis_methods')
+
+    @db_session
+    def add_thesis(self, thesis_name, user_id, supervisor_id, fos_id, keywords, filepath):
+        """
+            Add Thesis method
+            :param thesis_name: thesis title
+            :param user_id: author's id
+            :param supervisor_id: thesis supervisor's id
+            :param fos_id: field of study's id
+            :param keywords: array of keywords
+            :param filepath: path to thesis's file
+        """
+        hasher = hashlib.md5()
+        with open(filepath, 'rb') as file:
+            buf = file.read()
+            hasher.update(buf)
+        converted_text = GetText(file)
+
+        thesis_status = ThesisStatus.select(lambda ts: ts.status == "Waiting")
+        thesis = Thesis(title=thesis_name,
+                        thesisStatus=thesis_status.id,
+                        fieldOfStudy=fos_id,
+                        filenameHash=hasher.hexdigest(),
+                        text=converted_text
+                        )
+
+        thesis.users.add(User['user_id'], User['supervisor_id'])
+        for key in keywords:
+            thesis.keywords.add(Keyword[key])
+
+        # count characters
+        c_chars = len(converted_text)
+        # count sentences assuming that each sentence ends with . or ! or ?
+        c_sentences = converted_text.count('.') + converted_text.count('?') + converted_text.count('!')
+        # split at any whitespace
+        tempwords = converted_text.split(None)
+        c_words = len(tempwords)
+        # count quotes
+        c_quotes = converted_text.count('\"')/2
+
+        thesis_details = ThesisDetails(thesis=thesis.id,
+                                       words=c_words,
+                                       chars=c_chars,
+                                       quotes=c_quotes,
+                                       sentences=c_sentences)
+        thesis.thesisDetails = thesis_details.id
+
+
     @db_session
     def edit_thesis(self, columnName, value, thesisId):
         if len(Thesis[thesisId]) > 0:
@@ -219,9 +268,25 @@ class ThesisMethods(BaseMethod):
             self.success(fin)
         self.error("Thesis not found")
 
+    @db_session
+    def run_analysis(self, thesis_id):
+        """
+            run_analysis method get Thesis by thesis_id and process on it PlagiarismDetector
 
+            :param thesis_id: id of thesis to analysis
+
+        """
+        thesis = Thesis.select(lambda t: t.id == thesis_id)[:]
+        if len(thesis) == 0:
+            return self.error(message="Thesis not found")
+        detector = PlagiarismDetector()
+        result = detector.process(thesis[0].to_dict(with_collections=True, relate_object=True))
+        self.success(result)
 
 class ThesisDetailsMethods(BaseMethod):
+
+    def __init__(self):
+        super(ThesisDetailsMethods, self).__init__('thesis_details_methods')
 
     @db_session
     def edit_thesis_detail(self, columnName, value, detailsId):
@@ -243,8 +308,9 @@ class ThesisDetailsMethods(BaseMethod):
         self.error("Thesis details not found")
 
 
-
 class ThesisStatusMethods(BaseMethod):
+    def __init__(self):
+        super(ThesisStatusMethods, self).__init__('thesis_status_methods')
 
     @db_session
     def list_all_of_statuses(self):
@@ -265,26 +331,28 @@ class ThesisStatusMethods(BaseMethod):
         self.error("Thesis Status not found")
 
     @db_session
-    def edit_fos(self, columnName, value, thesisStatusId):
+    def edit_thesis_status(self, columnName, value, thesisStatusId):
         if len(ThesisStatus[thesisStatusId]) > 0:
             d = {columnName : value}
             self.success(ThesisStatus[thesisStatusId].set(**d))
 
     @db_session
-    def get_fos_by_id(self, thesisStatusId):
+    def get_thesis_status_by_id(self, thesisStatusId):
         mts= ThesisStatus.select(lambda fos: fos.id == thesisStatusId)
         if len(mts) > 0:
             self.success(mts[0].to_dict(with_collections=True, related_objects=True))
         self.error("Thesis Status not found")
 
     @db_session
-    def delete_fos(self, thesisStatusId):
+    def delete_thesis_status(self, thesisStatusId):
         if len(ThesisStatus[thesisStatusId]) > 0:
             self.success(ThesisStatus[thesisStatusId].delete())
         self.error("Thesis Status not found")
 
 
 class FieldOfStudyMethods(BaseMethod):
+    def __init__(self):
+        super(FieldOfStudyMethods, self).__init__('field_of_study_methods')
 
     @db_session
     def list_all_of_fos(self):
@@ -326,6 +394,8 @@ class FieldOfStudyMethods(BaseMethod):
 
 
 class KeywordMethods(BaseMethod):
+    def __init__(self):
+        super(KeywordMethods, self).__init__('key_methods')
 
     @db_session
     def list_all_of_keywords(self):
@@ -375,66 +445,50 @@ class KeywordMethods(BaseMethod):
         self.error("Keyword not found")
 
 
-class LevelMethods(BaseMethod):
+class RoleMethods(BaseMethod):
+    def __init__(self):
+        super(RoleMethods, self).__init__('role_methods')
 
     @db_session
-    def list_all_of_levels(self):
-        mlevel = Level.select(lV for lV in Level)
-        if len(mlevel) > 0:
+    def list_all_of_roles(self):
+        mrole = Role.select(rV for rV in Role)
+        if len(mrole) > 0:
             fin = []
-            for special in mlevel:
+            for special in mrole:
                 fin.add(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("List is empty")
 
     @db_session
-    def get_level_by_user_id(self, userId):
-        mlevel = Level.select(lambda l: l.users.contains(userId))
-        if len(mlevel) > 0:
-            self.success(mlevel)
-        self.error("Levels not found")
+    def get_role_by_user_id(self, userId):
+        mrole = Role.select(lambda l: l.users.contains(userId))
+        if len(mrole) > 0:
+            self.success(mrole)
+        self.error("Roles not found")
 
     @db_session
-    def add_user_to_level(self, levelId, userId):
-        mlevel = Level.select(lambda lvl: lvl.id == levelId)
-        if len(mlevel) > 0:
-            mlevel[0].users.add(userId)
+    def add_user_to_role(self, roleId, userId):
+        mrole = Role.select(lambda rl: rl.id == roleId)
+        if len(mrole) > 0:
+            mrole[0].users.add(userId)
             self.success()
-        self.error("Level not found")
+        self.error("Role not found")
 
     @db_session
-    def edit_level(self, columnName, value, lvlId):
-        if len(Level[lvlId]) > 0:
+    def edit_role(self, columnName, value, rlId):
+        if len(Role[rlId]) > 0:
             d = {columnName : value}
-            self.success(Level[lvlId].set(**d))
+            self.success(Role[rlId].set(**d))
 
     @db_session
-    def get_level_by_id(self, lvlId):
-        mlevel = Level.select(lambda lvl: lvl.id == lvlId)
-        if len(mlevel) > 0:
-            self.success(mlevel[0].to_dict(with_collections=True, related_objects=True))
-        self.error("Level not found")
+    def get_role_by_id(self, rlId):
+        mrole = Role.select(lambda rl: rl.id == rlId)
+        if len(mrole) > 0:
+            self.success(mrole[0].to_dict(with_collections=True, related_objects=True))
+        self.error("Role not found")
 
     @db_session
-    def delete_level(self, lvlId):
-        if len(Level[lvlId]) > 0:
-            self.success(Level[lvlId].delete())
-        self.error("Level not found")
-
-    @db_session
-    def run_analysis(self, thesis_id):
-        """
-            run_analysis method get Thesis by thesis_id and process on it PlagiarismDetector
-
-            :param thesis_id: id of thesis to analysis
-
-        """
-        thesis = Thesis.select(lambda t: t.id == thesis_id)[:]
-        if len(thesis) == 0:
-            return self.error(message="Thesis not found")
-        detector = PlagiarismDetector()
-        result = detector.process(thesis[0].to_dict(with_collections=True, relate_object=True))
-        self.success(result)
-
-
-
+    def delete_role(self, rlId):
+        if len(Role[rlId]) > 0:
+            self.success(Role[rlId].delete())
+        self.error("Role not found")

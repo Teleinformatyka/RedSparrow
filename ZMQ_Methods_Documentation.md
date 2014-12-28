@@ -445,227 +445,6 @@ None
 <br>
 <br>
 
-# levelmethods
-    JSON-RPC
-
-**Args**
-
-*
-
- * args
-
- * kwargs
-            
-
-
-**Input Schema**
-```json
-
-```
-
-**Output Schema**
-```json
-
-```
-
-
-**Notes**
-
-Method called when JSON-RPC for __name
-
-
-
-<br>
-<br>
-
-# levelmethods-add_user_to_level
-    JSON-RPC
-
-**Args**
-
-*
-
- * levelId
-
- * userId
-            
-
-
-**Input Schema**
-```json
-
-```
-
-**Output Schema**
-```json
-
-```
-
-
-**Notes**
-
-None
-
-
-
-<br>
-<br>
-
-# levelmethods-delete_level
-    JSON-RPC
-
-**Args**
-
-*
-
- * lvlId
-            
-
-
-**Input Schema**
-```json
-
-```
-
-**Output Schema**
-```json
-
-```
-
-
-**Notes**
-
-None
-
-
-
-<br>
-<br>
-
-# levelmethods-edit_level
-    JSON-RPC
-
-**Args**
-
-*
-
- * columnName
-
- * value
-
- * lvlId
-            
-
-
-**Input Schema**
-```json
-
-```
-
-**Output Schema**
-```json
-
-```
-
-
-**Notes**
-
-None
-
-
-
-<br>
-<br>
-
-# levelmethods-get_level_by_id
-    JSON-RPC
-
-**Args**
-
-*
-
- * lvlId
-            
-
-
-**Input Schema**
-```json
-
-```
-
-**Output Schema**
-```json
-
-```
-
-
-**Notes**
-
-None
-
-
-
-<br>
-<br>
-
-# levelmethods-get_level_by_user_id
-    JSON-RPC
-
-**Args**
-
-*
-
- * userId
-            
-
-
-**Input Schema**
-```json
-
-```
-
-**Output Schema**
-```json
-
-```
-
-
-**Notes**
-
-None
-
-
-
-<br>
-<br>
-
-# levelmethods-list_all_of_levels
-    JSON-RPC
-
-**Args**
-None
-
-
-**Input Schema**
-```json
-
-```
-
-**Output Schema**
-```json
-
-```
-
-
-**Notes**
-
-None
-
-
-
-<br>
-<br>
-
 # login
     JSON-RPC
 
@@ -777,6 +556,227 @@ params - dict
 :param name: user name
 
 :returns: If success returns all user data else return JSON-RPC error object
+
+
+
+<br>
+<br>
+
+# rolemethods
+    JSON-RPC
+
+**Args**
+
+*
+
+ * args
+
+ * kwargs
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+Method called when JSON-RPC for __name
+
+
+
+<br>
+<br>
+
+# rolemethods-add_user_to_role
+    JSON-RPC
+
+**Args**
+
+*
+
+ * roleId
+
+ * userId
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+None
+
+
+
+<br>
+<br>
+
+# rolemethods-delete_role
+    JSON-RPC
+
+**Args**
+
+*
+
+ * rlId
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+None
+
+
+
+<br>
+<br>
+
+# rolemethods-edit_role
+    JSON-RPC
+
+**Args**
+
+*
+
+ * columnName
+
+ * value
+
+ * rlId
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+None
+
+
+
+<br>
+<br>
+
+# rolemethods-get_role_by_id
+    JSON-RPC
+
+**Args**
+
+*
+
+ * rlId
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+None
+
+
+
+<br>
+<br>
+
+# rolemethods-get_role_by_user_id
+    JSON-RPC
+
+**Args**
+
+*
+
+ * userId
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+None
+
+
+
+<br>
+<br>
+
+# rolemethods-list_all_of_roles
+    JSON-RPC
+
+**Args**
+None
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+None
 
 
 
@@ -940,6 +940,53 @@ None
 **Notes**
 
 Method called when JSON-RPC for __name
+
+
+
+<br>
+<br>
+
+# thesismethods-add_thesis
+    JSON-RPC
+
+**Args**
+
+*
+
+ * thesis_name
+
+ * user_id
+
+ * supervisor_id
+
+ * fos_id
+
+ * keywords
+
+ * filepath
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+Add Thesis method
+:param thesis_name: thesis title
+:param user_id: author's id
+:param supervisor_id: thesis supervisor's id
+:param fos_id: field of study's id
+:param keywords: array of keywords
+:param filepath: path to thesis's file
 
 
 
@@ -1318,6 +1365,39 @@ None
 <br>
 <br>
 
+# thesismethods-run_analysis
+    JSON-RPC
+
+**Args**
+
+*
+
+ * thesis_id
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+run_analysis method get Thesis by thesis_id and process on it PlagiarismDetector
+
+:param thesis_id: id of thesis to analysis
+
+
+
+<br>
+<br>
+
 # thesisstatusmethods
     JSON-RPC
 
@@ -1384,7 +1464,7 @@ None
 <br>
 <br>
 
-# thesisstatusmethods-delete_fos
+# thesisstatusmethods-delete_thesis_status
     JSON-RPC
 
 **Args**
@@ -1415,7 +1495,7 @@ None
 <br>
 <br>
 
-# thesisstatusmethods-edit_fos
+# thesisstatusmethods-edit_thesis_status
     JSON-RPC
 
 **Args**
@@ -1450,7 +1530,7 @@ None
 <br>
 <br>
 
-# thesisstatusmethods-get_fos_by_id
+# thesisstatusmethods-get_thesis_status_by_id
     JSON-RPC
 
 **Args**
@@ -1541,7 +1621,7 @@ Method called when JSON-RPC for __name
 <br>
 <br>
 
-# usermethods-add_user_level_by_user_id
+# usermethods-add_user_role_by_user_id
     JSON-RPC
 
 **Args**
@@ -1550,7 +1630,7 @@ Method called when JSON-RPC for __name
 
  * userId
 
- * levelId
+ * roleId
             
 
 
