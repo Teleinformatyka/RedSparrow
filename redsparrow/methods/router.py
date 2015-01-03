@@ -46,7 +46,7 @@ class Router(object):
             return
 
         try:
-            logging.info('Calling {}'.format(message.method))
+            logging.info('Calling {} with {} {}'.format(message.method, class_obj, original_name))
             getattr(class_obj, original_name)(**message.params)
         except TypeError:
             getattr(class_obj, original_name)(message.params)

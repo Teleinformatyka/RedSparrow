@@ -191,39 +191,6 @@ None
 <br>
 <br>
 
-# gettext
-    JSON-RPC
-
-**Args**
-
-*
-
- * args
-
- * kwargs
-            
-
-
-**Input Schema**
-```json
-
-```
-
-**Output Schema**
-```json
-
-```
-
-
-**Notes**
-
-Method called when JSON-RPC for __name
-
-
-
-<br>
-<br>
-
 # keywordmethods
     JSON-RPC
 
