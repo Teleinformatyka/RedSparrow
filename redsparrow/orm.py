@@ -12,7 +12,7 @@ class Thesis(db.Entity):
     thesisStatus = Required("ThesisStatus", column="thesis_status_id")
     fieldOfStudy = Required("FieldOfStudy", column="field_of_study_id")
     title = Required(str, 120)
-    filenameHash = Required(str, 32, column="filename_hash")
+    filenameHash = Required(str, 40, column="filename_hash")
     dateOfAlligance = Required(datetime, sql_default='CURRENT_TIMESTAMP', column="date_of_alligance")
     text = Required(LongUnicode)
     thesisDetails = Optional("ThesisDetails")

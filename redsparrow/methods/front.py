@@ -5,8 +5,8 @@ from pony.orm import db_session
 
 from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisStatus, FieldOfStudy
 from .base import BaseMethod
-from .gettext import GetText
-
+from redsparrow.extractor.gettext import get_text
+from redsparrow.keywords import get_keywords
 
 class Register(BaseMethod):
 
@@ -131,7 +131,7 @@ class ThesisMethods(BaseMethod):
         super(ThesisMethods, self).__init__('thesis_methods')
 
     @db_session
-    def add_thesis(self, thesis_name, user_id, supervisor_id, fos_id, keywords, filepath):
+    def add_thesis(self, thesis_name, user_id, supervisor_id, fos_id, filepath):
         """
             Add Thesis method
             :param thesis_name: thesis title
@@ -145,19 +145,22 @@ class ThesisMethods(BaseMethod):
         with open(filepath, 'rb') as file:
             buf = file.read()
             hasher.update(buf)
-        converted_text = GetText(file)
+        converted_text = get_text(filepath)
 
-        thesis_status = ThesisStatus.select(lambda ts: ts.status == "Waiting")
+        thesis_status = ThesisStatus.select(lambda ts: ts.status == "Waiting")[:]
         thesis = Thesis(title=thesis_name,
-                        thesisStatus=thesis_status.id,
+                        thesisStatus=thesis_status[0].id,
                         fieldOfStudy=fos_id,
                         filenameHash=hasher.hexdigest(),
                         text=converted_text
                         )
-
-        thesis.users.add(User['user_id'], User['supervisor_id'])
+        print(User[user_id])
+        thesis.users.add(User[user_id])
+        thesis.users.add(User[supervisor_id])
+        keywords = get_keywords(converted_text)
         for key in keywords:
-            thesis.keywords.add(Keyword[key])
+            keyword = Keyword(keyword=key)
+            thesis.keywords.add(keyword)
 
         # count characters
         c_chars = len(converted_text)
@@ -167,15 +170,15 @@ class ThesisMethods(BaseMethod):
         tempwords = converted_text.split(None)
         c_words = len(tempwords)
         # count quotes
-        c_quotes = converted_text.count('\"')/2
+        c_quotes = int(converted_text.count('\"')/2)
 
         thesis_details = ThesisDetails(thesis=thesis.id,
                                        words=c_words,
                                        chars=c_chars,
                                        quotes=c_quotes,
                                        sentences=c_sentences)
-        thesis.thesisDetails = thesis_details.id
-
+        thesis.thesisDetails = thesis_details
+        self.success("ok")
 
     @db_session
     def edit_thesis(self, columnName, value, thesisId):
@@ -268,6 +271,20 @@ class ThesisMethods(BaseMethod):
             self.success(fin)
         self.error("Thesis not found")
 
+    @db_session
+    def run_analysis(self, thesis_id):
+        """
+            run_analysis method get Thesis by thesis_id and process on it PlagiarismDetector
+
+            :param thesis_id: id of thesis to analysis
+
+        """
+        thesis = Thesis.select(lambda t: t.id == thesis_id)[:]
+        if len(thesis) == 0:
+            return self.error(message="Thesis not found")
+        detector = PlagiarismDetector()
+        result = detector.process(thesis[0].to_dict(with_collections=True, relate_object=True))
+        self.success(result)
 
 class ThesisDetailsMethods(BaseMethod):
 

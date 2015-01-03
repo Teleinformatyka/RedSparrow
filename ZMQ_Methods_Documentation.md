@@ -191,39 +191,6 @@ None
 <br>
 <br>
 
-# gettext
-    JSON-RPC
-
-**Args**
-
-*
-
- * args
-
- * kwargs
-            
-
-
-**Input Schema**
-```json
-
-```
-
-**Output Schema**
-```json
-
-```
-
-
-**Notes**
-
-Method called when JSON-RPC for __name
-
-
-
-<br>
-<br>
-
 # keywordmethods
     JSON-RPC
 
@@ -961,8 +928,6 @@ Method called when JSON-RPC for __name
 
  * fos_id
 
- * keywords
-
  * filepath
             
 
@@ -1359,6 +1324,39 @@ None
 **Notes**
 
 None
+
+
+
+<br>
+<br>
+
+# thesismethods-run_analysis
+    JSON-RPC
+
+**Args**
+
+*
+
+ * thesis_id
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+run_analysis method get Thesis by thesis_id and process on it PlagiarismDetector
+
+:param thesis_id: id of thesis to analysis
 
 
 

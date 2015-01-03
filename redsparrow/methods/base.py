@@ -39,12 +39,14 @@ class BaseMethod(object):
         self._request = request
 
     def success(self, message=None):
+        self._response = QueueRepMessage(id=self._request.id)
         if message:
             self._response.success = message
         self.application.send_response(self._response)
         self._response = None
 
     def error(self, code=-32602, message=None):
+        self._response = QueueRepMessage(id=self._request.id)
         if message:
             self._response.error = { 'code': code, 'message': message}
         self.application.send_response(self._response)
