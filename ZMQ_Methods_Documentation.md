@@ -961,8 +961,6 @@ Method called when JSON-RPC for __name
 
  * fos_id
 
- * keywords
-
  * filepath
             
 
