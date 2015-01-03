@@ -4,6 +4,7 @@ python:
 install:
   - sudo apt-get update
   - sudo apt-get install  antiword odt2txt
+  - pip install setuptools==9.1
   - sudo cp -r nltk_data /usr/share/nltk_data
   - pip install tox
   - pip install python-coveralls
