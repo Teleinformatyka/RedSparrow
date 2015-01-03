@@ -22,7 +22,7 @@ class PlagiarismDetector(object):
         thesisToAnalyze = []
         for thesi in thesis:
             thesi = thesi.to_dict(with_collections=True, related_objects=True)
-            if Levenshtein.distance(thesi['keywords'], toCheck['keywords']):
+            if RabbinKarb.calculate(thesi['keywords'], toCheck['keywords']):
                 thesisToAnalyze.append(thesis)
 
         result['Levenshtein'] = {}

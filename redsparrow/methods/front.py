@@ -6,7 +6,7 @@ from pony.orm import db_session
 from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisStatus, FieldOfStudy
 from .base import BaseMethod
 from .gettext import GetText
-
+from redsparrow.keywords import get_keywords
 
 class Register(BaseMethod):
 
@@ -131,7 +131,7 @@ class ThesisMethods(BaseMethod):
         super(ThesisMethods, self).__init__('thesis_methods')
 
     @db_session
-    def add_thesis(self, thesis_name, user_id, supervisor_id, fos_id, keywords, filepath):
+    def add_thesis(self, thesis_name, user_id, supervisor_id, fos_id, filepath):
         """
             Add Thesis method
             :param thesis_name: thesis title
@@ -156,8 +156,9 @@ class ThesisMethods(BaseMethod):
                         )
 
         thesis.users.add(User['user_id'], User['supervisor_id'])
+        keywords = get_keywords(converted_text)
         for key in keywords:
-            thesis.keywords.add(Keyword[key])
+            thesis.keywords.add(key)
 
         # count characters
         c_chars = len(converted_text)
