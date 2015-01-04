@@ -1,9 +1,9 @@
 
-from pony.orm import db_session
+from pony.orm import db_session, commit, flush
 
 from redsparrow.orm import Thesis, Similarity, LinesWords
-from redsparrow.plagiarism.levenshtein import  Levenshtein
-from redsparrow.plagiarism.rabinkarb import  RabinKarb
+import redsparrow.plagiarism.levenshtein as Levenshtein
+import redsparrow.plagiarism.rabinkarb as   RabinKarb
 from redsparrow.extractor.winnowing import winnow
 from redsparrow.keywords import calculate_keywords_similarity
 
@@ -16,15 +16,15 @@ class PlagiarismDetector(object):
         # get data from db
         # get keyword
         # start processing in by neares keyword
-    def __winnowing(self, thesis1, thesis2):
+    def __winnowing(self, thesis1, thesis2, window=5):
         """ Function that return by characters similarity in text
             :param thesis1 - text
             :param thesis2  - text
             :returns list of touple (index1, index2)
         """
 
-        winnows1 = winnow(thesis1)
-        winnows2 = winnow(thesis2)
+        winnows1 = winnow(thesis1, window)
+        winnows2 = winnow(thesis2, window)
         result = []
         for index in winnows1.keys():
             if winnows1[index] in winnows2.values():
@@ -32,28 +32,78 @@ class PlagiarismDetector(object):
                 result.append((index, second_index))
         return result
 
+    def __calculate_percentageSimilarity(self, winnowing_result, text_len):
+        if len(winnowing_result) == 1:
+            return 0
+        winnowing_result = sorted(winnowing_result, key=lambda x: x[1], reverse=True)
+        result = 0
+        for i in range(0, len(winnowing_result) - 1, 1):
+            result += winnowing_result[i][1] -  winnowing_result[i + 1][1]
+
+        result = result /text_len
+        return int(result * 100)
+    def __calculate_keywords_similarity(self, kerwords1, kerwords2):
+        list_key1 = [ key.keyword for key in kerwords1]
+        list_key2 = [ key.keyword for key in kerwords2]
+        return int(calculate_keywords_similarity(list_key1, list_key2) * 100)
+
     @db_session
     def process(self, toCheck):
-        thesis = Thesis.select(lambda ti: ti.id != toCheck['id'])[:]
-        result = {'thesis_id': toCheck['id']}
+        thesis = Thesis.select(lambda ti: ti.id != toCheck.id)[:]
+        result = {'thesis_id': toCheck.id, 'similarity': []}
         thesisToAnalyze = []
-        for thesi in thesis:
-            thesi = thesi.to_dict(with_collections=True, related_objects=True)
-            # if calculate_keywords_similarity(thesi['keywords'], toCheck['keywords']) > 0.3:
-            thesisToAnalyze.append(thesis)
+        # for thesi in thesis:
+        #     thesi = thesi.to_dict(with_collections=True, related_objects=True)
+        #     # if calculate_keywords_similarity(thesi['keywords'], toCheck['keywords']) > 0.3:
+        #     thesisToAnalyze.append(thesi)
 
-        for thesi in thesisTcoAnalyze:
-            winnowing_result = self.__winnowing(toCheck['text', thesi['text']])
-            similarity = Similarity(thesis1=toCheck['id'],
-                                    thesis2=thesi['id'],
-                                    keywordSimilarity=calculate_keywords_similarity(toCheck['keywords'], thesi['keywords']),
-                                    percentageSimilarity = (len(winnowing_result) * 5) / len(thesis1['text']),
-                                    similarWords = len(winnowing_result))
-            for i in range(0, len(result) - 1, 1):
-                similarity.linesWord.append(LinesWords(thesis1CharStart=winnowing_result[i][0],
-                                        thesis1CharEnd=winnowing_result[i + 1][0],
-                                        thesis2CharStart=winnowing_result[i][1],
-                                        thesis2CharEnd=winnowing_result[i + 1][1]))
+        for thesi in thesis:
+            with db_session:
+                winnowing_result = self.__winnowing(toCheck.text, thesi.text)
+                lines = []
+                percentageSimilarity = self.__calculate_percentageSimilarity(winnowing_result, len(thesi.text))
+
+                similarity = Similarity(thesis1=toCheck.id,
+                                        thesis2=thesi.id,
+                                        keywordSimilarity=self.__calculate_keywords_similarity(toCheck.keywords, thesi.keywords),
+                                        percentageSimilarity=percentageSimilarity)
+                commit()
+                # with db_session:
+                if percentageSimilarity > 90:
+                    winnowing_result = [(0, 0), (int(0.9 *  len(toCheck.text)), int(0.9 * len(thesi.text)))]
+                for i in range(0, len(winnowing_result) - 1, 1):
+                    # winnowing_result2 = sorted(winnowing_result, key=lambda x: x[1])
+                    # winnowing_result1 = sorted(winnowing_result, key=lambda x: x[0])
+                    index1Start = winnowing_result[i][0]
+                    if index1Start > winnowing_result[i + 1][0]:
+                        index1Start = winnowing_result[i + 1][0]
+                        index1End = winnowing_result[i][0]
+                    else:
+                        index1End = winnowing_result[i + 1][0]
+
+
+                    index2Start = winnowing_result[i][1]
+                    if index2Start > winnowing_result[i + 1][1]:
+                        index2Start = winnowing_result[i + 1][1]
+                        index2End = winnowing_result[i][1]
+                    else:
+                        index2End = winnowing_result[i + 1][1]
+
+                    linesWord = LinesWords(thesis1CharStart=index1Start,
+                                            thesis1CharEnd=index1End,
+                                            thesis2CharStart=index2Start,
+                                            thesis2CharEnd=index2End,
+                                            similarity = similarity)
+                    similarity.linesWords.add(linesWord)
+                    lines.append(linesWord.to_dict())
+                    # commit()
+                result['similarity'].append({
+                    'thesis': similarity.thesis1.id,
+                    'thesis2': similarity.thesis2.id,
+                    'linesword': lines,
+                    'keywordSimilarity': similarity.keywordSimilarity,
+                    'percentageSimilarity': similarity.percentageSimilarity,
+                                })
 
 
         return result

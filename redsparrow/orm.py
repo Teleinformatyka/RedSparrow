@@ -13,7 +13,7 @@ class Thesis(db.Entity):
     fieldOfStudy = Required("FieldOfStudy", column="field_of_study_id")
     title = Required(str, 120)
     filenameHash = Required(str, 40, column="filename_hash")
-    dateOfAlligance = Required(datetime, sql_default='CURRENT_TIMESTAMP', column="date_of_alligance")
+    dateOfAlligance = Optional(datetime, sql_default='CURRENT_TIMESTAMP', column="date_of_alligance") # mysql 5.6 potrzeby do tego
     text = Required(LongUnicode)
     thesisDetails = Optional("ThesisDetails")
     users = Set("User", table="User_Thesis", column="user_id")
@@ -73,7 +73,7 @@ class Role(db.Entity):
 
 class LinesWords(db.Entity):
     _table_ = "Lines_Words"
-    id = PrimaryKey(int, size=16, auto=True)
+    id = PrimaryKey(int, size=64, auto=True)
     similarity = Required('Similarity', reverse="linesWords")
     # thesis1LineStart = Required(str, 5, column="thesis1_line_start")
     # thesis2LineStart = Required(str, 5, column="thesis2_line_start")
@@ -83,19 +83,18 @@ class LinesWords(db.Entity):
     # thesis2WordStart = Required(str, 5, column="thesis2_word_start")
     # thesis1WordEnd = Required(str, 5, column="thesis1_word_end")
     # thesis2WordEnd = Required(str, 5, column="thesis2_word_end")
-    thesis1CharStart = Required(int, size=8, column="thesis1_word_start")
-    thesis2CharStart = Required(int, size=8, column="thesis2_word_start")
-    thesis1CharEnd = Required(int, size=8, column="thesis1_word_end")
-    thesis2CharEnd = Required(int, size=8, column="thesis2_word_end")
+    thesis1CharStart = Required(int, size=32, column="thesis1_word_start")
+    thesis2CharStart = Required(int, size=32, column="thesis2_word_start")
+    thesis1CharEnd = Required(int, size=32, column="thesis1_word_end")
+    thesis2CharEnd = Required(int, size=32, column="thesis2_word_end")
 
 
 class Similarity(db.Entity):
     _table_ = "Similarity"
-    id = PrimaryKey(int, size=16, auto=True)
+    id = PrimaryKey(int, size=64, auto=True)
     thesis1 = Required(Thesis, reverse="similarities1")
     thesis2 = Required(Thesis, reverse="similarities2")
     percentageSimilarity = Required(int, size=8, column="percentage_similarity")
     keywordSimilarity = Required(int, size=8, column="keyword_similarity")
-    similarWords = Required(int, column="similar_words")
     linesWords = Set(LinesWords, reverse="similarity")
 

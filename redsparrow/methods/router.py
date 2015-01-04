@@ -7,6 +7,8 @@ import importlib
 import inspect
 from itertools import chain
 from functools import reduce
+import time
+
 
 
 from tornado_json.utils import extract_method
@@ -44,12 +46,14 @@ class Router(object):
             message.error = { 'code': -32601, 'message': "Method not found"}
             self.__application.send_response(message)
             return
-
+        logging.info('Calling {} '.format(message.method))
+        start_time = time.clock()
         try:
-            logging.info('Calling {} with {} {}'.format(message.method, class_obj, original_name))
             getattr(class_obj, original_name)(**message.params)
         except TypeError:
             getattr(class_obj, original_name)(message.params)
+
+        logging.info('End Calling {} time {}'.format(message.method, time.clock() - start_time))
 
 
 

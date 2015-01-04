@@ -10,8 +10,7 @@ from redsparrow.queue import RequestQueue, QueueReqMessage
 def callback(tmp):
     print(tmp)
 
-def main():
-    send = RequestQueue("tcp://localhost:5555")
+def add_thesis(send):
     # msg = QueueReqMessage(id='1', params={'login': 'test', 'password': 'test'}, method='login')
     msg = QueueReqMessage()
     msg.id = 1
@@ -20,6 +19,22 @@ def main():
     send.on_recv(callback)
     send.send_string(str(msg))
     time.sleep(4)
+def run_analysis(send):
+    # msg = QueueReqMessage(id='1', params={'login': 'test', 'password': 'test'}, method='login')
+    msg = QueueReqMessage()
+    msg.id = 1
+    msg.method = 'thesismethods-run_analysis'
+    msg.params = {'thesis_id': 4}
+    send.on_recv(callback)
+    send.send_string(str(msg))
+    time.sleep(4)
+
+def main():
+    send = RequestQueue("tcp://localhost:5555")
+    run_analysis(send)
+    # add_thesis(send)
+
+
 
 if __name__ == '__main__':
-     ioloop.IOLoop.instance().run_sync(main)
+    ioloop.IOLoop.instance().run_sync(main)

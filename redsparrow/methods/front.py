@@ -7,6 +7,7 @@ from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisSta
 from .base import BaseMethod
 from redsparrow.extractor.gettext import get_text
 from redsparrow.keywords import get_keywords
+from redsparrow.plagiarism.detector import PlagiarismDetector
 
 class Register(BaseMethod):
 
@@ -148,13 +149,14 @@ class ThesisMethods(BaseMethod):
         converted_text = get_text(filepath)
 
         thesis_status = ThesisStatus.select(lambda ts: ts.status == "Waiting")[:]
+        if len(thesis_status) == 0:
+            return self.error("Unable to find thesis_status")
         thesis = Thesis(title=thesis_name,
                         thesisStatus=thesis_status[0].id,
                         fieldOfStudy=fos_id,
                         filenameHash=hasher.hexdigest(),
                         text=converted_text
                         )
-        print(User[user_id])
         thesis.users.add(User[user_id])
         thesis.users.add(User[supervisor_id])
         keywords = get_keywords(converted_text)
@@ -280,10 +282,11 @@ class ThesisMethods(BaseMethod):
 
         """
         thesis = Thesis.select(lambda t: t.id == thesis_id)[:]
+
         if len(thesis) == 0:
             return self.error(message="Thesis not found")
         detector = PlagiarismDetector()
-        result = detector.process(thesis[0].to_dict(with_collections=True, relate_object=True))
+        result = detector.process(thesis[0])
         self.success(result)
 
 class ThesisDetailsMethods(BaseMethod):
