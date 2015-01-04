@@ -12,6 +12,18 @@ import nltk.data
 
 nltk.data.path.append('.')
 
+def calculate_keywords_similarity(keyword1, keyword2):
+    """
+        Naive keywords Similarity
+    """
+    result = 0
+    for key in keyword1:
+        if key  in keyword2:
+            result = result + 1
+    return result/len(keyword1)
+
+
+
 # source https://github.com/wnksd2/plagiarism/blob/master/plagiarism.py
 
 def get_words(text):

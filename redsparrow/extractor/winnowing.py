@@ -93,7 +93,7 @@ def winnow_all(text, k=5):
 
 
     hashes = [winnowing_hash(x) for x in kgrams(text, k)]
-    windows = list(kgrams(hashes, 4))
+    windows = list(kgrams(hashes, k))
 
     return hashes, set(map(select_min, windows))
 
@@ -103,10 +103,9 @@ def winnow(text, k=5):
     text = zip(range(n), text)
     text = sanitize(text)
 
-
     hashes = [winnowing_hash(x) for x in kgrams(text, k)]
     windows = list(kgrams(hashes, 4))
 
-    return set(map(select_min, windows))
+    return dict(map(select_min, windows))
 
 

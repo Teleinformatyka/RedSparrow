@@ -15,7 +15,7 @@ class WinnowingTest(unittest.TestCase):
 
     def test_winnowing(self):
         actual = winnow('A do run run run, a do run run')
-        expected = set([(5, 23942), (14, 2887), (2, 1966), (9, 23942), (20, 1966)])
+        expected = {5: 23942, 14: 2887, 2: 1966, 9: 23942, 20: 1966}
         self.assertEqual(actual, expected)
 
     def test_winnowing_all_diffrent_text(self):

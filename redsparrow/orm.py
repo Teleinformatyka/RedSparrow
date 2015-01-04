@@ -75,14 +75,18 @@ class LinesWords(db.Entity):
     _table_ = "Lines_Words"
     id = PrimaryKey(int, size=16, auto=True)
     similarity = Required('Similarity', reverse="linesWords")
-    thesis1LineStart = Required(str, 5, column="thesis1_line_start")
-    thesis2LineStart = Required(str, 5, column="thesis2_line_start")
-    thesis1LineEnd = Required(str, 5, column="thesis1_line_end")
-    thesis2LineEnd = Required(str, 5, column="thesis2_line_end")
-    thesis1WordStart = Required(str, 5, column="thesis1_word_start")
-    thesis2WordStart = Required(str, 5, column="thesis2_word_start")
-    thesis1WordEnd = Required(str, 5, column="thesis1_word_end")
-    thesis2WordEnd = Required(str, 5, column="thesis2_word_end")
+    # thesis1LineStart = Required(str, 5, column="thesis1_line_start")
+    # thesis2LineStart = Required(str, 5, column="thesis2_line_start")
+    # thesis1LineEnd = Required(str, 5, column="thesis1_line_end")
+    # thesis2LineEnd = Required(str, 5, column="thesis2_line_end")
+    # thesis1WordStart = Required(str, 5, column="thesis1_word_start")
+    # thesis2WordStart = Required(str, 5, column="thesis2_word_start")
+    # thesis1WordEnd = Required(str, 5, column="thesis1_word_end")
+    # thesis2WordEnd = Required(str, 5, column="thesis2_word_end")
+    thesis1CharStart = Required(int, size=8, column="thesis1_word_start")
+    thesis2CharStart = Required(int, size=8, column="thesis2_word_start")
+    thesis1CharEnd = Required(int, size=8, column="thesis1_word_end")
+    thesis2CharEnd = Required(int, size=8, column="thesis2_word_end")
 
 
 class Similarity(db.Entity):
