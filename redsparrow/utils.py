@@ -8,33 +8,37 @@ from tornado.ioloop import IOLoop
 STREAM = tornado.process.Subprocess.STREAM
 
 
-# TODO get return code
-@coroutine
+# # TODO get return code
+# @coroutine
+# def call_subprocess(cmd, stdin_data=None):
+#     """
+#     Wrapper around subprocess call using Tornado's Subprocess class.
+#     """
+#     try:
+#         sprocess = tornado.process.Subprocess(
+#             cmd,
+#             stdin=subprocess.PIPE,
+#             stdout=STREAM,
+#             stderr=STREAM
+#         )
+#     except OSError as e:
+#         raise Return((None, e))
+#
+#     if stdin_data:
+#         sprocess.stdin.write(stdin_data)
+#         sprocess.stdin.flush()
+#         sprocess.stdin.close()
+#
+#     result, error = yield [
+#         Task(sprocess.stdout.read_until_close),
+#         Task(sprocess.stderr.read_until_close)
+#     ]
+#
+#     raise Return((result, error))
+# # @coroutine
 def call_subprocess(cmd, stdin_data=None):
-    """
-    Wrapper around subprocess call using Tornado's Subprocess class.
-    """
-    try:
-        sprocess = tornado.process.Subprocess(
-            cmd,
-            stdin=subprocess.PIPE,
-            stdout=STREAM,
-            stderr=STREAM
-        )
-    except OSError as e:
-        raise Return((None, e))
-
-    if stdin_data:
-        sprocess.stdin.write(stdin_data)
-        sprocess.stdin.flush()
-        sprocess.stdin.close()
-
-    result, error = yield [
-        Task(sprocess.stdout.read_until_close),
-        Task(sprocess.stderr.read_until_close)
-    ]
-
-    raise Return((result, error))
+    result = subprocess.check_output(cmd), None
+    return result
 
 
 

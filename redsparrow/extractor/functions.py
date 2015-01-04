@@ -23,10 +23,9 @@ def docx_to_text(path):
     return result
 
 
-@tornado.gen.coroutine
 def odt_to_text(odt):
     if isinstance(odt, str):
-        result = yield call_subprocess(['odt2txt', odt])
+        result =  call_subprocess(['odt2txt', odt])
         return result[0].decode('utf-8')
     name = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
     name = ''.join([name, '.odt'])
@@ -34,14 +33,13 @@ def odt_to_text(odt):
     fp = open(file_path, 'wb')
     fp.write(odt)
     fp.close()
-    result = yield call_subprocess(['odt2txt', file_path])
+    result =  call_subprocess(['odt2txt', file_path])
     return result[0].decode('utf-8')
 
 
-@tornado.gen.coroutine
 def doc_to_text(doc):
     if isinstance(doc, str):
-        result = yield call_subprocess(['antiword', doc])
+        result =  call_subprocess(['antiword', doc])
         return result[0].decode('utf-8')
     name = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
     name = ''.join([name, '.doc'])
@@ -49,7 +47,7 @@ def doc_to_text(doc):
     fp = open(file_path, 'wb')
     fp.write(doc)
     fp.close()
-    result = yield call_subprocess(['antiword', file_path])
+    result =  call_subprocess(['antiword', file_path])
     return result[0].decode('utf-8')
 
 

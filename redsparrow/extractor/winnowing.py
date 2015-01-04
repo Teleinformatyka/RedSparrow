@@ -104,7 +104,7 @@ def winnow(text, k=5):
     text = sanitize(text)
 
     hashes = [winnowing_hash(x) for x in kgrams(text, k)]
-    windows = list(kgrams(hashes, 4))
+    windows = list(kgrams(hashes, k))
 
     return dict(map(select_min, windows))
 

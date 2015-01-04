@@ -16,7 +16,7 @@ class PlagiarismDetector(object):
         # get data from db
         # get keyword
         # start processing in by neares keyword
-    def __winnowing(self, thesis1, thesis2, window=5):
+    def winnowing(self, thesis1, thesis2, window=15):
         """ Function that return by characters similarity in text
             :param thesis1 - text
             :param thesis2  - text
@@ -32,7 +32,7 @@ class PlagiarismDetector(object):
                 result.append((index, second_index))
         return result
 
-    def __calculate_percentageSimilarity(self, winnowing_result, text_len):
+    def calculate_percentageSimilarity(self, winnowing_result, text_len):
         if len(winnowing_result) == 1:
             return 0
         winnowing_result = sorted(winnowing_result, key=lambda x: x[1], reverse=True)
@@ -58,52 +58,50 @@ class PlagiarismDetector(object):
         #     thesisToAnalyze.append(thesi)
 
         for thesi in thesis:
-            with db_session:
-                winnowing_result = self.__winnowing(toCheck.text, thesi.text)
-                lines = []
-                percentageSimilarity = self.__calculate_percentageSimilarity(winnowing_result, len(thesi.text))
+            # with db_session:
+            winnowing_result = self.winnowing(toCheck.text, thesi.text)
+            lines = []
+            percentageSimilarity = self.calculate_percentageSimilarity(winnowing_result, len(thesi.text))
+            print(percentageSimilarity)
+            similarity = Similarity(thesis1=toCheck.id,
+                                    thesis2=thesi.id,
+                                    keywordSimilarity=self.__calculate_keywords_similarity(toCheck.keywords, thesi.keywords),
+                                    percentageSimilarity=percentageSimilarity)
+            commit()
+            # with db_session:
+            if percentageSimilarity > 90:
+                winnowing_result = [(0, 0), (int(0.9 *  len(toCheck.text)), int(0.9 * len(thesi.text)))]
+            for i in range(0, len(winnowing_result) - 1, 1):
+                index1Start = winnowing_result[i][0]
+                if index1Start > winnowing_result[i + 1][0]:
+                    index1Start = winnowing_result[i + 1][0]
+                    index1End = winnowing_result[i][0]
+                else:
+                    index1End = winnowing_result[i + 1][0]
 
-                similarity = Similarity(thesis1=toCheck.id,
-                                        thesis2=thesi.id,
-                                        keywordSimilarity=self.__calculate_keywords_similarity(toCheck.keywords, thesi.keywords),
-                                        percentageSimilarity=percentageSimilarity)
+
+                index2Start = winnowing_result[i][1]
+                if index2Start > winnowing_result[i + 1][1]:
+                    index2Start = winnowing_result[i + 1][1]
+                    index2End = winnowing_result[i][1]
+                else:
+                    index2End = winnowing_result[i + 1][1]
+
+                linesWord = LinesWords(thesis1CharStart=index1Start,
+                                        thesis1CharEnd=index1End,
+                                        thesis2CharStart=index2Start,
+                                        thesis2CharEnd=index2End,
+                                        similarity = similarity)
+                similarity.linesWords.add(linesWord)
+                lines.append(linesWord.to_dict())
                 commit()
-                # with db_session:
-                if percentageSimilarity > 90:
-                    winnowing_result = [(0, 0), (int(0.9 *  len(toCheck.text)), int(0.9 * len(thesi.text)))]
-                for i in range(0, len(winnowing_result) - 1, 1):
-                    # winnowing_result2 = sorted(winnowing_result, key=lambda x: x[1])
-                    # winnowing_result1 = sorted(winnowing_result, key=lambda x: x[0])
-                    index1Start = winnowing_result[i][0]
-                    if index1Start > winnowing_result[i + 1][0]:
-                        index1Start = winnowing_result[i + 1][0]
-                        index1End = winnowing_result[i][0]
-                    else:
-                        index1End = winnowing_result[i + 1][0]
-
-
-                    index2Start = winnowing_result[i][1]
-                    if index2Start > winnowing_result[i + 1][1]:
-                        index2Start = winnowing_result[i + 1][1]
-                        index2End = winnowing_result[i][1]
-                    else:
-                        index2End = winnowing_result[i + 1][1]
-
-                    linesWord = LinesWords(thesis1CharStart=index1Start,
-                                            thesis1CharEnd=index1End,
-                                            thesis2CharStart=index2Start,
-                                            thesis2CharEnd=index2End,
-                                            similarity = similarity)
-                    similarity.linesWords.add(linesWord)
-                    lines.append(linesWord.to_dict())
-                    # commit()
-                result['similarity'].append({
-                    'thesis': similarity.thesis1.id,
-                    'thesis2': similarity.thesis2.id,
-                    'linesword': lines,
-                    'keywordSimilarity': similarity.keywordSimilarity,
-                    'percentageSimilarity': similarity.percentageSimilarity,
-                                })
+            result['similarity'].append({
+                'thesis': similarity.thesis1.id,
+                'thesis2': similarity.thesis2.id,
+                'linesword': lines,
+                'keywordSimilarity': similarity.keywordSimilarity,
+                'percentageSimilarity': similarity.percentageSimilarity,
+                            })
 
 
         return result

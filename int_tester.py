@@ -15,7 +15,8 @@ def add_thesis(send):
     msg = QueueReqMessage()
     msg.id = 1
     msg.method = 'thesismethods-add_thesis'
-    msg.params = {'thesis_name': 'test', 'user_id': 1, 'supervisor_id': 2, 'fos_id': 1,'filepath': '/home/aldor/workspace/RedSparrow/lecturer_database/praca_mgr.docx'}
+    msg.params = {'thesis_name': 'test', 'user_id': 1, 'supervisor_id': 2, 'fos_id': 1,'filepath': '/home/aldor/workspace/RedSparrow/lecturer_database/Mariusz_Starzak-praca_magisterska.odt'}
+    # msg.params = {'thesis_name': 'test', 'user_id': 1, 'supervisor_id': 2, 'fos_id': 1,'filepath': '/home/aldor/workspace/RedSparrow/lecturer_database/webrtc - praca magisterska.docx'}
     send.on_recv(callback)
     send.send_string(str(msg))
     time.sleep(4)
@@ -24,7 +25,7 @@ def run_analysis(send):
     msg = QueueReqMessage()
     msg.id = 1
     msg.method = 'thesismethods-run_analysis'
-    msg.params = {'thesis_id': 4}
+    msg.params = {'thesis_id': 7}
     send.on_recv(callback)
     send.send_string(str(msg))
     time.sleep(4)

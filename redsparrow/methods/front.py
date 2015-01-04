@@ -131,6 +131,7 @@ class ThesisMethods(BaseMethod):
     def __init__(self):
         super(ThesisMethods, self).__init__('thesis_methods')
 
+    # @tornado.gen.coroutine
     @db_session
     def add_thesis(self, thesis_name, user_id, supervisor_id, fos_id, filepath):
         """
@@ -147,7 +148,6 @@ class ThesisMethods(BaseMethod):
             buf = file.read()
             hasher.update(buf)
         converted_text = get_text(filepath)
-
         thesis_status = ThesisStatus.select(lambda ts: ts.status == "Waiting")[:]
         if len(thesis_status) == 0:
             return self.error("Unable to find thesis_status")
