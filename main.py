@@ -70,6 +70,7 @@ class RedSparrow(tornado.web.Application):
             self.send_response(response)
 
     def send_response(self, data):
+        self.logger.debug('Sending response {}'.format(str(data)))
         self.queue.send_json(str(data))
 
 
