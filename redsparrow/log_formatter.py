@@ -106,7 +106,7 @@ def enable_pretty_logging(options=None, logger=None):
             filename=options.log_file_prefix,
             maxBytes=options.log_file_max_size,
             backupCount=options.log_file_num_backups)
-        channel.setFormatter(LogFormatter(color=False))
+        channel.setFormatter(LogFormatter(color=True))
         logger.addHandler(channel)
 
     if (options.log_to_stderr or

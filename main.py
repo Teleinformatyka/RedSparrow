@@ -26,6 +26,8 @@ from redsparrow.orm import db
 import redsparrow.methods as ZMQMethods
 from redsparrow.methods.methods_doc_gen import methods_doc_gen
 from redsparrow.methods.router import get_methods as get_methods_zmq, Router
+from tornado.log import enable_pretty_logging
+enable_pretty_logging()
 
 config = Config()
 config.load('./config/config.yml')
@@ -43,6 +45,7 @@ class RedSparrow(tornado.web.Application):
 
         self.db_conn = db_conn
         self.logger = logging.getLogger('RedSparrow')
+        enable_pretty_logging(logger=self.logger)
         self.queue = ReplyQueue(config['replyqueue'], self.on_data)
 
         self.router = Router(self)

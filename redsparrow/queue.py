@@ -46,6 +46,8 @@ class ReplyQueue(BaseQueue):
     def __init__(self, bind, callback, ioloop=None):
         super().__init__(zmq.REP)
         self.socket.bind(bind)
+        self.socket.SNDTIMEO = 5000
+        self.socket.RCVTIMEO = 5000
         self.stream = ZMQStream(self.socket, ioloop)
         self.stream.on_recv(callback)
         self.stream.flush()
@@ -58,6 +60,8 @@ class RequestQueue(BaseQueue):
     def __init__(self, connect, ioloop=None):
         super().__init__(zmq.REQ)
         self.socket.connect(connect)
+        self.socket.SNDTIMEO = 5000
+        self.socket.RCVTIMEO = 5000
         self.stream = ZMQStream(self.socket, ioloop)
         self.stream.flush()
 
