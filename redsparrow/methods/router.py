@@ -48,10 +48,12 @@ class Router(object):
             return
         logging.info('Calling {} '.format(message.method))
         start_time = time.clock()
+        params = message.params
         try:
-            getattr(class_obj, original_name)(**message.params)
-        except TypeError:
-            getattr(class_obj, original_name)(message.params)
+            getattr(class_obj, original_name)(**params)
+        except TypeError as err:
+            logging.error("First call error {} {}.".format(err,message.params))
+            getattr(class_obj, original_name)(params)
 
         logging.info('End Calling {} time {}'.format(message.method, time.clock() - start_time))
 

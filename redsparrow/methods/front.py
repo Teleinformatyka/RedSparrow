@@ -272,7 +272,6 @@ class ThesisMethods(BaseMethod):
                 fin.add(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("Thesis not found")
-
     @db_session
     def run_analysis(self, thesis_id):
         """
@@ -281,6 +280,7 @@ class ThesisMethods(BaseMethod):
             :param thesis_id: id of thesis to analysis
 
         """
+        thesis = None
         thesis = Thesis.select(lambda t: t.id == thesis_id)[:]
 
         if len(thesis) == 0:
