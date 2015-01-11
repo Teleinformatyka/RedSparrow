@@ -81,6 +81,11 @@ class UserMethods(BaseMethod):
             self.success(User[userId].set(**d))
 
     @db_session
+    def get_numer_of_users(self):        
+        users = User.select(u for u in User)[:]
+        self.success(len(users))
+
+    @db_session
     def get_user_by_id(self, userId):
         user = User.select(lambda u: u.id == userId)
         if len(user) > 0:
@@ -183,6 +188,11 @@ class ThesisMethods(BaseMethod):
         self.success("ok")
 
     @db_session
+    def get_numer_of_thesis(self):        
+        thesis = Thesis.select(t for t in Thesis)[:]
+        self.success(len(thesis))
+
+    @db_session
     def edit_thesis(self, columnName, value, thesisId):
         if len(Thesis[thesisId]) > 0:
             d = {columnName : value}
@@ -205,8 +215,11 @@ class ThesisMethods(BaseMethod):
         self.error("Thesis not found")
 
     @db_session
-    def add_thesis_to_user_by_user_id(self, userId):
+    def add_thesis_to_user_by_user_id(self, userId, thesisId):
         self.users.add(userId)
+        user = User.select(lambda u: u.id == userId)
+        if len(user) > 0:
+            self.success(user[0].theses.add(thesisId))
 
 
     @db_session
@@ -498,3 +511,24 @@ class RoleMethods(BaseMethod):
         if len(Role[rlId]) > 0:
             self.success(Role[rlId].delete())
         self.error("Role not found")
+        
+class SimilarityMethods(BaseMethod):
+    def __init__(self):
+        super(SimilarityMethods, self).__init__('similarity_methods')
+
+    @db_session
+    def get_numer_of_similarities(self):        
+        similarities = Similarity.select(s for s in Similarity)[:]
+        self.success(len(similarities))
+
+    @db_session
+    def list_all_of_similarities(self):
+        similarities = Similarity.select(s for s in Similarity)
+        if len(similarities) > 0:
+            fin = []
+            for special in similarities:
+                fin.add(special.to_dict(with_collections=True, related_objects=True))
+            self.success(fin)
+        self.error("List is empty")
+
+    
