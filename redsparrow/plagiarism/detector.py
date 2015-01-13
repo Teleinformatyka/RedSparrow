@@ -1,4 +1,4 @@
-
+import logging
 from pony.orm import db_session, commit, flush
 
 from redsparrow.orm import Thesis, Similarity, LinesWords
@@ -49,7 +49,7 @@ class PlagiarismDetector(object):
 
     @db_session
     def process(self, id_toCheck):
-        toCheck = Thesis.select(lambda ti: ti.id != id_toCheck)[:][0]
+        toCheck = Thesis.select(lambda ti: ti.id == id_toCheck)[:][0]
         thesis = Thesis.select(lambda ti: ti.id != toCheck.id)[:]
         result = {'thesis_id': toCheck.id, 'similarity': []}
         thesisToAnalyze = []
@@ -104,7 +104,7 @@ class PlagiarismDetector(object):
                 'percentageSimilarity': similarity.percentageSimilarity,
                             })
 
-
+        logging.info("End of processing thesis with id {}".format(toCheck.id))
         return result
 
 

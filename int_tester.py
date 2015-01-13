@@ -25,7 +25,7 @@ def run_analysis(send):
     msg = QueueReqMessage()
     msg.id = 1
     msg.method = 'thesismethods-run_analysis'
-    msg.params = {'thesis_id': 3}
+    msg.params = {'thesis_id': 7}
     send.on_recv(callback)
     send.send_string(str(msg))
     time.sleep(4)
