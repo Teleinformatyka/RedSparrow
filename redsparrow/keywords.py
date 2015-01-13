@@ -28,6 +28,7 @@ def calculate_keywords_similarity(keywords1, keywords2):
         if key  in keywords2:
             result = result + 1
     return result/len(keywords1)
+    # TODO: trzebo to nizej przerobic tak zeby dalo rade przyjmowac liste i potem odkomentowac
     # pairs1 = get_bigrams(keywords1)
     # pairs2 = get_bigrams(keywords2)
     #
