@@ -33,7 +33,6 @@ class Register(BaseMethod):
 
             :returns: If success returns all user data else return JSON-RPC error object
         """
-        super(Register, self).process()
         user = User.select(lambda u: u.login == login and u.email == email)[:]
         if len(user) > 0:
             return self.error(code=-32602, message='User with email %s already exists' % email)
@@ -56,7 +55,6 @@ class Login(BaseMethod):
 
             :param password: hash of password
         """
-        super(Login, self).process()
         user = User.select(lambda u: u.login == login and u.password == password)[:]
         if len(user) > 0:
             self.success(user[0].to_dict(with_collections=True, related_objects=True))
@@ -285,7 +283,6 @@ class ThesisMethods(BaseMethod):
                 fin.add(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("Thesis not found")
-
     @db_session
     def run_analysis(self, thesis_id):
         """
@@ -294,6 +291,7 @@ class ThesisMethods(BaseMethod):
             :param thesis_id: id of thesis to analysis
 
         """
+        thesis = None
         thesis = Thesis.select(lambda t: t.id == thesis_id)[:]
 
         if len(thesis) == 0:
