@@ -1,3 +1,5 @@
+import logging
+
 from redsparrow.queue import QueueRepMessage
 
 class BaseMethod(object):
@@ -5,12 +7,12 @@ class BaseMethod(object):
         Base method class
         it helps to make rpc interface
     """
+    application = None
     def __init__(self, name=None):
         if name is None:
             name = self.__class__.__name__
-
+        self.__sended_response = False
         self._name = name
-        self.__application = None
         self._response = None
         self._request = None
     @property
@@ -21,14 +23,6 @@ class BaseMethod(object):
     def name(self, val):
         self._name = val
 
-    @property
-    def application(self):
-        return self.__application
-
-    @application.setter
-    def application(self, app):
-        self.__application = app
-        self.logger = app.logger
 
     @property
     def request(self):
@@ -39,23 +33,32 @@ class BaseMethod(object):
         self._request = request
 
     def success(self, message=None):
+        if self.__sended_response is True:
+            logging.warning("You have already send response!")
+            return
         self._response = QueueRepMessage(id=self._request.id)
         if message:
             self._response.success = message
-        self.application.send_response(self._response)
-        self._response = None
+        BaseMethod.application.send_response(self._response)
+        self.__sended_response = True
 
     def error(self, code=-32602, message=None):
+
+        if self.__sended_response is True:
+            logging.warning("You have already send response!")
+            return
         self._response = QueueRepMessage(id=self._request.id)
         if message:
             self._response.error = { 'code': code, 'message': message}
-        self.application.send_response(self._response)
-        # self._response = None
+        BaseMethod.application.send_response(self._response)
+        self.__sended_response = True
 
-    def __call__(self, *args, **kwargs):
-        self.process(*args, **kwargs)
 
     def process(self, *args, **kwargs):
         """ Method called when JSON-RPC for __name"""
         self._response = QueueRepMessage(id=self._request.id)
+
+    def add_to_queue(self, data):
+        BaseMethod.application.periodic_detector.queue.put_nowait(data)
+
 

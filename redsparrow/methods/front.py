@@ -7,7 +7,7 @@ from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisSta
 from .base import BaseMethod
 from redsparrow.extractor.gettext import get_text
 from redsparrow.keywords import get_keywords
-from redsparrow.plagiarism.detector import PlagiarismDetector
+from redsparrow.plagiarism.periodic_detector import ThesesQueue
 
 class Register(BaseMethod):
 
@@ -33,7 +33,6 @@ class Register(BaseMethod):
 
             :returns: If success returns all user data else return JSON-RPC error object
         """
-        super(Register, self).process()
         user = User.select(lambda u: u.login == login and u.email == email)[:]
         if len(user) > 0:
             return self.error(code=-32602, message='User with email %s already exists' % email)
@@ -56,7 +55,6 @@ class Login(BaseMethod):
 
             :param password: hash of password
         """
-        super(Login, self).process()
         user = User.select(lambda u: u.login == login and u.password == password)[:]
         if len(user) > 0:
             self.success(user[0].to_dict(with_collections=True, related_objects=True))
@@ -81,7 +79,7 @@ class UserMethods(BaseMethod):
             self.success(User[userId].set(**d))
 
     @db_session
-    def get_numer_of_users(self):        
+    def get_numer_of_users(self):
         users = User.select(u for u in User)[:]
         self.success(len(users))
 
@@ -188,7 +186,7 @@ class ThesisMethods(BaseMethod):
         self.success("ok")
 
     @db_session
-    def get_numer_of_thesis(self):        
+    def get_numer_of_thesis(self):
         thesis = Thesis.select(t for t in Thesis)[:]
         self.success(len(thesis))
 
@@ -285,7 +283,6 @@ class ThesisMethods(BaseMethod):
                 fin.add(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("Thesis not found")
-
     @db_session
     def run_analysis(self, thesis_id):
         """
@@ -294,13 +291,15 @@ class ThesisMethods(BaseMethod):
             :param thesis_id: id of thesis to analysis
 
         """
+        thesis = None
         thesis = Thesis.select(lambda t: t.id == thesis_id)[:]
 
         if len(thesis) == 0:
             return self.error(message="Thesis not found")
-        detector = PlagiarismDetector()
-        result = detector.process(thesis[0])
-        self.success(result)
+        # TODO: change status of thesis
+        # thesis[0]
+        self.add_to_queue(thesis[0].id)
+        self.success("Added to queue")
 
 class ThesisDetailsMethods(BaseMethod):
 
@@ -511,13 +510,13 @@ class RoleMethods(BaseMethod):
         if len(Role[rlId]) > 0:
             self.success(Role[rlId].delete())
         self.error("Role not found")
-        
+
 class SimilarityMethods(BaseMethod):
     def __init__(self):
         super(SimilarityMethods, self).__init__('similarity_methods')
 
     @db_session
-    def get_numer_of_similarities(self):        
+    def get_numer_of_similarities(self):
         similarities = Similarity.select(s for s in Similarity)[:]
         self.success(len(similarities))
 
@@ -531,4 +530,4 @@ class SimilarityMethods(BaseMethod):
             self.success(fin)
         self.error("List is empty")
 
-    
+

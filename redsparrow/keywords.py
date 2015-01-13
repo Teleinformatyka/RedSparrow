@@ -19,14 +19,22 @@ def get_bigrams(string):
     s = string.lower()
     return {s[i:i+2] for i in range(len(s) - 1)}
 
-def calculate_keywords_similarity(keyword1, keyword2):
-
-    pairs1 = get_bigrams(keyword1)
-    pairs2 = get_bigrams(keyword2)
-
-    intersection = pairs1 & pairs2
-
-    return (2.0 * len(intersection)) / (len(pairs1) + len(pairs2))
+def calculate_keywords_similarity(keywords1, keywords2):
+    """
+        Naive keywords Similarity
+    """
+    result = 0
+    for key in keywords1:
+        if key  in keywords2:
+            result = result + 1
+    return result/len(keywords1)
+    # TODO: trzebo to nizej przerobic tak zeby dalo rade przyjmowac liste i potem odkomentowac
+    # pairs1 = get_bigrams(keywords1)
+    # pairs2 = get_bigrams(keywords2)
+    #
+    # intersection = pairs1 & pairs2
+    #
+    # return (2.0 * len(intersection)) / (len(pairs1) + len(pairs2))
 
 # source https://github.com/wnksd2/plagiarism/blob/master/plagiarism.py
 

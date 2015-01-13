@@ -750,6 +750,93 @@ None
 <br>
 <br>
 
+# similaritymethods
+    JSON-RPC
+
+**Args**
+
+*
+
+ * args
+
+ * kwargs
+            
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+Method called when JSON-RPC for __name
+
+
+
+<br>
+<br>
+
+# similaritymethods-get_numer_of_similarities
+    JSON-RPC
+
+**Args**
+None
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+None
+
+
+
+<br>
+<br>
+
+# similaritymethods-list_all_of_similarities
+    JSON-RPC
+
+**Args**
+None
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+None
+
+
+
+<br>
+<br>
+
 # thesisdetailsmethods
     JSON-RPC
 
@@ -966,6 +1053,8 @@ Add Thesis method
 *
 
  * userId
+
+ * thesisId
             
 
 
@@ -1056,6 +1145,33 @@ None
 <br>
 
 # thesismethods-get_list_of_thesis
+    JSON-RPC
+
+**Args**
+None
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+None
+
+
+
+<br>
+<br>
+
+# thesismethods-get_numer_of_thesis
     JSON-RPC
 
 **Args**
@@ -1686,6 +1802,33 @@ None
 <br>
 
 # usermethods-get_list_of_users
+    JSON-RPC
+
+**Args**
+None
+
+
+**Input Schema**
+```json
+
+```
+
+**Output Schema**
+```json
+
+```
+
+
+**Notes**
+
+None
+
+
+
+<br>
+<br>
+
+# usermethods-get_numer_of_users
     JSON-RPC
 
 **Args**
