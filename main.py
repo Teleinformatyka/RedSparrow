@@ -17,6 +17,7 @@ import sys, traceback
 import tornado.web
 from tornado.ioloop import IOLoop
 from tornado_json.routes import get_routes
+from tornado.log import enable_pretty_logging
 
 
 from redsparrow.config import Config
@@ -26,7 +27,7 @@ from redsparrow.orm import db
 import redsparrow.methods as ZMQMethods
 from redsparrow.methods.methods_doc_gen import methods_doc_gen
 from redsparrow.methods.router import get_methods as get_methods_zmq, Router
-from tornado.log import enable_pretty_logging
+from redsparrow.plagiarism.periodic_detector import PeriodicDetector
 enable_pretty_logging()
 
 config = Config()
@@ -47,6 +48,7 @@ class RedSparrow(tornado.web.Application):
         self.logger = logging.getLogger('RedSparrow')
         enable_pretty_logging(logger=self.logger)
         self.queue = ReplyQueue(config['replyqueue'], self.on_data)
+        self.periodic_detector = PeriodicDetector()
 
         self.router = Router(self)
         self.router.add_methods(zmq_methods)
@@ -58,18 +60,19 @@ class RedSparrow(tornado.web.Application):
     # @process
     def on_data(self, data):
         req = QueueReqMessage(json_data=data[0].decode("UTF-8"))
-        try:
-            self.router.find_method(req)
-        except Exception as err:
-            self.logger.error('Internal error {}, request {}'.format(err, req))
-            exc_type, exc_value, exc_traceback = sys.exc_info()
-            traceback.print_exception(exc_type, exc_value, exc_traceback,
-                                                  limit=2, file=sys.stderr)
-            response = QueueRepMessage(id=req.id)
-            response.error = {"code": -32603, "message": "Internal error %s" % err}
-            self.send_response(response)
+        # try:
+        self.router.find_method(req)
+        # except Exception as err:
+        #     self.logger.error('Internal error {}, request {}'.format(err, req))
+        #     exc_type, exc_value, exc_traceback = sys.exc_info()
+        #     traceback.print_exception(exc_type, exc_value, exc_traceback,
+        #                                           limit=2, file=sys.stderr)
+        #     response = QueueRepMessage(id=req.id)
+        #     response.error = {"code": -32603, "message": "Internal error %s" % err}
+        #     self.send_response(response)
 
     def send_response(self, data):
+        logging.info("Sending data {}",format(str(data)))
         self.queue.send_json(str(data))
 
 

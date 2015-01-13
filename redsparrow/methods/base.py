@@ -59,3 +59,7 @@ class BaseMethod(object):
         """ Method called when JSON-RPC for __name"""
         self._response = QueueRepMessage(id=self._request.id)
 
+    def add_to_queue(self, data):
+        self.application.periodic_detector.queue.put_nowait(data)
+
+

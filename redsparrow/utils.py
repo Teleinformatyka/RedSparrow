@@ -3,7 +3,7 @@ from tornado.gen import Task, Return, coroutine
 import tornado.process
 import subprocess
 from tornado.ioloop import IOLoop
-
+from queue import Queue
 
 STREAM = tornado.process.Subprocess.STREAM
 
@@ -77,3 +77,4 @@ class ListBase(object):
 
     def __len__(self):
         return len(self.data)
+

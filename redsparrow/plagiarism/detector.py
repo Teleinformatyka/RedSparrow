@@ -48,7 +48,8 @@ class PlagiarismDetector(object):
         return int(calculate_keywords_similarity(list_key1, list_key2) * 100)
 
     @db_session
-    def process(self, toCheck):
+    def process(self, id_toCheck):
+        toCheck = Thesis.select(lambda ti: ti.id != id_toCheck)[:][0]
         thesis = Thesis.select(lambda ti: ti.id != toCheck.id)[:]
         result = {'thesis_id': toCheck.id, 'similarity': []}
         thesisToAnalyze = []
