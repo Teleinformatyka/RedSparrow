@@ -11,16 +11,14 @@ class ExtratorNotUnitTest(AsyncTestCase):
     def test_pdf(self):
         pass
 
-    @gen_test
     def test_doc(self):
-        result = yield doc_to_text(ExtratorNotUnitTest.DOC_FILE)
+        result = doc_to_text(ExtratorNotUnitTest.DOC_FILE)
         self.assertTrue('przetwarzane' in result )
 
     def test_docx(self):
         result = docx_to_text(ExtratorNotUnitTest.DOCX_FILE)
         self.assertTrue('admin' in result )
 
-    @gen_test
     def test_odt(self):
-        result = yield odt_to_text(ExtratorNotUnitTest.ODT_FILE)
+        result = odt_to_text(ExtratorNotUnitTest.ODT_FILE)
         self.assertTrue('JSONObject' in result )

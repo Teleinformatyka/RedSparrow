@@ -16,12 +16,12 @@ class RouterTest(unittest.TestCase):
 
     def test_routing_call_process(self):
         router = Router(MagicMock('application'))
-        router.add_method(self.method)
+        router.add_method('metoda', MagicMock(return_value=self.method))
         message = QueueReqMessage()
         message.method = 'metoda'
-        message.params = ['test']
+        message.params = {'key': 'test'}
         router.find_method(message)
-        self.method.process.assert_called_with(['test'])
+        self.method.process.assert_called_with(key='test')
 
     def test_routing_call_fajna(self):
         application = MagicMock('application')
@@ -31,9 +31,9 @@ class RouterTest(unittest.TestCase):
         router.add_methods([{'class': MagicMock(return_value=self.method), 'name': 'fajna', 'original_name': 'fajna'}])
         message = QueueReqMessage()
         message.method = 'fajna'
-        message.params = ['test']
+        message.params = {'key': 'test'}
         router.find_method(message)
         application.send_response.assert_called_with
         self.assertFalse(application.send_response.called)
         self.assertFalse(self.method.process.called)
-        self.method.fajna.assert_called_with(['test'])
+        self.method.fajna.assert_called_with(key='test')

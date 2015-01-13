@@ -20,8 +20,8 @@ class Router(object):
         self.__application = application
         self.__methods_class = {}
 
-    def add_method(self, method):
-        self.__add_method(method.name, method)
+    def add_method(self, name, method):
+        self.__add_method(name, method)
 
     def __add_method(self, name, method, original_name='process'):
         logging.info('Adding {}'.format(name))

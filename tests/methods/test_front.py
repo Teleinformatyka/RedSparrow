@@ -1,6 +1,7 @@
 import unittest
 
 from unittest.mock import MagicMock, patch, Mock
+from redsparrow.methods.base import BaseMethod
 from redsparrow.methods import Register, Login
 from redsparrow.queue import QueueReqMessage, QueueReqMessage
 
@@ -18,6 +19,7 @@ class RegisterTest(unittest.TestCase):
         self.mock_user.insert = MagicMock('User.select', return_value=['istnieje'])
 
         self.mock_application = MagicMock('application')
+
         def db_session(f):
             def wrapped_f():
                 f()
@@ -30,13 +32,13 @@ class RegisterTest(unittest.TestCase):
         self.mock_application.logger.error = MagicMock('application.logger')
         self.mock_application.logger.info = MagicMock('application.logger')
         self.mock_application.send_response = MagicMock('application.send_response')
+        BaseMethod.application = self.mock_application
 
 
     def test_user_already_exists(self):
         method = Register()
         msg = QueueReqMessage()
         msg.params = { 'login': 'test', 'password':'sha2', 'surname': 'test', 'name': 'test', 'email':'test1'}
-        method.application = self.mock_application
         method.request = msg
         method.process(**msg.params)
         self.assertTrue(self.mock_user.select.called)
@@ -50,7 +52,6 @@ class RegisterTest(unittest.TestCase):
         self.patch_user = patch('redsparrow.methods.front.User', self.mock_user).start()
         msg = QueueReqMessage()
         msg.params = { 'login': 'test', 'password':'sha2', 'surname': 'test', 'name': 'test', 'email':'test1'}
-        method.application = self.mock_application
         method.request = msg
         method.process(**msg.params)
         self.assertTrue(self.mock_user.select.called)
@@ -80,12 +81,12 @@ class LoginTest(unittest.TestCase):
         self.mock_application.logger.info = MagicMock('application.logger')
         self.mock_application.send_response = MagicMock('application.send_response')
 
+        BaseMethod.application = self.mock_application
 
     def test_user_exists(self):
         method = Login()
         msg = QueueReqMessage()
         msg.params = { 'login': 'test', 'password':'sha2' }
-        method.application = self.mock_application
         method.request = msg
         method.success = MagicMock()
         method.process(**msg.params)
@@ -99,7 +100,6 @@ class LoginTest(unittest.TestCase):
         self.patch_user = patch('redsparrow.methods.front.User', self.mock_user).start()
         msg = QueueReqMessage()
         msg.params = { 'login': 'test', 'password':'sha2' }
-        method.application = self.mock_application
         method.request = msg
         method.success = MagicMock()
         method.error = MagicMock()
