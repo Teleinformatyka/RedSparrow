@@ -15,7 +15,7 @@ class PlagiarismDetector(object):
     LINE_LENGHT = 80
 
     def __init__(self):
-        self._toCheck = None
+        self.__toCheck = None
 
         # start processing in by neares keyword
     def winnowing(self, thesis1, thesis2, window=15):
@@ -61,7 +61,6 @@ class PlagiarismDetector(object):
                                 thesis2=thesis.id,
                                 keywordSimilarity=self.__calculate_keywords_similarity(self.__toCheck.keywords, thesis.keywords),
                                 percentageSimilarity=percentageSimilarity)
-        commit()
         # with db_session:
         if percentageSimilarity > 90:
             winnowing_result = [(0, 0), (int(0.9 *  len(self.__toCheck.text)), int(0.9 * len(thesis.text)))]
@@ -87,9 +86,7 @@ class PlagiarismDetector(object):
                                     thesis2CharEnd=index2End,
                                     similarity = similarity)
             similarity.linesWords.add(linesWord)
-            commit()
 
-        logging.info("End of processing thesis with id {}".format(toCheck.id))
 
 
     @db_session
@@ -109,6 +106,7 @@ class PlagiarismDetector(object):
         #     self.process_one(thesis)
         # pool = ThreadPoolExecutor(max_workers=4)
         # pool.map(self.process, theses)
+        logging.info("End of processing thesis with id {}".format(self.__toCheck.id))
         return result
 
 
