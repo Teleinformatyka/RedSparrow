@@ -32,7 +32,6 @@ from redsparrow.plagiarism.periodic_detector import PeriodicDetector
 enable_pretty_logging()
 
 config = Config()
-config.load('./config/config.yml')
 
 
 class RedSparrow(tornado.web.Application):
@@ -81,9 +80,11 @@ class RedSparrow(tornado.web.Application):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="RedSparrow  - Command Line Interface")
     parser.add_argument("--port", action="store", help="listen port", default=8000)
+    parser.add_argument("--config", action="store", help="config file", default='./config/config.yml')
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO)
-    logging.info('RedSparrow listen on %s' % args.port)
+    logging.info('RedSparrow listen on %s config file %s' % (args.port, args.config))
+    config.load(args.config)
 
     routes = get_routes(RedSparrowApi)
     zmq_methods = get_methods_zmq(ZMQMethods)
