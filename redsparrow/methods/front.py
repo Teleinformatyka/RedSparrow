@@ -76,7 +76,8 @@ class UserMethods(BaseMethod):
     def edit_user(self, columnName, value, userId):
         if User[userId] is not None:
             d = {columnName : value}
-            return self.success(User[userId].set(**d))
+            User[userId].set(**d)
+            return self.success(User[userId].to_dict())
         else:
             return self.error('Not found')
 
