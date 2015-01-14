@@ -24,7 +24,7 @@ class Router(object):
         self.__add_method(name, method)
 
     def __add_method(self, name, method, original_name='process'):
-        logging.info('Adding {}'.format(name))
+        logging.info('Router/add_method Adding {}'.format(name))
         self.__methods_class[name] = (method, original_name)
 
     def add_methods(self, methods):
@@ -46,12 +46,12 @@ class Router(object):
             message.error = { 'code': -32601, 'message': "Method not found"}
             self.__application.send_response(message)
             return
-        logging.info('Calling {} request id {}'.format(message.method, message.id))
+        logging.info('Calling method={}  request_id={}'.format(message.method, message.id))
         start_time = time.clock()
         params = message.params
         getattr(class_obj, original_name)(**params)
 
-        logging.info('End Calling {} time {}'.format(message.method, time.clock() - start_time))
+        logging.info('End Calling method={} time={}'.format(message.method, time.clock() - start_time))
 
 
 

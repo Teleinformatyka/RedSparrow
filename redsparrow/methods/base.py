@@ -32,24 +32,23 @@ class BaseMethod(object):
     def request(self, request):
         self._request = request
 
-    def success(self, message=None):
+    def success(self, message="Ok"):
         if self.__sended_response is True:
             logging.warning("You have already send response!")
             return
         self._response = QueueRepMessage(id=self._request.id)
-        if message:
-            self._response.success = message
+        self._response.success = message
         BaseMethod.application.send_response(self._response)
         self.__sended_response = True
 
-    def error(self, code=-32602, message=None):
+    def error(self,  message="Error", code=-32602):
 
         if self.__sended_response is True:
             logging.warning("You have already send response!")
             return
         self._response = QueueRepMessage(id=self._request.id)
-        if message:
-            self._response.error = { 'code': code, 'message': message}
+        self._response.error = { 'code': code, 'message': message}
+        logging.error("Base/error  id={} method={} error={}".format(self._response.id, self._request.method, message))
         BaseMethod.application.send_response(self._response)
         self.__sended_response = True
 

@@ -65,14 +65,12 @@ class RedSparrow(tornado.web.Application):
             logging.error('Internal error {}, request {}'.format(err, req))
             exc_type, exc_value, exc_traceback = sys.exc_info()
             traceback.print_exception(exc_type, exc_value, exc_traceback,
-                                                  limit=2, file=sys.stderr)
+                                                  limit=3, file=sys.stderr)
             response = QueueRepMessage(id=req.id)
             response.error = {"code": -32603, "message": "Internal error %s" % err}
             self.send_response(response)
 
     def send_response(self, data):
-        if data.error is not None:
-            logging.error("Request with id {} failed with error {}".format(data.id, data.error))
         self.queue.send_json(str(data))
         self.queue.flush()
 

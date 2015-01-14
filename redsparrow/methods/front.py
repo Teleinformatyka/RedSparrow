@@ -74,9 +74,12 @@ class UserMethods(BaseMethod):
 
     @db_session
     def edit_user(self, columnName, value, userId):
-        if len(User[userId]) > 0:
+        if User[userId] is not None:
             d = {columnName : value}
-            self.success(User[userId].set(**d))
+            return self.success(User[userId].set(**d))
+        else:
+            return self.error('Not found')
+
 
     @db_session
     def get_numer_of_users(self):
@@ -85,20 +88,22 @@ class UserMethods(BaseMethod):
 
     @db_session
     def get_user_by_id(self, userId):
-        user = User.select(lambda u: u.id == userId)
+        user = User.select(lambda u: u.id == userId)[:]
         if len(user) > 0:
             self.success(user[0].to_dict(with_collections=True, related_objects=True))
         self.error("User not found")
 
     @db_session
     def delete_user(self, userId):
-        if len(User[userId]) > 0:
-            self.success(User[userId].delete())
+        if User[userId] is not None:
+            print(User[userId])
+            User[userId].delete()
+            self.success('User with id {} deleted'.format(userId))
         self.error("User not found")
 
     @db_session
     def add_user_role_by_user_id(self,userId, roleId):
-        user = User.select(lambda u: u.id == userId)
+        user = User.select(lambda u: u.id == userId)[:]
         if len(user) > 0:
             user[0].roles.add(roleId)
             self.success()
@@ -106,7 +111,7 @@ class UserMethods(BaseMethod):
 
     @db_session
     def set_user_password_by_user_id(self, userId, password):
-        user = User.select(lambda u: u.id == userId)
+        user = User.select(lambda u: u.id == userId)[:]
         if len(user) > 0:
             user[0].password = password
             self.success()
@@ -209,7 +214,8 @@ class ThesisMethods(BaseMethod):
     @db_session
     def delete_thesis(self, thesisId):
         if len(Thesis[thesisId]) > 0:
-            self.success(Thesis[thesisId].delete())
+            Thesis[thesisId].delete()
+            self.success("Thesis with {} deleted".format(thesisId))
         self.error("Thesis not found")
 
     @db_session
