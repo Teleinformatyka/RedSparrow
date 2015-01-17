@@ -35,7 +35,7 @@ class Register(BaseMethod):
         """
         user = User.select(lambda u: u.login == login or u.email == email)[:]
         if len(user) > 0:
-            return self.error(code=-32602, message='User with this email or login %s already exists' % email)
+            return self.error(code=-32602, message='User with this email %s  or login %s already exists' % (email, login))
         user = User(login=login, password=password, email=email, name=name, surname=surname)
         self.success("User %s added to DB" % login)
 
