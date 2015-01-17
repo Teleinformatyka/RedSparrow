@@ -1,7 +1,7 @@
 import os
 import tornado
 import hashlib
-from pony.orm import db_session
+from pony.orm import db_session, count
 
 from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisStatus, FieldOfStudy
 from .base import BaseMethod
@@ -81,11 +81,10 @@ class UserMethods(BaseMethod):
         else:
             return self.error('Not found')
 
-
     @db_session
     def get_numer_of_users(self):
-        users = User.select(u for u in User)[:]
-        self.success(len(users))
+        users = count(u for u in User)
+        self.success(users)
 
     @db_session
     def get_user_by_id(self, userId):
