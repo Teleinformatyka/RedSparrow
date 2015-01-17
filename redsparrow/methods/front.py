@@ -33,9 +33,9 @@ class Register(BaseMethod):
 
             :returns: If success returns all user data else return JSON-RPC error object
         """
-        user = User.select(lambda u: u.login == login and u.email == email)[:]
+        user = User.select(lambda u: u.login == login or u.email == email)[:]
         if len(user) > 0:
-            return self.error(code=-32602, message='User with email %s already exists' % email)
+            return self.error(code=-32602, message='User with this email or login %s already exists' % email)
         user = User(login=login, password=password, email=email, name=name, surname=surname)
         self.success("User %s added to DB" % login)
 
