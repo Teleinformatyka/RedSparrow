@@ -118,10 +118,14 @@ class UserMethods(BaseMethod):
         self.error("User not found")
 
     @db_session
-    def set_email(self, value):
+    def set_email(self, userId, value):
         if '@' not in value:
-            raise Exception("This doesn't look like an email address.")
-        self.email = value
+            self.error("This doesn't look like an email address.")
+        user = User.select(lambda u: u.id == userId)[:]
+        if len(user) > 0:
+            user[0].email = value
+            self.success()
+        self.error("User not found")
 
     @db_session
     def get_list_of_users(self):
@@ -192,14 +196,16 @@ class ThesisMethods(BaseMethod):
 
     @db_session
     def get_numer_of_thesis(self):
-        thesis = Thesis.select(t for t in Thesis)[:]
-        self.success(len(thesis))
+        thesis = count(t for t in Thesis)
+        self.success(thesis)
 
     @db_session
     def edit_thesis(self, columnName, value, thesisId):
-        if len(Thesis[thesisId]) > 0:
+        if Thesis[thesisId] is not None:
             d = {columnName : value}
-            self.success(Thesis[thesisId].set(**d))
+            Thesis[thesisId].set(**d)
+            self.success(Thesis[thesisId].to_dict(with_collections=True, related_objects=True))
+        self.error('Thesis not found!')
 
     @db_session
     def get_list_of_thesis(self):
@@ -223,8 +229,9 @@ class ThesisMethods(BaseMethod):
         self.users.add(userId)
         user = User.select(lambda u: u.id == userId)
         if len(user) > 0:
-            self.success(user[0].theses.add(thesisId))
-
+            user[0].theses.add(thesisId)
+            self.success(user[0].to_dict(with_collections=True))
+        self.error('User %s not found' % userId)
 
     @db_session
     def get_thesis_by_title(self, query):
@@ -235,8 +242,8 @@ class ThesisMethods(BaseMethod):
 
     @db_session
     def get_thesis_status_by_thesis_id(self, thesisId):
-        if len(Thesis[thesisId]) > 0:
-            self.success(Thesis[thesisId].thesisStatus)
+        if Thesis[thesisId] is not None:
+            self.success(Thesis[thesisId].thesisStatus.to_dict())
         self.error("Thesis not found")
 
     @db_session
@@ -246,7 +253,7 @@ class ThesisMethods(BaseMethod):
             if len(thesis) > 1:
                 fin = []
                 for special in thesis:
-                    fin.add(special.to_dict(with_collections=True, related_objects=True))
+                    fin.append(special.to_dict(with_collections=True, related_objects=True))
                 self.success(fin)
             self.success(thesis.to_dict(with_collections=True, related_objects=True))
         self.error("Thesis not found")
@@ -261,7 +268,7 @@ class ThesisMethods(BaseMethod):
 
     @db_session
     def get_thesis_text_by_thesis_id(self, id):
-        if len(Thesis[id]) > 0:
+        if  Thesis[id] is not None:
             self.success(Thesis[id].text)
         self.error("Thesis not found")
 
@@ -271,14 +278,17 @@ class ThesisMethods(BaseMethod):
         if len(thesis) > 0:
             fin = []
             for special in thesis:
-                fin.add(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("Thesis not found")
 
     @db_session
     def get_thesis_list_by_fos_id(self, fosId):
-        thesis = Thesis.select(t for t in Thesis if Thesis.fieldOfStudy == fosId)
-        self.success(thesis)
+        thesis = select(t for t in Thesis if Thesis.fieldOfStudy == fosId)
+        fin = []
+        for special in thesis:
+            fin.append(special.to_dict(with_collections=True, related_objects=True))
+        self.success(fin)
 
     @db_session
     def get_thesis_list_by_thesis_status_id(self, tStatusId):
@@ -286,9 +296,10 @@ class ThesisMethods(BaseMethod):
         if len(thesis) > 0:
             fin = []
             for special in thesis:
-                fin.add(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("Thesis not found")
+
     @db_session
     def run_analysis(self, thesis_id):
         """
@@ -314,13 +325,15 @@ class ThesisDetailsMethods(BaseMethod):
 
     @db_session
     def edit_thesis_detail(self, columnName, value, detailsId):
-        if len(ThesisDetails[detailsId]) > 0:
+        if ThesisDetails[detailsId] is not None:
             d = {columnName : value}
-            self.success(ThesisDetails[detailsId].set(**d))
+            ThesisDetails[detailsId].set(**d)
+            self.success(ThesisDetails[detailsId].to_dict())
+        self.error('ThesisDetails not found')
 
     @db_session
     def get_thesis_details_by_thesis_id(self, thesisId):
-        thesisD = ThesisDetails.select(td for td in ThesisDetails if ThesisDetails.thesis == thesisId)
+        thesisD = select(td for td in ThesisDetails if ThesisDetails.thesis == thesisId)
         if len(thesisD) > 0:
             self.success(thesisD)
 
@@ -338,17 +351,17 @@ class ThesisStatusMethods(BaseMethod):
 
     @db_session
     def list_all_of_statuses(self):
-        tStatus = ThesisStatus.select(tS for tS in ThesisStatus)
+        tStatus = select(tS for tS in ThesisStatus)
         if len(tStatus) > 0:
             fin = []
             for special in tStatus:
-                fin.add(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("List is empty")
 
     @db_session
     def add_thesis_to_thesis_status(self, thesisStatusId, thesisId):
-        thesisStatus = ThesisStatus.select(lambda tS: tS.id == thesisStatusId)
+        thesisStatus = ThesisStatus.select(lambda tS: tS.id == thesisStatusId)[:]
         if len(thesisStatus) > 0:
             thesisStatus[0].theses.add(thesisId)
             self.success()
@@ -356,13 +369,13 @@ class ThesisStatusMethods(BaseMethod):
 
     @db_session
     def edit_thesis_status(self, columnName, value, thesisStatusId):
-        if len(ThesisStatus[thesisStatusId]) > 0:
+        if ThesisStatus[thesisStatusId] is not None:
             d = {columnName : value}
             self.success(ThesisStatus[thesisStatusId].set(**d))
 
     @db_session
     def get_thesis_status_by_id(self, thesisStatusId):
-        mts= ThesisStatus.select(lambda fos: fos.id == thesisStatusId)
+        mts= ThesisStatus.select(lambda fos: fos.id == thesisStatusId)[:]
         if len(mts) > 0:
             self.success(mts[0].to_dict(with_collections=True, related_objects=True))
         self.error("Thesis Status not found")
@@ -380,11 +393,11 @@ class FieldOfStudyMethods(BaseMethod):
 
     @db_session
     def list_all_of_fos(self):
-        foses = FieldOfStudy.select(fOS for fOS in FieldOfStudy)
+        foses = select(fOS for fOS in FieldOfStudy)
         if len(foses) > 0:
             fin = []
             for special in foses:
-                fin.add(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("List is empty")
 
@@ -423,27 +436,27 @@ class KeywordMethods(BaseMethod):
 
     @db_session
     def list_all_of_keywords(self):
-        mKeys = Keyword.select(kW for kW in Keyword)
+        mKeys = select(kW for kW in Keyword)
         if len(mKeys) > 0:
             fin = []
             for special in mKeys:
-                fin.add(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("List is empty")
 
     @db_session
     def get_keywords_by_thesis_id(self, thesisId):
-        mKeys = Keyword.select(lambda k: k.thesis.contains(thesisId))
+        mKeys = Keyword.select(lambda k: k.thesis.contains(thesisId))[:]
         if len(mKeys) > 0:
             fin = []
             for special in mKeys:
-                fin.add(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("List is empty")
 
     @db_session
     def add_thesis_to_keyword(self, kId, thesisId):
-        mKeys = Keyword.select(lambda kiword: kiword.id == kId)
+        mKeys = Keyword.select(lambda kiword: kiword.id == kId)[:]
         if len(mKeys) > 0:
             mKeys[0].theses.add(thesisId)
             self.success()
@@ -457,14 +470,14 @@ class KeywordMethods(BaseMethod):
 
     @db_session
     def get_keyword_by_id(self, keyId):
-        mkey = Keyword.select(lambda keyw: keyw.id == keyId)
+        mkey = Keyword.select(lambda keyw: keyw.id == keyId)[:]
         if len(mkey) > 0:
             self.success(mkey[0].to_dict(with_collections=True, related_objects=True))
         self.error("Keyword not found")
 
     @db_session
     def delete_keyword(self, keyId):
-        if len(Keyword[keyId]) > 0:
+        if Keyword[keyId] is not None:
             self.success(Keyword[keyId].delete())
         self.error("Keyword not found")
 
@@ -475,24 +488,24 @@ class RoleMethods(BaseMethod):
 
     @db_session
     def list_all_of_roles(self):
-        mrole = Role.select(rV for rV in Role)
+        mrole = select(rV for rV in Role)
         if len(mrole) > 0:
             fin = []
             for special in mrole:
-                fin.add(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("List is empty")
 
     @db_session
     def get_role_by_user_id(self, userId):
-        mrole = Role.select(lambda l: l.users.contains(userId))
+        mrole = Role.select(lambda l: l.users.contains(userId))[:]
         if len(mrole) > 0:
             self.success(mrole)
         self.error("Roles not found")
 
     @db_session
     def add_user_to_role(self, roleId, userId):
-        mrole = Role.select(lambda rl: rl.id == roleId)
+        mrole = Role.select(lambda rl: rl.id == roleId)[:]
         if len(mrole) > 0:
             mrole[0].users.add(userId)
             self.success()
@@ -500,20 +513,21 @@ class RoleMethods(BaseMethod):
 
     @db_session
     def edit_role(self, columnName, value, rlId):
-        if len(Role[rlId]) > 0:
+        if  Role[rlId] is not None:
             d = {columnName : value}
             self.success(Role[rlId].set(**d))
+        self.error('Role not found')
 
     @db_session
     def get_role_by_id(self, rlId):
-        mrole = Role.select(lambda rl: rl.id == rlId)
+        mrole = Role.select(lambda rl: rl.id == rlId)[:]
         if len(mrole) > 0:
             self.success(mrole[0].to_dict(with_collections=True, related_objects=True))
         self.error("Role not found")
 
     @db_session
     def delete_role(self, rlId):
-        if len(Role[rlId]) > 0:
+        if Role[rlId] is not None:
             self.success(Role[rlId].delete())
         self.error("Role not found")
 
@@ -523,16 +537,16 @@ class SimilarityMethods(BaseMethod):
 
     @db_session
     def get_numer_of_similarities(self):
-        similarities = Similarity.select(s for s in Similarity)[:]
-        self.success(len(similarities))
+        similarities = count(s for s in Similarity)
+        self.success(similarities)
 
     @db_session
     def list_all_of_similarities(self):
-        similarities = Similarity.select(s for s in Similarity)
+        similarities = select(s for s in Similarity)
         if len(similarities) > 0:
             fin = []
             for special in similarities:
-                fin.add(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True, related_objects=True))
             self.success(fin)
         self.error("List is empty")
 
