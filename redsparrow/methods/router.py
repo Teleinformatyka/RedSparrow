@@ -50,7 +50,7 @@ class Router(object):
         start_time = time.clock()
         params = message.params
         try:
-            getattr(class_obj, original_name)(**params)
+            getattr(class_obj, original_name)(**message.params)
         except TypeError:
             logging.info('TypeError ---------')
             if params:

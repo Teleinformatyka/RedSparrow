@@ -218,7 +218,7 @@ class ThesisMethods(BaseMethod):
         if len(thesis) > 0:
             fin = []
             for special in thesis:
-                fin.append(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict())
             return self.success(fin)
         self.error("List is empty")
 
