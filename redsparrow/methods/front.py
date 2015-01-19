@@ -1,7 +1,7 @@
 import os
 import tornado
 import hashlib
-from pony.orm import db_session, count
+from pony.orm import db_session, count, select
 
 from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisStatus, FieldOfStudy
 from .base import BaseMethod
@@ -203,12 +203,12 @@ class ThesisMethods(BaseMethod):
 
     @db_session
     def get_list_of_thesis(self):
-        thesis = Thesis.select(t for t in Thesis)[:]
+        thesis = select(t for t in Thesis)[:]
         if len(thesis) > 0:
             fin = []
             for special in thesis:
                 fin.add(special.to_dict(with_collections=True, related_objects=True))
-            self.success(fin)
+            return self.success(fin)
         self.error("List is empty")
 
     @db_session
