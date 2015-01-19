@@ -125,12 +125,12 @@ class UserMethods(BaseMethod):
 
     @db_session
     def get_list_of_users(self):
-        users = User.select(u for u in User)[:]
+        users = select(u for u in User)[:]
         if len(users) > 0:
             fin = []
             for special in users:
                 fin.add(special.to_dict(with_collections=True, related_objects=True))
-            self.success(fin)
+            return self.success(fin)
         self.error("List is empty")
 
 
