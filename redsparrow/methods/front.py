@@ -133,7 +133,7 @@ class UserMethods(BaseMethod):
         if len(users) > 0:
             fin = []
             for special in users:
-                fin.append(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True))
             return self.success(fin)
         self.error("List is empty")
 
