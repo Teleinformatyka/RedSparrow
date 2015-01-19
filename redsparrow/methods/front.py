@@ -3,7 +3,7 @@ import tornado
 import hashlib
 from pony.orm import db_session, count, select
 
-from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisStatus, FieldOfStudy
+from redsparrow.orm import User, Thesis, ThesisDetails, Keyword, Role, ThesisStatus, FieldOfStudy, Similarity
 from .base import BaseMethod
 from redsparrow.extractor.gettext import get_text
 from redsparrow.keywords import get_keywords
