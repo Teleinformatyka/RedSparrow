@@ -129,7 +129,7 @@ class UserMethods(BaseMethod):
         if len(users) > 0:
             fin = []
             for special in users:
-                fin.add(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True, related_objects=True))
             return self.success(fin)
         self.error("List is empty")
 
@@ -207,7 +207,7 @@ class ThesisMethods(BaseMethod):
         if len(thesis) > 0:
             fin = []
             for special in thesis:
-                fin.add(special.to_dict(with_collections=True, related_objects=True))
+                fin.append(special.to_dict(with_collections=True, related_objects=True))
             return self.success(fin)
         self.error("List is empty")
 
