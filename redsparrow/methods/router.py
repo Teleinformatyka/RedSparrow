@@ -53,7 +53,10 @@ class Router(object):
             getattr(class_obj, original_name)(**params)
         except TypeError:
             logging.info('TypeError ---------')
-            getattr(class_obj, original_name)(params)
+            if params:
+                getattr(class_obj, original_name)(params)
+            else:
+                getattr(class_obj, original_name)()
 
 
         logging.info('End Calling method={} time={}'.format(message.method, time.clock() - start_time))
