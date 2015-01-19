@@ -159,7 +159,12 @@ class ThesisMethods(BaseMethod):
         with open(filepath, 'rb') as file:
             buf = file.read()
             hasher.update(buf)
-        converted_text = get_text(filepath)
+        converted_text = None
+        try:
+            converted_text = get_text(filepath)
+        except Exception as err:
+            return self.error("Error getting text from file %s", err)
+
         thesis_status = ThesisStatus.select(lambda ts: ts.status == "Waiting")[:]
         if len(thesis_status) == 0:
             return self.error("Unable to find thesis_status")
@@ -227,7 +232,7 @@ class ThesisMethods(BaseMethod):
     @db_session
     def add_thesis_to_user_by_user_id(self, userId, thesisId):
         self.users.add(userId)
-        user = User.select(lambda u: u.id == userId)
+        user = User.select(lambda u: u.id == userId)[:]
         if len(user) > 0:
             user[0].theses.add(thesisId)
             self.success(user[0].to_dict(with_collections=True))
@@ -235,7 +240,7 @@ class ThesisMethods(BaseMethod):
 
     @db_session
     def get_thesis_by_title(self, query):
-        thesis = Thesis.select(lambda t: t.thesis.equals(query))
+        thesis = Thesis.select(lambda t: t.thesis.equals(query))[:]
         if len(thesis) > 0:
             self.success(thesis[0].to_dict(with_collections=True, related_objects=True))
         self.error("Thesis not found")
@@ -248,7 +253,7 @@ class ThesisMethods(BaseMethod):
 
     @db_session
     def get_thesis_by_user_id(self, userId):
-        thesis = Thesis.select(lambda t: t.thesis.users.contains(userId))
+        thesis = Thesis.select(lambda t: t.thesis.users.contains(userId))[:]
         if len(thesis) > 0:
             if len(thesis) > 1:
                 fin = []
@@ -261,7 +266,7 @@ class ThesisMethods(BaseMethod):
 
     @db_session
     def get_thesis_status_by_title(self, thesisTitle):
-        thesis = Thesis.select(lambda t: t.thesis.equals(thesisTitle))
+        thesis = Thesis.select(lambda t: t.thesis.equals(thesisTitle))[:]
         if len(thesis) > 0:
             self.success(thesis[0].thesisStatus)
         self.error("Thesis not found")
@@ -274,7 +279,7 @@ class ThesisMethods(BaseMethod):
 
     @db_session
     def get_thesis_by_keyword_id(self, keywordId):
-        thesis = Thesis.select(lambda t: t.thesis.keywords.contains(keywordId))
+        thesis = Thesis.select(lambda t: t.thesis.keywords.contains(keywordId))[:]
         if len(thesis) > 0:
             fin = []
             for special in thesis:
@@ -284,7 +289,7 @@ class ThesisMethods(BaseMethod):
 
     @db_session
     def get_thesis_list_by_fos_id(self, fosId):
-        thesis = select(t for t in Thesis if Thesis.fieldOfStudy == fosId)
+        thesis = select(t for t in Thesis if Thesis.fieldOfStudy == fosId)[:]
         fin = []
         for special in thesis:
             fin.append(special.to_dict(with_collections=True, related_objects=True))
@@ -292,7 +297,7 @@ class ThesisMethods(BaseMethod):
 
     @db_session
     def get_thesis_list_by_thesis_status_id(self, tStatusId):
-        thesis = Thesis.select(t for t in Thesis if Thesis.thesisStatus == tStatusId)
+        thesis = Thesis.select(t for t in Thesis if Thesis.thesisStatus == tStatusId)[:]
         if len(thesis) > 0:
             fin = []
             for special in thesis:
@@ -333,7 +338,7 @@ class ThesisDetailsMethods(BaseMethod):
 
     @db_session
     def get_thesis_details_by_thesis_id(self, thesisId):
-        thesisD = select(td for td in ThesisDetails if ThesisDetails.thesis == thesisId)
+        thesisD = select(td for td in ThesisDetails if ThesisDetails.thesis == thesisId)[:]
         if len(thesisD) > 0:
             self.success(thesisD)
 
@@ -351,7 +356,7 @@ class ThesisStatusMethods(BaseMethod):
 
     @db_session
     def list_all_of_statuses(self):
-        tStatus = select(tS for tS in ThesisStatus)
+        tStatus = select(tS for tS in ThesisStatus)[:]
         if len(tStatus) > 0:
             fin = []
             for special in tStatus:
@@ -393,7 +398,7 @@ class FieldOfStudyMethods(BaseMethod):
 
     @db_session
     def list_all_of_fos(self):
-        foses = select(fOS for fOS in FieldOfStudy)
+        foses = select(fOS for fOS in FieldOfStudy)[:]
         if len(foses) > 0:
             fin = []
             for special in foses:
@@ -404,7 +409,7 @@ class FieldOfStudyMethods(BaseMethod):
 
     @db_session
     def add_thesis_to_fos(self, fosId, thesisId):
-        foses = FieldOfStudy.select(lambda fOS: fOS.id == fosId)
+        foses = FieldOfStudy.select(lambda fOS: fOS.id == fosId)[:]
         if len(foses) > 0:
             foses[0].theses.add(thesisId)
             self.success()
@@ -418,7 +423,7 @@ class FieldOfStudyMethods(BaseMethod):
 
     @db_session
     def get_fos_by_id(self, fosId):
-        mfos = FieldOfStudy.select(lambda fos: fos.id == fosId)
+        mfos = FieldOfStudy.select(lambda fos: fos.id == fosId)[:]
         if len(mfos) > 0:
             self.success(mfos[0].to_dict(with_collections=True, related_objects=True))
         self.error("Field of Study not found")
@@ -436,7 +441,7 @@ class KeywordMethods(BaseMethod):
 
     @db_session
     def list_all_of_keywords(self):
-        mKeys = select(kW for kW in Keyword)
+        mKeys = select(kW for kW in Keyword)[:]
         if len(mKeys) > 0:
             fin = []
             for special in mKeys:
@@ -488,7 +493,7 @@ class RoleMethods(BaseMethod):
 
     @db_session
     def list_all_of_roles(self):
-        mrole = select(rV for rV in Role)
+        mrole = select(rV for rV in Role)[:]
         if len(mrole) > 0:
             fin = []
             for special in mrole:
@@ -542,7 +547,7 @@ class SimilarityMethods(BaseMethod):
 
     @db_session
     def list_all_of_similarities(self):
-        similarities = select(s for s in Similarity)
+        similarities = select(s for s in Similarity)[:]
         if len(similarities) > 0:
             fin = []
             for special in similarities:
