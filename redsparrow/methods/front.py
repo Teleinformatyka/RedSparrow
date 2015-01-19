@@ -197,7 +197,7 @@ class ThesisMethods(BaseMethod):
                                        quotes=c_quotes,
                                        sentences=c_sentences)
         thesis.thesisDetails = thesis_details
-        self.success("ok")
+        self.success(thesis.to_dict())
 
     @db_session
     def get_numer_of_thesis(self):
